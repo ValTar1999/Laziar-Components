@@ -1,0 +1,10 @@
+// Breakpoint values — keep in sync with --lz-breakpoint-* in theme.css
+// Prefer publikator / standard Tailwind (see design-audit.md).
+
+$lz-breakpoints: (
+  sm: 640px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1280px,
+  2xl: 1536px,
+) !default;

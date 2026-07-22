@@ -1,0 +1,5 @@
+// Entry for Sass consumers — pull mixins / breakpoints.
+// Runtime CSS tokens: import `styles/theme.css` (or the package path after build).
+
+@forward 'breakpoints';
+@forward 'mixins';

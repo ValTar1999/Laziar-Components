@@ -33,7 +33,7 @@
                 "input": "projects/docs/public"
               }
             ],
-            "styles": ["projects/docs/src/styles.scss"]
+            "styles": ["projects/components/src/styles/theme.css", "projects/docs/src/styles.scss"]
           },
           "configurations": {
             "production": {
@@ -86,7 +86,7 @@
                 "input": "projects/docs/public"
               }
             ],
-            "styles": ["projects/docs/src/styles.scss"]
+            "styles": ["projects/components/src/styles/theme.css", "projects/docs/src/styles.scss"]
           }
         },
         "lint": {

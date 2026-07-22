@@ -1,0 +1,66 @@
+@use 'breakpoints' as *;
+
+/// Min-width media query for a named breakpoint (`sm`…`2xl`).
+@mixin lz-media-up($name) {
+  @if not map-has-key($lz-breakpoints, $name) {
+    @error 'Unknown breakpoint `#{$name}`. Expected one of: #{map-keys($lz-breakpoints)}.';
+  }
+  @media (min-width: map-get($lz-breakpoints, $name)) {
+    @content;
+  }
+}
+
+/// Max-width media query (exclusive upper bound of the next named size).
+@mixin lz-media-down($name) {
+  @if not map-has-key($lz-breakpoints, $name) {
+    @error 'Unknown breakpoint `#{$name}`.';
+  }
+  $value: map-get($lz-breakpoints, $name);
+  @media (max-width: ($value - 0.02px)) {
+    @content;
+  }
+}
+
+/// Apply a CSS custom property with optional fallback.
+@mixin lz-token($property, $token, $fallback: null) {
+  @if $fallback {
+    #{$property}: var(--lz-#{$token}, #{$fallback});
+  } @else {
+    #{$property}: var(--lz-#{$token});
+  }
+}
+
+/// Typography preset from design tokens.
+@mixin lz-text($size: base) {
+  font-family: var(--lz-font-sans);
+  font-size: var(--lz-font-size-#{$size});
+  line-height: var(--lz-line-height-#{$size});
+}
+
+/// Focus ring using semantic tokens (no hardcoded colors).
+@mixin lz-focus-ring {
+  outline: none;
+  box-shadow: var(--lz-shadow-focus);
+}
+
+/// Interactive transition (colors / opacity) — duration-normal from audit.
+@mixin lz-transition-colors {
+  transition-property: color, background-color, border-color, box-shadow, opacity;
+  transition-duration: var(--lz-duration-normal);
+  transition-timing-function: var(--lz-easing-standard);
+}
+
+/// Surface panel: background + border + radius.
+@mixin lz-surface($elevated: false) {
+  background-color: if($elevated, var(--lz-color-surface-elevated), var(--lz-color-surface));
+  border: 1px solid var(--lz-color-border);
+  border-radius: var(--lz-radius-lg);
+  color: var(--lz-color-text-primary);
+}
+
+/// Truncate single-line text.
+@mixin lz-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

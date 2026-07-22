@@ -1,12 +1,41 @@
 <main class="docs">
-  <header>
-    <h1>{{ title() }}</h1>
-    <p>Documentation site for <code>@laziar/components</code></p>
+  <header class="docs__header">
+    <div>
+      <h1>{{ title }}</h1>
+      <p>
+        Documentation site for <code>@laziar/components</code> · theme:
+        <strong>{{ mode() }}</strong> (resolved <strong>{{ resolved() }}</strong
+        >)
+      </p>
+    </div>
+    <div class="docs__theme" role="group" aria-label="Theme">
+      <button type="button" [class.is-active]="mode() === 'light'" (click)="setTheme('light')">
+        Light
+      </button>
+      <button type="button" [class.is-active]="mode() === 'dark'" (click)="setTheme('dark')">
+        Dark
+      </button>
+      <button type="button" [class.is-active]="mode() === 'auto'" (click)="setTheme('auto')">
+        Auto
+      </button>
+    </div>
   </header>
 
-  <section>
+  <section class="docs__section">
     <h2>Library smoke test</h2>
     <lz-components />
+  </section>
+
+  <section class="docs__section">
+    <h2>Token swatches</h2>
+    <div class="swatches">
+      <div class="swatch swatch--primary"><span>primary</span></div>
+      <div class="swatch swatch--secondary"><span>secondary</span></div>
+      <div class="swatch swatch--success"><span>success</span></div>
+      <div class="swatch swatch--warning"><span>warning</span></div>
+      <div class="swatch swatch--danger"><span>danger</span></div>
+      <div class="swatch swatch--neutral"><span>neutral</span></div>
+    </div>
   </section>
 
   <router-outlet />
