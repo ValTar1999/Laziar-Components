@@ -1,0 +1,34 @@
+<article class="page">
+  <p class="page__eyebrow">Theming</p>
+  <h1 class="page__title">Токены и ThemeService</h1>
+  <p class="page__lead">
+    Вся визуальная система построена на семантических CSS-переменных
+    <code>--lz-*</code>. Переключатель в шапке использует <code>ThemeService</code> (light / dark /
+    auto).
+  </p>
+
+  <section class="page__section">
+    <h2>Подключение</h2>
+    <pre
+      class="page__code"
+    ><code>&#64;import '&#64;laziar/components/styles/theme.css';</code></pre>
+  </section>
+
+  <section class="page__section">
+    <h2>Палитра</h2>
+    <div class="swatches">
+      <div class="swatch" style="background: var(--lz-color-primary)">primary</div>
+      <div class="swatch" style="background: var(--lz-color-secondary)">secondary</div>
+      <div class="swatch" style="background: var(--lz-color-success)">success</div>
+      <div
+        class="swatch"
+        style="background: var(--lz-color-warning); color: var(--lz-color-text-primary)"
+      >
+        warning
+      </div>
+      <div class="swatch" style="background: var(--lz-color-danger)">danger</div>
+      <div class="swatch" style="background: var(--lz-color-neutral)">neutral</div>
+    </div>
+    <p class="page__note">Полная таблица токенов — в <code>docs/THEMING.md</code>.</p>
+  </section>
+</article>

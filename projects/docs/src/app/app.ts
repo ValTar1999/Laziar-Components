@@ -1,22 +1,22 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Components, LzThemeMode, ThemeService } from '@laziar/components';
+import { DOCS_NAV, filterDocsNav } from './core/docs-nav';
+import { DocsHeader } from './layout/docs-header/docs-header';
+import { DocsSidebar } from './layout/docs-sidebar/docs-sidebar';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, Components],
+  imports: [RouterOutlet, DocsHeader, DocsSidebar],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
 export class App {
-  private readonly theme = inject(ThemeService);
+  private readonly searchQuery = signal('');
 
-  protected readonly title = 'Laziar Components Docs';
-  protected readonly mode = this.theme.mode;
-  protected readonly resolved = this.theme.resolved;
+  protected readonly navGroups = computed(() => filterDocsNav(this.searchQuery(), DOCS_NAV));
 
-  protected setTheme(mode: LzThemeMode): void {
-    this.theme.setMode(mode);
+  protected onSearch(query: string): void {
+    this.searchQuery.set(query);
   }
 }

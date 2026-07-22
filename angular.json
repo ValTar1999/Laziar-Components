@@ -18,7 +18,7 @@
       },
       "root": "projects/docs",
       "sourceRoot": "projects/docs/src",
-      "prefix": "app",
+      "prefix": "docs",
       "architect": {
         "build": {
           "builder": "@angular/build:application",
@@ -45,8 +45,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
+                  "maximumWarning": "8kB",
+                  "maximumError": "12kB"
                 }
               ],
               "outputHashing": "all"

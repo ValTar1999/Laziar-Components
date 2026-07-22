@@ -51,20 +51,21 @@ module.exports = tseslint.config(
     ],
     processor: angular.processInlineTemplates,
     rules: {
-      '@angular-eslint/directive-selector': [
-        'error',
-        {
-          type: 'attribute',
-          prefix: 'app',
-          style: 'camelCase',
-        },
-      ],
+      // `app-root` from CLI + `docs-*` docs UI.
       '@angular-eslint/component-selector': [
         'error',
         {
           type: 'element',
-          prefix: 'app',
+          prefix: ['app', 'docs'],
           style: 'kebab-case',
+        },
+      ],
+      '@angular-eslint/directive-selector': [
+        'error',
+        {
+          type: 'attribute',
+          prefix: ['app', 'docs'],
+          style: 'camelCase',
         },
       ],
     },

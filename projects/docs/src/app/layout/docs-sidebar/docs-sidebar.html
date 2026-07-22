@@ -1,0 +1,25 @@
+<nav class="sidebar" aria-label="Документация">
+  @for (group of groups(); track group.id) {
+    <section class="sidebar__group">
+      <h2 class="sidebar__heading">{{ group.label }}</h2>
+      @if (group.items.length) {
+        <ul class="sidebar__list">
+          @for (item of group.items; track item.id) {
+            <li>
+              <a
+                class="sidebar__link"
+                [routerLink]="item.route"
+                routerLinkActive="is-active"
+                [routerLinkActiveOptions]="{ exact: true }"
+              >
+                {{ item.label }}
+              </a>
+            </li>
+          }
+        </ul>
+      } @else {
+        <p class="sidebar__empty">Скоро</p>
+      }
+    </section>
+  }
+</nav>

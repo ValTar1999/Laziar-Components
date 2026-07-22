@@ -1,0 +1,49 @@
+<header class="header">
+  <a class="header__brand" routerLink="/getting-started">
+    <span class="header__mark" aria-hidden="true"></span>
+    <span class="header__name">Laziar-Components</span>
+  </a>
+
+  <label class="header__search">
+    <span class="visually-hidden">Поиск по компонентам</span>
+    <input
+      type="search"
+      placeholder="Поиск компонентов…"
+      [value]="search"
+      (input)="onSearch($any($event.target).value)"
+    />
+  </label>
+
+  <div class="header__actions">
+    <div class="header__theme" role="group" aria-label="Тема">
+      <button
+        type="button"
+        [class.is-active]="mode() === 'light'"
+        (click)="setTheme('light')"
+        title="Light"
+      >
+        Light
+      </button>
+      <button
+        type="button"
+        [class.is-active]="mode() === 'dark'"
+        (click)="setTheme('dark')"
+        title="Dark"
+      >
+        Dark
+      </button>
+      <button
+        type="button"
+        [class.is-active]="mode() === 'auto'"
+        (click)="setTheme('auto')"
+        title="Auto"
+      >
+        Auto
+      </button>
+    </div>
+
+    <a class="header__repo" [href]="repoUrl" target="_blank" rel="noopener noreferrer">
+      Репозиторий
+    </a>
+  </div>
+</header>

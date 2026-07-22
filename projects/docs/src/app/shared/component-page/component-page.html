@@ -1,0 +1,253 @@
+<article class="cmp">
+  <header class="cmp__intro">
+    <p class="cmp__eyebrow">{{ meta().selector }}</p>
+    <h1 class="cmp__title">{{ meta().name }}</h1>
+    <p class="cmp__desc">{{ meta().description }}</p>
+  </header>
+
+  <!-- ПРЕВЬЮ + ПЕСОЧНИЦА -->
+  <section class="cmp__section cmp__playground" aria-labelledby="cmp-preview-heading">
+    <div class="cmp__playground-main">
+      <h2 id="cmp-preview-heading" class="cmp__section-title">Превью</h2>
+      <div class="cmp__stage">
+        @if (previewTpl(); as tpl) {
+          <ng-container *ngTemplateOutlet="tpl; context: previewCtx()" />
+        } @else {
+          <p class="cmp__empty">Превью не задано</p>
+        }
+      </div>
+    </div>
+
+    <aside class="cmp__playground-side" aria-labelledby="cmp-sandbox-heading">
+      <h2 id="cmp-sandbox-heading" class="cmp__section-title">Песочница</h2>
+      <docs-sandbox-panel
+        [controls]="meta().controls"
+        [values]="values()"
+        (valuesChange)="onValues($event)"
+      />
+    </aside>
+  </section>
+
+  <!-- КОД -->
+  <section class="cmp__section" aria-labelledby="cmp-code-heading">
+    <h2 id="cmp-code-heading" class="cmp__section-title">Код</h2>
+    <p class="cmp__section-lead">Синхронизирован с песочницей — меняйте контролы, код обновится.</p>
+    <docs-code-block [code]="liveCode()" />
+  </section>
+
+  <!-- ВАРИАНТЫ -->
+  <section class="cmp__section" aria-labelledby="cmp-variants-heading">
+    <h2 id="cmp-variants-heading" class="cmp__section-title">Варианты</h2>
+    <p class="cmp__section-lead">Предустановленные комбинации variant × size.</p>
+    <div class="cmp__variants">
+      @for (variant of meta().variants; track variant.label) {
+        <figure class="cmp__variant">
+          <figcaption class="cmp__variant-label">{{ variant.label }}</figcaption>
+          <div class="cmp__stage cmp__stage--compact">
+            @if (previewTpl(); as tpl) {
+              <ng-container *ngTemplateOutlet="tpl; context: { $implicit: variant.props }" />
+            }
+          </div>
+          <docs-code-block [code]="variantCode(variant.props, variant.code)" />
+        </figure>
+      } @empty {
+        <p class="cmp__empty">Варианты появятся вместе с компонентом.</p>
+      }
+    </div>
+  </section>
+
+  <!-- API -->
+  <section class="cmp__section" aria-labelledby="cmp-api-heading">
+    <h2 id="cmp-api-heading" class="cmp__section-title">API</h2>
+
+    <h3 class="cmp__subheading">Inputs</h3>
+    <div class="cmp__table-wrap">
+      <table class="cmp__table">
+        <thead>
+          <tr>
+            <th>Имя</th>
+            <th>Тип</th>
+            <th>Дефолт</th>
+            <th>Описание</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (row of meta().inputs; track row.name) {
+            <tr>
+              <td>
+                <code>{{ row.name }}</code>
+              </td>
+              <td>
+                <code>{{ row.type }}</code>
+              </td>
+              <td>
+                @if (row.default !== undefined) {
+                  <code>{{ row.default }}</code>
+                } @else {
+                  —
+                }
+              </td>
+              <td>{{ row.description }}</td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="4">Нет inputs</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="cmp__subheading">Outputs</h3>
+    <div class="cmp__table-wrap">
+      <table class="cmp__table">
+        <thead>
+          <tr>
+            <th>Имя</th>
+            <th>Тип</th>
+            <th>Описание</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (row of meta().outputs; track row.name) {
+            <tr>
+              <td>
+                <code>{{ row.name }}</code>
+              </td>
+              <td>
+                <code>{{ row.type }}</code>
+              </td>
+              <td>{{ row.description }}</td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="3">Нет outputs</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="cmp__subheading">Слоты (ng-content)</h3>
+    <div class="cmp__table-wrap">
+      <table class="cmp__table">
+        <thead>
+          <tr>
+            <th>Имя / select</th>
+            <th>Описание</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (row of meta().slots; track row.name) {
+            <tr>
+              <td>
+                <code>{{ row.name }}</code>
+              </td>
+              <td>{{ row.description }}</td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="2">Нет слотов</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    @if (meta().deprecated?.length) {
+      <div class="cmp__deprecated">
+        <button
+          type="button"
+          class="cmp__deprecated-toggle"
+          [attr.aria-expanded]="deprecatedOpen()"
+          (click)="toggleDeprecated()"
+        >
+          Deprecated-алиасы ({{ meta().deprecated!.length }})
+        </button>
+        @if (deprecatedOpen()) {
+          <div class="cmp__table-wrap">
+            <table class="cmp__table">
+              <thead>
+                <tr>
+                  <th>Имя</th>
+                  <th>Тип</th>
+                  <th>Замена</th>
+                  <th>Описание</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (row of meta().deprecated!; track row.name) {
+                  <tr>
+                    <td>
+                      <code>{{ row.name }}</code>
+                      <span class="cmp__badge">deprecated</span>
+                    </td>
+                    <td>
+                      <code>{{ row.type }}</code>
+                    </td>
+                    <td>
+                      @if (row.replacedBy) {
+                        <code>{{ row.replacedBy }}</code>
+                      } @else {
+                        —
+                      }
+                    </td>
+                    <td>{{ row.description }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        }
+      </div>
+    }
+  </section>
+
+  <!-- ПРИМЕРЫ -->
+  <section class="cmp__section" aria-labelledby="cmp-examples-heading">
+    <h2 id="cmp-examples-heading" class="cmp__section-title">Примеры</h2>
+    <div class="cmp__examples">
+      @for (example of meta().examples; track example.title) {
+        <article class="cmp__example">
+          <h3 class="cmp__subheading">{{ example.title }}</h3>
+          @if (example.description) {
+            <p class="cmp__section-lead">{{ example.description }}</p>
+          }
+          <docs-code-block [code]="example.code" />
+        </article>
+      } @empty {
+        <p class="cmp__empty">Примеры появятся позже.</p>
+      }
+    </div>
+  </section>
+
+  <!-- ТОКЕНЫ -->
+  <section class="cmp__section" aria-labelledby="cmp-tokens-heading">
+    <h2 id="cmp-tokens-heading" class="cmp__section-title">Токены компонента</h2>
+    <p class="cmp__section-lead">CSS-переменные, которые влияют на внешний вид.</p>
+    <div class="cmp__table-wrap">
+      <table class="cmp__table">
+        <thead>
+          <tr>
+            <th>Токен</th>
+            <th>Описание</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (token of meta().tokens; track token.name) {
+            <tr>
+              <td>
+                <code>{{ token.name }}</code>
+              </td>
+              <td>{{ token.description }}</td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="2">Нет специфичных токенов</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+</article>

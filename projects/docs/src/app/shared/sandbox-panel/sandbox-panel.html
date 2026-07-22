@@ -1,0 +1,64 @@
+<div class="sandbox" role="group" aria-label="Песочница">
+  @for (control of entries(); track control.name) {
+    <div class="sandbox__field">
+      <label class="sandbox__label" [attr.for]="'sandbox-' + control.name">
+        {{ control.label ?? control.name }}
+      </label>
+
+      @switch (control.kind) {
+        @case ('select') {
+          <select
+            class="sandbox__control"
+            [id]="'sandbox-' + control.name"
+            [value]="asString(control.name)"
+            (change)="onString(control.name, $event)"
+          >
+            @for (opt of control.options ?? []; track opt) {
+              <option [value]="opt" [selected]="asString(control.name) === opt">{{ opt }}</option>
+            }
+          </select>
+        }
+        @case ('boolean') {
+          <input
+            class="sandbox__checkbox"
+            type="checkbox"
+            [id]="'sandbox-' + control.name"
+            [checked]="asBoolean(control.name)"
+            (change)="onBoolean(control.name, $event)"
+          />
+        }
+        @case ('number') {
+          <input
+            class="sandbox__control"
+            type="number"
+            [id]="'sandbox-' + control.name"
+            [value]="asNumber(control.name)"
+            (input)="onNumber(control.name, $event)"
+          />
+        }
+        @case ('color') {
+          <input
+            class="sandbox__color"
+            type="color"
+            [id]="'sandbox-' + control.name"
+            [value]="asString(control.name)"
+            (input)="onString(control.name, $event)"
+          />
+        }
+        @default {
+          <input
+            class="sandbox__control"
+            type="text"
+            [id]="'sandbox-' + control.name"
+            [value]="asString(control.name)"
+            (input)="onString(control.name, $event)"
+          />
+        }
+      }
+
+      @if (control.description) {
+        <span class="sandbox__hint">{{ control.description }}</span>
+      }
+    </div>
+  }
+</div>

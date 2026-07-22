@@ -1,0 +1,15 @@
+<docs-component-page [meta]="meta">
+  <ng-template docsPreview let-values>
+    <button
+      type="button"
+      class="stub-btn"
+      [attr.data-variant]="variantOf(values)"
+      [attr.data-size]="sizeOf(values)"
+      [disabled]="disabledOf(values)"
+      [style.--stub-accent]="accentOf(values)"
+      [style.max-width]="maxWidthOf(values)"
+    >
+      {{ labelOf(values) }}
+    </button>
+  </ng-template>
+</docs-component-page>
