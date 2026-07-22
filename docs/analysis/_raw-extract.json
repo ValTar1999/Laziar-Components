@@ -1,0 +1,6112 @@
+{
+  "publikator": {
+    "project": "publikator",
+    "baseDir": "c:\\Users\\user\\Documents\\Work-2\\publikator\\src\\app\\common\\components\\base",
+    "items": [
+      {
+        "path": "alert/alert.component.css",
+        "name": "alert.component.css",
+        "types": [
+          "styles"
+        ],
+        "size": 31,
+        "design": {
+          "colors": [],
+          "varsUsed": [],
+          "varsDef": [],
+          "host": true,
+          "radii": [],
+          "fonts": [],
+          "pads": [],
+          "shadows": [],
+          "transitions": [],
+          "breakpoints": []
+        }
+      },
+      {
+        "path": "alert/alert.component.html",
+        "name": "alert.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 1502,
+        "ngContent": [
+          "default"
+        ],
+        "ngIf": 1,
+        "ngFor": 0,
+        "aria": [],
+        "classes": []
+      },
+      {
+        "path": "alert/alert.component.ts",
+        "name": "alert.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 1159,
+        "meta": {
+          "selector": "app-alert",
+          "className": "AlertComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "title",
+              "alias": null,
+              "type": "string",
+              "default": "'Alert title'",
+              "required": false
+            },
+            {
+              "name": "iconName",
+              "alias": null,
+              "type": "string",
+              "default": "'check-circle'",
+              "required": false
+            },
+            {
+              "name": "iconVariant",
+              "alias": null,
+              "type": "'solid' | 'outline' | 'mini' | 'micro'",
+              "default": "'outline'",
+              "required": false
+            },
+            {
+              "name": "variant",
+              "alias": null,
+              "type": "TVariants",
+              "default": "'default'",
+              "required": false
+            },
+            {
+              "name": "isRow",
+              "alias": null,
+              "type": "boolean",
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "isRowtext",
+              "alias": null,
+              "type": "boolean",
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "showCloseButton",
+              "alias": null,
+              "type": "boolean",
+              "default": "true",
+              "required": false
+            },
+            {
+              "name": "size",
+              "alias": null,
+              "type": "'base' | 'sm'",
+              "default": "'sm'",
+              "required": false
+            },
+            {
+              "name": "padding",
+              "alias": null,
+              "type": "'p-3' | 'p-4'",
+              "default": "'p-4'",
+              "required": false
+            }
+          ],
+          "outputs": [],
+          "implements": [],
+          "cva": false,
+          "lifecycle": [],
+          "inject": [],
+          "methods": [
+            "getAlertStyles"
+          ],
+          "hostListeners": [],
+          "a11y": [],
+          "componentImports": [
+            "CommonModule",
+            "ButtonComponent",
+            "IconComponent"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "alert/alert.ts",
+        "name": "alert.ts",
+        "types": [
+          "model"
+        ],
+        "size": 2401,
+        "exports": [
+          "Variants",
+          "TVariants",
+          "Colors",
+          "TColors",
+          "AlertStyles",
+          "AlertStylesMap"
+        ],
+        "snippets": {
+          "Variants": "(typeof Variants)[number]",
+          "TVariants": "(typeof Variants)[number]",
+          "Colors": "(typeof Colors)[number]",
+          "TColors": "(typeof Colors)[number]",
+          "AlertStylesMap": "{\n  default: {\n    background: 'bg-white shadow-md',\n    titleColor: 'text-gray-900',\n    textColor: 'text-gray-900',\n    iconColor: 'text-gray-900',\n    closeColor: 'gray',\n    buttonVariant: 'link',\n  },\n  gray: {\n    background: 'bg-gray-surface',\n    titleColor: 'text-gray-900',\n    textColor: '"
+        }
+      },
+      {
+        "path": "avatar/avatar.component.css",
+        "name": "avatar.component.css",
+        "types": [
+          "styles"
+        ],
+        "size": 35,
+        "design": {
+          "colors": [],
+          "varsUsed": [],
+          "varsDef": [],
+          "host": true,
+          "radii": [],
+          "fonts": [],
+          "pads": [],
+          "shadows": [],
+          "transitions": [],
+          "breakpoints": []
+        }
+      },
+      {
+        "path": "avatar/avatar.component.html",
+        "name": "avatar.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 1264,
+        "ngContent": [],
+        "ngIf": 5,
+        "ngFor": 0,
+        "aria": [],
+        "classes": [
+          "relative",
+          "inline-flex",
+          "w-full",
+          "h-full",
+          "object-cover",
+          "rounded-full",
+          "absolute",
+          "top-0",
+          "right-px",
+          "border-white",
+          "bottom-0"
+        ]
+      },
+      {
+        "path": "avatar/avatar.component.ts",
+        "name": "avatar.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 2838,
+        "meta": {
+          "selector": "app-avatar",
+          "className": "AvatarComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "firstName",
+              "alias": null,
+              "type": null,
+              "default": "''",
+              "required": false
+            },
+            {
+              "name": "lastName",
+              "alias": null,
+              "type": null,
+              "default": "''",
+              "required": false
+            },
+            {
+              "name": "size",
+              "alias": null,
+              "type": "AvatarSizeKey",
+              "default": "'sm'",
+              "required": false
+            },
+            {
+              "name": "imgNotification",
+              "alias": null,
+              "type": null,
+              "default": "''",
+              "required": false
+            },
+            {
+              "name": "topNotification",
+              "alias": null,
+              "type": null,
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "bottomNotification",
+              "alias": null,
+              "type": null,
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "topNotificationStatus",
+              "alias": null,
+              "type": null,
+              "default": "'error'",
+              "required": false
+            },
+            {
+              "name": "bottomNotificationStatus",
+              "alias": null,
+              "type": null,
+              "default": "'info'",
+              "required": false
+            },
+            {
+              "name": "containerClass",
+              "alias": null,
+              "type": null,
+              "default": "''",
+              "required": false
+            },
+            {
+              "name": "variant",
+              "alias": null,
+              "type": "'default' | 'plain'",
+              "default": "'default'",
+              "required": false
+            }
+          ],
+          "outputs": [],
+          "implements": [],
+          "cva": false,
+          "lifecycle": [],
+          "inject": [],
+          "methods": [
+            "shouldApplyDefaultPlaceholderStyles",
+            "getNotificationColor"
+          ],
+          "hostListeners": [],
+          "a11y": [],
+          "componentImports": [
+            "CommonModule"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "avatar/avatar.ts",
+        "name": "avatar.ts",
+        "types": [
+          "model"
+        ],
+        "size": 2072,
+        "exports": [
+          "AvatarSize",
+          "AvatarSizeKey",
+          "AVATAR_SIZES",
+          "Colors",
+          "TColors",
+          "buildAvatarInitials"
+        ],
+        "snippets": {
+          "AvatarSizeKey": "'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'",
+          "AVATAR_SIZES": "{\r\n  xxs: {\r\n    container: 'w-5 h-5',\r\n    notification: 'w-1.5 h-1.5 border',\r\n    text: 'text-[9px] leading-4 font-semibold uppercase tracking-wide',\r\n  },\r\n  xs: {\r\n    container: 'w-6 h-6',\r\n    notification: 'w-1.5 h-1.5 border',\r\n    text: 'text-[10px] leading-4 font-semibold uppercase tracki",
+          "TColors": "(typeof Colors)[number]"
+        }
+      },
+      {
+        "path": "avatarGroup/avatar-group.component.html",
+        "name": "avatar-group.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 1238,
+        "ngContent": [],
+        "ngIf": 2,
+        "ngFor": 1,
+        "aria": [],
+        "classes": [
+          "flex",
+          "items-center",
+          "relative",
+          "w-full",
+          "h-full",
+          "object-cover",
+          "absolute",
+          "top-0",
+          "left-0",
+          "font-semibold",
+          "justify-center",
+          "rounded-full",
+          "border",
+          "border-gray-100",
+          "bg-gray-surface",
+          "text-gray-600",
+          "ml-[-6px]",
+          "shrink-0",
+          "overflow-hidden",
+          "inset-0",
+          "leading-none"
+        ]
+      },
+      {
+        "path": "avatarGroup/avatar-group.component.ts",
+        "name": "avatar-group.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 1293,
+        "meta": {
+          "selector": "app-avatar-group",
+          "className": "AvatarGroupComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "max",
+              "alias": null,
+              "type": "number",
+              "default": "4",
+              "required": false
+            },
+            {
+              "name": "size",
+              "alias": null,
+              "type": "keyof typeof this.AVATAR_SIZES",
+              "default": "'md'",
+              "required": false
+            },
+            {
+              "name": "reverse",
+              "alias": null,
+              "type": "boolean",
+              "default": "false",
+              "required": false
+            }
+          ],
+          "outputs": [],
+          "implements": [
+            "OnChanges"
+          ],
+          "cva": false,
+          "lifecycle": [
+            "ngOnChanges"
+          ],
+          "inject": [],
+          "methods": [
+            "ngOnChanges",
+            "getAvatarInitials"
+          ],
+          "hostListeners": [],
+          "a11y": [],
+          "componentImports": [
+            "CommonModule"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "badge/badge.component.css",
+        "name": "badge.component.css",
+        "types": [
+          "styles"
+        ],
+        "size": 80,
+        "design": {
+          "colors": [],
+          "varsUsed": [],
+          "varsDef": [],
+          "host": true,
+          "radii": [],
+          "fonts": [],
+          "pads": [],
+          "shadows": [],
+          "transitions": [],
+          "breakpoints": []
+        }
+      },
+      {
+        "path": "badge/badge.component.html",
+        "name": "badge.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 1650,
+        "ngContent": [
+          "app-icon",
+          "default"
+        ],
+        "ngIf": 7,
+        "ngFor": 0,
+        "aria": [],
+        "classes": [
+          "inline-flex",
+          "items-center",
+          "font-medium",
+          "font-onest",
+          "w-4",
+          "h-4",
+          "rounded-full",
+          "mr-0.5",
+          "object-cover",
+          "transition-all",
+          "duration-300",
+          "ml-0.5"
+        ]
+      },
+      {
+        "path": "badge/badge.component.ts",
+        "name": "badge.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 2429,
+        "meta": {
+          "selector": "app-badge",
+          "className": "BadgeComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "iconClickable",
+              "alias": null,
+              "type": null,
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "iconDirection",
+              "alias": null,
+              "type": "TIconDirectionLR",
+              "default": "'left'",
+              "required": false
+            },
+            {
+              "name": "iconVariant",
+              "alias": null,
+              "type": "TIconVariant",
+              "default": "'solid'",
+              "required": false
+            },
+            {
+              "name": "color",
+              "alias": null,
+              "type": "TColors",
+              "default": "'gray'",
+              "required": false
+            },
+            {
+              "name": "size",
+              "alias": null,
+              "type": "TSizes",
+              "default": "'sm'",
+              "required": false
+            },
+            {
+              "name": "border",
+              "alias": null,
+              "type": null,
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "rounded",
+              "alias": null,
+              "type": null,
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "disabled",
+              "alias": null,
+              "type": null,
+              "default": "false",
+              "required": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "iconClick",
+              "alias": null,
+              "type": "void"
+            }
+          ],
+          "implements": [],
+          "cva": false,
+          "lifecycle": [],
+          "inject": [],
+          "methods": [
+            "getClassObject",
+            "onIconClick"
+          ],
+          "hostListeners": [],
+          "a11y": [],
+          "componentImports": [
+            "CommonModule",
+            "IconComponent"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "badge/badge.ts",
+        "name": "badge.ts",
+        "types": [
+          "model"
+        ],
+        "size": 706,
+        "exports": [
+          "Colors",
+          "TColors",
+          "Sizes",
+          "TSizes",
+          "classes"
+        ],
+        "snippets": {
+          "Colors": "(typeof Colors)[number]",
+          "TColors": "(typeof Colors)[number]",
+          "Sizes": "(typeof Sizes)[number]",
+          "TSizes": "(typeof Sizes)[number]"
+        }
+      },
+      {
+        "path": "button/button.component.css",
+        "name": "button.component.css",
+        "types": [
+          "styles"
+        ],
+        "size": 233,
+        "design": {
+          "colors": [],
+          "varsUsed": [],
+          "varsDef": [],
+          "host": false,
+          "radii": [],
+          "fonts": [],
+          "pads": [],
+          "shadows": [],
+          "transitions": [],
+          "breakpoints": []
+        }
+      },
+      {
+        "path": "button/button.component.html",
+        "name": "button.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 1100,
+        "ngContent": [
+          "default"
+        ],
+        "ngIf": 4,
+        "ngFor": 0,
+        "aria": [
+          "aria-label",
+          "aria-current"
+        ],
+        "classes": []
+      },
+      {
+        "path": "button/button.component.ts",
+        "name": "button.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 3232,
+        "meta": {
+          "selector": "app-button",
+          "className": "ButtonComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "label",
+              "alias": null,
+              "type": null,
+              "default": "''",
+              "required": false
+            },
+            {
+              "name": "variant",
+              "alias": null,
+              "type": "TVariants",
+              "default": "'primary'",
+              "required": false
+            },
+            {
+              "name": "size",
+              "alias": null,
+              "type": "keyof typeof sizes.buttonSize.default",
+              "default": "'md'",
+              "required": false
+            },
+            {
+              "name": "type",
+              "alias": null,
+              "type": "'button' | 'submit' | 'reset'",
+              "default": "'button'",
+              "required": false
+            },
+            {
+              "name": "iconDirection",
+              "alias": null,
+              "type": "TIconDirectionLR",
+              "default": "'right'",
+              "required": false
+            },
+            {
+              "name": "disabled",
+              "alias": null,
+              "type": null,
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "rounded",
+              "alias": null,
+              "type": null,
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "color",
+              "alias": null,
+              "type": "'gray' | 'red' | 'yellow' | 'green' | 'blue' | 'purple'",
+              "default": "'gray'",
+              "required": false
+            },
+            {
+              "name": "fullWidth",
+              "alias": null,
+              "type": null,
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "ariaCurrentPage",
+              "alias": null,
+              "type": null,
+              "default": "false",
+              "required": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "buttonClick",
+              "alias": null,
+              "type": "void"
+            }
+          ],
+          "implements": [],
+          "cva": false,
+          "lifecycle": [],
+          "inject": [],
+          "methods": [
+            "onButtonClick",
+            "capitalizeFirstLetter"
+          ],
+          "hostListeners": [],
+          "a11y": [],
+          "componentImports": [
+            "CommonModule",
+            "IconComponent"
+          ]
+        },
+        "purpose": "Applied to the native button (e.g. icon-only controls)"
+      },
+      {
+        "path": "button/button.ts",
+        "name": "button.ts",
+        "types": [
+          "model"
+        ],
+        "size": 9207,
+        "exports": [
+          "Variants",
+          "TVariants",
+          "sizes",
+          "classes",
+          "Colors",
+          "TColors"
+        ],
+        "snippets": {
+          "Variants": "(typeof Variants)[number]",
+          "TVariants": "(typeof Variants)[number]",
+          "sizes": "{\n  common:\n    'inline-flex gap-2 items-center justify-center font-onest font-semibold text-center whitespace-nowrap transition-colors duration-300 ring-2 ring-transparent',\n  rounded: 'rounded-full',\n  colors: {\n    gray: {\n      primary: `text-white bg-gray-900 hover:bg-gray-700 focus:ring-gray-9",
+          "classes": "[\n  'gray',\n  'red',\n  'yellow',\n  'green',\n  'blue',\n  'purple',\n  'transparent',\n] as const",
+          "Colors": "(typeof Colors)[number]",
+          "TColors": "(typeof Colors)[number]"
+        }
+      },
+      {
+        "path": "buttonGroup/button-group.component.css",
+        "name": "button-group.component.css",
+        "types": [
+          "styles"
+        ],
+        "size": 64,
+        "design": {
+          "colors": [],
+          "varsUsed": [],
+          "varsDef": [],
+          "host": true,
+          "radii": [],
+          "fonts": [],
+          "pads": [],
+          "shadows": [],
+          "transitions": [],
+          "breakpoints": []
+        }
+      },
+      {
+        "path": "buttonGroup/button-group.component.html",
+        "name": "button-group.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 183,
+        "ngContent": [
+          "default"
+        ],
+        "ngIf": 0,
+        "ngFor": 0,
+        "aria": [],
+        "classes": []
+      },
+      {
+        "path": "buttonGroup/button-group.component.ts",
+        "name": "button-group.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 361,
+        "meta": {
+          "selector": "app-button-group",
+          "className": "ButtonGroupComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "line",
+              "alias": null,
+              "type": "boolean",
+              "default": "false",
+              "required": false
+            }
+          ],
+          "outputs": [],
+          "implements": [],
+          "cva": false,
+          "lifecycle": [],
+          "inject": [],
+          "methods": [],
+          "hostListeners": [],
+          "a11y": [],
+          "componentImports": [
+            "CommonModule"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "card/card.component.html",
+        "name": "card.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 3779,
+        "ngContent": [],
+        "ngIf": 11,
+        "ngFor": 0,
+        "aria": [],
+        "classes": [
+          "min-w-fit",
+          "object-cover",
+          "rounded",
+          "grid",
+          "gap-3",
+          "flex",
+          "items-start",
+          "justify-between",
+          "font-medium",
+          "text-gray-900",
+          "font-lora",
+          "text-gray-600",
+          "font-onest",
+          "overflow-hidden",
+          "text-ellipsis",
+          "break-words",
+          "line-clamp-4",
+          "max-h-20",
+          "items-center",
+          "divide-y",
+          "divide-gray-600",
+          "gap-2",
+          "gap-1",
+          "group",
+          "group-hover:fill-gray-400",
+          "transition-all",
+          "duration-300",
+          "text-gray-500",
+          "bg-gray-300",
+          "w-full",
+          "flex-col",
+          "gap-4",
+          "h-5",
+          "w-10/12",
+          "w-11/12",
+          "hidden",
+          "xl:flex",
+          "h-2.5",
+          "w-1/3"
+        ]
+      },
+      {
+        "path": "card/card.component.ts",
+        "name": "card.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 2940,
+        "meta": {
+          "selector": "app-card",
+          "className": "CardComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "link",
+              "alias": null,
+              "type": "string",
+              "default": "'#'",
+              "required": false
+            },
+            {
+              "name": "variant",
+              "alias": null,
+              "type": "'col' | 'row' | 'grid'",
+              "default": "'col'",
+              "required": false
+            },
+            {
+              "name": "size",
+              "alias": null,
+              "type": "'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl'",
+              "default": "'xl'",
+              "required": false
+            },
+            {
+              "name": "isLoading",
+              "alias": null,
+              "type": "boolean",
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "metricsType",
+              "alias": null,
+              "type": "boolean",
+              "default": "false",
+              "required": false
+            }
+          ],
+          "outputs": [],
+          "implements": [],
+          "cva": false,
+          "lifecycle": [
+            "ngOnInit"
+          ],
+          "inject": [],
+          "methods": [
+            "getImgClass",
+            "getTitleClass",
+            "getSubtitleClass",
+            "getDateClass",
+            "includeOnMainUrl",
+            "toggleChecked"
+          ],
+          "hostListeners": [],
+          "a11y": [],
+          "componentImports": [
+            "CommonModule"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "carousel/swiper.component.css",
+        "name": "swiper.component.css",
+        "types": [
+          "styles"
+        ],
+        "size": 896,
+        "design": {
+          "colors": [],
+          "varsUsed": [],
+          "varsDef": [],
+          "host": false,
+          "radii": [],
+          "fonts": [],
+          "pads": [
+            "margin: auto"
+          ],
+          "shadows": [],
+          "transitions": [],
+          "breakpoints": [
+            "@media (min-width: 640px)",
+            "@media (min-width: 768px)",
+            "@media (min-width: 1024px)"
+          ]
+        }
+      },
+      {
+        "path": "carousel/swiper.component.html",
+        "name": "swiper.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 2553,
+        "ngContent": [
+          "default"
+        ],
+        "ngIf": 0,
+        "ngFor": 0,
+        "aria": [],
+        "classes": [
+          "relative",
+          "w-full",
+          "h-full",
+          "swiper-button-prev",
+          "cursor-pointer",
+          "absolute",
+          "top-1/2",
+          "transform",
+          "-translate-y-1/2",
+          "z-10",
+          "bg-gray-50",
+          "rounded-full",
+          "border",
+          "border-gray-100",
+          "group",
+          "hover:bg-gray-900",
+          "hover:border-gray-900",
+          "transition-all",
+          "duration-300",
+          "fill-gray-500",
+          "group-hover:fill-white",
+          "swiper-button-next"
+        ]
+      },
+      {
+        "path": "carousel/swiper.component.ts",
+        "name": "swiper.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 968,
+        "meta": {
+          "selector": "app-swiper",
+          "className": "SwiperComponent",
+          "standalone": true,
+          "inputs": [],
+          "outputs": [],
+          "implements": [
+            "AfterViewInit"
+          ],
+          "cva": false,
+          "lifecycle": [
+            "ngAfterViewInit"
+          ],
+          "inject": [],
+          "methods": [
+            "ngAfterViewInit",
+            "prevSlide",
+            "nextSlide"
+          ],
+          "hostListeners": [],
+          "a11y": [],
+          "componentImports": [
+            "CommonModule"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "checkbox/checkbox.component.css",
+        "name": "checkbox.component.css",
+        "types": [
+          "styles"
+        ],
+        "size": 263,
+        "design": {
+          "colors": [
+            "#FFFFFA",
+            "#121212"
+          ],
+          "varsUsed": [],
+          "varsDef": [],
+          "host": true,
+          "radii": [],
+          "fonts": [],
+          "pads": [],
+          "shadows": [
+            "0 0 0 1px #121212"
+          ],
+          "transitions": [],
+          "breakpoints": []
+        }
+      },
+      {
+        "path": "checkbox/checkbox.component.html",
+        "name": "checkbox.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 701,
+        "ngContent": [],
+        "ngIf": 2,
+        "ngFor": 0,
+        "aria": [],
+        "classes": [
+          "inline-flex",
+          "shrink-0",
+          "text-gray-900",
+          "text-gray-500"
+        ]
+      },
+      {
+        "path": "checkbox/checkbox.component.ts",
+        "name": "checkbox.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 2403,
+        "meta": {
+          "selector": "app-checkbox",
+          "className": "CheckboxComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "type",
+              "alias": null,
+              "type": "'checkbox' | 'radio'",
+              "default": "'checkbox'",
+              "required": false
+            },
+            {
+              "name": "rounded",
+              "alias": null,
+              "type": "boolean",
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "checked",
+              "alias": null,
+              "type": "boolean",
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "disabled",
+              "alias": null,
+              "type": "boolean",
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "indeterminate",
+              "alias": null,
+              "type": "boolean",
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "variant",
+              "alias": null,
+              "type": "'default' | 'error'",
+              "default": "'default'",
+              "required": false
+            },
+            {
+              "name": "title",
+              "alias": null,
+              "type": "string",
+              "default": "''",
+              "required": false
+            },
+            {
+              "name": "description",
+              "alias": null,
+              "type": "string",
+              "default": "''",
+              "required": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "checkedChange",
+              "alias": null,
+              "type": "boolean"
+            }
+          ],
+          "implements": [
+            "OnChanges"
+          ],
+          "cva": false,
+          "lifecycle": [
+            "ngOnChanges"
+          ],
+          "inject": [
+            "ElementRef",
+            "Renderer2"
+          ],
+          "methods": [
+            "ngOnChanges",
+            "onInputChange"
+          ],
+          "hostListeners": [],
+          "a11y": [],
+          "componentImports": [
+            "CommonModule",
+            "FormsModule"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "dotPulse/pulse-dot.component.html",
+        "name": "pulse-dot.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 234,
+        "ngContent": [],
+        "ngIf": 0,
+        "ngFor": 0,
+        "aria": [],
+        "classes": [
+          "relative",
+          "flex",
+          "size-3",
+          "absolute",
+          "inline-flex",
+          "h-full",
+          "w-full",
+          "animate-ping",
+          "rounded-full",
+          "bg-red-400",
+          "opacity-75",
+          "bg-red-500"
+        ]
+      },
+      {
+        "path": "dotPulse/pulse-dot.component.ts",
+        "name": "pulse-dot.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 263,
+        "meta": {
+          "selector": "app-pulse-dot",
+          "className": "PulseDotComponent",
+          "standalone": true,
+          "inputs": [],
+          "outputs": [],
+          "implements": [],
+          "cva": false,
+          "lifecycle": [],
+          "inject": [],
+          "methods": [],
+          "hostListeners": [],
+          "a11y": [],
+          "componentImports": [
+            "CommonModule"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "dropdown/dropdown.component.html",
+        "name": "dropdown.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 1354,
+        "ngContent": [],
+        "ngIf": 2,
+        "ngFor": 2,
+        "aria": [],
+        "classes": [
+          "relative",
+          "inline-block",
+          "text-left",
+          "w-4",
+          "h-4",
+          "text-gray-500",
+          "absolute",
+          "my-2",
+          "z-50",
+          "min-w-28",
+          "w-fit",
+          "rounded-md",
+          "bg-cFFFFFA",
+          "border",
+          "border-gray-100",
+          "divide-y",
+          "divide-gray-900/10",
+          "py-1",
+          "px-3",
+          "py-2",
+          "text-xs",
+          "leading-4",
+          "font-onest",
+          "text-gray-400",
+          "block",
+          "pl-2",
+          "pr-6",
+          "transition-all",
+          "duration-300",
+          "text-sm",
+          "leading-5",
+          "font-medium",
+          "text-gray-900",
+          "hover:bg-gray-100",
+          "cursor-pointer"
+        ]
+      },
+      {
+        "path": "dropdown/dropdown.component.ts",
+        "name": "dropdown.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 2758,
+        "meta": {
+          "selector": "app-dropdown",
+          "className": "DropdownComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "title",
+              "alias": null,
+              "type": "string",
+              "default": "'Menu'",
+              "required": false
+            },
+            {
+              "name": "sizeVariant",
+              "alias": null,
+              "type": "'xl' | 'lg' | 'md' | 'sm'",
+              "default": "'xl'",
+              "required": false
+            }
+          ],
+          "outputs": [],
+          "implements": [
+            "AfterViewInit"
+          ],
+          "cva": false,
+          "lifecycle": [
+            "ngAfterViewInit"
+          ],
+          "inject": [
+            "ElementRef"
+          ],
+          "methods": [
+            "ngAfterViewInit",
+            "toggleDropdown",
+            "closeDropdown",
+            "calculatePosition",
+            "onWindowResize",
+            "onClickOutside"
+          ],
+          "hostListeners": [
+            "window:resize",
+            "document:click"
+          ],
+          "a11y": [],
+          "componentImports": [
+            "CommonModule",
+            "IconComponent"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "icons/icon.component.css",
+        "name": "icon.component.css",
+        "types": [
+          "styles"
+        ],
+        "size": 129,
+        "design": {
+          "colors": [],
+          "varsUsed": [],
+          "varsDef": [],
+          "host": true,
+          "radii": [],
+          "fonts": [],
+          "pads": [],
+          "shadows": [],
+          "transitions": [],
+          "breakpoints": []
+        }
+      },
+      {
+        "path": "icons/icon.component.ts",
+        "name": "icon.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 1058,
+        "meta": {
+          "selector": "app-icon",
+          "className": "IconComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "type",
+              "alias": null,
+              "type": "TIconVariant",
+              "default": "'outline'",
+              "required": false
+            },
+            {
+              "name": "direction",
+              "alias": null,
+              "type": "TIconDirectionLR",
+              "default": "'left'",
+              "required": false
+            }
+          ],
+          "outputs": [],
+          "implements": [],
+          "cva": false,
+          "lifecycle": [],
+          "inject": [],
+          "methods": [
+            "getIconPath"
+          ],
+          "hostListeners": [],
+          "a11y": [
+            "ts-a11y-patterns"
+          ],
+          "componentImports": [
+            "CommonModule"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "icons/icon.ts",
+        "name": "icon.ts",
+        "types": [
+          "model"
+        ],
+        "size": 313,
+        "exports": [
+          "TIconName",
+          "IconVariant",
+          "TIconVariant",
+          "IconDirectionLR",
+          "TIconDirectionLR"
+        ],
+        "snippets": {
+          "TIconName": "string",
+          "IconVariant": "(typeof IconVariant)[number]",
+          "TIconVariant": "(typeof IconVariant)[number]",
+          "IconDirectionLR": "(typeof IconDirectionLR)[number]",
+          "TIconDirectionLR": "(typeof IconDirectionLR)[number]"
+        }
+      },
+      {
+        "path": "input/input.component.css",
+        "name": "input.component.css",
+        "types": [
+          "styles"
+        ],
+        "size": 447,
+        "design": {
+          "colors": [],
+          "varsUsed": [],
+          "varsDef": [],
+          "host": true,
+          "radii": [
+            "0"
+          ],
+          "fonts": [],
+          "pads": [
+            "padding-top: 0",
+            "padding-right: 0",
+            "padding-bottom: 0",
+            "padding-left: 0"
+          ],
+          "shadows": [],
+          "transitions": [],
+          "breakpoints": []
+        }
+      },
+      {
+        "path": "input/input.component.html",
+        "name": "input.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 3302,
+        "ngContent": [],
+        "ngIf": 8,
+        "ngFor": 0,
+        "aria": [],
+        "classes": [
+          "w-full",
+          "min-w-0",
+          "flex",
+          "flex-col",
+          "gap-2",
+          "block",
+          "text-sm",
+          "font-onest",
+          "leading-5",
+          "font-medium",
+          "text-gray-900",
+          "dark:text-gray-50",
+          "items-center",
+          "bg-cFFFFFA",
+          "dark:bg-gray-900/5",
+          "shadow-xs",
+          "relative",
+          "transition-opacity",
+          "duration-150",
+          "border-l",
+          "border-y",
+          "border-gray-200",
+          "rounded-l-md",
+          "absolute",
+          "left-3",
+          "text-gray-500",
+          "pointer-events-none",
+          "whitespace-nowrap",
+          "left-1",
+          "top-1/2",
+          "-translate-y-1/2",
+          "w-5",
+          "h-5",
+          "transition-none",
+          "dark:text-gray-400",
+          "border-r",
+          "rounded-r-md",
+          "text-xs",
+          "leading-4"
+        ]
+      },
+      {
+        "path": "input/input.component.ts",
+        "name": "input.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 4538,
+        "meta": {
+          "selector": "app-input-field",
+          "className": "InputFieldComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "label",
+              "alias": null,
+              "type": null,
+              "default": "''",
+              "required": false
+            },
+            {
+              "name": "helperText",
+              "alias": null,
+              "type": null,
+              "default": "''",
+              "required": false
+            },
+            {
+              "name": "type",
+              "alias": null,
+              "type": "'text' | 'email' | 'password' | 'search'",
+              "default": "'text'",
+              "required": false
+            },
+            {
+              "name": "placeholder",
+              "alias": null,
+              "type": null,
+              "default": "''",
+              "required": false
+            },
+            {
+              "name": "iconButton",
+              "alias": null,
+              "type": null,
+              "default": "''",
+              "required": false
+            },
+            {
+              "name": "error",
+              "alias": null,
+              "type": null,
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "size",
+              "alias": null,
+              "type": "'sm' | 'md' | 'lg'",
+              "default": "'lg'",
+              "required": false
+            },
+            {
+              "name": "withButton",
+              "alias": null,
+              "type": "'left' | 'right' | null",
+              "default": "null",
+              "required": false
+            },
+            {
+              "name": "buttonLabel",
+              "alias": null,
+              "type": null,
+              "default": "''",
+              "required": false
+            },
+            {
+              "name": "prefix",
+              "alias": null,
+              "type": null,
+              "default": "''",
+              "required": false
+            },
+            {
+              "name": "disabled",
+              "alias": null,
+              "type": null,
+              "default": "false",
+              "required": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "valueChange",
+              "alias": null,
+              "type": "string"
+            }
+          ],
+          "implements": [
+            "ControlValueAccessor"
+          ],
+          "cva": true,
+          "lifecycle": [
+            "ngOnInit"
+          ],
+          "inject": [],
+          "methods": [
+            "ngOnInit",
+            "togglePasswordVisibility",
+            "writeValue",
+            "setDisabledState",
+            "onInput",
+            "clearSearch"
+          ],
+          "hostListeners": [],
+          "a11y": [],
+          "componentImports": [
+            "CommonModule",
+            "FormsModule",
+            "ButtonComponent",
+            "TooltipHoverComponent",
+            "IconComponent"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "input/input.ts",
+        "name": "input.ts",
+        "types": [
+          "model"
+        ],
+        "size": 95,
+        "exports": [
+          "Colors",
+          "TColors"
+        ],
+        "snippets": {
+          "Colors": "(typeof Colors)[number]",
+          "TColors": "(typeof Colors)[number]"
+        }
+      },
+      {
+        "path": "languageDropdown/language-dropdown.component.html",
+        "name": "language-dropdown.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 2654,
+        "ngContent": [],
+        "ngIf": 2,
+        "ngFor": 1,
+        "aria": [],
+        "classes": [
+          "relative",
+          "inline-block",
+          "text-left",
+          "flex",
+          "items-center",
+          "gap-1",
+          "px-0.5",
+          "group",
+          "rounded-full",
+          "focus:outline-none",
+          "border-2",
+          "border-transparent",
+          "focus:border-gray-900/10",
+          "transition-colors",
+          "duration-300",
+          "w-4",
+          "h-4",
+          "text-xs",
+          "transition-color",
+          "text-gray-600",
+          "group-hover:text-gray-900",
+          "focus:text-gray-200",
+          "dark:text-gray-200",
+          "dark:group-hover:text-gray-50",
+          "dark:focus:text-gray-50",
+          "w-3",
+          "h-3",
+          "transition-transform",
+          "text-gray-500",
+          "dark:text-gray-400",
+          "dark:focus:text-gray-400",
+          "absolute",
+          "right-0",
+          "bottom-full",
+          "mb-2",
+          "w-40",
+          "bg-cFFFFFA",
+          "border",
+          "border-gray-100",
+          "dark:border-gray-700",
+          "rounded-lg",
+          "shadow-2xl",
+          "z-10",
+          "py-2",
+          "gap-2",
+          "px-2",
+          "py-1",
+          "cursor-pointer",
+          "hover:bg-gray-100",
+          "dark:hover:bg-gray-600",
+          "w-5",
+          "h-5",
+          "text-sm",
+          "text-gray-900",
+          "dark:text-gray-50",
+          "font-medium",
+          "ml-auto",
+          "fill-gray-500",
+          "dark:fill-gray-400"
+        ]
+      },
+      {
+        "path": "languageDropdown/language-dropdown.component.ts",
+        "name": "language-dropdown.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 3031,
+        "meta": {
+          "selector": "app-language-dropdown",
+          "className": "LanguageDropdownComponent",
+          "standalone": true,
+          "inputs": [],
+          "outputs": [],
+          "implements": [],
+          "cva": false,
+          "lifecycle": [
+            "ngOnDestroy"
+          ],
+          "inject": [],
+          "methods": [
+            "toggleDropdown",
+            "handleOutsideClick",
+            "selectLanguage",
+            "setLanguage",
+            "getLanguageInitials",
+            "isCurrentLanguage",
+            "ngOnDestroy"
+          ],
+          "hostListeners": [],
+          "a11y": [],
+          "componentImports": [
+            "CommonModule",
+            "IconComponent"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "loading/loading.component.css",
+        "name": "loading.component.css",
+        "types": [
+          "styles"
+        ],
+        "size": 857,
+        "design": {
+          "colors": [],
+          "varsUsed": [],
+          "varsDef": [],
+          "host": false,
+          "radii": [],
+          "fonts": [],
+          "pads": [],
+          "shadows": [],
+          "transitions": [],
+          "breakpoints": []
+        }
+      },
+      {
+        "path": "loading/loading.component.html",
+        "name": "loading.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 741,
+        "ngContent": [],
+        "ngIf": 2,
+        "ngFor": 1,
+        "aria": [],
+        "classes": [
+          "inline-flex",
+          "justify-center",
+          "items-center",
+          "relative",
+          "absolute",
+          "rounded-full"
+        ]
+      },
+      {
+        "path": "loading/loading.component.ts",
+        "name": "loading.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 1528,
+        "meta": {
+          "selector": "app-loading",
+          "className": "LoadingComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "color",
+              "alias": null,
+              "type": "'black' | 'red'",
+              "default": "'black'",
+              "required": false
+            },
+            {
+              "name": "size",
+              "alias": null,
+              "type": "'sm' | 'md' | 'lg' | 'xl'",
+              "default": "'xl'",
+              "required": false
+            },
+            {
+              "name": "variant",
+              "alias": null,
+              "type": "'spinner' | 'dot'",
+              "default": "'spinner'",
+              "required": false
+            }
+          ],
+          "outputs": [],
+          "implements": [],
+          "cva": false,
+          "lifecycle": [],
+          "inject": [],
+          "methods": [
+            "getTailwindDotStyle",
+            "getDotAnimation"
+          ],
+          "hostListeners": [],
+          "a11y": [],
+          "componentImports": [
+            "CommonModule"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "messageChat/message-chat.component.html",
+        "name": "message-chat.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 767,
+        "ngContent": [
+          "default"
+        ],
+        "ngIf": 0,
+        "ngFor": 0,
+        "aria": [],
+        "classes": [
+          "inline-flex",
+          "flex-col",
+          "w-fit",
+          "overflow-hidden",
+          "transition-opacity",
+          "duration-150",
+          "gap-2",
+          "items-end",
+          "justify-between",
+          "px-3",
+          "py-2",
+          "w-full",
+          "text-sm",
+          "font-onest",
+          "leading-5",
+          "whitespace-pre-wrap",
+          "break-words",
+          "text-xs",
+          "leading-4"
+        ]
+      },
+      {
+        "path": "messageChat/message-chat.component.ts",
+        "name": "message-chat.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 2620,
+        "meta": {
+          "selector": "app-message-chat",
+          "className": "MessageChatComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "text",
+              "alias": null,
+              "type": "string",
+              "default": "''",
+              "required": false
+            },
+            {
+              "name": "time",
+              "alias": null,
+              "type": "string",
+              "default": "''",
+              "required": false
+            },
+            {
+              "name": "theme",
+              "alias": null,
+              "type": "'dark' | 'light'",
+              "default": "'light'",
+              "required": false
+            },
+            {
+              "name": "hasOnlyText",
+              "alias": null,
+              "type": "boolean",
+              "default": "true",
+              "required": false
+            }
+          ],
+          "outputs": [],
+          "implements": [
+            "AfterViewInit, OnChanges"
+          ],
+          "cva": false,
+          "lifecycle": [
+            "ngOnChanges",
+            "ngAfterViewInit"
+          ],
+          "inject": [
+            "DomSanitizer"
+          ],
+          "methods": [
+            "ngAfterViewInit",
+            "ngOnChanges",
+            "checkTextLines",
+            "getRoundedClass",
+            "processTextWithLinks"
+          ],
+          "hostListeners": [],
+          "a11y": [],
+          "componentImports": [
+            "CommonModule"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "progressCircle/progress-circle.component.html",
+        "name": "progress-circle.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 1548,
+        "ngContent": [],
+        "ngIf": 0,
+        "ngFor": 0,
+        "aria": [],
+        "classes": [
+          "relative",
+          "inline-block",
+          "transition-all",
+          "duration-500",
+          "absolute",
+          "inset-0",
+          "flex",
+          "items-center",
+          "justify-center",
+          "font-semibold",
+          "font-onest"
+        ]
+      },
+      {
+        "path": "progressCircle/progress-circle.component.ts",
+        "name": "progress-circle.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 1196,
+        "meta": {
+          "selector": "app-progress-circle",
+          "className": "ProgressCircleComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "progress",
+              "alias": null,
+              "type": null,
+              "default": "75",
+              "required": false
+            },
+            {
+              "name": "size",
+              "alias": null,
+              "type": "'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'",
+              "default": "'md'",
+              "required": false
+            },
+            {
+              "name": "variant",
+              "alias": null,
+              "type": "'red' | 'white'",
+              "default": "'red'",
+              "required": false
+            }
+          ],
+          "outputs": [],
+          "implements": [],
+          "cva": false,
+          "lifecycle": [],
+          "inject": [],
+          "methods": [],
+          "hostListeners": [],
+          "a11y": [],
+          "componentImports": [
+            "CommonModule"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "select/select.component.html",
+        "name": "select.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 4393,
+        "ngContent": [],
+        "ngIf": 6,
+        "ngFor": 1,
+        "aria": [],
+        "classes": [
+          "w-full",
+          "relative",
+          "block",
+          "mb-2",
+          "text-sm",
+          "font-onest",
+          "leading-5",
+          "font-medium",
+          "text-gray-900",
+          "flex",
+          "items-center",
+          "justify-between",
+          "truncate",
+          "pr-6",
+          "w-5",
+          "h-5",
+          "text-gray-500",
+          "absolute",
+          "right-1.5",
+          "top-1/2",
+          "-translate-y-1/2",
+          "mt-2",
+          "z-50",
+          "py-2",
+          "bg-cFFFFFA",
+          "border",
+          "border-gray-100",
+          "rounded-lg",
+          "shadow-lg",
+          "max-h-48",
+          "overflow-y-auto",
+          "transition-colors",
+          "duration-300",
+          "px-4",
+          "hover:bg-gray-50",
+          "cursor-pointer",
+          "text-xs",
+          "text-gray-600",
+          "leading-4",
+          "fill-gray-900",
+          "w-3",
+          "h-3",
+          "right-4"
+        ]
+      },
+      {
+        "path": "select/select.component.ts",
+        "name": "select.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 3300,
+        "meta": {
+          "selector": "app-select",
+          "className": "SelectComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "placeholder",
+              "alias": null,
+              "type": "string",
+              "default": "'Select...'",
+              "required": false
+            },
+            {
+              "name": "options",
+              "alias": null,
+              "type": "SelectOptionType[]",
+              "default": "[]",
+              "required": false
+            },
+            {
+              "name": "size",
+              "alias": null,
+              "type": "'sm' | 'md'",
+              "default": "'md'",
+              "required": false
+            },
+            {
+              "name": "disabled",
+              "alias": null,
+              "type": "boolean",
+              "default": "false",
+              "required": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "opened",
+              "alias": null,
+              "type": "void"
+            }
+          ],
+          "implements": [
+            "ControlValueAccessor"
+          ],
+          "cva": true,
+          "lifecycle": [],
+          "inject": [
+            "ElementRef"
+          ],
+          "methods": [
+            "toggleDropdown",
+            "selectOption",
+            "writeValue",
+            "setDisabledState",
+            "getOptionTitle",
+            "getOptionDate",
+            "formatOptionDate",
+            "isSelected",
+            "getDisplayValue",
+            "clickOutside"
+          ],
+          "hostListeners": [
+            "document:click"
+          ],
+          "a11y": [],
+          "componentImports": [
+            "CommonModule",
+            "IconComponent"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "switchToggle/switch-toggle.component.html",
+        "name": "switch-toggle.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 795,
+        "ngContent": [],
+        "ngIf": 0,
+        "ngFor": 0,
+        "aria": [],
+        "classes": [
+          "inline-flex",
+          "items-center",
+          "justify-center",
+          "rounded-full",
+          "transition-colors",
+          "duration-300",
+          "ease-in-out",
+          "focus-within:ring-2",
+          "focus-within:ring-gray-900/10",
+          "relative",
+          "focus:outline-none",
+          "inline-block",
+          "transform",
+          "transition-all"
+        ]
+      },
+      {
+        "path": "switchToggle/switch-toggle.component.ts",
+        "name": "switch-toggle.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 1221,
+        "meta": {
+          "selector": "app-switch-toggle",
+          "className": "SwitchToggleComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "active",
+              "alias": null,
+              "type": null,
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "disabled",
+              "alias": null,
+              "type": null,
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "size",
+              "alias": null,
+              "type": "'sm' | 'md'",
+              "default": "'md'",
+              "required": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "changed",
+              "alias": null,
+              "type": "boolean"
+            }
+          ],
+          "implements": [],
+          "cva": false,
+          "lifecycle": [],
+          "inject": [],
+          "methods": [
+            "toggle"
+          ],
+          "hostListeners": [],
+          "a11y": [],
+          "componentImports": [
+            "CommonModule"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "tabButton/tab-button.component.html",
+        "name": "tab-button.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 334,
+        "ngContent": [],
+        "ngIf": 1,
+        "ngFor": 0,
+        "aria": [],
+        "classes": [
+          "inline-grid"
+        ]
+      },
+      {
+        "path": "tabButton/tab-button.component.ts",
+        "name": "tab-button.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 1281,
+        "meta": {
+          "selector": "app-tab-button",
+          "className": "TabButtonComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "label",
+              "alias": null,
+              "type": "string",
+              "default": "'Tab'",
+              "required": false
+            },
+            {
+              "name": "active",
+              "alias": null,
+              "type": "boolean",
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "size",
+              "alias": null,
+              "type": "'md' | 'lg'",
+              "default": "'md'",
+              "required": false
+            },
+            {
+              "name": "variant",
+              "alias": null,
+              "type": "'bg' | 'line'",
+              "default": "'bg'",
+              "required": false
+            }
+          ],
+          "outputs": [],
+          "implements": [],
+          "cva": false,
+          "lifecycle": [],
+          "inject": [],
+          "methods": [],
+          "hostListeners": [],
+          "a11y": [],
+          "componentImports": [
+            "CommonModule",
+            "RouterModule"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "table/table.component.html",
+        "name": "table.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 8686,
+        "ngContent": [],
+        "ngIf": 11,
+        "ngFor": 5,
+        "aria": [
+          "aria-labelledby",
+          "aria-label",
+          "aria-hidden=\"true\"",
+          "aria-expanded",
+          "aria-haspopup=\"listbox\"",
+          "aria-label=\"Rezultate pe pagină\"",
+          "role=\"listbox\"",
+          "role=\"option\"",
+          "aria-selected",
+          "aria-label=\"Paginare\"",
+          "aria-label=\"Pagina anterioară\"",
+          "aria-current",
+          "aria-label=\"Pagina următoare\""
+        ],
+        "classes": [
+          "bg-cFFFFFA",
+          "pr-1",
+          "border-b",
+          "border-gray-900/10",
+          "text-gray-900",
+          "font-semibold",
+          "text-xs",
+          "leading-4",
+          "text-nowrap",
+          "divide-y",
+          "divide-gray-900/10",
+          "py-4",
+          "flex",
+          "gap-4",
+          "py-5",
+          "font-onest",
+          "text-sm",
+          "items-center",
+          "justify-between",
+          "flex-wrap",
+          "text-gray-600",
+          "leading-5",
+          "font-medium",
+          "h-6",
+          "w-px",
+          "shrink-0",
+          "bg-gray-900/10",
+          "relative",
+          "inline-flex",
+          "z-[200]",
+          "min-w-[4.5rem]",
+          "overflow-hidden",
+          "rounded-xl",
+          "border",
+          "py-1",
+          "shadow-lg",
+          "w-full",
+          "px-3",
+          "py-2",
+          "text-left",
+          "transition",
+          "hover:bg-gray-900/5",
+          "gap-1",
+          "w-6",
+          "justify-center",
+          "rounded-full",
+          "text-gray-500",
+          "hover:text-gray-700",
+          "disabled:pointer-events-none",
+          "disabled:opacity-40",
+          "h-4",
+          "w-4",
+          "min-w-[1.75rem]",
+          "px-1",
+          "text-center",
+          "select-none",
+          "leading-none",
+          "border-t",
+          "border-gray-100",
+          "mx-auto"
+        ]
+      },
+      {
+        "path": "table/table.component.ts",
+        "name": "table.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 12024,
+        "meta": {
+          "selector": "app-table",
+          "className": "TableComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "columns",
+              "alias": null,
+              "type": "TableColumn[]",
+              "default": "[]",
+              "required": false
+            },
+            {
+              "name": "data",
+              "alias": null,
+              "type": "any[]",
+              "default": "[]",
+              "required": false
+            },
+            {
+              "name": "showShadow",
+              "alias": null,
+              "type": null,
+              "default": "true",
+              "required": false
+            },
+            {
+              "name": "elevatedRowId",
+              "alias": null,
+              "type": "string | number | null",
+              "default": "null",
+              "required": false
+            },
+            {
+              "name": "elevatedRowIdField",
+              "alias": null,
+              "type": null,
+              "default": "'id'",
+              "required": false
+            },
+            {
+              "name": "rowClickable",
+              "alias": null,
+              "type": null,
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "showResultsCount",
+              "alias": null,
+              "type": null,
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "resultsCountSingular",
+              "alias": null,
+              "type": null,
+              "default": "'rezultat'",
+              "required": false
+            },
+            {
+              "name": "resultsCountPlural",
+              "alias": null,
+              "type": null,
+              "default": "'rezultate'",
+              "required": false
+            },
+            {
+              "name": "showPagination",
+              "alias": null,
+              "type": null,
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "currentPage",
+              "alias": null,
+              "type": null,
+              "default": "1",
+              "required": false
+            },
+            {
+              "name": "pageSize",
+              "alias": null,
+              "type": null,
+              "default": "10",
+              "required": false
+            },
+            {
+              "name": "totalItems",
+              "alias": null,
+              "type": null,
+              "default": "0",
+              "required": false
+            },
+            {
+              "name": "pageSizeOptions",
+              "alias": null,
+              "type": "number[]",
+              "default": "[10, 25, 50, 100]",
+              "required": false
+            },
+            {
+              "name": "paginationBusy",
+              "alias": null,
+              "type": null,
+              "default": "false",
+              "required": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "pageChange",
+              "alias": null,
+              "type": "number"
+            },
+            {
+              "name": "pageSizeChange",
+              "alias": null,
+              "type": "number"
+            },
+            {
+              "name": "rowClick",
+              "alias": null,
+              "type": "any"
+            }
+          ],
+          "implements": [
+            "AfterViewInit, OnDestroy"
+          ],
+          "cva": false,
+          "lifecycle": [
+            "ngOnDestroy",
+            "ngAfterViewInit"
+          ],
+          "inject": [
+            "ChangeDetectorRef"
+          ],
+          "methods": [
+            "onDocumentClick",
+            "getWidthClassesForColumn",
+            "getColumnClasses",
+            "getCellClasses",
+            "getRowClasses",
+            "canInteractWithRow",
+            "shouldShowRowDetail",
+            "getValue",
+            "onRowClick",
+            "onRowKeydown",
+            "ngAfterViewInit",
+            "ngOnDestroy",
+            "checkScrollPosition",
+            "getShadowOpacityClass",
+            "isEllipsis",
+            "togglePageSizeDropdown",
+            "selectPageSize",
+            "goPage",
+            "goPrev",
+            "goNext"
+          ],
+          "hostListeners": [
+            "document:click"
+          ],
+          "a11y": [
+            "ts-a11y-patterns"
+          ],
+          "componentImports": [
+            "CommonModule",
+            "ButtonComponent",
+            "IconComponent",
+            "FloatingUiDirective"
+          ]
+        },
+        "purpose": "When set, the matching row's cells get a higher stacking order (e.g. open row action menus above the next row's sticky column)."
+      },
+      {
+        "path": "tabs/tabs.component.html",
+        "name": "tabs.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 786,
+        "ngContent": [],
+        "ngIf": 3,
+        "ngFor": 1,
+        "aria": [
+          "aria-selected",
+          "role=\"tab\""
+        ],
+        "classes": [
+          "absolute",
+          "bottom-0",
+          "h-0.5",
+          "bg-gray-900",
+          "transition-all",
+          "duration-300",
+          "z-10"
+        ]
+      },
+      {
+        "path": "tabs/tabs.component.ts",
+        "name": "tabs.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 2454,
+        "meta": {
+          "selector": "app-tabs",
+          "className": "TabsComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "tabs",
+              "alias": null,
+              "type": "string[]",
+              "default": "[]",
+              "required": false
+            },
+            {
+              "name": "style",
+              "alias": null,
+              "type": "'outline' | 'underline' | 'border'",
+              "default": "'outline'",
+              "required": false
+            },
+            {
+              "name": "size",
+              "alias": null,
+              "type": "'sm' | 'md' | 'lg'",
+              "default": "'md'",
+              "required": false
+            },
+            {
+              "name": "activeTab",
+              "alias": null,
+              "type": null,
+              "default": "0",
+              "required": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "activeTabChange",
+              "alias": null,
+              "type": "number"
+            }
+          ],
+          "implements": [],
+          "cva": false,
+          "lifecycle": [],
+          "inject": [],
+          "methods": [
+            "getTabClasses",
+            "setActiveTab"
+          ],
+          "hostListeners": [],
+          "a11y": [],
+          "componentImports": [
+            "CommonModule",
+            "BadgeComponent",
+            "IconComponent"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "textarea/textarea.component.html",
+        "name": "textarea.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 566,
+        "ngContent": [],
+        "ngIf": 2,
+        "ngFor": 0,
+        "aria": [],
+        "classes": [
+          "w-full",
+          "flex",
+          "flex-col",
+          "gap-2",
+          "block",
+          "text-sm",
+          "font-onest",
+          "leading-5",
+          "font-medium",
+          "text-gray-700",
+          "dark:text-gray-50",
+          "text-xs",
+          "leading-4"
+        ]
+      },
+      {
+        "path": "textarea/textarea.component.ts",
+        "name": "textarea.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 1981,
+        "meta": {
+          "selector": "app-textarea",
+          "className": "TextareaComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "rows",
+              "alias": null,
+              "type": "number",
+              "default": "4",
+              "required": false
+            },
+            {
+              "name": "disabled",
+              "alias": null,
+              "type": "boolean",
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "error",
+              "alias": null,
+              "type": null,
+              "default": "false",
+              "required": false
+            }
+          ],
+          "outputs": [],
+          "implements": [
+            "ControlValueAccessor"
+          ],
+          "cva": true,
+          "lifecycle": [],
+          "inject": [],
+          "methods": [
+            "writeValue",
+            "registerOnChange",
+            "registerOnTouched",
+            "setDisabledState",
+            "onInput"
+          ],
+          "hostListeners": [],
+          "a11y": [],
+          "componentImports": [
+            "CommonModule"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "toastNotification/toast-container.component.ts",
+        "name": "toast-container.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 1722,
+        "meta": {
+          "selector": "app-toast-container",
+          "className": "ToastContainerComponent",
+          "standalone": true,
+          "inputs": [],
+          "outputs": [],
+          "implements": [
+            "OnInit, OnDestroy"
+          ],
+          "cva": false,
+          "lifecycle": [
+            "ngOnInit",
+            "ngOnDestroy"
+          ],
+          "inject": [
+            "ToastService"
+          ],
+          "methods": [
+            "ngOnInit",
+            "ngOnDestroy",
+            "trackById",
+            "onClose"
+          ],
+          "hostListeners": [],
+          "a11y": [
+            "ts-a11y-patterns"
+          ],
+          "componentImports": [
+            "CommonModule",
+            "ToastNotificationComponent"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "toastNotification/toast-notification.component.html",
+        "name": "toast-notification.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 767,
+        "ngContent": [],
+        "ngIf": 2,
+        "ngFor": 0,
+        "aria": [
+          "aria-hidden=\"true\""
+        ],
+        "classes": [
+          "bg-gray-surface",
+          "p-3",
+          "rounded-lg",
+          "flex",
+          "items-start",
+          "gap-3",
+          "w-5",
+          "h-5",
+          "text-green-500",
+          "flex-1",
+          "min-w-0",
+          "font-onest",
+          "text-sm",
+          "leading-5",
+          "text-gray-600",
+          "truncate",
+          "font-semibold",
+          "text-gray-900",
+          "flex-shrink-0",
+          "w-px",
+          "bg-gray-900/10"
+        ]
+      },
+      {
+        "path": "toastNotification/toast-notification.component.ts",
+        "name": "toast-notification.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 1944,
+        "meta": {
+          "selector": "app-toast-notification",
+          "className": "ToastNotificationComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "message",
+              "alias": null,
+              "type": null,
+              "default": "''",
+              "required": false
+            },
+            {
+              "name": "type",
+              "alias": null,
+              "type": "ToastType",
+              "default": "'success'",
+              "required": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "close",
+              "alias": null,
+              "type": "void"
+            }
+          ],
+          "implements": [],
+          "cva": false,
+          "lifecycle": [],
+          "inject": [],
+          "methods": [
+            "getMessageParts",
+            "onClose"
+          ],
+          "hostListeners": [],
+          "a11y": [],
+          "componentImports": [
+            "CommonModule",
+            "IconComponent",
+            "ButtonComponent"
+          ]
+        },
+        "purpose": "Optional part of the message to display in bold (e.g. \"IPN\")"
+      },
+      {
+        "path": "toastNotification/toast.service.ts",
+        "name": "toast.service.ts",
+        "types": [
+          "service"
+        ],
+        "size": 1728,
+        "meta": {
+          "selector": null,
+          "className": "ToastService",
+          "standalone": null,
+          "inputs": [],
+          "outputs": [],
+          "implements": [],
+          "cva": false,
+          "lifecycle": [],
+          "inject": [
+            "NgZone"
+          ],
+          "methods": [
+            "getToasts",
+            "getToastsSnapshot",
+            "emit",
+            "show",
+            "remove"
+          ],
+          "hostListeners": [],
+          "a11y": []
+        },
+        "purpose": "Observable list of active toasts"
+      },
+      {
+        "path": "tooltip/tooltip.component.html",
+        "name": "tooltip.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 1796,
+        "ngContent": [],
+        "ngIf": 1,
+        "ngFor": 0,
+        "aria": [],
+        "classes": [
+          "relative",
+          "flex",
+          "w-max",
+          "w-3",
+          "h-3",
+          "items-center",
+          "justify-center",
+          "bg-gray-500",
+          "rounded-md",
+          "ring-2",
+          "ring-transparent",
+          "hover:bg-gray-900",
+          "focus:bg-gray-900",
+          "focus:ring-gray-900/10",
+          "transition-all",
+          "duration-300",
+          "w-1.5",
+          "h-1.5",
+          "absolute"
+        ]
+      },
+      {
+        "path": "tooltip/tooltip.component.ts",
+        "name": "tooltip.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 1316,
+        "meta": {
+          "selector": "app-tooltip",
+          "className": "TooltipComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "text",
+              "alias": null,
+              "type": "string",
+              "default": "'Tooltip text'",
+              "required": false
+            },
+            {
+              "name": "position",
+              "alias": null,
+              "type": "'top' | 'bottom' | 'left' | 'right'",
+              "default": "'top'",
+              "required": false
+            },
+            {
+              "name": "theme",
+              "alias": null,
+              "type": "'dark' | 'light'",
+              "default": "'dark'",
+              "required": false
+            }
+          ],
+          "outputs": [],
+          "implements": [],
+          "cva": false,
+          "lifecycle": [],
+          "inject": [],
+          "methods": [
+            "toggleTooltip",
+            "onClickOutside"
+          ],
+          "hostListeners": [
+            "document:click"
+          ],
+          "a11y": [],
+          "componentImports": [
+            "CommonModule"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "tooltipHover/tooltip-hover.component.css",
+        "name": "tooltip-hover.component.css",
+        "types": [
+          "styles"
+        ],
+        "size": 97,
+        "design": {
+          "colors": [],
+          "varsUsed": [],
+          "varsDef": [],
+          "host": true,
+          "radii": [],
+          "fonts": [],
+          "pads": [],
+          "shadows": [],
+          "transitions": [],
+          "breakpoints": []
+        }
+      },
+      {
+        "path": "tooltipHover/tooltip-hover.component.html",
+        "name": "tooltip-hover.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 1303,
+        "ngContent": [
+          "default"
+        ],
+        "ngIf": 4,
+        "ngFor": 0,
+        "aria": [],
+        "classes": [
+          "relative",
+          "box-border",
+          "max-w-[min(20rem,calc(100vw-1rem))]",
+          "min-w-0",
+          "break-words",
+          "px-3",
+          "py-2",
+          "text-xs",
+          "font-onest",
+          "font-medium",
+          "leading-4",
+          "rounded-lg",
+          "shadow-md",
+          "mb-3",
+          "w-full",
+          "max-w-full",
+          "overflow-hidden",
+          "rounded-sm",
+          "h-auto",
+          "object-cover",
+          "text-gray-400",
+          "whitespace-pre-line",
+          "absolute",
+          "flex",
+          "cursor-pointer",
+          "flex-row",
+          "items-center",
+          "gap-2"
+        ]
+      },
+      {
+        "path": "tooltipHover/tooltip-hover.component.ts",
+        "name": "tooltip-hover.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 9794,
+        "meta": {
+          "selector": "app-tooltip-hover",
+          "className": "TooltipHoverComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "title",
+              "alias": null,
+              "type": null,
+              "default": "''",
+              "required": false
+            },
+            {
+              "name": "text",
+              "alias": null,
+              "type": null,
+              "default": "''",
+              "required": false
+            },
+            {
+              "name": "img",
+              "alias": null,
+              "type": null,
+              "default": "''",
+              "required": false
+            },
+            {
+              "name": "position",
+              "alias": null,
+              "type": "| 'top'\n    | 'bottom'\n    | 'left'\n    | 'right'\n    | 'top-left'\n    | 'top-right'\n    | 'bottom-left'\n    | 'bottom-right'",
+              "default": "'top'",
+              "required": false
+            },
+            {
+              "name": "theme",
+              "alias": null,
+              "type": "'dark' | 'light'",
+              "default": "'dark'",
+              "required": false
+            },
+            {
+              "name": "arrow",
+              "alias": null,
+              "type": null,
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "disabled",
+              "alias": null,
+              "type": null,
+              "default": "false",
+              "required": false
+            }
+          ],
+          "outputs": [],
+          "implements": [
+            "OnInit, OnChanges, OnDestroy"
+          ],
+          "cva": false,
+          "lifecycle": [
+            "ngOnInit",
+            "ngOnDestroy",
+            "ngOnChanges"
+          ],
+          "inject": [
+            "Overlay",
+            "ViewContainerRef",
+            "ElementRef",
+            "ChangeDetectorRef"
+          ],
+          "methods": [
+            "ngOnInit",
+            "ngOnChanges",
+            "ngOnDestroy",
+            "forceClose",
+            "hasPanelContent",
+            "clearHideTimer",
+            "scheduleHide",
+            "onTriggerMouseEnter",
+            "onTriggerMouseLeave",
+            "openOverlay",
+            "disposeOverlay",
+            "buildCdkPositions",
+            "buildCdkPositionsTopDefault"
+          ],
+          "hostListeners": [],
+          "a11y": [],
+          "componentImports": [
+            "CommonModule",
+            "OverlayModule"
+          ]
+        },
+        "purpose": "Only one CDK tooltip should stay open (sidebar nav, dense icon rows)."
+      },
+      {
+        "path": "videoPlayer/video-player.component.css",
+        "name": "video-player.component.css",
+        "types": [
+          "styles"
+        ],
+        "size": 1578,
+        "design": {
+          "colors": [],
+          "varsUsed": [],
+          "varsDef": [],
+          "host": true,
+          "radii": [
+            "8px",
+            "100px"
+          ],
+          "fonts": [],
+          "pads": [
+            "margin-left: 8px",
+            "margin: 0",
+            "margin-bottom: 20px"
+          ],
+          "shadows": [],
+          "transitions": [],
+          "breakpoints": []
+        }
+      },
+      {
+        "path": "videoPlayer/video-player.component.html",
+        "name": "video-player.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 133,
+        "ngContent": [],
+        "ngIf": 0,
+        "ngFor": 0,
+        "aria": [],
+        "classes": [
+          "video-js",
+          "vjs-default-skin",
+          "vjs-fluid"
+        ]
+      },
+      {
+        "path": "videoPlayer/video-player.component.ts",
+        "name": "video-player.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 4302,
+        "meta": {
+          "selector": "app-video-player",
+          "className": "VideoPlayerComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "videoSrc",
+              "alias": null,
+              "type": "string",
+              "default": "'/assets/video/IntroF1.mp4'",
+              "required": false
+            }
+          ],
+          "outputs": [],
+          "implements": [
+            "AfterViewInit, OnDestroy"
+          ],
+          "cva": false,
+          "lifecycle": [
+            "ngOnDestroy",
+            "ngAfterViewInit"
+          ],
+          "inject": [],
+          "methods": [
+            "ngAfterViewInit",
+            "loadVideoJsAssets",
+            "ngOnDestroy"
+          ],
+          "hostListeners": [],
+          "a11y": [],
+          "componentImports": [
+            "CommonModule"
+          ]
+        },
+        "purpose": null
+      }
+    ]
+  },
+  "agora": {
+    "project": "agora",
+    "baseDir": "c:\\Users\\user\\Documents\\Work-2\\agora-frontend\\src\\app\\common\\components\\base",
+    "items": [
+      {
+        "path": "alert/alert.component.css",
+        "name": "alert.component.css",
+        "types": [
+          "styles"
+        ],
+        "size": 28,
+        "design": {
+          "colors": [],
+          "varsUsed": [],
+          "varsDef": [],
+          "host": true,
+          "radii": [],
+          "fonts": [],
+          "pads": [],
+          "shadows": [],
+          "transitions": [],
+          "breakpoints": []
+        }
+      },
+      {
+        "path": "alert/alert.component.html",
+        "name": "alert.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 1478,
+        "ngContent": [
+          "default"
+        ],
+        "ngIf": 1,
+        "ngFor": 0,
+        "aria": [],
+        "classes": []
+      },
+      {
+        "path": "alert/alert.component.ts",
+        "name": "alert.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 1139,
+        "meta": {
+          "selector": "app-alert",
+          "className": "AlertComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "title",
+              "alias": null,
+              "type": "string",
+              "default": "'Alert title'",
+              "required": false
+            },
+            {
+              "name": "iconName",
+              "alias": null,
+              "type": "string",
+              "default": "'check-circle'",
+              "required": false
+            },
+            {
+              "name": "iconVariant",
+              "alias": null,
+              "type": "'solid' | 'outline' | 'mini' | 'micro'",
+              "default": "'outline'",
+              "required": false
+            },
+            {
+              "name": "variant",
+              "alias": null,
+              "type": "TVariants",
+              "default": "'default'",
+              "required": false
+            },
+            {
+              "name": "isRow",
+              "alias": null,
+              "type": "boolean",
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "isRowtext",
+              "alias": null,
+              "type": "boolean",
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "showCloseButton",
+              "alias": null,
+              "type": "boolean",
+              "default": "true",
+              "required": false
+            },
+            {
+              "name": "size",
+              "alias": null,
+              "type": "'base' | 'sm'",
+              "default": "'sm'",
+              "required": false
+            },
+            {
+              "name": "padding",
+              "alias": null,
+              "type": "'p-3' | 'p-4'",
+              "default": "'p-4'",
+              "required": false
+            }
+          ],
+          "outputs": [],
+          "implements": [],
+          "cva": false,
+          "lifecycle": [],
+          "inject": [],
+          "methods": [
+            "getAlertStyles"
+          ],
+          "hostListeners": [],
+          "a11y": [],
+          "componentImports": [
+            "NgClass",
+            "IconComponent",
+            "ButtonComponent",
+            "NgIf"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "alert/alert.ts",
+        "name": "alert.ts",
+        "types": [
+          "model"
+        ],
+        "size": 2386,
+        "exports": [
+          "Variants",
+          "TVariants",
+          "Colors",
+          "TColors",
+          "AlertStyles",
+          "AlertStylesMap"
+        ],
+        "snippets": {
+          "Variants": "(typeof Variants)[number]",
+          "TVariants": "(typeof Variants)[number]",
+          "Colors": "(typeof Colors)[number]",
+          "TColors": "(typeof Colors)[number]",
+          "AlertStylesMap": "{\n  default: {\n    background: 'bg-white shadow-md',\n    titleColor: 'text-gray-900',\n    textColor: 'text-gray-900',\n    iconColor: 'text-gray-900',\n    closeColor: 'gray',\n    buttonVariant: 'link',\n  },\n  gray: {\n    background: 'bg-gray-surface',\n    titleColor: 'text-gray-900',\n    textColor: '"
+        }
+      },
+      {
+        "path": "avatar/avatar.component.css",
+        "name": "avatar.component.css",
+        "types": [
+          "styles"
+        ],
+        "size": 37,
+        "design": {
+          "colors": [],
+          "varsUsed": [],
+          "varsDef": [],
+          "host": true,
+          "radii": [],
+          "fonts": [],
+          "pads": [],
+          "shadows": [],
+          "transitions": [],
+          "breakpoints": []
+        }
+      },
+      {
+        "path": "avatar/avatar.component.html",
+        "name": "avatar.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 1588,
+        "ngContent": [],
+        "ngIf": 5,
+        "ngFor": 0,
+        "aria": [],
+        "classes": [
+          "relative",
+          "inline-flex",
+          "rounded-full",
+          "items-center",
+          "justify-center",
+          "overflow-hidden",
+          "text-gray-700",
+          "font-semibold",
+          "w-full",
+          "h-full",
+          "object-cover",
+          "-mt-px",
+          "absolute",
+          "top-0",
+          "right-px",
+          "border-white",
+          "bottom-0"
+        ]
+      },
+      {
+        "path": "avatar/avatar.component.ts",
+        "name": "avatar.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 1950,
+        "meta": {
+          "selector": "app-avatar",
+          "className": "AvatarComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "firstName",
+              "alias": null,
+              "type": "string",
+              "default": "''",
+              "required": false
+            },
+            {
+              "name": "lastName",
+              "alias": null,
+              "type": "string",
+              "default": "''",
+              "required": false
+            },
+            {
+              "name": "size",
+              "alias": null,
+              "type": "keyof typeof AVATAR_SIZES",
+              "default": "'sm'",
+              "required": false
+            },
+            {
+              "name": "imgNotification",
+              "alias": null,
+              "type": "string",
+              "default": "''",
+              "required": false
+            },
+            {
+              "name": "topNotification",
+              "alias": null,
+              "type": "boolean",
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "bottomNotification",
+              "alias": null,
+              "type": "boolean",
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "topNotificationStatus",
+              "alias": null,
+              "type": "string",
+              "default": "'error'",
+              "required": false
+            },
+            {
+              "name": "bottomNotificationStatus",
+              "alias": null,
+              "type": "string",
+              "default": "'info'",
+              "required": false
+            },
+            {
+              "name": "containerClass",
+              "alias": null,
+              "type": "string",
+              "default": "''",
+              "required": false
+            },
+            {
+              "name": "variant",
+              "alias": null,
+              "type": "'default' | 'plain'",
+              "default": "'default'",
+              "required": false
+            }
+          ],
+          "outputs": [],
+          "implements": [
+            "OnChanges"
+          ],
+          "cva": false,
+          "lifecycle": [
+            "ngOnChanges"
+          ],
+          "inject": [],
+          "methods": [
+            "ngOnChanges",
+            "getInitials",
+            "shouldShowPlaceholder",
+            "shouldApplyDefaultPlaceholderStyles",
+            "getNotificationColor"
+          ],
+          "hostListeners": [],
+          "a11y": [],
+          "componentImports": [
+            "CommonModule"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "avatar/avatar.ts",
+        "name": "avatar.ts",
+        "types": [
+          "model"
+        ],
+        "size": 1101,
+        "exports": [
+          "AvatarSize",
+          "AVATAR_SIZES",
+          "Colors",
+          "TColors"
+        ],
+        "snippets": {
+          "AVATAR_SIZES": "{\n  xxs: {\n    container: 'w-5 h-5',\n    notification: 'w-1.5 h-1.5 border',\n    text: 'text-xs leading-4',\n  },\n  xs: {\n    container: 'w-6 h-6',\n    notification: 'w-1.5 h-1.5 border',\n    text: 'text-xs leading-4',\n  },\n  sm: {\n    container: 'w-8 h-8',\n    notification: 'w-2 h-2 border',\n    tex",
+          "Colors": "(typeof Colors)[number]",
+          "TColors": "(typeof Colors)[number]"
+        }
+      },
+      {
+        "path": "avatarGroup/avatar-group.component.html",
+        "name": "avatar-group.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 1074,
+        "ngContent": [],
+        "ngIf": 2,
+        "ngFor": 1,
+        "aria": [],
+        "classes": [
+          "flex",
+          "items-center",
+          "relative",
+          "w-full",
+          "h-full",
+          "object-cover",
+          "absolute",
+          "top-0",
+          "left-0",
+          "justify-center",
+          "bg-gray-300",
+          "text-white",
+          "rounded-full",
+          "border",
+          "border-gray-100",
+          "inline-flex",
+          "bg-gray-50",
+          "text-gray-700",
+          "font-semibold",
+          "-mt-0.5"
+        ]
+      },
+      {
+        "path": "avatarGroup/avatar-group.component.ts",
+        "name": "avatar-group.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 1036,
+        "meta": {
+          "selector": "app-avatar-group",
+          "className": "AvatarGroupComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "max",
+              "alias": null,
+              "type": "number",
+              "default": "4",
+              "required": false
+            },
+            {
+              "name": "size",
+              "alias": null,
+              "type": "keyof typeof this.AVATAR_SIZES",
+              "default": "'md'",
+              "required": false
+            },
+            {
+              "name": "reverse",
+              "alias": null,
+              "type": "boolean",
+              "default": "false",
+              "required": false
+            }
+          ],
+          "outputs": [],
+          "implements": [
+            "OnChanges"
+          ],
+          "cva": false,
+          "lifecycle": [
+            "ngOnChanges"
+          ],
+          "inject": [],
+          "methods": [
+            "ngOnChanges"
+          ],
+          "hostListeners": [],
+          "a11y": [],
+          "componentImports": [
+            "NgForOf",
+            "NgIf",
+            "NgClass",
+            "NgStyle"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "badge/badge.component.css",
+        "name": "badge.component.css",
+        "types": [
+          "styles"
+        ],
+        "size": 77,
+        "design": {
+          "colors": [],
+          "varsUsed": [],
+          "varsDef": [],
+          "host": true,
+          "radii": [],
+          "fonts": [],
+          "pads": [],
+          "shadows": [],
+          "transitions": [],
+          "breakpoints": []
+        }
+      },
+      {
+        "path": "badge/badge.component.html",
+        "name": "badge.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 1603,
+        "ngContent": [
+          "app-icon",
+          "default"
+        ],
+        "ngIf": 7,
+        "ngFor": 0,
+        "aria": [],
+        "classes": [
+          "inline-flex",
+          "items-center",
+          "font-medium",
+          "w-4",
+          "h-4",
+          "rounded-full",
+          "mr-0.5",
+          "object-cover",
+          "hover:bg-green-50",
+          "transition-all",
+          "duration-300",
+          "ml-0.5"
+        ]
+      },
+      {
+        "path": "badge/badge.component.ts",
+        "name": "badge.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 3271,
+        "meta": {
+          "selector": "app-badge",
+          "className": "BadgeComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "iconClickable",
+              "alias": null,
+              "type": null,
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "iconDirection",
+              "alias": null,
+              "type": "TIconDirectionLR",
+              "default": "'left'",
+              "required": false
+            },
+            {
+              "name": "iconVariant",
+              "alias": null,
+              "type": "TIconVariant",
+              "default": "'solid'",
+              "required": false
+            },
+            {
+              "name": "color",
+              "alias": null,
+              "type": "TColors",
+              "default": "'gray'",
+              "required": false
+            },
+            {
+              "name": "size",
+              "alias": null,
+              "type": "TSizes",
+              "default": "'sm'",
+              "required": false
+            },
+            {
+              "name": "border",
+              "alias": null,
+              "type": null,
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "rounded",
+              "alias": null,
+              "type": null,
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "disabled",
+              "alias": null,
+              "type": null,
+              "default": "false",
+              "required": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "iconClick",
+              "alias": null,
+              "type": "void"
+            }
+          ],
+          "implements": [],
+          "cva": false,
+          "lifecycle": [],
+          "inject": [],
+          "methods": [
+            "getClassObject",
+            "onIconClick"
+          ],
+          "hostListeners": [],
+          "a11y": [],
+          "componentImports": [
+            "NgIf",
+            "NgClass",
+            "IconComponent"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "badge/badge.ts",
+        "name": "badge.ts",
+        "types": [
+          "model"
+        ],
+        "size": 610,
+        "exports": [
+          "Colors",
+          "TColors",
+          "Sizes",
+          "TSizes",
+          "classes"
+        ],
+        "snippets": {
+          "Colors": "(typeof Colors)[number]",
+          "TColors": "(typeof Colors)[number]",
+          "Sizes": "(typeof Sizes)[number]",
+          "TSizes": "(typeof Sizes)[number]"
+        }
+      },
+      {
+        "path": "button/button.component.css",
+        "name": "button.component.css",
+        "types": [
+          "styles"
+        ],
+        "size": 161,
+        "design": {
+          "colors": [],
+          "varsUsed": [],
+          "varsDef": [],
+          "host": true,
+          "radii": [],
+          "fonts": [],
+          "pads": [],
+          "shadows": [],
+          "transitions": [],
+          "breakpoints": []
+        }
+      },
+      {
+        "path": "button/button.component.html",
+        "name": "button.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 876,
+        "ngContent": [
+          "default"
+        ],
+        "ngIf": 4,
+        "ngFor": 0,
+        "aria": [],
+        "classes": []
+      },
+      {
+        "path": "button/button.component.ts",
+        "name": "button.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 2497,
+        "meta": {
+          "selector": "app-button",
+          "className": "ButtonComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "label",
+              "alias": null,
+              "type": null,
+              "default": "''",
+              "required": false
+            },
+            {
+              "name": "variant",
+              "alias": null,
+              "type": "TVariants",
+              "default": "'primary'",
+              "required": false
+            },
+            {
+              "name": "size",
+              "alias": null,
+              "type": "keyof typeof sizes.buttonSize.default",
+              "default": "'md'",
+              "required": false
+            },
+            {
+              "name": "type",
+              "alias": null,
+              "type": "'button' | 'submit' | 'reset'",
+              "default": "'button'",
+              "required": false
+            },
+            {
+              "name": "iconDirection",
+              "alias": null,
+              "type": "TIconDirectionLR",
+              "default": "'right'",
+              "required": false
+            },
+            {
+              "name": "disabled",
+              "alias": null,
+              "type": null,
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "rounded",
+              "alias": null,
+              "type": null,
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "color",
+              "alias": null,
+              "type": "'gray' | 'red' | 'yellow' | 'green' | 'blue' | 'purple'",
+              "default": "'gray'",
+              "required": false
+            },
+            {
+              "name": "fullWidth",
+              "alias": null,
+              "type": null,
+              "default": "false",
+              "required": false
+            }
+          ],
+          "outputs": [],
+          "implements": [],
+          "cva": false,
+          "lifecycle": [],
+          "inject": [],
+          "methods": [
+            "capitalizeFirstLetter"
+          ],
+          "hostListeners": [],
+          "a11y": [],
+          "componentImports": [
+            "NgIf",
+            "NgClass",
+            "IconComponent"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "button/button.ts",
+        "name": "button.ts",
+        "types": [
+          "model"
+        ],
+        "size": 9345,
+        "exports": [
+          "Variants",
+          "TVariants",
+          "sizes",
+          "classes",
+          "Colors",
+          "TColors"
+        ],
+        "snippets": {
+          "Variants": "(typeof Variants)[number]",
+          "TVariants": "(typeof Variants)[number]",
+          "sizes": "{\r\n  common:\r\n    'inline-flex space-x-2 items-center justify-center font-onest font-semibold text-center whitespace-nowrap transition-colors duration-300 ring-2 ring-transparent',\r\n  rounded: 'rounded-full',\r\n  colors: {\r\n    gray: {\r\n      primary: `text-white bg-gray-900 hover:bg-gray-700 focus:r",
+          "classes": "['gray', 'red', 'yellow', 'green', 'blue', 'purple', 'transparent'] as const",
+          "Colors": "(typeof Colors)[number]",
+          "TColors": "(typeof Colors)[number]"
+        }
+      },
+      {
+        "path": "buttonGroup/button-group.component.html",
+        "name": "button-group.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 194,
+        "ngContent": [
+          "default"
+        ],
+        "ngIf": 0,
+        "ngFor": 0,
+        "aria": [],
+        "classes": []
+      },
+      {
+        "path": "buttonGroup/button-group.component.ts",
+        "name": "button-group.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 304,
+        "meta": {
+          "selector": "app-button-group",
+          "className": "ButtonGroupComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "line",
+              "alias": null,
+              "type": "boolean",
+              "default": "false",
+              "required": false
+            }
+          ],
+          "outputs": [],
+          "implements": [],
+          "cva": false,
+          "lifecycle": [],
+          "inject": [],
+          "methods": [],
+          "hostListeners": [],
+          "a11y": [],
+          "componentImports": [
+            "NgClass"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "card/card.component.html",
+        "name": "card.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 27325,
+        "ngContent": [],
+        "ngIf": 46,
+        "ngFor": 0,
+        "aria": [
+          "aria-expanded",
+          "aria-haspopup=\"menu\"",
+          "aria-expanded",
+          "aria-haspopup=\"menu\"",
+          "aria-expanded",
+          "aria-haspopup=\"menu\"",
+          "role=\"menu\"",
+          "role=\"menu\"",
+          "role=\"menuitem\"",
+          "role=\"menuitem\"",
+          "role=\"menuitem\"",
+          "role=\"menuitem\"",
+          "role=\"menuitem\"",
+          "role=\"menuitem\"",
+          "role=\"menuitem\"",
+          "role=\"menuitem\"",
+          "role=\"menuitem\"",
+          "role=\"menuitem\"",
+          "role=\"menuitem\"",
+          "role=\"menuitem\"",
+          "role=\"menuitem\"",
+          "role=\"menuitem\""
+        ],
+        "classes": [
+          "w-full",
+          "flex",
+          "flex-col",
+          "pb-4",
+          "mb-1",
+          "items-center",
+          "gap-1",
+          "font-medium",
+          "text-gray-900",
+          "text-xs",
+          "font-onest",
+          "leading-4",
+          "tracking-[-0.18px]",
+          "hover:underline",
+          "cursor-pointer",
+          "text-gray-600",
+          "gap-2",
+          "items-start",
+          "justify-between",
+          "gap-4",
+          "min-w-40",
+          "gap-3",
+          "min-w-0",
+          "font-lora",
+          "line-clamp-3",
+          "mt-3",
+          "overflow-hidden",
+          "text-ellipsis",
+          "break-words",
+          "truncate",
+          "mr-2",
+          "inline-block",
+          "w-0.5",
+          "h-0.5",
+          "bg-gray-500",
+          "rounded-full",
+          "align-middle",
+          "pr-1",
+          "shrink-0",
+          "ml-auto",
+          "hidden",
+          "md:block",
+          "w-8",
+          "h-8",
+          "group",
+          "justify-center",
+          "hover:bg-gray-900/5",
+          "focus:bg-gray-900/5",
+          "ring-2",
+          "ring-transparent",
+          "focus:ring-gray-900/10",
+          "focus:ring-offset-1",
+          "focus:ring-offset-cFFFFFA",
+          "transition-all",
+          "duration-300",
+          "w-4",
+          "h-4",
+          "group-hover:!text-gray-900",
+          "group-focus:!text-gray-900",
+          "text-gray-500"
+        ]
+      },
+      {
+        "path": "card/card.component.ts",
+        "name": "card.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 26951,
+        "meta": {
+          "selector": "app-card",
+          "className": "CardComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "publisher",
+              "alias": null,
+              "type": "string",
+              "default": "''",
+              "required": false
+            },
+            {
+              "name": "author",
+              "alias": null,
+              "type": "string",
+              "default": "''",
+              "required": false
+            },
+            {
+              "name": "link",
+              "alias": null,
+              "type": "string",
+              "default": "'#'",
+              "required": false
+            },
+            {
+              "name": "variant",
+              "alias": null,
+              "type": "CardVariant",
+              "default": "'col'",
+              "required": false
+            },
+            {
+              "name": "size",
+              "alias": null,
+              "type": "CardSize",
+              "default": "'xl'",
+              "required": false
+            },
+            {
+              "name": "rowImageHeightMode",
+              "alias": null,
+              "type": "RowImageHeightMode",
+              "default": "'fixed'",
+              "required": false
+            },
+            {
+              "name": "rowIdentityPosition",
+              "alias": null,
+              "type": "RowIdentityPosition",
+              "default": "'top'",
+              "required": false
+            },
+            {
+              "name": "rowMetaLayout",
+              "alias": null,
+              "type": "RowMetaLayout",
+              "default": "'split'",
+              "required": false
+            },
+            {
+              "name": "rowImageAspect",
+              "alias": null,
+              "type": "RowImageAspect",
+              "default": "'1/1'",
+              "required": false
+            },
+            {
+              "name": "showBottomBorder",
+              "alias": null,
+              "type": "boolean",
+              "default": "true",
+              "required": false
+            },
+            {
+              "name": "isLoading",
+              "alias": null,
+              "type": "boolean",
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "metricsType",
+              "alias": null,
+              "type": "boolean",
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "openArticleId",
+              "alias": null,
+              "type": "number | string | null",
+              "default": "null",
+              "required": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "openArticle",
+              "alias": null,
+              "type": "string | number | null"
+            }
+          ],
+          "implements": [
+            "OnInit, OnDestroy"
+          ],
+          "cva": false,
+          "lifecycle": [
+            "ngOnInit",
+            "ngOnDestroy"
+          ],
+          "inject": [
+            "ChangeDetectorRef",
+            "Router",
+            "SavedCardsService",
+            "FollowStateService",
+            "ViewHistoryService"
+          ],
+          "methods": [
+            "ngOnInit",
+            "navigateToPublisher",
+            "navigateToAuthor",
+            "onTitleClick",
+            "onPopoverUrmaresteClick",
+            "normalizeSize",
+            "getImgClass",
+            "getTitleClass",
+            "getSubtitleClass",
+            "getDateClass",
+            "getRowImageAspectClass",
+            "aspectClass",
+            "aspectClassMd",
+            "showRowIdentityOnTop",
+            "showRowIdentityOnBottom",
+            "includeOnMainUrl",
+            "recordView",
+            "toggleWatchLater",
+            "toggleSaveToList",
+            "togglePublisherFollowFromMenu",
+            "toggleAuthorFollowFromMenu",
+            "onWatchLaterMenuClick",
+            "onSaveToListMenuClick",
+            "onShareMenuClick",
+            "onCopyLinkMenuClick",
+            "onReportMenuClick",
+            "onImageError",
+            "onImageLoad",
+            "getImageSrc",
+            "onPublisherHover",
+            "onAuthorHover",
+            "onTriggerLeave",
+            "keepPopoverOpen",
+            "scheduleClosePopover",
+            "toggleMoreMenu",
+            "closeMoreMenu",
+            "onDocumentClick",
+            "onEscape",
+            "onWindowResize",
+            "ngOnDestroy",
+            "forceCloseMenu",
+            "bindMoreMenuPosition",
+            "cleanupMoreMenuPositioning",
+            "openMobileMoreSheet",
+            "closeMobileMoreSheet",
+            "clearMobileMoreSheetCloseTimer",
+            "showPopover",
+            "bindPopoverPosition",
+            "cleanupPopoverPositioning",
+            "clearPopoverCloseTimer",
+            "applyFallbackImage",
+            "getViewportWidth",
+            "hydrateActionState",
+            "subscribeToSavedState",
+            "subscribeToFollowState",
+            "buildSavedEntry",
+            "getEntityKey",
+            "getPublisherSlug",
+            "getAuthorSlug",
+            "resolveShareUrl",
+            "copyTextToClipboard"
+          ],
+          "hostListeners": [
+            "document:click",
+            "document:keydown.escape",
+            "window:resize"
+          ],
+          "a11y": [
+            "ts-a11y-patterns"
+          ],
+          "componentImports": [
+            "NgIf",
+            "NgClass",
+            "NgTemplateOutlet",
+            "ArticlecardReactionsComponent",
+            "AvatarComponent",
+            "ButtonComponent",
+            "IconComponent",
+            "TooltipHoverComponent"
+          ]
+        },
+        "purpose": "Optional aspect override applied at Tailwind `md` breakpoint and up."
+      },
+      {
+        "path": "carousel/swiper.component.css",
+        "name": "swiper.component.css",
+        "types": [
+          "styles"
+        ],
+        "size": 842,
+        "design": {
+          "colors": [],
+          "varsUsed": [],
+          "varsDef": [],
+          "host": false,
+          "radii": [],
+          "fonts": [],
+          "pads": [
+            "margin: auto"
+          ],
+          "shadows": [],
+          "transitions": [],
+          "breakpoints": [
+            "@media (min-width: 640px)",
+            "@media (min-width: 768px)",
+            "@media (min-width: 1024px)"
+          ]
+        }
+      },
+      {
+        "path": "carousel/swiper.component.html",
+        "name": "swiper.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 2503,
+        "ngContent": [
+          "default"
+        ],
+        "ngIf": 0,
+        "ngFor": 0,
+        "aria": [],
+        "classes": [
+          "relative",
+          "w-full",
+          "h-full",
+          "swiper-button-prev",
+          "cursor-pointer",
+          "absolute",
+          "top-1/2",
+          "transform",
+          "-translate-y-1/2",
+          "z-10",
+          "bg-gray-50",
+          "rounded-full",
+          "border",
+          "border-gray-100",
+          "group",
+          "hover:bg-gray-900",
+          "hover:border-gray-900",
+          "transition-all",
+          "duration-300",
+          "fill-gray-500",
+          "group-hover:fill-white",
+          "swiper-button-next"
+        ]
+      },
+      {
+        "path": "carousel/swiper.component.ts",
+        "name": "swiper.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 831,
+        "meta": {
+          "selector": "app-swiper",
+          "className": "SwiperComponent",
+          "standalone": true,
+          "inputs": [],
+          "outputs": [],
+          "implements": [
+            "AfterViewInit"
+          ],
+          "cva": false,
+          "lifecycle": [
+            "ngAfterViewInit"
+          ],
+          "inject": [],
+          "methods": [
+            "ngAfterViewInit",
+            "prevSlide",
+            "nextSlide"
+          ],
+          "hostListeners": [],
+          "a11y": []
+        },
+        "purpose": null
+      },
+      {
+        "path": "checkbox/checkbox.component.css",
+        "name": "checkbox.component.css",
+        "types": [
+          "styles"
+        ],
+        "size": 250,
+        "design": {
+          "colors": [
+            "#fffffa",
+            "#121212"
+          ],
+          "varsUsed": [],
+          "varsDef": [],
+          "host": true,
+          "radii": [],
+          "fonts": [],
+          "pads": [],
+          "shadows": [
+            "0 0 0 1px #121212"
+          ],
+          "transitions": [],
+          "breakpoints": []
+        }
+      },
+      {
+        "path": "checkbox/checkbox.component.html",
+        "name": "checkbox.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 603,
+        "ngContent": [],
+        "ngIf": 2,
+        "ngFor": 0,
+        "aria": [],
+        "classes": [
+          "text-gray-900",
+          "text-gray-500"
+        ]
+      },
+      {
+        "path": "checkbox/checkbox.component.ts",
+        "name": "checkbox.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 2135,
+        "meta": {
+          "selector": "app-checkbox",
+          "className": "CheckboxComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "type",
+              "alias": null,
+              "type": "'checkbox' | 'radio'",
+              "default": "'checkbox'",
+              "required": false
+            },
+            {
+              "name": "rounded",
+              "alias": null,
+              "type": "boolean",
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "checked",
+              "alias": null,
+              "type": "boolean",
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "disabled",
+              "alias": null,
+              "type": "boolean",
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "indeterminate",
+              "alias": null,
+              "type": "boolean",
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "variant",
+              "alias": null,
+              "type": "'default' | 'error'",
+              "default": "'default'",
+              "required": false
+            },
+            {
+              "name": "title",
+              "alias": null,
+              "type": "string",
+              "default": "''",
+              "required": false
+            },
+            {
+              "name": "description",
+              "alias": null,
+              "type": "string",
+              "default": "''",
+              "required": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "checkedChange",
+              "alias": null,
+              "type": "boolean"
+            }
+          ],
+          "implements": [
+            "OnChanges"
+          ],
+          "cva": false,
+          "lifecycle": [
+            "ngOnChanges"
+          ],
+          "inject": [
+            "ElementRef",
+            "Renderer2"
+          ],
+          "methods": [
+            "ngOnChanges",
+            "onInputChange"
+          ],
+          "hostListeners": [],
+          "a11y": [],
+          "componentImports": [
+            "NgIf",
+            "NgClass"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "dotPulse/pulse-dot.component.html",
+        "name": "pulse-dot.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 234,
+        "ngContent": [],
+        "ngIf": 0,
+        "ngFor": 0,
+        "aria": [],
+        "classes": [
+          "relative",
+          "flex",
+          "size-3",
+          "absolute",
+          "inline-flex",
+          "h-full",
+          "w-full",
+          "animate-ping",
+          "rounded-full",
+          "bg-red-400",
+          "opacity-75",
+          "bg-red-500"
+        ]
+      },
+      {
+        "path": "dotPulse/pulse-dot.component.ts",
+        "name": "pulse-dot.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 188,
+        "meta": {
+          "selector": "app-pulse-dot",
+          "className": "PulseDotComponent",
+          "standalone": true,
+          "inputs": [],
+          "outputs": [],
+          "implements": [],
+          "cva": false,
+          "lifecycle": [],
+          "inject": [],
+          "methods": [],
+          "hostListeners": [],
+          "a11y": []
+        },
+        "purpose": null
+      },
+      {
+        "path": "dropdown/dropdown.component.html",
+        "name": "dropdown.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 1314,
+        "ngContent": [],
+        "ngIf": 2,
+        "ngFor": 2,
+        "aria": [],
+        "classes": [
+          "relative",
+          "inline-block",
+          "text-left",
+          "w-4",
+          "h-4",
+          "text-gray-500",
+          "absolute",
+          "my-2",
+          "z-50",
+          "min-w-28",
+          "w-fit",
+          "rounded-md",
+          "bg-cFFFFFA",
+          "border",
+          "border-gray-100",
+          "divide-y",
+          "divide-gray-900/10",
+          "py-1",
+          "px-3",
+          "py-2",
+          "text-xs",
+          "leading-4",
+          "font-onest",
+          "text-gray-400",
+          "block",
+          "pl-2",
+          "pr-6",
+          "transition-all",
+          "duration-300",
+          "text-sm",
+          "leading-5",
+          "font-medium",
+          "text-gray-900",
+          "hover:bg-gray-100",
+          "cursor-pointer"
+        ]
+      },
+      {
+        "path": "dropdown/dropdown.component.ts",
+        "name": "dropdown.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 2783,
+        "meta": {
+          "selector": "app-dropdown",
+          "className": "DropdownComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "title",
+              "alias": null,
+              "type": "string",
+              "default": "'Меню'",
+              "required": false
+            },
+            {
+              "name": "sizeVariant",
+              "alias": null,
+              "type": "'xl' | 'lg' | 'md' | 'sm'",
+              "default": "'xl'",
+              "required": false
+            }
+          ],
+          "outputs": [],
+          "implements": [
+            "AfterViewInit"
+          ],
+          "cva": false,
+          "lifecycle": [
+            "ngAfterViewInit"
+          ],
+          "inject": [
+            "ElementRef"
+          ],
+          "methods": [
+            "ngAfterViewInit",
+            "toggleDropdown",
+            "closeDropdown",
+            "calculatePosition",
+            "onWindowResize",
+            "onClickOutside"
+          ],
+          "hostListeners": [
+            "window:resize",
+            "document:click"
+          ],
+          "a11y": [],
+          "componentImports": [
+            "NgIf",
+            "NgForOf",
+            "NgClass",
+            "NgStyle",
+            "IconComponent"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "icons/icon.component.css",
+        "name": "icon.component.css",
+        "types": [
+          "styles"
+        ],
+        "size": 120,
+        "design": {
+          "colors": [],
+          "varsUsed": [],
+          "varsDef": [],
+          "host": true,
+          "radii": [],
+          "fonts": [],
+          "pads": [],
+          "shadows": [],
+          "transitions": [],
+          "breakpoints": []
+        }
+      },
+      {
+        "path": "icons/icon.component.ts",
+        "name": "icon.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 1058,
+        "meta": {
+          "selector": "app-icon",
+          "className": "IconComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "type",
+              "alias": null,
+              "type": "TIconVariant",
+              "default": "'outline'",
+              "required": false
+            },
+            {
+              "name": "direction",
+              "alias": null,
+              "type": "TIconDirectionLR",
+              "default": "'left'",
+              "required": false
+            }
+          ],
+          "outputs": [],
+          "implements": [],
+          "cva": false,
+          "lifecycle": [],
+          "inject": [],
+          "methods": [
+            "getIconPath"
+          ],
+          "hostListeners": [],
+          "a11y": [
+            "ts-a11y-patterns"
+          ],
+          "componentImports": [
+            "CommonModule"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "icons/icon.ts",
+        "name": "icon.ts",
+        "types": [
+          "model"
+        ],
+        "size": 300,
+        "exports": [
+          "TIconName",
+          "IconVariant",
+          "TIconVariant",
+          "IconDirectionLR",
+          "TIconDirectionLR"
+        ],
+        "snippets": {
+          "TIconName": "string",
+          "IconVariant": "(typeof IconVariant)[number]",
+          "TIconVariant": "(typeof IconVariant)[number]",
+          "IconDirectionLR": "(typeof IconDirectionLR)[number]",
+          "TIconDirectionLR": "(typeof IconDirectionLR)[number]"
+        }
+      },
+      {
+        "path": "input/input.component.css",
+        "name": "input.component.css",
+        "types": [
+          "styles"
+        ],
+        "size": 701,
+        "design": {
+          "colors": [],
+          "varsUsed": [],
+          "varsDef": [],
+          "host": true,
+          "radii": [
+            "0"
+          ],
+          "fonts": [],
+          "pads": [
+            "padding-top: 0",
+            "padding-right: 0",
+            "padding-bottom: 0",
+            "padding-left: 0"
+          ],
+          "shadows": [],
+          "transitions": [],
+          "breakpoints": []
+        }
+      },
+      {
+        "path": "input/input.component.html",
+        "name": "input.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 3058,
+        "ngContent": [],
+        "ngIf": 8,
+        "ngFor": 0,
+        "aria": [],
+        "classes": [
+          "w-full",
+          "min-w-0",
+          "flex",
+          "flex-col",
+          "gap-2",
+          "block",
+          "text-sm",
+          "font-onest",
+          "leading-5",
+          "font-medium",
+          "text-gray-900",
+          "dark:text-gray-50",
+          "items-center",
+          "bg-cFFFFFA",
+          "dark:bg-gray-900/5",
+          "shadow-xs",
+          "relative",
+          "transition-opacity",
+          "duration-150",
+          "border-l",
+          "border-y",
+          "border-gray-200",
+          "rounded-l-md",
+          "absolute",
+          "left-3",
+          "text-gray-500",
+          "pointer-events-none",
+          "whitespace-nowrap",
+          "left-1",
+          "top-1/2",
+          "-translate-y-1/2",
+          "w-5",
+          "h-5",
+          "transition-none",
+          "dark:text-gray-400",
+          "border-r",
+          "rounded-r-md",
+          "text-xs",
+          "leading-4"
+        ]
+      },
+      {
+        "path": "input/input.component.ts",
+        "name": "input.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 5669,
+        "meta": {
+          "selector": "app-input-field",
+          "className": "InputFieldComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "label",
+              "alias": null,
+              "type": null,
+              "default": "''",
+              "required": false
+            },
+            {
+              "name": "helperText",
+              "alias": null,
+              "type": null,
+              "default": "''",
+              "required": false
+            },
+            {
+              "name": "type",
+              "alias": null,
+              "type": "'text' | 'email' | 'password' | 'search'",
+              "default": "'text'",
+              "required": false
+            },
+            {
+              "name": "placeholder",
+              "alias": null,
+              "type": null,
+              "default": "''",
+              "required": false
+            },
+            {
+              "name": "iconButton",
+              "alias": null,
+              "type": null,
+              "default": "''",
+              "required": false
+            },
+            {
+              "name": "error",
+              "alias": null,
+              "type": null,
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "size",
+              "alias": null,
+              "type": "'sm' | 'md' | 'lg'",
+              "default": "'lg'",
+              "required": false
+            },
+            {
+              "name": "withButton",
+              "alias": null,
+              "type": "'left' | 'right' | null",
+              "default": "null",
+              "required": false
+            },
+            {
+              "name": "buttonLabel",
+              "alias": null,
+              "type": null,
+              "default": "''",
+              "required": false
+            },
+            {
+              "name": "prefix",
+              "alias": null,
+              "type": null,
+              "default": "''",
+              "required": false
+            },
+            {
+              "name": "disabled",
+              "alias": null,
+              "type": null,
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "pill",
+              "alias": null,
+              "type": null,
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "appearance",
+              "alias": null,
+              "type": "'default' | 'laziarPanel'",
+              "default": "'default'",
+              "required": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "valueChange",
+              "alias": null,
+              "type": "string"
+            }
+          ],
+          "implements": [
+            "ControlValueAccessor"
+          ],
+          "cva": true,
+          "lifecycle": [
+            "ngOnInit"
+          ],
+          "inject": [],
+          "methods": [
+            "ngOnInit",
+            "togglePasswordVisibility",
+            "writeValue",
+            "setDisabledState",
+            "onInput",
+            "clearSearch"
+          ],
+          "hostListeners": [],
+          "a11y": [],
+          "componentImports": [
+            "CommonModule",
+            "FormsModule",
+            "ButtonComponent",
+            "TooltipHoverComponent",
+            "IconComponent"
+          ]
+        },
+        "purpose": "Full pill rounding for search-style fields (matches rounded-full)."
+      },
+      {
+        "path": "input/input.ts",
+        "name": "input.ts",
+        "types": [
+          "model"
+        ],
+        "size": 95,
+        "exports": [
+          "Colors",
+          "TColors"
+        ],
+        "snippets": {
+          "Colors": "(typeof Colors)[number]",
+          "TColors": "(typeof Colors)[number]"
+        }
+      },
+      {
+        "path": "languageDropdown/language-dropdown.component.html",
+        "name": "language-dropdown.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 2664,
+        "ngContent": [],
+        "ngIf": 2,
+        "ngFor": 1,
+        "aria": [],
+        "classes": [
+          "relative",
+          "inline-block",
+          "text-left",
+          "flex",
+          "items-center",
+          "gap-1",
+          "px-0.5",
+          "group",
+          "rounded-full",
+          "focus:outline-none",
+          "border-2",
+          "border-transparent",
+          "focus:border-gray-900/10",
+          "transition-colors",
+          "duration-300",
+          "w-4",
+          "h-4",
+          "text-xs",
+          "transition-color",
+          "text-gray-600",
+          "group-hover:text-gray-900",
+          "focus:text-gray-200",
+          "dark:text-gray-200",
+          "dark:group-hover:text-gray-50",
+          "dark:focus:text-gray-50",
+          "w-3",
+          "h-3",
+          "transition-transform",
+          "text-gray-500",
+          "dark:text-gray-400",
+          "dark:focus:text-gray-400",
+          "absolute",
+          "right-0",
+          "bottom-full",
+          "mb-2",
+          "w-40",
+          "bg-cFFFFFA",
+          "border",
+          "border-gray-100",
+          "dark:border-gray-700",
+          "rounded-lg",
+          "shadow-2xl",
+          "z-10",
+          "py-2",
+          "gap-2",
+          "px-2",
+          "py-1",
+          "cursor-pointer",
+          "hover:bg-gray-100",
+          "dark:hover:bg-gray-600",
+          "w-5",
+          "h-5",
+          "text-sm",
+          "text-gray-900",
+          "dark:text-gray-50",
+          "font-medium",
+          "ml-auto",
+          "fill-gray-500",
+          "dark:fill-gray-400"
+        ]
+      },
+      {
+        "path": "languageDropdown/language-dropdown.component.ts",
+        "name": "language-dropdown.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 2901,
+        "meta": {
+          "selector": "app-language-dropdown",
+          "className": "LanguageDropdownComponent",
+          "standalone": true,
+          "inputs": [],
+          "outputs": [],
+          "implements": [],
+          "cva": false,
+          "lifecycle": [
+            "ngOnDestroy"
+          ],
+          "inject": [],
+          "methods": [
+            "toggleDropdown",
+            "handleOutsideClick",
+            "selectLanguage",
+            "setLanguage",
+            "getLanguageInitials",
+            "isCurrentLanguage",
+            "ngOnDestroy"
+          ],
+          "hostListeners": [],
+          "a11y": [],
+          "componentImports": [
+            "NgIf",
+            "NgForOf",
+            "NgClass",
+            "IconComponent"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "loading/loading.component.css",
+        "name": "loading.component.css",
+        "types": [
+          "styles"
+        ],
+        "size": 798,
+        "design": {
+          "colors": [],
+          "varsUsed": [],
+          "varsDef": [],
+          "host": false,
+          "radii": [],
+          "fonts": [],
+          "pads": [],
+          "shadows": [],
+          "transitions": [],
+          "breakpoints": []
+        }
+      },
+      {
+        "path": "loading/loading.component.html",
+        "name": "loading.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 741,
+        "ngContent": [],
+        "ngIf": 2,
+        "ngFor": 1,
+        "aria": [],
+        "classes": [
+          "inline-flex",
+          "justify-center",
+          "items-center",
+          "relative",
+          "absolute",
+          "rounded-full"
+        ]
+      },
+      {
+        "path": "loading/loading.component.ts",
+        "name": "loading.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 1566,
+        "meta": {
+          "selector": "app-loading",
+          "className": "LoadingComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "color",
+              "alias": null,
+              "type": "'black' | 'red'",
+              "default": "'black'",
+              "required": false
+            },
+            {
+              "name": "size",
+              "alias": null,
+              "type": "'sm' | 'md' | 'lg' | 'xl'",
+              "default": "'xl'",
+              "required": false
+            },
+            {
+              "name": "variant",
+              "alias": null,
+              "type": "'spinner' | 'dot'",
+              "default": "'spinner'",
+              "required": false
+            }
+          ],
+          "outputs": [],
+          "implements": [],
+          "cva": false,
+          "lifecycle": [],
+          "inject": [],
+          "methods": [
+            "getTailwindDotStyle",
+            "getDotAnimation"
+          ],
+          "hostListeners": [],
+          "a11y": [],
+          "componentImports": [
+            "NgIf",
+            "NgForOf",
+            "NgClass",
+            "NgStyle"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "progressCircle/progress-circle.component.html",
+        "name": "progress-circle.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 1521,
+        "ngContent": [],
+        "ngIf": 0,
+        "ngFor": 0,
+        "aria": [],
+        "classes": [
+          "relative",
+          "inline-block",
+          "transition-all",
+          "duration-500",
+          "absolute",
+          "inset-0",
+          "flex",
+          "items-center",
+          "justify-center",
+          "font-semibold",
+          "font-onest"
+        ]
+      },
+      {
+        "path": "progressCircle/progress-circle.component.ts",
+        "name": "progress-circle.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 1204,
+        "meta": {
+          "selector": "app-progress-circle",
+          "className": "ProgressCircleComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "progress",
+              "alias": null,
+              "type": null,
+              "default": "75",
+              "required": false
+            },
+            {
+              "name": "size",
+              "alias": null,
+              "type": "'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'",
+              "default": "'md'",
+              "required": false
+            },
+            {
+              "name": "variant",
+              "alias": null,
+              "type": "'red' | 'white'",
+              "default": "'red'",
+              "required": false
+            }
+          ],
+          "outputs": [],
+          "implements": [],
+          "cva": false,
+          "lifecycle": [],
+          "inject": [],
+          "methods": [],
+          "hostListeners": [],
+          "a11y": [],
+          "componentImports": [
+            "NgClass",
+            "NgStyle"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "select/select.component.html",
+        "name": "select.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 2404,
+        "ngContent": [],
+        "ngIf": 4,
+        "ngFor": 1,
+        "aria": [],
+        "classes": [
+          "w-full",
+          "relative",
+          "block",
+          "mb-2",
+          "text-sm",
+          "font-onest",
+          "leading-5",
+          "font-medium",
+          "text-gray-900",
+          "mt-2",
+          "text-gray-500",
+          "absolute",
+          "z-10",
+          "py-2",
+          "bg-cFFFFFA",
+          "border",
+          "border-gray-100",
+          "rounded-lg",
+          "shadow-lg",
+          "max-h-48",
+          "overflow-y-auto",
+          "fill-gray-900",
+          "w-3",
+          "h-3"
+        ]
+      },
+      {
+        "path": "select/select.component.ts",
+        "name": "select.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 944,
+        "meta": {
+          "selector": "app-select",
+          "className": "SelectComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "placeholder",
+              "alias": null,
+              "type": "string",
+              "default": "'Select...'",
+              "required": false
+            },
+            {
+              "name": "options",
+              "alias": null,
+              "type": "string[]",
+              "default": "[]",
+              "required": false
+            },
+            {
+              "name": "size",
+              "alias": null,
+              "type": "'sm' | 'md'",
+              "default": "'md'",
+              "required": false
+            },
+            {
+              "name": "disabled",
+              "alias": null,
+              "type": "boolean",
+              "default": "false",
+              "required": false
+            }
+          ],
+          "outputs": [],
+          "implements": [],
+          "cva": false,
+          "lifecycle": [],
+          "inject": [
+            "ElementRef"
+          ],
+          "methods": [
+            "toggleDropdown",
+            "selectOption",
+            "clickOutside"
+          ],
+          "hostListeners": [
+            "document:click"
+          ],
+          "a11y": [],
+          "componentImports": [
+            "NgIf",
+            "NgForOf",
+            "NgClass"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "switchToggle/switch-toggle.component.html",
+        "name": "switch-toggle.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 767,
+        "ngContent": [],
+        "ngIf": 0,
+        "ngFor": 0,
+        "aria": [],
+        "classes": [
+          "inline-flex",
+          "items-center",
+          "justify-center",
+          "rounded-full",
+          "transition-colors",
+          "duration-300",
+          "ease-in-out",
+          "focus-within:ring-2",
+          "focus-within:ring-gray-900/10",
+          "relative",
+          "focus:outline-none",
+          "inline-block",
+          "transform",
+          "transition-all"
+        ]
+      },
+      {
+        "path": "switchToggle/switch-toggle.component.ts",
+        "name": "switch-toggle.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 1211,
+        "meta": {
+          "selector": "app-switch-toggle",
+          "className": "SwitchToggleComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "active",
+              "alias": null,
+              "type": null,
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "disabled",
+              "alias": null,
+              "type": null,
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "size",
+              "alias": null,
+              "type": "'sm' | 'md'",
+              "default": "'md'",
+              "required": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "changed",
+              "alias": null,
+              "type": "boolean"
+            }
+          ],
+          "implements": [],
+          "cva": false,
+          "lifecycle": [],
+          "inject": [],
+          "methods": [
+            "toggle"
+          ],
+          "hostListeners": [],
+          "a11y": [],
+          "componentImports": [
+            "NgClass"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "tabButton/tab-button.component.html",
+        "name": "tab-button.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 340,
+        "ngContent": [],
+        "ngIf": 1,
+        "ngFor": 0,
+        "aria": [],
+        "classes": [
+          "inline-grid"
+        ]
+      },
+      {
+        "path": "tabButton/tab-button.component.ts",
+        "name": "tab-button.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 1267,
+        "meta": {
+          "selector": "app-tab-button",
+          "className": "TabButtonComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "label",
+              "alias": null,
+              "type": "string",
+              "default": "'Tab'",
+              "required": false
+            },
+            {
+              "name": "active",
+              "alias": null,
+              "type": "boolean",
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "size",
+              "alias": null,
+              "type": "'md' | 'lg'",
+              "default": "'md'",
+              "required": false
+            },
+            {
+              "name": "variant",
+              "alias": null,
+              "type": "'bg' | 'line'",
+              "default": "'bg'",
+              "required": false
+            }
+          ],
+          "outputs": [],
+          "implements": [],
+          "cva": false,
+          "lifecycle": [],
+          "inject": [],
+          "methods": [],
+          "hostListeners": [],
+          "a11y": [],
+          "componentImports": [
+            "RouterLink",
+            "NgIf",
+            "NgClass"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "tabs/tabs.component.html",
+        "name": "tabs.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 792,
+        "ngContent": [],
+        "ngIf": 3,
+        "ngFor": 1,
+        "aria": [
+          "aria-selected",
+          "role=\"tab\""
+        ],
+        "classes": [
+          "absolute",
+          "bottom-0",
+          "h-0.5",
+          "bg-gray-900",
+          "transition-all",
+          "duration-300",
+          "z-10"
+        ]
+      },
+      {
+        "path": "tabs/tabs.component.ts",
+        "name": "tabs.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 2427,
+        "meta": {
+          "selector": "app-tabs",
+          "className": "TabsComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "tabs",
+              "alias": null,
+              "type": "string[]",
+              "default": "[]",
+              "required": false
+            },
+            {
+              "name": "style",
+              "alias": null,
+              "type": "'outline' | 'underline' | 'border'",
+              "default": "'outline'",
+              "required": false
+            },
+            {
+              "name": "size",
+              "alias": null,
+              "type": "'sm' | 'md' | 'lg'",
+              "default": "'md'",
+              "required": false
+            },
+            {
+              "name": "activeTab",
+              "alias": null,
+              "type": null,
+              "default": "0",
+              "required": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "activeTabChange",
+              "alias": null,
+              "type": "number"
+            }
+          ],
+          "implements": [],
+          "cva": false,
+          "lifecycle": [],
+          "inject": [],
+          "methods": [
+            "getTabClasses",
+            "setActiveTab"
+          ],
+          "hostListeners": [],
+          "a11y": [],
+          "componentImports": [
+            "CommonModule",
+            "BadgeComponent",
+            "IconComponent"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "textarea/textarea.component.html",
+        "name": "textarea.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 521,
+        "ngContent": [],
+        "ngIf": 2,
+        "ngFor": 0,
+        "aria": [],
+        "classes": [
+          "w-full",
+          "flex",
+          "flex-col",
+          "gap-2",
+          "block",
+          "text-sm",
+          "font-onest",
+          "leading-5",
+          "font-medium",
+          "text-gray-700",
+          "dark:text-gray-50",
+          "bg-cFFFFFA",
+          "shadow-xs",
+          "p-2"
+        ]
+      },
+      {
+        "path": "textarea/textarea.component.ts",
+        "name": "textarea.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 1192,
+        "meta": {
+          "selector": "app-textarea",
+          "className": "TextareaComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "rows",
+              "alias": null,
+              "type": "number",
+              "default": "4",
+              "required": false
+            },
+            {
+              "name": "disabled",
+              "alias": null,
+              "type": "boolean",
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "error",
+              "alias": null,
+              "type": null,
+              "default": "false",
+              "required": false
+            }
+          ],
+          "outputs": [],
+          "implements": [],
+          "cva": false,
+          "lifecycle": [],
+          "inject": [],
+          "methods": [],
+          "hostListeners": [],
+          "a11y": [],
+          "componentImports": [
+            "NgIf",
+            "NgClass"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "tooltip/tooltip.component.html",
+        "name": "tooltip.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 1757,
+        "ngContent": [],
+        "ngIf": 1,
+        "ngFor": 0,
+        "aria": [],
+        "classes": [
+          "relative",
+          "flex",
+          "w-max",
+          "w-3",
+          "h-3",
+          "items-center",
+          "justify-center",
+          "bg-gray-500",
+          "rounded-md",
+          "ring-2",
+          "ring-transparent",
+          "hover:bg-gray-900",
+          "focus:bg-gray-900",
+          "focus:ring-gray-900/10",
+          "transition-all",
+          "duration-300",
+          "w-1.5",
+          "h-1.5",
+          "absolute"
+        ]
+      },
+      {
+        "path": "tooltip/tooltip.component.ts",
+        "name": "tooltip.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 1298,
+        "meta": {
+          "selector": "app-tooltip",
+          "className": "TooltipComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "text",
+              "alias": null,
+              "type": "string",
+              "default": "'Tooltip text'",
+              "required": false
+            },
+            {
+              "name": "position",
+              "alias": null,
+              "type": "'top' | 'bottom' | 'left' | 'right'",
+              "default": "'top'",
+              "required": false
+            },
+            {
+              "name": "theme",
+              "alias": null,
+              "type": "'dark' | 'light'",
+              "default": "'dark'",
+              "required": false
+            }
+          ],
+          "outputs": [],
+          "implements": [],
+          "cva": false,
+          "lifecycle": [],
+          "inject": [],
+          "methods": [
+            "toggleTooltip",
+            "onClickOutside"
+          ],
+          "hostListeners": [
+            "document:click"
+          ],
+          "a11y": [],
+          "componentImports": [
+            "CommonModule"
+          ]
+        },
+        "purpose": null
+      },
+      {
+        "path": "tooltipHover/tooltip-hover.component.css",
+        "name": "tooltip-hover.component.css",
+        "types": [
+          "styles"
+        ],
+        "size": 97,
+        "design": {
+          "colors": [],
+          "varsUsed": [],
+          "varsDef": [],
+          "host": true,
+          "radii": [],
+          "fonts": [],
+          "pads": [],
+          "shadows": [],
+          "transitions": [],
+          "breakpoints": []
+        }
+      },
+      {
+        "path": "tooltipHover/tooltip-hover.component.html",
+        "name": "tooltip-hover.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 1275,
+        "ngContent": [
+          "default"
+        ],
+        "ngIf": 4,
+        "ngFor": 0,
+        "aria": [],
+        "classes": [
+          "relative",
+          "box-border",
+          "max-w-[min(20rem,calc(100vw-1rem))]",
+          "min-w-0",
+          "break-words",
+          "px-3",
+          "py-2",
+          "text-xs",
+          "font-onest",
+          "font-medium",
+          "leading-4",
+          "rounded-lg",
+          "shadow-md",
+          "mb-3",
+          "w-full",
+          "max-w-full",
+          "overflow-hidden",
+          "rounded-sm",
+          "h-auto",
+          "object-cover",
+          "text-gray-400",
+          "whitespace-pre-line",
+          "absolute",
+          "flex",
+          "cursor-pointer",
+          "flex-row",
+          "items-center",
+          "gap-2"
+        ]
+      },
+      {
+        "path": "tooltipHover/tooltip-hover.component.ts",
+        "name": "tooltip-hover.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 9878,
+        "meta": {
+          "selector": "app-tooltip-hover",
+          "className": "TooltipHoverComponent",
+          "standalone": true,
+          "inputs": [
+            {
+              "name": "title",
+              "alias": null,
+              "type": null,
+              "default": "''",
+              "required": false
+            },
+            {
+              "name": "text",
+              "alias": null,
+              "type": null,
+              "default": "''",
+              "required": false
+            },
+            {
+              "name": "img",
+              "alias": null,
+              "type": null,
+              "default": "''",
+              "required": false
+            },
+            {
+              "name": "position",
+              "alias": null,
+              "type": "| 'top'\n    | 'bottom'\n    | 'left'\n    | 'right'\n    | 'top-left'\n    | 'top-right'\n    | 'bottom-left'\n    | 'bottom-right'",
+              "default": "'top'",
+              "required": false
+            },
+            {
+              "name": "theme",
+              "alias": null,
+              "type": "'dark' | 'light'",
+              "default": "'dark'",
+              "required": false
+            },
+            {
+              "name": "arrow",
+              "alias": null,
+              "type": null,
+              "default": "false",
+              "required": false
+            },
+            {
+              "name": "disabled",
+              "alias": null,
+              "type": null,
+              "default": "false",
+              "required": false
+            }
+          ],
+          "outputs": [],
+          "implements": [
+            "OnInit, OnChanges, OnDestroy"
+          ],
+          "cva": false,
+          "lifecycle": [
+            "ngOnInit",
+            "ngOnDestroy",
+            "ngOnChanges"
+          ],
+          "inject": [
+            "Overlay",
+            "ViewContainerRef",
+            "ElementRef",
+            "ChangeDetectorRef"
+          ],
+          "methods": [
+            "ngOnInit",
+            "ngOnChanges",
+            "ngOnDestroy",
+            "forceClose",
+            "hasPanelContent",
+            "clearHideTimer",
+            "scheduleHide",
+            "onTriggerMouseEnter",
+            "onTriggerMouseLeave",
+            "openOverlay",
+            "disposeOverlay",
+            "buildCdkPositions",
+            "buildCdkPositionsTopDefault"
+          ],
+          "hostListeners": [],
+          "a11y": [],
+          "componentImports": [
+            "CommonModule",
+            "OverlayModule"
+          ]
+        },
+        "purpose": "Only one CDK tooltip should stay open (sidebar nav, dense icon rows)."
+      },
+      {
+        "path": "videoPlayer/video-player.component.css",
+        "name": "video-player.component.css",
+        "types": [
+          "styles"
+        ],
+        "size": 1483,
+        "design": {
+          "colors": [],
+          "varsUsed": [],
+          "varsDef": [],
+          "host": true,
+          "radii": [
+            "8px",
+            "100px"
+          ],
+          "fonts": [],
+          "pads": [
+            "margin-left: 8px",
+            "margin: 0",
+            "margin-bottom: 20px"
+          ],
+          "shadows": [],
+          "transitions": [],
+          "breakpoints": []
+        }
+      },
+      {
+        "path": "videoPlayer/video-player.component.html",
+        "name": "video-player.component.html",
+        "types": [
+          "template"
+        ],
+        "size": 133,
+        "ngContent": [],
+        "ngIf": 0,
+        "ngFor": 0,
+        "aria": [],
+        "classes": [
+          "video-js",
+          "vjs-default-skin",
+          "vjs-fluid"
+        ]
+      },
+      {
+        "path": "videoPlayer/video-player.component.ts",
+        "name": "video-player.component.ts",
+        "types": [
+          "component"
+        ],
+        "size": 3242,
+        "meta": {
+          "selector": "app-video-player",
+          "className": "VideoPlayerComponent",
+          "standalone": true,
+          "inputs": [],
+          "outputs": [],
+          "implements": [
+            "AfterViewInit, OnDestroy"
+          ],
+          "cva": false,
+          "lifecycle": [
+            "ngOnDestroy",
+            "ngAfterViewInit"
+          ],
+          "inject": [],
+          "methods": [
+            "ngAfterViewInit",
+            "loadVideoJsAssets",
+            "ngOnDestroy"
+          ],
+          "hostListeners": [],
+          "a11y": []
+        },
+        "purpose": null
+      }
+    ]
+  }
+}

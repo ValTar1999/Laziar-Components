@@ -1,0 +1,8 @@
+node_modules
+dist
+coverage
+out-tsc
+.angular
+package-lock.json
+*.md
+docs/analysis

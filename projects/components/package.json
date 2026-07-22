@@ -1,0 +1,16 @@
+{
+  "name": "@laziar/components",
+  "version": "0.0.1",
+  "description": "Shared UI components for Laziar (publikator & agora-frontend)",
+  "peerDependencies": {
+    "@angular/common": "^20.0.0",
+    "@angular/core": "^20.0.0",
+    "@angular/forms": "^20.0.0",
+    "@angular/platform-browser": "^20.0.0",
+    "rxjs": "^7.8.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false
+}
