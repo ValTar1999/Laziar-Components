@@ -1,0 +1,16 @@
+<docs-component-page [meta]="meta">
+  <ng-template docsPreview let-values>
+    <lz-button
+      [label]="str(values, 'label')"
+      [variant]="$any(str(values, 'variant', 'primary'))"
+      [size]="$any(str(values, 'size', 'md'))"
+      [color]="$any(str(values, 'color', 'red'))"
+      [type]="$any(str(values, 'type', 'button'))"
+      [icon]="iconOf(values)"
+      [iconPosition]="$any(str(values, 'iconPosition', 'right'))"
+      [disabled]="bool(values, 'disabled')"
+      [pill]="bool(values, 'pill')"
+      [fullWidth]="bool(values, 'fullWidth')"
+    />
+  </ng-template>
+</docs-component-page>

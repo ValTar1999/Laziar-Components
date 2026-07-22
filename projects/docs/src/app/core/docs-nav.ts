@@ -51,11 +51,18 @@ export const DOCS_NAV: DocsNavGroup[] = [
     label: 'Components · Forms',
     items: [
       {
+        id: 'button',
+        label: 'Button',
+        route: '/components/button',
+        kind: 'component',
+        keywords: 'button lz-button primary outline click',
+      },
+      {
         id: 'stub',
         label: 'Stub (layout demo)',
         route: '/components/stub',
         kind: 'component',
-        keywords: 'button sandbox preview demo scaffold',
+        keywords: 'sandbox preview demo scaffold',
       },
     ],
   },

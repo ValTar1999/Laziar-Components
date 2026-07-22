@@ -2,18 +2,21 @@ import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
+import { ButtonPage } from './button-page';
 import { StubPage } from './stub-page';
 
 /**
  * Resolves `/components/:name` to a concrete demo page.
- * Only `stub` is registered for now.
  */
 @Component({
   selector: 'docs-component-host',
   standalone: true,
-  imports: [StubPage],
+  imports: [StubPage, ButtonPage],
   template: `
     @switch (name()) {
+      @case ('button') {
+        <docs-button-page />
+      }
       @case ('stub') {
         <docs-stub-page />
       }

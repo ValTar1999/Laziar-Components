@@ -91,6 +91,20 @@
   --lz-color-neutral-900: #121212;
   --lz-color-neutral: var(--lz-color-neutral-500);
 
+  /* ─── Palette: purple (button / accent from design systems) ─── */
+  --lz-color-purple-surface: #faf5ff;
+  --lz-color-purple-50: #f3e8ff;
+  --lz-color-purple-100: #e9d5ff;
+  --lz-color-purple-200: #d8b4fe;
+  --lz-color-purple-300: #c084fc;
+  --lz-color-purple-400: #a855f7;
+  --lz-color-purple-500: #9333ea;
+  --lz-color-purple-600: #7e22ce;
+  --lz-color-purple-700: #6b21a8;
+  --lz-color-purple-800: #581c87;
+  --lz-color-purple-900: #3b0764;
+  --lz-color-purple: var(--lz-color-purple-500);
+
   /* ─── Surfaces & text ─── */
   --lz-color-background: #fffffa;
   --lz-color-surface: #fafafa;
@@ -291,6 +305,19 @@
   --lz-color-neutral-900: #f4f5f5;
   --lz-color-neutral: var(--lz-color-neutral-500);
 
+  --lz-color-purple-surface: #3b0764;
+  --lz-color-purple-50: #3b0764;
+  --lz-color-purple-100: #581c87;
+  --lz-color-purple-200: #6b21a8;
+  --lz-color-purple-300: #7e22ce;
+  --lz-color-purple-400: #9333ea;
+  --lz-color-purple-500: #a855f7;
+  --lz-color-purple-600: #c084fc;
+  --lz-color-purple-700: #d8b4fe;
+  --lz-color-purple-800: #e9d5ff;
+  --lz-color-purple-900: #f3e8ff;
+  --lz-color-purple: var(--lz-color-purple-500);
+
   --lz-color-background: #121212;
   --lz-color-surface: #1a1b1c;
   --lz-color-surface-elevated: #242628;
@@ -393,6 +420,19 @@
     --lz-color-neutral-800: #c4c6c8;
     --lz-color-neutral-900: #f4f5f5;
     --lz-color-neutral: var(--lz-color-neutral-500);
+
+    --lz-color-purple-surface: #3b0764;
+    --lz-color-purple-50: #3b0764;
+    --lz-color-purple-100: #581c87;
+    --lz-color-purple-200: #6b21a8;
+    --lz-color-purple-300: #7e22ce;
+    --lz-color-purple-400: #9333ea;
+    --lz-color-purple-500: #a855f7;
+    --lz-color-purple-600: #c084fc;
+    --lz-color-purple-700: #d8b4fe;
+    --lz-color-purple-800: #e9d5ff;
+    --lz-color-purple-900: #f3e8ff;
+    --lz-color-purple: var(--lz-color-purple-500);
 
     --lz-color-background: #121212;
     --lz-color-surface: #1a1b1c;
