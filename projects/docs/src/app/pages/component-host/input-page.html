@@ -1,0 +1,20 @@
+<docs-component-page [meta]="meta">
+  <ng-template docsPreview let-values>
+    <lz-input
+      [(ngModel)]="value"
+      [label]="str(values, 'label')"
+      [placeholder]="str(values, 'placeholder')"
+      [type]="$any(str(values, 'type', 'text'))"
+      [size]="$any(str(values, 'size', 'lg'))"
+      [helperText]="str(values, 'helperText')"
+      [error]="bool(values, 'error')"
+      [disabled]="bool(values, 'disabled')"
+      [pill]="bool(values, 'pill')"
+      [appearance]="$any(str(values, 'appearance', 'default'))"
+      [prefix]="str(values, 'prefix')"
+      [buttonLabel]="str(values, 'buttonLabel')"
+      [withButton]="withButtonOf(values)"
+      [iconButton]="optStr(values, 'iconButton')"
+    />
+  </ng-template>
+</docs-component-page>

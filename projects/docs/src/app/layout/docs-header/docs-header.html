@@ -1,49 +1,92 @@
 <header class="header">
-  <a class="header__brand" routerLink="/getting-started">
-    <span class="header__mark" aria-hidden="true"></span>
-    <span class="header__name">Laziar-Components</span>
-  </a>
+  <div class="header__top">
+    <div class="header__top-left">
+      <div class="header__menu">
+        <lz-button
+          variant="iconOnly"
+          size="sm"
+          color="gray"
+          [icon]="menuIcon()"
+          iconVariant="outline"
+          [ariaLabel]="menuLabelKey() | transloco"
+          (buttonClick)="menuToggle.emit()"
+        />
+      </div>
 
-  <label class="header__search">
-    <span class="visually-hidden">Поиск по компонентам</span>
-    <input
-      type="search"
-      placeholder="Поиск компонентов…"
-      [value]="search"
-      (input)="onSearch($any($event.target).value)"
-    />
-  </label>
-
-  <div class="header__actions">
-    <div class="header__theme" role="group" aria-label="Тема">
-      <button
-        type="button"
-        [class.is-active]="mode() === 'light'"
-        (click)="setTheme('light')"
-        title="Light"
-      >
-        Light
-      </button>
-      <button
-        type="button"
-        [class.is-active]="mode() === 'dark'"
-        (click)="setTheme('dark')"
-        title="Dark"
-      >
-        Dark
-      </button>
-      <button
-        type="button"
-        [class.is-active]="mode() === 'auto'"
-        (click)="setTheme('auto')"
-        title="Auto"
-      >
-        Auto
-      </button>
+      <a class="header__brand" routerLink="/getting-started" [title]="'nav.brand' | transloco">
+        <span class="header__brand-text">{{ 'nav.brand' | transloco }}</span>
+      </a>
     </div>
 
-    <a class="header__repo" [href]="repoUrl" target="_blank" rel="noopener noreferrer">
-      Репозиторий
-    </a>
+    <div class="header__repo header__repo--icon">
+      <lz-button
+        variant="iconOnly"
+        size="sm"
+        color="gray"
+        icon="arrow-top-right-on-square"
+        iconVariant="outline"
+        [ariaLabel]="'header.repo' | transloco"
+        (buttonClick)="openRepo()"
+      />
+    </div>
+  </div>
+
+  <div class="header__leading">
+    <div class="header__search">
+      <lz-input
+        type="search"
+        size="sm"
+        pill
+        appearance="laziarPanel"
+        [placeholder]="'header.searchPlaceholder' | transloco"
+        [ngModel]="search"
+        (ngModelChange)="onSearch($event)"
+      />
+    </div>
+  </div>
+
+  <div class="header__actions">
+    <docs-language-switcher />
+
+    <lz-button-group class="header__theme" [attr.aria-label]="'header.themeAria' | transloco">
+      <lz-button
+        [label]="'header.themeLight' | transloco"
+        size="sm"
+        pill
+        color="gray"
+        [variant]="themeVariant('light')"
+        (buttonClick)="setTheme('light')"
+      />
+      <lz-button
+        [label]="'header.themeDark' | transloco"
+        size="sm"
+        pill
+        color="gray"
+        [variant]="themeVariant('dark')"
+        (buttonClick)="setTheme('dark')"
+      />
+      <lz-button
+        [label]="'header.themeAuto' | transloco"
+        size="sm"
+        pill
+        color="gray"
+        [variant]="themeVariant('auto')"
+        (buttonClick)="setTheme('auto')"
+      />
+    </lz-button-group>
+
+    <div class="header__repo header__repo--full">
+      <lz-button
+        [label]="'header.repo' | transloco"
+        size="sm"
+        variant="outline"
+        color="gray"
+        pill
+        icon="arrow-top-right-on-square"
+        iconVariant="outline"
+        iconPosition="right"
+        (buttonClick)="openRepo()"
+      />
+    </div>
   </div>
 </header>

@@ -67,9 +67,7 @@ describe('Button', () => {
   it('should reflect disabled state on the native button', () => {
     fixture.componentRef.setInput('disabled', true);
     fixture.detectChanges();
-    const btn = nativeButton();
-    expect(btn.disabled).toBeTrue();
-    expect(btn.getAttribute('aria-disabled')).toBe('true');
+    expect(nativeButton().disabled).toBeTrue();
   });
 
   it('should set type submit|reset|button', () => {
@@ -84,18 +82,30 @@ describe('Button', () => {
     expect(nativeButton().getAttribute('aria-current')).toBe('page');
   });
 
-  it('should use ariaLabel on the native button', () => {
+  it('should use ariaLabel on the native button (как в publikator)', () => {
     fixture.componentRef.setInput('ariaLabel', 'Close dialog');
     fixture.detectChanges();
     expect(nativeButton().getAttribute('aria-label')).toBe('Close dialog');
   });
 
-  it('should provide a fallback aria-label for icon-only buttons', () => {
+  it('should mark icon-only when icon set and label empty', () => {
     fixture.componentRef.setInput('variant', 'iconOnly');
     fixture.componentRef.setInput('icon', 'plus');
+    fixture.componentRef.setInput('ariaLabel', 'plus');
     fixture.detectChanges();
-    expect(nativeButton().getAttribute('aria-label')).toBe('plus');
     expect(nativeButton().getAttribute('data-icon-only')).toBe('true');
+    expect(nativeButton().getAttribute('aria-label')).toBe('plus');
+  });
+
+  it('should render lz-icon when icon name is set', () => {
+    fixture.componentRef.setInput('label', 'Save');
+    fixture.componentRef.setInput('icon', 'check');
+    fixture.detectChanges();
+
+    const icon = nativeButton().querySelector('lz-icon');
+    expect(icon).toBeTruthy();
+    expect(nativeButton().classList.contains('lz-button--icon-end')).toBeTrue();
+    expect(nativeButton().querySelector('.lz-button__icon')).toBeTruthy();
   });
 
   it('should treat icon without label as icon-only', () => {

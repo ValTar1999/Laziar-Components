@@ -1,0 +1,9 @@
+<docs-component-page [meta]="meta">
+  <ng-template docsPreview let-values>
+    <lz-switch-toggle
+      [active]="bool(values, 'active')"
+      [disabled]="bool(values, 'disabled')"
+      [size]="$any(str(values, 'size', 'md'))"
+    />
+  </ng-template>
+</docs-component-page>

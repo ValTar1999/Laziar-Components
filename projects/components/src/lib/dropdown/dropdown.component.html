@@ -1,0 +1,40 @@
+<div class="lz-dropdown">
+  <button
+    type="button"
+    class="lz-dropdown__trigger"
+    [attr.data-size]="sizeVariant()"
+    [attr.aria-expanded]="isOpen()"
+    aria-haspopup="menu"
+    (click)="toggleDropdown()"
+  >
+    <span>{{ title() }}</span>
+    <lz-icon
+      name="chevron-down"
+      type="mini"
+      class="lz-dropdown__chevron"
+      [attr.data-open]="isOpen()"
+    />
+  </button>
+
+  @if (isOpen()) {
+    <div #dropdownMenu class="lz-dropdown__menu" role="menu" [ngStyle]="positionStyle()">
+      @for (section of sections(); track $index) {
+        <section class="lz-dropdown__section">
+          @if (section.heading) {
+            <p class="lz-dropdown__heading">{{ section.heading }}</p>
+          }
+          @for (item of section.items; track item) {
+            <button
+              type="button"
+              class="lz-dropdown__item"
+              role="menuitem"
+              (click)="selectItem(item)"
+            >
+              {{ item }}
+            </button>
+          }
+        </section>
+      }
+    </div>
+  }
+</div>

@@ -1,0 +1,122 @@
+/**
+ * Checkbox — токены theme.css, паттерн как у lz-button.
+ */
+
+:host.lz-checkbox-host {
+  display: inline-flex;
+  align-items: flex-start;
+  font-family: var(--lz-font-sans);
+}
+
+.lz-checkbox__wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: flex-start;
+  cursor: pointer;
+}
+
+.lz-checkbox__wrapper--disabled {
+  pointer-events: none;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.lz-checkbox__input-wrapper {
+  display: inline-flex;
+  flex-shrink: 0;
+  border-radius: 0.25rem;
+  transition: box-shadow var(--lz-duration-normal) var(--lz-easing-standard);
+
+  &:focus-within {
+    box-shadow: var(--lz-shadow-focus);
+  }
+}
+
+.lz-checkbox__wrapper--rounded .lz-checkbox__input-wrapper,
+.lz-checkbox__input-wrapper--rounded {
+  border-radius: 9999px;
+}
+
+.lz-checkbox__input {
+  box-sizing: border-box;
+  height: 1rem;
+  width: 1rem;
+  margin: 0;
+  color: var(--lz-color-neutral-900);
+  background-color: var(--lz-color-background);
+  accent-color: var(--lz-color-neutral-900);
+  border: 1px solid var(--lz-color-neutral-100);
+  cursor: pointer;
+  transition:
+    color var(--lz-duration-normal) var(--lz-easing-standard),
+    background-color var(--lz-duration-normal) var(--lz-easing-standard),
+    border-color var(--lz-duration-normal) var(--lz-easing-standard),
+    box-shadow var(--lz-duration-normal) var(--lz-easing-standard),
+    opacity var(--lz-duration-normal) var(--lz-easing-standard);
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover:not(:disabled) {
+    border-color: var(--lz-color-neutral-200);
+  }
+
+  &:checked {
+    background-color: var(--lz-color-neutral-900);
+  }
+}
+
+.lz-checkbox__input--rounded {
+  border-radius: 9999px;
+}
+
+.lz-checkbox__input:not(.lz-checkbox__input--rounded) {
+  border-radius: 0.25rem;
+}
+
+.lz-checkbox__input--disabled {
+  background-color: var(--lz-color-neutral-50);
+  border-color: var(--lz-color-neutral-100);
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+.lz-checkbox__input--error {
+  border-color: var(--lz-color-danger-500);
+
+  &:hover:not(:disabled) {
+    border-color: var(--lz-color-danger-600);
+  }
+
+  &:checked {
+    background-color: var(--lz-color-neutral-900);
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.lz-checkbox__wrapper:has(.lz-checkbox__input--error) .lz-checkbox__input-wrapper:focus-within {
+  box-shadow:
+    0 0 0 2px var(--lz-color-background),
+    0 0 0 4px color-mix(in srgb, var(--lz-color-danger-500) 10%, transparent);
+}
+
+.lz-checkbox__label {
+  display: grid;
+  font-family: var(--lz-font-sans);
+  font-size: 0.875rem;
+  margin-left: 0.75rem;
+  margin-top: -0.125rem;
+  line-height: 1.25;
+}
+
+.lz-checkbox__title {
+  color: var(--lz-color-neutral-900);
+}
+
+.lz-checkbox__description {
+  color: var(--lz-color-neutral-500);
+}

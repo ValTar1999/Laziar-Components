@@ -1,0 +1,21 @@
+<docs-component-page [meta]="meta">
+  <ng-template docsPreview let-values>
+    <lz-button-group [line]="bool(values, 'line')">
+      <lz-button
+        [label]="'components.button-group.demo.left' | transloco"
+        variant="secondary"
+        color="gray"
+      />
+      <lz-button
+        [label]="'components.button-group.demo.center' | transloco"
+        variant="secondary"
+        color="gray"
+      />
+      <lz-button
+        [label]="'components.button-group.demo.right' | transloco"
+        variant="secondary"
+        color="gray"
+      />
+    </lz-button-group>
+  </ng-template>
+</docs-component-page>

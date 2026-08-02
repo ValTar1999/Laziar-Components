@@ -75,7 +75,10 @@ export class ThemeService {
   }
 
   private applyToDom(mode: LzThemeMode): void {
-    document.documentElement.setAttribute('data-theme', mode);
+    const resolved: LzResolvedTheme =
+      mode === 'auto' ? (this.systemDarkSignal() ? 'dark' : 'light') : mode;
+    document.documentElement.setAttribute('data-theme', resolved);
+    document.documentElement.setAttribute('data-theme-mode', mode);
   }
 
   private readStored(): LzThemeMode {

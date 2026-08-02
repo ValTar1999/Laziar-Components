@@ -1,4 +1,13 @@
-import { booleanAttribute, Component, computed, Input, input, output, signal } from '@angular/core';
+import {
+  booleanAttribute,
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  Input,
+  input,
+  output,
+  signal,
+} from '@angular/core';
 import {
   LzButtonColor,
   LzButtonIconPosition,
@@ -7,86 +16,57 @@ import {
   LzButtonType,
   LzButtonVariant,
 } from './button.types';
+import { Icon } from '../icon/icon.component';
 
 /**
- * Reference button for `@laziar/components`.
- * Unified API from publikator + agora-frontend (`docs/analysis/components-comparison.md`).
+ * Кнопка `@laziar/components`.
+ * API/стили — эталон publikator (`button.ts` + component).
  */
 @Component({
   selector: 'lz-button',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './button.component.html',
   styleUrl: './button.component.scss',
+  imports: [Icon],
   host: {
+    class: 'lz-button-host',
     '[class.lz-button-host--full]': 'fullWidth()',
   },
 })
 export class Button {
-  /** Visible text when not using projected content. */
   readonly label = input('');
-
-  /** Visual style. */
   readonly variant = input<LzButtonVariant>('primary');
-
-  /** Control size. */
   readonly size = input<LzButtonSize>('md');
-
-  /** Native button `type`. */
   readonly type = input<LzButtonType>('button');
-
-  /**
-   * Icon name (until `lz-icon` ships — renders a named placeholder).
-   * Project custom markup with `[lzButtonIcon]`.
-   */
+  /** Icon name rendered via `lz-icon`; custom — `[lzButtonIcon]`. */
   readonly icon = input<string | undefined>(undefined);
-
-  /** Icon style hint for future `lz-icon`. */
+  /** Passed to `lz-icon` `type`. */
   readonly iconVariant = input<LzButtonIconVariant | undefined>(undefined);
-
-  /** Icon placement relative to the label. */
+  /** В publikator — `iconDirection`. */
   readonly iconPosition = input<LzButtonIconPosition>('right');
-
-  /** Extra CSS class on the icon wrapper. */
   readonly iconClass = input<string | undefined>(undefined);
-
-  /** Disables the control and blocks `buttonClick`. */
   readonly disabled = input(false, { transform: booleanAttribute });
-
-  /** Pill (fully rounded) shape. */
+  /** В publikator — `rounded`. */
   readonly pill = input(false, { transform: booleanAttribute });
-
-  /** Palette tone (`gray` → neutral tokens, `red` → primary, …). */
   readonly color = input<LzButtonColor>('gray');
-
-  /** Stretch to 100% of the host width. */
   readonly fullWidth = input(false, { transform: booleanAttribute });
-
-  /** Accessible name (required for icon-only). */
   readonly ariaLabel = input<string | undefined>(undefined);
-
-  /** When true, sets `aria-current="page"` (pagination). */
   readonly ariaCurrentPage = input(false, { transform: booleanAttribute });
-
-  /** Emitted on activation when not disabled. */
   readonly buttonClick = output<void>();
 
-  /** @deprecated Prefer {@link iconPosition}. */
+  /** @deprecated Используй `iconPosition`. */
   private readonly iconPositionAlias = signal<LzButtonIconPosition | undefined>(undefined);
-
-  /** @deprecated Prefer {@link pill}. */
+  /** @deprecated Используй `pill`. */
   private readonly pillAlias = signal<boolean | undefined>(undefined);
 
-  /**
-   * @deprecated Use `iconPosition` instead.
-   */
+  /** @deprecated Используй `iconPosition`. */
   @Input()
   set iconDirection(value: LzButtonIconPosition) {
     this.iconPositionAlias.set(value);
   }
 
-  /**
-   * @deprecated Use `pill` instead.
-   */
+  /** @deprecated Используй `pill`. */
   @Input()
   set rounded(value: boolean) {
     this.pillAlias.set(value);
@@ -98,34 +78,17 @@ export class Button {
 
   protected readonly resolvedPill = computed(() => this.pillAlias() ?? this.pill());
 
-  protected readonly isIconOnly = computed(() => {
-    if (this.variant() === 'iconOnly') {
-      return true;
-    }
-    return !!this.icon() && !this.label().trim();
-  });
+  /** `!!icon && !label` — как в publikator. */
+  protected readonly isIconOnly = computed(() => !!this.icon() && !this.label().trim());
 
-  protected readonly showIcon = computed(() => !!this.icon() || this.variant() === 'iconOnly');
+  /** Keep `lz-button__icon` — bare `[class]` replaces the whole class attr. */
+  protected readonly iconWrapperClass = computed(() =>
+    ['lz-button__icon', this.iconClass() ?? ''].filter(Boolean).join(' '),
+  );
 
-  protected readonly showLabel = computed(() => !this.isIconOnly() && !!this.label().trim());
-
-  protected readonly effectiveAriaLabel = computed(() => {
-    const explicit = this.ariaLabel();
-    if (explicit) {
-      return explicit;
+  protected onClick(): void {
+    if (!this.disabled()) {
+      this.buttonClick.emit();
     }
-    if (this.isIconOnly()) {
-      return this.icon() || this.label() || 'Button';
-    }
-    return null;
-  });
-
-  protected onClick(event: Event): void {
-    if (this.disabled()) {
-      event.preventDefault();
-      event.stopPropagation();
-      return;
-    }
-    this.buttonClick.emit();
   }
 }

@@ -1,0 +1,40 @@
+:host {
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.lz-pulse-dot {
+  position: relative;
+  display: flex;
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.lz-pulse-dot__ring {
+  position: absolute;
+  inset: 0;
+  display: inline-flex;
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  background-color: var(--lz-color-primary-400);
+  opacity: 0.75;
+  animation: lz-pulse-ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.lz-pulse-dot__core {
+  position: relative;
+  display: inline-flex;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 9999px;
+  background-color: var(--lz-color-primary-500);
+}
+
+@keyframes lz-pulse-ping {
+  75%,
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}

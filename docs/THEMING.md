@@ -47,9 +47,11 @@ Storage key: `lz-theme` (`LZ_THEME_STORAGE_KEY`).
 
 | Preference | DOM | Styles used |
 |------------|-----|-------------|
-| `light` | `html[data-theme="light"]` | Light `:root` / `[data-theme="light"]` |
-| `dark` | `html[data-theme="dark"]` | `[data-theme="dark"]` overrides |
-| `auto` | `html[data-theme="auto"]` | System dark → `@media (prefers-color-scheme: dark)` block |
+| `light` | `html[data-theme="light"]` + `data-theme-mode="light"` | Light `:root` / `[data-theme="light"]` |
+| `dark` | `html[data-theme="dark"]` + `data-theme-mode="dark"` | `[data-theme="dark"]` overrides |
+| `auto` | `html[data-theme="light\|dark"]` (resolved) + `data-theme-mode="auto"` | Same as light/dark; preference stays in `mode` / storage |
+
+`ThemeService` writes the **resolved** theme to `data-theme` so components only need `[data-theme="dark"]` (no duplicated `@media` / `auto` host styles). The user preference is kept on `data-theme-mode` and in `localStorage`.
 
 Components must use **only** `var(--lz-*)` in styles — never raw hex/rgb.
 
@@ -253,13 +255,14 @@ Defaults below: **Light** / **Dark** (dark = `[data-theme="dark"]` and system-au
 | `--lz-font-mono` | Code | system mono stack |
 | `--lz-font-weight-regular` | | `400` |
 | `--lz-font-weight-medium` | | `500` |
-| `--lz-font-weight-mediumbold` | publikator | `570` |
+| `--lz-font-weight-mediumbold` | | `570` |
 | `--lz-font-weight-semibold` | | `600` |
 | `--lz-font-weight-bold` | | `700` |
-| `--lz-font-size-xs` … `-5xl` | rem scale from audit | `0.75rem` … `3rem` |
-| `--lz-line-height-xs` … `-3xl` | paired line-heights | see `theme.css` |
+| `--lz-font-size-xs` … `-10xl` | rem scale from frontend | `0.75rem` … `8rem` (+ `3-1xl`, `6-1xl`) |
+| `--lz-font-size-s*` | px / content scale from frontend | `s7px` … `s56-l140` |
+| `--lz-line-height-*` | paired with fontSize | see `theme.css` |
 | `--lz-line-height-tight/snug/normal` | unitless | `1.25` / `1.375` / `1.5` |
-| `--lz-letter-spacing-*` | from audit | negative tracking |
+| `--lz-letter-spacing-*` | from frontend fontSize | paired tracking |
 
 ### Breakpoints (CSS vars for docs/JS; media mixins use the same px)
 

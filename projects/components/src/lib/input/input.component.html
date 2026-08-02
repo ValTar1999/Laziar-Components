@@ -1,0 +1,100 @@
+<div class="lz-input-container">
+  @if (label()) {
+    <label class="lz-input-label" [attr.for]="inputId">{{ label() }}</label>
+  }
+
+  <div
+    class="lz-input-wrapper"
+    [attr.data-appearance]="appearance()"
+    [attr.data-pill]="pill() ? 'true' : null"
+    [class.lz-input-wrapper--disabled]="effectiveDisabled()"
+  >
+    @if (withButton() === 'left') {
+      <div class="lz-input-button-left">
+        <lz-button
+          [icon]="iconButton()"
+          iconClass="lz-input-button-icon"
+          [size]="buttonSize()"
+          variant="tertiary"
+          [label]="buttonLabel()"
+          [disabled]="effectiveDisabled()"
+        />
+      </div>
+    }
+
+    @if (prefix() && !withButton()) {
+      <span class="lz-input-prefix" [attr.data-size]="size()">{{ prefix() }}</span>
+    }
+
+    @if (currentType() === 'search') {
+      <lz-icon
+        name="magnifying-glass"
+        type="outline"
+        class="lz-input-search-icon"
+        [attr.data-size]="size()"
+      />
+    }
+
+    <input
+      class="lz-input-field"
+      [id]="inputId"
+      [type]="currentType()"
+      [placeholder]="placeholder()"
+      [value]="value()"
+      [disabled]="effectiveDisabled()"
+      [attr.data-size]="size()"
+      [attr.data-error]="error()"
+      [attr.data-appearance]="appearance()"
+      [attr.data-pill]="pill() ? 'true' : null"
+      [attr.data-has-prefix]="!!prefix() && !withButton()"
+      [attr.data-has-button-left]="withButton() === 'left'"
+      [attr.data-has-button-right]="withButton() === 'right'"
+      [attr.data-is-search]="currentType() === 'search'"
+      [attr.autocomplete]="autocompleteAttr()"
+      (input)="onInput($event)"
+      (blur)="onTouched()"
+    />
+
+    @if (showClearButton()) {
+      <div class="lz-input-clear" [attr.data-size]="size()">
+        <button type="button" class="lz-input-clear-button" (click)="clearSearch()">
+          <lz-icon name="x-circle" type="solid" iconClass="lz-input-clear-icon" />
+        </button>
+      </div>
+    }
+
+    @if (showPasswordToggle()) {
+      <div class="lz-input-password-toggle" [attr.data-size]="size()">
+        <lz-tooltip [text]="passwordTooltipText()">
+          <button
+            type="button"
+            class="lz-input-password-toggle-button"
+            (click)="togglePasswordVisibility()"
+            [attr.aria-label]="passwordTooltipText()"
+          >
+            <lz-icon
+              [name]="currentType() === 'password' ? 'eye' : 'eye-slash'"
+              class="lz-input-password-toggle-icon"
+            />
+          </button>
+        </lz-tooltip>
+      </div>
+    }
+
+    @if (withButton() === 'right') {
+      <div class="lz-input-button-right">
+        <lz-button
+          [icon]="iconButton()"
+          [size]="buttonSize()"
+          variant="tertiary"
+          [label]="buttonLabel()"
+          [disabled]="effectiveDisabled()"
+        />
+      </div>
+    }
+  </div>
+
+  @if (helperText()) {
+    <span class="lz-input-helper" [attr.data-error]="error()">{{ helperText() }}</span>
+  }
+</div>

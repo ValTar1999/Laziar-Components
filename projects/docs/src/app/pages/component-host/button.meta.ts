@@ -8,8 +8,9 @@ const variantSizeGallery = LZ_BUTTON_VARIANTS.flatMap((variant) =>
       variant,
       size,
       color: 'red',
+      // как в publikator: iconOnly = icon без label; остальные — только текст
       label: variant === 'iconOnly' ? '' : variant,
-      icon: variant === 'iconOnly' || size === 'md' ? 'plus' : '',
+      icon: variant === 'iconOnly' ? 'plus' : '',
       disabled: false,
       pill: false,
       fullWidth: false,
@@ -58,8 +59,16 @@ export const BUTTON_COMPONENT_META: DocsComponentMeta = {
     {
       name: 'icon',
       kind: 'string',
-      default: '',
-      description: 'Имя иконки (плейсхолдер до lz-icon)',
+      default: 'check',
+      description:
+        'Имя символа из /assets/icons/icons-{outline|solid|…}.svg (например check, x-mark, plus)',
+    },
+    {
+      name: 'iconVariant',
+      kind: 'select',
+      options: ['outline', 'solid', 'mini', 'micro'],
+      default: 'outline',
+      description: 'Спрайт lz-icon: outline / solid / mini / micro',
     },
     {
       name: 'iconPosition',
@@ -119,7 +128,7 @@ export const BUTTON_COMPONENT_META: DocsComponentMeta = {
       name: 'iconVariant',
       type: `'outline' | 'solid' | 'mini' | 'micro'`,
       default: 'undefined',
-      description: 'Подсказка стиля для будущего lz-icon',
+      description: 'Вариант спрайта для lz-icon (type)',
     },
     {
       name: 'iconPosition',
@@ -184,7 +193,7 @@ export const BUTTON_COMPONENT_META: DocsComponentMeta = {
     },
     {
       name: '[lzButtonIcon]',
-      description: 'Кастомная иконка вместо плейсхолдера',
+      description: 'Кастомная иконка вместо lz-icon по имени',
     },
   ],
   deprecated: [
@@ -207,7 +216,7 @@ export const BUTTON_COMPONENT_META: DocsComponentMeta = {
       description: 'Submit primary + secondary cancel.',
       code: `<form (ngSubmit)="save()">
   <lz-button variant="secondary" color="gray" label="Отмена" />
-  <lz-button type="submit" variant="primary" color="red" label="Сохранить" />
+  <lz-button type="submit" variant="primary" color="red" label="Сохранить" icon="check" />
 </form>`,
     },
     {
@@ -222,7 +231,7 @@ export const BUTTON_COMPONENT_META: DocsComponentMeta = {
       title: 'Icon-only с a11y',
       code: `<lz-button
   variant="iconOnly"
-  icon="close"
+  icon="x-mark"
   ariaLabel="Закрыть"
   (buttonClick)="close()"
 />`,

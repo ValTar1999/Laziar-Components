@@ -1,0 +1,44 @@
+<div
+  class="lz-progress-circle"
+  [attr.data-size]="size()"
+  [attr.data-variant]="variant()"
+  [style.width.px]="actualSize()"
+  [style.height.px]="actualSize()"
+  role="progressbar"
+  [attr.aria-valuenow]="progress()"
+  aria-valuemin="0"
+  aria-valuemax="100"
+>
+  <svg
+    class="lz-progress-circle__svg"
+    [attr.width]="actualSize()"
+    [attr.height]="actualSize()"
+    [attr.viewBox]="'0 0 ' + actualSize() + ' ' + actualSize()"
+    aria-hidden="true"
+  >
+    <circle
+      class="lz-progress-circle__track"
+      [attr.r]="radius()"
+      [attr.cx]="actualSize() / 2"
+      [attr.cy]="actualSize() / 2"
+      [attr.stroke-width]="strokeWidth()"
+      fill="transparent"
+    />
+    <circle
+      class="lz-progress-circle__arc"
+      [attr.r]="radius()"
+      [attr.cx]="actualSize() / 2"
+      [attr.cy]="actualSize() / 2"
+      [attr.stroke-width]="strokeWidth()"
+      fill="transparent"
+      [attr.stroke-dasharray]="circumference()"
+      [attr.stroke-dashoffset]="dashOffset()"
+      stroke-linecap="round"
+      [attr.transform]="'rotate(-90 ' + actualSize() / 2 + ' ' + actualSize() / 2 + ')'"
+    />
+  </svg>
+
+  @if (showLabel()) {
+    <div class="lz-progress-circle__label">{{ progress() }}%</div>
+  }
+</div>

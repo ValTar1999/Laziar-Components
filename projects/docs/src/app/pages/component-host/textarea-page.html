@@ -1,0 +1,14 @@
+<docs-component-page [meta]="meta">
+  <ng-template docsPreview let-values>
+    <lz-textarea
+      [(ngModel)]="value"
+      [label]="str(values, 'label')"
+      [placeholder]="str(values, 'placeholder')"
+      [rows]="num(values, 'rows', 4)"
+      [helperText]="str(values, 'helperText')"
+      [error]="bool(values, 'error')"
+      [disabled]="bool(values, 'disabled')"
+      [resize]="$any(str(values, 'resize', 'vertical'))"
+    />
+  </ng-template>
+</docs-component-page>

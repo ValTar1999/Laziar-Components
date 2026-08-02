@@ -1,8 +1,12 @@
 :host {
   display: block;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .code {
+  min-width: 0;
+  max-width: 100%;
   border: 1px solid var(--lz-color-border);
   border-radius: var(--lz-radius-lg);
   background-color: var(--lz-color-neutral-900);
@@ -57,14 +61,25 @@
 
 .code__pre {
   margin: 0;
-  padding: var(--lz-space-4);
+  padding: var(--lz-space-3);
   overflow-x: auto;
+  max-width: 100%;
   font-family: var(--lz-font-mono);
-  font-size: var(--lz-font-size-sm);
-  line-height: var(--lz-line-height-sm);
+  font-size: var(--lz-font-size-xs);
+  line-height: 1.55;
+}
+
+@media (min-width: 640px) {
+  .code__pre {
+    padding: var(--lz-space-4);
+    font-size: var(--lz-font-size-sm);
+  }
 }
 
 .code__pre code {
+  display: block;
   font-family: inherit;
   white-space: pre;
+  width: max-content;
+  max-width: none;
 }

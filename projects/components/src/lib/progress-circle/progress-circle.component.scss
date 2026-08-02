@@ -1,0 +1,64 @@
+/**
+ * Progress circle — arc/track colors via [data-variant] CSS vars (no inline hex).
+ */
+
+:host {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.lz-progress-circle {
+  --lz-progress-arc: var(--lz-color-neutral-900);
+  --lz-progress-track: var(--lz-color-neutral-50);
+
+  position: relative;
+  display: inline-block;
+  color: var(--lz-progress-arc);
+}
+
+.lz-progress-circle[data-variant='red'] {
+  --lz-progress-arc: var(--lz-color-primary-500);
+}
+
+.lz-progress-circle[data-variant='white'] {
+  /* Dark arc for light/white surfaces (legacy name). */
+  --lz-progress-arc: var(--lz-color-neutral-900);
+}
+
+.lz-progress-circle__svg {
+  display: block;
+  transition: opacity var(--lz-duration-normal) var(--lz-easing-standard);
+}
+
+.lz-progress-circle__track {
+  stroke: var(--lz-progress-track);
+}
+
+.lz-progress-circle__arc {
+  stroke: currentColor;
+  transition: stroke-dashoffset var(--lz-duration-slow, 500ms) var(--lz-easing-standard);
+}
+
+.lz-progress-circle__label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: currentColor;
+  font-family: var(--lz-font-sans);
+  font-weight: var(--lz-font-weight-semibold, 600);
+  pointer-events: none;
+}
+
+.lz-progress-circle[data-size='lg'] .lz-progress-circle__label {
+  font-size: var(--lz-font-size-xs, 0.75rem);
+}
+
+.lz-progress-circle[data-size='xl'] .lz-progress-circle__label {
+  font-size: var(--lz-font-size-base, 1rem);
+}
+
+.lz-progress-circle[data-size='xxl'] .lz-progress-circle__label {
+  font-size: var(--lz-font-size-2xl, 1.5rem);
+}

@@ -27,5 +27,5 @@ export type LzButtonIconDirection = 'left' | 'right';
 
 export type LzButtonIconPosition = 'left' | 'right';
 
-/** Icon style hint (consumed by future `lz-icon`; stored for API parity). */
+/** Icon style passed to `lz-icon` `type`. */
 export type LzButtonIconVariant = 'outline' | 'solid' | 'mini' | 'micro';

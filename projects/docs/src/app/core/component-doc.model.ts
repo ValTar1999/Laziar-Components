@@ -116,11 +116,20 @@ export function generateTemplateCode(
     attrs.push(`${control.name}="${escapeAttr(String(raw))}"`);
   }
 
-  const attrBlock = attrs.length ? ' ' + attrs.join(' ') : '';
+  const multiline = attrs.length > 2;
+  const attrBlock = attrs.length
+    ? multiline
+      ? `\n  ${attrs.join('\n  ')}\n`
+      : ` ${attrs.join(' ')}`
+    : '';
+
   if (content) {
-    return `<${selector}${attrBlock}>${content}</${selector}>`;
+    return multiline
+      ? `<${selector}${attrBlock}>${content}</${selector}>`
+      : `<${selector}${attrBlock}>${content}</${selector}>`;
   }
-  return `<${selector}${attrBlock} />`;
+
+  return multiline ? `<${selector}${attrBlock}/>` : `<${selector}${attrBlock} />`;
 }
 
 export function resolveSnippetContent(

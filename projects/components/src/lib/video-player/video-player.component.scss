@@ -1,0 +1,80 @@
+/**
+ * Video.js overrides — ported from publikator `video-player.component.css`.
+ */
+
+:host.lz-video-player-host {
+  display: contents;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+}
+
+.lz-video-player,
+:host ::ng-deep .video-js {
+  width: 100%;
+  height: 100%;
+}
+
+:host ::ng-deep .video-js .vjs-volume-panel .vjs-volume-control.vjs-volume-vertical {
+  bottom: 115px;
+  margin-left: 8px;
+}
+
+:host ::ng-deep .video-js .vjs-slider {
+  margin: 0;
+}
+
+:host ::ng-deep .video-js .vjs-logo {
+  margin-bottom: 20px;
+  width: 25px;
+  height: auto;
+}
+
+:host ::ng-deep .video-js .vjs-progress-control .vjs-load-progress {
+  top: 0;
+  height: 2px;
+}
+
+:host ::ng-deep .video-js .vjs-progress-control .vjs-slider {
+  height: 2px;
+}
+
+:host ::ng-deep .video-js .vjs-progress-control .vjs-slider::before {
+  top: 0;
+  overflow: hidden;
+  border-radius: 100px;
+  height: 2px;
+}
+
+:host ::ng-deep .video-js .vjs-progress-control:hover .vjs-marker-inn,
+:host ::ng-deep .video-js .vjs-progress-control:hover .vjs-load-progress,
+:host ::ng-deep .video-js .vjs-progress-control:hover .vjs-play-progress,
+:host ::ng-deep .video-js .vjs-progress-control:hover .vjs-slider::before {
+  top: -2px;
+  height: 4px;
+}
+
+:host ::ng-deep .video-js .vjs-progress-control .vjs-load-progress {
+  top: 0;
+  overflow: hidden;
+  border-radius: 100px;
+  height: 2px;
+}
+
+:host ::ng-deep .video-js .vjs-progress-holder .vjs-play-progress {
+  top: 0;
+  overflow: hidden;
+  border-radius: 100px;
+}
+
+:host ::ng-deep .vjs-svg-icon {
+  width: 20px;
+  height: 20px;
+}
+
+:host ::ng-deep .vjs-spacer {
+  display: flex;
+  flex: auto;
+}

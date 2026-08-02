@@ -1,0 +1,10 @@
+<docs-component-page [meta]="meta">
+  <ng-template docsPreview let-values>
+    <lz-avatar-group
+      [avatars]="avatars"
+      [max]="num(values, 'max', 3)"
+      [size]="$any(str(values, 'size', 'md'))"
+      [reverse]="bool(values, 'reverse')"
+    />
+  </ng-template>
+</docs-component-page>

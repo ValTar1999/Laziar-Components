@@ -30,11 +30,12 @@
   }
 }
 
-/// Typography preset from design tokens.
+/// Typography preset from design tokens (frontend fontSize scale).
 @mixin lz-text($size: base) {
   font-family: var(--lz-font-sans);
   font-size: var(--lz-font-size-#{$size});
   line-height: var(--lz-line-height-#{$size});
+  letter-spacing: var(--lz-letter-spacing-#{$size}, normal);
 }
 
 /// Focus ring using semantic tokens (no hardcoded colors).

@@ -1,27 +1,122 @@
 <article class="page">
-  <p class="page__eyebrow">Getting Started</p>
-  <h1 class="page__title">Laziar Components</h1>
-  <p class="page__lead">
-    Общая UI-библиотека для publikator и agora-frontend. Документация — витрина самой библиотеки:
-    токены, тема и компоненты в одном месте.
-  </p>
+  <header class="page__intro">
+    <p class="page__eyebrow">{{ 'gettingStarted.eyebrow' | transloco }}</p>
+    <h1 class="page__title">{{ 'gettingStarted.title' | transloco }}</h1>
+    <p class="page__lead" [innerHTML]="'gettingStarted.lead' | transloco"></p>
+  </header>
+
+  <lz-alert
+    class="page__alert"
+    [title]="'gettingStarted.alertTitle' | transloco"
+    [text]="'gettingStarted.alertText' | transloco"
+    iconName="check-circle"
+    iconVariant="outline"
+    variant="success"
+    [showCloseButton]="false"
+  />
+
+  <section class="page__grid">
+    <div class="page__panel">
+      <div class="page__panel-head">
+        <h2 class="page__panel-title">{{ 'gettingStarted.profile' | transloco }}</h2>
+        <lz-badge color="green" size="sm" pill>{{ 'common.online' | transloco }}</lz-badge>
+      </div>
+
+      <div class="page__row">
+        <lz-avatar firstName="Laziar" lastName="Team" size="lg" />
+        <div class="page__meta">
+          <div class="page__meta-title">
+            {{ 'gettingStarted.brandName' | transloco }}
+            <lz-pulse-dot />
+          </div>
+          <p class="page__meta-text">{{ 'gettingStarted.metaText' | transloco }}</p>
+        </div>
+      </div>
+
+      <lz-avatar-group [avatars]="avatars" [max]="3" size="sm" />
+
+      <div class="page__actions">
+        <lz-button-group>
+          <lz-button
+            [label]="'common.follow' | transloco"
+            size="sm"
+            color="red"
+            pill
+            (buttonClick)="showToast()"
+          />
+          <lz-tooltip [text]="'gettingStarted.shareTooltip' | transloco" position="top">
+            <lz-button
+              variant="iconOnly"
+              size="sm"
+              color="gray"
+              icon="share"
+              iconVariant="outline"
+              [ariaLabel]="'common.share' | transloco"
+            />
+          </lz-tooltip>
+        </lz-button-group>
+      </div>
+    </div>
+
+    <div class="page__panel">
+      <h2 class="page__panel-title">{{ 'gettingStarted.subscription' | transloco }}</h2>
+
+      <lz-input
+        type="email"
+        size="md"
+        pill
+        [placeholder]="'gettingStarted.emailPlaceholder' | transloco"
+        [ngModel]="email()"
+        (ngModelChange)="email.set($event)"
+      />
+
+      <div class="page__setting">
+        <div>
+          <div class="page__setting-label">{{ 'gettingStarted.newsletter' | transloco }}</div>
+          <div class="page__setting-hint">{{ 'gettingStarted.newsletterHint' | transloco }}</div>
+        </div>
+        <lz-switch-toggle [active]="newsletter()" size="sm" (changed)="newsletter.set($event)" />
+      </div>
+
+      <div class="page__check">
+        <lz-checkbox
+          [checked]="agreed()"
+          (checkedChange)="agreed.set($event)"
+          [title]="'gettingStarted.agreeTerms' | transloco"
+        />
+      </div>
+
+      <lz-button
+        [label]="'common.save' | transloco"
+        size="md"
+        color="gray"
+        variant="primary"
+        pill
+        fullWidth
+        [disabled]="!agreed()"
+        (buttonClick)="showToast()"
+      />
+    </div>
+  </section>
 
   <section class="page__section">
-    <h2>Установка</h2>
+    <h2>{{ 'gettingStarted.install' | transloco }}</h2>
     <pre class="page__code"><code>npm install &#64;laziar/components</code></pre>
   </section>
 
   <section class="page__section">
-    <h2>Быстрый старт</h2>
+    <h2>{{ 'gettingStarted.quickStart' | transloco }}</h2>
     <ol class="page__steps">
-      <li>Подключите <code>&#64;laziar/components/styles/theme.css</code> в глобальные стили.</li>
-      <li>Инжектните <code>ThemeService</code> для light / dark / auto.</li>
-      <li>Импортируйте компоненты из <code>&#64;laziar/components</code>.</li>
+      <li [innerHTML]="'gettingStarted.stepTheme' | transloco"></li>
+      <li [innerHTML]="'gettingStarted.stepInject' | transloco"></li>
+      <li [innerHTML]="'gettingStarted.stepImport' | transloco"></li>
     </ol>
-    <p>
-      Подробнее о токенах —
-      <a routerLink="/theming">Theming</a>. Каркас страницы компонента —
-      <a routerLink="/components/stub">Stub</a>.
+    <p class="page__links">
+      <a routerLink="/theming">{{ 'gettingStarted.linkTheming' | transloco }}</a>
+      <lz-icon name="chevron-right" type="mini" />
+      <a routerLink="/components/button">Button</a>
+      <lz-icon name="chevron-right" type="mini" />
+      <a routerLink="/components/input">Input</a>
     </p>
   </section>
 </article>

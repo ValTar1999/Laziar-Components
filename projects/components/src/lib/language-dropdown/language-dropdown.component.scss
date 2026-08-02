@@ -1,0 +1,131 @@
+/**
+ * Language dropdown styles — ported from publikator Tailwind classes.
+ */
+
+:host.lz-language-dropdown-host {
+  display: inline-block;
+}
+
+.lz-language-dropdown {
+  position: relative;
+  display: inline-block;
+  font-family: var(--lz-font-sans);
+  text-align: left;
+}
+
+.lz-language-dropdown__trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0 0.125rem;
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  transition:
+    border-color 300ms ease,
+    color 300ms ease;
+
+  &:focus {
+    outline: none;
+    border-color: var(--lz-color-focus-ring);
+  }
+
+  &:hover .lz-language-dropdown__initials,
+  &:focus .lz-language-dropdown__initials {
+    color: var(--lz-color-text-primary);
+  }
+
+  &:hover .lz-language-dropdown__chevron,
+  &:focus .lz-language-dropdown__chevron {
+    color: var(--lz-color-text-primary);
+  }
+}
+
+.lz-language-dropdown__flag {
+  width: 1.25rem;
+  height: 1.25rem;
+  object-fit: cover;
+  flex-shrink: 0;
+
+  &--sm {
+    width: 1rem;
+    height: 1rem;
+  }
+}
+
+.lz-language-dropdown__initials {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: var(--lz-color-text-secondary);
+  transition: color 300ms ease;
+}
+
+.lz-language-dropdown__chevron {
+  width: 0.75rem;
+  height: 0.75rem;
+  color: var(--lz-color-text-muted);
+  transition:
+    transform 300ms ease,
+    color 300ms ease;
+
+  &--open {
+    transform: rotate(180deg);
+  }
+}
+
+.lz-language-dropdown__menu {
+  position: absolute;
+  right: 0;
+  bottom: 100%;
+  margin-bottom: 0.5rem;
+  width: 10rem;
+  background-color: var(--lz-color-surface-elevated, var(--lz-color-background));
+  border: 1px solid var(--lz-color-border-subtle);
+  border-radius: var(--lz-radius-md, 0.5rem);
+  box-shadow: var(--lz-shadow-lg);
+  z-index: var(--lz-z-overlay, 10);
+}
+
+.lz-language-dropdown__list {
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem 0;
+}
+
+.lz-language-dropdown__item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--lz-color-neutral-50);
+  }
+
+  &--active {
+    background-color: var(--lz-color-neutral-surface);
+  }
+}
+
+.lz-language-dropdown__name {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--lz-color-text-primary);
+
+  &--active {
+    font-weight: 600;
+  }
+}
+
+.lz-language-dropdown__check {
+  width: 0.75rem;
+  height: 0.75rem;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.lz-language-dropdown__check-path {
+  fill: var(--lz-color-text-muted);
+}

@@ -1,15 +1,68 @@
 /* Global docs styles — theme tokens loaded via angular.json styles. */
 
+:root,
+[data-theme='light'] {
+  --docs-canvas: #fffffa;
+  --docs-sidebar-bg: #fffffa;
+  --docs-nav-hover: #f4f5f5;
+  --docs-nav-active: #eef0f0;
+}
+
+[data-theme='dark'] {
+  --docs-canvas: #121212;
+  --docs-sidebar-bg: #121212;
+  --docs-nav-hover: #1a1b1c;
+  --docs-nav-active: #242628;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --docs-canvas: #121212;
+    --docs-sidebar-bg: #121212;
+    --docs-nav-hover: #1a1b1c;
+    --docs-nav-active: #242628;
+  }
+}
+
+html {
+  box-sizing: border-box;
+  -webkit-text-size-adjust: 100%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
 html,
 body {
   margin: 0;
-  min-height: 100%;
-  background-color: var(--lz-color-background);
+  height: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  background-color: var(--docs-canvas);
   color: var(--lz-color-text-primary);
   font-family: var(--lz-font-sans);
   font-size: var(--lz-font-size-base);
   line-height: var(--lz-line-height-base);
+  -webkit-font-smoothing: antialiased;
   transition:
     background-color var(--lz-duration-normal) var(--lz-easing-standard),
     color var(--lz-duration-normal) var(--lz-easing-standard);
+}
+
+app-root {
+  display: block;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* CDK overlays must sit above sticky header / sidebar */
+.cdk-overlay-container {
+  z-index: var(--lz-z-tooltip, 1500);
+}
+
+.lz-tooltip-cdk-pane {
+  z-index: var(--lz-z-tooltip, 1500);
 }

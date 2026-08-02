@@ -1,0 +1,31 @@
+<div class="lz-toast-notification" [attr.data-type]="type()">
+  <span class="lz-toast-notification__icon-wrapper" aria-hidden="true">
+    <lz-icon [name]="iconName()" type="mini" class="lz-toast-notification__icon"></lz-icon>
+  </span>
+
+  <p class="lz-toast-notification__message">
+    {{ messageParts().before }}
+    @if (messageParts().bold) {
+      <strong>{{ messageParts().bold }}</strong>
+    }
+    {{ messageParts().after }}
+  </p>
+
+  <span class="lz-toast-notification__divider" aria-hidden="true"></span>
+
+  <lz-button
+    variant="tertiary"
+    size="xs"
+    icon="x-mark"
+    ariaLabel="Dismiss notification"
+    class="lz-toast-notification__close"
+    (buttonClick)="onClose()"
+  >
+    <lz-icon
+      lzButtonIcon
+      name="x-mark"
+      type="solid"
+      class="lz-toast-notification__close-icon"
+    ></lz-icon>
+  </lz-button>
+</div>

@@ -1,0 +1,15 @@
+<docs-component-page [meta]="meta">
+  <ng-template docsPreview let-values>
+    <lz-avatar
+      [firstName]="str(values, 'firstName')"
+      [lastName]="str(values, 'lastName')"
+      [size]="$any(str(values, 'size', 'md'))"
+      [variant]="$any(str(values, 'variant', 'default'))"
+      [topNotification]="bool(values, 'topNotification')"
+      [bottomNotification]="bool(values, 'bottomNotification')"
+      [topNotificationStatus]="$any(str(values, 'topNotificationStatus', 'error'))"
+      [bottomNotificationStatus]="$any(str(values, 'bottomNotificationStatus', 'info'))"
+      [imgUrl]="optStr(values, 'imgUrl')"
+    />
+  </ng-template>
+</docs-component-page>

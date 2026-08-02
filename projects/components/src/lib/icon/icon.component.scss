@@ -1,0 +1,38 @@
+:host {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  vertical-align: middle;
+  color: inherit;
+}
+
+/* Default size on host so % children and consumers always get a box */
+:host.lz-icon-host--sized {
+  width: var(--lz-icon-size, 1.5rem);
+  height: var(--lz-icon-size, 1.5rem);
+}
+
+.lz-icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+  transition: color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Outline / thin sets: stroke icons — do not force fill */
+:host([data-type='outline']) .lz-icon,
+:host([data-type='mini']) .lz-icon,
+:host([data-type='micro']) .lz-icon {
+  fill: none;
+  stroke: currentColor;
+}
+
+/* Solid / custom: filled paths */
+:host([data-type='solid']) .lz-icon,
+:host([data-type='custom']) .lz-icon {
+  fill: currentColor;
+  stroke: none;
+}

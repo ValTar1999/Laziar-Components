@@ -1,0 +1,11 @@
+<a class="lz-login-prompt-banner" [routerLink]="route()" [attr.aria-label]="resolvedAriaLabel()">
+  <div class="lz-login-prompt-banner__content">
+    <span class="lz-login-prompt-banner__icon lz-login-prompt-banner__icon--sparkles">
+      <lz-icon name="sparkles" type="solid"></lz-icon>
+    </span>
+    <span class="lz-login-prompt-banner__text">{{ text() }}</span>
+  </div>
+  <span class="lz-login-prompt-banner__icon lz-login-prompt-banner__icon--arrow">
+    <lz-icon name="arrow-right" type="outline"></lz-icon>
+  </span>
+</a>

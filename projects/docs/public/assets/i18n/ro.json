@@ -1,0 +1,854 @@
+{
+  "nav": {
+    "brand": "Laziar component",
+    "docsAria": "Documentație",
+    "expandMenu": "Extinde meniul",
+    "collapseMenu": "Restrânge meniul",
+    "openMenu": "Deschide navigarea",
+    "closeMenu": "Închide navigarea",
+    "groups": {
+      "start": "Start",
+      "theming": "Teme",
+      "forms": "Formulare",
+      "feedback": "Feedback",
+      "dataDisplay": "Afișare date",
+      "navigation": "Navigare",
+      "services": "Servicii"
+    },
+    "items": {
+      "introduction": "Introducere",
+      "tokensTheme": "Token-uri & temă",
+      "button": "Button",
+      "checkbox": "Checkbox",
+      "switch": "Switch",
+      "input": "Input",
+      "textarea": "Textarea",
+      "select": "Select",
+      "stub": "Stub",
+      "alert": "Alert",
+      "badge": "Badge",
+      "loading": "Loading",
+      "progressCircle": "Progress Circle",
+      "tooltip": "Tooltip",
+      "pulseDot": "Pulse Dot",
+      "avatar": "Avatar",
+      "avatarGroup": "Avatar Group",
+      "icon": "Icon",
+      "tabs": "Tabs",
+      "tabButton": "Tab Button",
+      "buttonGroup": "Button Group",
+      "themeService": "ThemeService"
+    }
+  },
+  "header": {
+    "searchPlaceholder": "Căutare…",
+    "themeAria": "Temă",
+    "themeLight": "Light",
+    "themeDark": "Dark",
+    "themeAuto": "Auto",
+    "repo": "Repository"
+  },
+  "common": {
+    "save": "Salvează",
+    "cancel": "Anulează",
+    "close": "Închide",
+    "follow": "Follow",
+    "share": "Share",
+    "online": "Online",
+    "loading": "Se încarcă…"
+  },
+  "footer": {
+    "copyright": "© Laziar Components",
+    "privacy": "Confidențialitate",
+    "terms": "Termeni",
+    "docs": "Documentație"
+  },
+  "gettingStarted": {
+    "eyebrow": "Începe aici",
+    "title": "Construiește interfețe din componente",
+    "lead": "Site-ul de docs folosește deja <code>lz-logo</code>, <code>lz-button</code>, <code>lz-input</code>, <code>lz-icon</code>, <code>lz-tooltip</code> și <code>lz-toast-container</code>. Mai jos — un fragment UI live din aceleași primitive.",
+    "alertTitle": "Biblioteca este conectată",
+    "alertText": "Importă componente din @laziar/components și construiește ecrane fără CSS custom.",
+    "profile": "Profil",
+    "metaText": "Design system · Angular",
+    "shareTooltip": "Distribuie profilul",
+    "subscription": "Abonament",
+    "emailPlaceholder": "Email",
+    "newsletter": "Newsletter",
+    "newsletterHint": "O dată pe săptămână",
+    "agreeTerms": "Sunt de acord cu termenii",
+    "install": "Instalare",
+    "quickStart": "Start rapid",
+    "stepTheme": "Include <code>@laziar/components/styles/theme.css</code>.",
+    "stepInject": "Injectează <code>ThemeService</code> pentru light / dark / auto.",
+    "stepImport": "Importă componente: <code>Button</code>, <code>Input</code>, <code>Logo</code>, <code>Icon</code>…",
+    "toastMessage": "Site construit din @laziar/components",
+    "toastBold": "Gata",
+    "brandName": "Laziar Components",
+    "linkTheming": "Theming"
+  },
+  "componentPage": {
+    "preview": "Previzualizare",
+    "previewEmpty": "Previzualizarea nu este setată",
+    "sandbox": "Sandbox",
+    "code": "Cod",
+    "codeLead": "Sincronizat cu sandbox-ul — schimbă controalele și codul se actualizează.",
+    "variants": "Variante",
+    "variantsLead": "Combinații prestabilite de variant × size.",
+    "variantsEmpty": "Variantele vor apărea odată cu componenta.",
+    "api": "API",
+    "inputs": "Inputs",
+    "outputs": "Outputs",
+    "slots": "Sloturi (ng-content)",
+    "col": {
+      "name": "Nume",
+      "type": "Tip",
+      "default": "Implicit",
+      "description": "Descriere",
+      "slotName": "Nume / select",
+      "replacedBy": "Înlocuit de",
+      "token": "Token"
+    },
+    "empty": {
+      "inputs": "Niciun input",
+      "outputs": "Niciun output",
+      "slots": "Niciun slot",
+      "tokens": "Niciun token specific"
+    },
+    "emDash": "—",
+    "deprecatedAliases": "Aliasuri deprecated ({{count}})",
+    "deprecatedBadge": "deprecated",
+    "examples": "Exemple",
+    "examplesEmpty": "Exemplele vor apărea în curând.",
+    "tokens": "Token-uri componentă",
+    "tokensLead": "Variabile CSS care afectează aspectul."
+  },
+  "sandbox": {
+    "aria": "Sandbox"
+  },
+  "codeBlock": {
+    "copy": "Copiază",
+    "copied": "Copiat"
+  },
+  "theming": {
+    "eyebrow": "Theming",
+    "title": "Token-uri și ThemeService",
+    "lead": "Sistemul vizual se bazează pe variabile CSS semantice <code>--lz-*</code>. Comutatorul din header folosește <code>ThemeService</code> (light / dark / auto).",
+    "connect": "Conectare",
+    "palette": "Paletă",
+    "note": "Tabelul complet de token-uri — în <code>docs/THEMING.md</code>."
+  },
+  "componentHost": {
+    "missing": "Componenta „{{name}}” nu este încă documentată."
+  },
+  "languageSwitcher": {
+    "aria": "Limbă"
+  },
+  "components": {
+    "alert": {
+      "description": "Banner de notificare cu pictogramă, titlu, text și buton opțional de închidere. Acceptă variante semantice și aranjare orizontală.",
+      "controls": {
+        "title": {
+          "default": "Reușit"
+        },
+        "text": {
+          "default": "Modificările au fost salvate."
+        },
+        "iconName": {
+          "hint": "Numele simbolului lz-icon"
+        }
+      },
+      "inputs": {
+        "title": "Titlul bannerului",
+        "text": "Text principal",
+        "iconname": "Numele pictogramei lz-icon",
+        "iconvariant": "Varianta sprite-ului pictogramei",
+        "variant": "Variantă semantică / de culoare",
+        "size": "Dimensiune tipografică",
+        "padding": "Spațiere interioară",
+        "isrow": "Aranjare orizontală a conținutului",
+        "isrowtext": "Titlu și text pe un singur rând",
+        "showclosebutton": "Afișează butonul de închidere",
+        "closecolor": "Suprascrierea culorii butonului de închidere",
+        "buttonvariant": "Suprascrierea variantei butonului de închidere"
+      },
+      "outputs": {
+        "closed": "Clic pe butonul de închidere"
+      },
+      "slots": {
+        "default": "Conținut suplimentar în corpul alertei (lângă text)"
+      },
+      "examples": {
+        "0": {
+          "title": "Succes"
+        },
+        "1": {
+          "title": "Eroare fără închidere"
+        },
+        "2": {
+          "title": "Rând"
+        }
+      },
+      "tokens": {
+        "lz_color_primary_secondary": "Palete semantice de variante",
+        "lz_radius": "Rotunjirea containerului",
+        "lz_font_size": "Tipografie title / text după size"
+      }
+    },
+    "avatar-group": {
+      "description": "Grup de avatare cu limită pentru elementele vizibile și contor pentru cele rămase. Potrivit pentru liste de participanți.",
+      "controls": {
+        "max": {
+          "hint": "Câte avatare se afișează înainte de „+N”"
+        },
+        "reverse": {
+          "hint": "Ordine inversă de suprapunere (z-index)"
+        }
+      },
+      "inputs": {
+        "avatars": "Lista participanților: firstName, lastName, imgUrl opțional",
+        "max": "Maximum de avatare vizibile; restul sunt în „+N”",
+        "size": "Dimensiunea elementelor grupului",
+        "reverse": "Inversează z-index-ul suprapunerii"
+      },
+      "examples": {
+        "0": {
+          "title": "Participanți la chat"
+        },
+        "1": {
+          "title": "Suprapunere inversă"
+        }
+      },
+      "tokens": {
+        "lz_color_gray": "Fundal pentru inițiale fallback și restul „+N”",
+        "lz_radius_full": "Formă rotundă a elementelor"
+      }
+    },
+    "avatar": {
+      "description": "Avatar utilizator: inițiale, imagine, dimensiuni și indicatori de stare (online / notificare).",
+      "controls": {
+        "firstName": {
+          "default": "Ana"
+        },
+        "lastName": {
+          "default": "Ionescu"
+        },
+        "imgUrl": {
+          "hint": "URL imagine; șir gol — inițiale / placeholder"
+        }
+      },
+      "inputs": {
+        "firstname": "Prenume (pentru inițiale și alt)",
+        "lastname": "Nume (pentru inițiale și alt)",
+        "imgurl": "URL fotografie; fără el — inițiale sau placeholder",
+        "size": "Dimensiune avatar",
+        "variant": "default — chenar/fundal placeholder; plain — fără ele",
+        "topnotification": "Afișează indicatorul sus dreapta",
+        "bottomnotification": "Afișează indicatorul jos dreapta",
+        "topnotificationstatus": "Culoarea indicatorului de sus",
+        "bottomnotificationstatus": "Culoarea indicatorului de jos",
+        "imgnotification": "Imagine-badge suplimentară peste avatar",
+        "containerclass": "Clasă suplimentară pe containerul avatarului"
+      },
+      "examples": {
+        "0": {
+          "title": "Inițiale"
+        },
+        "1": {
+          "title": "Cu fotografie și stare"
+        },
+        "2": {
+          "title": "Plain fără chenar"
+        }
+      },
+      "tokens": {
+        "lz_color_gray": "Fundal / text pentru inițiale și placeholder",
+        "lz_color_success": "Indicator success",
+        "lz_color_danger": "Indicator error",
+        "lz_color_warning": "Indicator warning",
+        "lz_radius_full": "Formă rotundă a avatarului"
+      }
+    },
+    "badge": {
+      "description": "Chip/etichetă compactă cu paletă de culori, dimensiuni, formă pill și pictogramă opțională.",
+      "controls": {
+        "label": {
+          "hint": "Conținut proiectat (ng-content)"
+        },
+        "icon": {
+          "hint": "Numele lz-icon; gol — fără pictogramă"
+        }
+      },
+      "inputs": {
+        "color": "Temă de culoare (există alias magrnta → magenta)",
+        "size": "Dimensiune badge",
+        "border": "Chenar (border ring)",
+        "pill": "Formă complet rotunjită",
+        "disabled": "Stare inactivă",
+        "icon": "Nume pictogramă; personalizată — slot [lzBadgeIcon]",
+        "iconposition": "Poziția pictogramei",
+        "iconvariant": "Varianta sprite-ului lz-icon",
+        "img": "URL imagine în stânga",
+        "iconclickable": "Pictograma este clicabilă și emite iconClick",
+        "iconarialabel": "aria-label pentru pictograma clicabilă"
+      },
+      "outputs": {
+        "iconclick": "Clic pe pictogramă (dacă iconClickable)"
+      },
+      "slots": {
+        "default": "Text / conținut badge",
+        "lzbadgeicon": "Pictogramă personalizată în locul lz-icon după nume"
+      },
+      "examples": {
+        "0": {
+          "title": "Stare"
+        },
+        "1": {
+          "title": "Cu pictogramă"
+        },
+        "2": {
+          "title": "Cu chenar"
+        }
+      },
+      "tokens": {
+        "lz_badge_50_100_200_500_600_900": "Scară neutră gray",
+        "lz_green_lz_red": "Palete de culori badge",
+        "lz_icon_size": "Dimensiunea pictogramei în badge"
+      }
+    },
+    "button-group": {
+      "description": "Wrapper pentru un grup segmentat de butoane: chenar comun, rotunjirea marginilor și separatoare opționale (line).",
+      "controls": {
+        "line": {
+          "hint": "Separatoare între butoane"
+        }
+      },
+      "inputs": {
+        "line": "Afișează separatoare între butoanele copil",
+        "divided": "@deprecated — alias pentru line"
+      },
+      "outputs": {
+        "default": "lz-button copil (sau button nativ)"
+      },
+      "slots": {
+        "default": "lz-button copil (sau button nativ)"
+      },
+      "deprecated": {
+        "divided": "Nume vechi pentru separatoare"
+      },
+      "examples": {
+        "0": {
+          "title": "Comutator segmentat"
+        },
+        "1": {
+          "title": "Fără separatoare"
+        }
+      },
+      "tokens": {
+        "lz_color_gray": "Chenarul grupului și separatoare",
+        "lz_radius_md": "Rotunjirea containerului (0.5rem)"
+      },
+      "demo": {
+        "left": "Stânga",
+        "center": "Centru",
+        "right": "Dreapta"
+      }
+    },
+    "button": {
+      "description": "Componentă de referință a bibliotecii. API unificat publikator + agora-frontend: variante, dimensiuni, paletă, a11y și buttonClick explicit.",
+      "controls": {
+        "label": {
+          "default": "Salvează"
+        },
+        "icon": {
+          "hint": "Numele simbolului din /assets/icons/icons-{outline|solid|…}.svg (de exemplu check, x-mark, plus)"
+        },
+        "iconVariant": {
+          "hint": "Sprite lz-icon: outline / solid / mini / micro"
+        }
+      },
+      "inputs": {
+        "label": "Text buton (alternativă — ng-content implicit)",
+        "variant": "Variantă vizuală",
+        "size": "Dimensiune (padding publikator)",
+        "type": "type nativ pentru <button>",
+        "icon": "Nume pictogramă; personalizată — slot [lzButtonIcon]",
+        "iconvariant": "Varianta sprite pentru lz-icon (type)",
+        "iconposition": "Poziția pictogramei față de text",
+        "iconclass": "Clasă suplimentară pe wrapper-ul pictogramei",
+        "disabled": "Dezactivează butonul și blochează buttonClick",
+        "pill": "Complet rotunjit (rounded-full)",
+        "color": "Paletă → token-uri semantice",
+        "fullwidth": "Întinde la 100% din lățimea hostului",
+        "arialabel": "aria-label (obligatoriu pentru icon-only, altfel fallback)",
+        "ariacurrentpage": "Setează aria-current=\"page\" (paginare)"
+      },
+      "outputs": {
+        "buttonclick": "Clic / activare, numai dacă nu este disabled"
+      },
+      "slots": {
+        "default": "Conținut suplimentar lângă label",
+        "lzbuttonicon": "Pictogramă personalizată în locul lz-icon după nume"
+      },
+      "deprecated": {
+        "rounded": "Nume vechi din publikator/agora",
+        "icondirection": "Nume vechi pentru poziția pictogramei"
+      },
+      "examples": {
+        "0": {
+          "title": "Într-un formular",
+          "description": "Submit primary + secondary cancel."
+        },
+        "1": {
+          "title": "Într-un modal",
+          "description": "Footer dialog."
+        },
+        "2": {
+          "title": "Icon-only cu a11y"
+        },
+        "3": {
+          "title": "Alias deprecated (migrări)",
+          "description": "rounded → pill; nu folosiți în cod nou."
+        }
+      },
+      "tokens": {
+        "lz_button_fg": "Culoare text / pictogramă",
+        "lz_button_bg": "Fundal",
+        "lz_button_bg_hover": "Fundal la hover",
+        "lz_button_border": "Culoarea chenarului",
+        "lz_button_ring": "Inel focus-visible",
+        "lz_button_radius": "Rotunjire (suprascrisă de pill)",
+        "lz_button_icon_size": "Dimensiunea pictogramei după size",
+        "lz_button_tone": "Scară locală de ton din color",
+        "lz_color_primary_secondary": "Palete semantice",
+        "lz_color_purple": "Paleta purple pentru color=\"purple\"",
+        "lz_duration_normal": "Durata tranziției",
+        "lz_radius_full": "Formă pill"
+      }
+    },
+    "checkbox": {
+      "description": "Checkbox și buton radio cu titlu, descriere și stări de eroare.",
+      "controls": {
+        "title": {
+          "default": "Acceptă"
+        }
+      },
+      "inputs": {
+        "type": "Tip input nativ",
+        "variant": "Stare vizuală de validare",
+        "checked": "Dacă elementul este bifat",
+        "disabled": "Dezactivează interacțiunea",
+        "indeterminate": "Stare intermediară (doar checkbox)",
+        "rounded": "Aspect rotunjit (adesea cu radio)",
+        "title": "Titlu / label",
+        "description": "Text sub titlu"
+      },
+      "outputs": {
+        "checkedchange": "Modificare checked la clic"
+      },
+      "examples": {
+        "0": {
+          "title": "Consimțământ"
+        },
+        "1": {
+          "title": "Grup radio"
+        }
+      },
+      "tokens": {
+        "lz_checkbox_border": "Culoarea chenarului",
+        "lz_checkbox_bg_checked": "Fundal la checked",
+        "lz_checkbox_error": "Accent variant=error"
+      }
+    },
+    "icon": {
+      "description": "Pictogramă SVG din sprite-uri Heroicons / personalizate: outline, solid, mini, micro, custom. Numele este id-ul simbolului din sprite.",
+      "controls": {
+        "name": {
+          "hint": "Numele simbolului (de exemplu check, x-mark, plus)"
+        },
+        "type": {
+          "hint": "Sprite: icons-{type}.svg"
+        }
+      },
+      "inputs": {
+        "name": "Id-ul simbolului în sprite SVG",
+        "type": "Varianta sprite-ului",
+        "class": "Clase suplimentare pe SVG (alias iconClass); w-* dezactivează dimensiunea implicită",
+        "assetspath": "Calea de bază către folderul de sprite-uri"
+      },
+      "examples": {
+        "0": {
+          "title": "Într-un buton"
+        },
+        "1": {
+          "title": "Dimensiune personalizată prin class"
+        },
+        "2": {
+          "title": "Sprite personalizat",
+          "description": "Simbolul trebuie să fie în icons-custom.svg."
+        }
+      },
+      "tokens": {
+        "lz_icon_size": "Lățime/înălțime implicită (1.5rem)",
+        "currentcolor": "Culoarea pictogramei este moștenită de la părinte"
+      }
+    },
+    "input": {
+      "description": "Câmp text cu label, helper, buton și variante appearance.",
+      "controls": {
+        "withButton": {
+          "hint": "Șir gol → null (fără buton)"
+        }
+      },
+      "inputs": {
+        "label": "Etichetă deasupra câmpului",
+        "placeholder": "Placeholder",
+        "type": "Tip input",
+        "size": "Dimensiune câmp",
+        "helpertext": "Indiciu / eroare sub câmp",
+        "error": "Stare de eroare",
+        "disabled": "Dezactivează câmpul",
+        "pill": "Rotunjire completă",
+        "appearance": "Stil vizual",
+        "prefix": "Prefix în stânga în câmp",
+        "withbutton": "Poziția butonului integrat",
+        "buttonlabel": "Text buton",
+        "iconbutton": "Pictogramă în loc de textul butonului"
+      },
+      "outputs": {
+        "valuechange": "Modificare valoare"
+      },
+      "examples": {
+        "0": {
+          "title": "Cu ngModel"
+        },
+        "1": {
+          "title": "Căutare"
+        }
+      },
+      "tokens": {
+        "lz_input_border": "Culoarea chenarului",
+        "lz_input_bg": "Fundalul câmpului",
+        "lz_input_error": "Accent de eroare"
+      }
+    },
+    "loading": {
+      "description": "Indicator de încărcare: spinner circular sau inel de puncte.",
+      "inputs": {
+        "color": "Culoarea indicatorului",
+        "size": "Dimensiune",
+        "variant": "Tip de animație"
+      },
+      "examples": {
+        "0": {
+          "title": "Într-un bloc de conținut"
+        },
+        "1": {
+          "title": "Puncte"
+        }
+      },
+      "tokens": {
+        "lz_loading_size": "Lățime / înălțime după size",
+        "lz_loading_tone": "Culoarea stroke / punctelor"
+      }
+    },
+    "progress-circle": {
+      "description": "Progres circular cu procent (etichetă la dimensiuni mari).",
+      "controls": {
+        "progress": {
+          "hint": "Procent 0–100"
+        }
+      },
+      "inputs": {
+        "progress": "Procent de umplere (limitat 0–100)",
+        "size": "Diametru; label la lg / xl / xxl",
+        "variant": "Culoarea arcului"
+      },
+      "examples": {
+        "0": {
+          "title": "Încărcare fișier"
+        },
+        "1": {
+          "title": "Compact"
+        }
+      },
+      "tokens": {
+        "arc_color_inline": "red → #ef4444, white → #121212",
+        "size_map": "xs–xxl → px și strokeWidth"
+      }
+    },
+    "pulse-dot": {
+      "description": "Punct de stare pulsant (live / online). Fără parametri de intrare.",
+      "examples": {
+        "0": {
+          "title": "Lângă titlu"
+        },
+        "1": {
+          "title": "Într-o listă"
+        }
+      },
+      "tokens": {
+        "core_d50b0b": "Culoarea punctului central",
+        "ring_ec3131": "Culoarea inelului pulsant"
+      }
+    },
+    "select": {
+      "description": "Listă derulantă cu label, dimensiuni sm/md și text helper.",
+      "controls": {
+        "label": {
+          "default": "Alege o opțiune"
+        },
+        "placeholder": {
+          "default": "Alege…"
+        }
+      },
+      "inputs": {
+        "label": "Etichetă deasupra câmpului",
+        "placeholder": "Text când nu este selectat nimic",
+        "size": "Dimensiune control",
+        "helpertext": "Indiciu sub câmp",
+        "disabled": "Dezactivează select"
+      },
+      "outputs": {
+        "opened": "Se declanșează la deschiderea listei"
+      },
+      "examples": {
+        "0": {
+          "title": "Cu ngModel"
+        }
+      },
+      "tokens": {
+        "lz_select_border": "Culoarea chenarului",
+        "lz_select_bg": "Fundalul trigger-ului"
+      },
+      "demo": {
+        "optionA": "Opțiunea A",
+        "optionB": "Opțiunea B",
+        "optionC": "Opțiunea C"
+      }
+    },
+    "stub": {
+      "description": "Placeholder pentru verificarea structurii documentației: previzualizare, sandbox, cod sincronizat, variante, API și token-uri.",
+      "controls": {
+        "variant": {
+          "hint": "Variantă vizuală"
+        },
+        "label": {
+          "default": "Apasă-mă"
+        },
+        "accent": {
+          "hint": "Accent local (demo color picker)"
+        },
+        "maxWidth": {
+          "hint": "Lățime maximă în px"
+        }
+      },
+      "inputs": {
+        "variant": "Stil vizual al butonului",
+        "size": "Dimensiune",
+        "disabled": "Dezactivează interacțiunea",
+        "label": "Text (în API-ul real va fi prin ng-content)",
+        "accent": "Culoare demo pentru color picker",
+        "maxwidth": "Limită de lățime"
+      },
+      "outputs": {
+        "pressed": "Clic pe buton (când nu este disabled)"
+      },
+      "slots": {
+        "default": "Conținutul butonului (pictogramă + text)",
+        "lzprefix": "Slot la stânga textului"
+      },
+      "deprecated": {
+        "type": "Nume vechi al variantei din publikator",
+        "btnsize": "Alias de dimensiune învechit"
+      },
+      "examples": {
+        "0": {
+          "title": "Într-un formular",
+          "description": "Buton primary de submit lângă secondary cancel."
+        },
+        "1": {
+          "title": "Într-un modal",
+          "description": "Footer dialog cu aliniere la dreapta."
+        }
+      },
+      "tokens": {
+        "lz_color_primary": "Umplerea variantei primary",
+        "lz_color_secondary": "Umplerea variantei secondary",
+        "lz_radius_md": "Rotunjirea butonului",
+        "lz_duration_fast": "Durata tranziției hover/focus",
+        "lz_shadow_focus": "Inel de focus"
+      }
+    },
+    "switch-toggle": {
+      "description": "Comutator pornit/oprit cu dimensiuni sm și md.",
+      "inputs": {
+        "active": "Stare pornită",
+        "disabled": "Dezactivează comutarea",
+        "size": "Dimensiune comutator"
+      },
+      "outputs": {
+        "changed": "Noua valoare active după clic"
+      },
+      "examples": {
+        "0": {
+          "title": "Setare"
+        }
+      },
+      "tokens": {
+        "lz_switch_toggle_track_active": "Fundal track când este pornit",
+        "lz_switch_toggle_thumb": "Culoarea thumb-ului"
+      }
+    },
+    "tab-button": {
+      "description": "Buton de tab individual: variante solid/bg (umplere) și line (subliniere). solid este alias pentru bg.",
+      "controls": {
+        "label": {
+          "default": "Prezentare generală"
+        },
+        "variant": {
+          "hint": "solid și bg sunt echivalente"
+        }
+      },
+      "inputs": {
+        "label": "Text buton",
+        "active": "Stare activă",
+        "size": "Dimensiune",
+        "variant": "solid → bg; line — indicator subliniere",
+        "link": "Dacă este setat — redă routerLink în loc de button"
+      },
+      "examples": {
+        "0": {
+          "title": "Grup de tab-uri"
+        },
+        "1": {
+          "title": "Cu routerLink"
+        }
+      },
+      "tokens": {
+        "lz_color_gray": "Text și fundal pentru bg/solid activ",
+        "lz_duration_normal": "Tranziție hover / active",
+        "lz_radius_md": "Rotunjirea controlului"
+      },
+      "demo": {
+        "overview": "Prezentare"
+      }
+    },
+    "tabs": {
+      "description": "Listă orizontală de tab-uri: stiluri outline / underline / border, dimensiuni și index activ. Acceptă badge-uri, pictograme și tab-uri disabled.",
+      "controls": {
+        "activeTab": {
+          "hint": "Indexul tab-ului activ (one-way în sandbox)"
+        }
+      },
+      "inputs": {
+        "tabs": "Etichete tab",
+        "style": "Stil vizual listă de tab-uri",
+        "size": "Dimensiune (padding tab-uri)",
+        "activetab": "Index bidirecțional al tab-ului activ",
+        "badges": "Badge-uri opționale după indexul tab-ului",
+        "icons": "Nume pictograme (lz-icon) după index",
+        "disabledtabindexes": "Indexurile tab-urilor indisponibile",
+        "disabledtabtooltips": "Tooltip-uri pentru tab-uri disabled (cheia este indexul ca șir)",
+        "disabledtabtooltiptrigger": "Trigger tooltip pe tab disabled",
+        "class": "Clasă suplimentară pe rădăcină"
+      },
+      "outputs": {
+        "activetab": "Modificarea indexului activ (model)"
+      },
+      "examples": {
+        "0": {
+          "title": "Listă de tab-uri de bază"
+        },
+        "1": {
+          "title": "Cu pictograme și badge-uri"
+        }
+      },
+      "tokens": {
+        "lz_color_gray": "Text tab-uri și separatoare",
+        "lz_duration_normal": "Tranziție culoare / indicator",
+        "lz_radius_md": "Rotunjirea stilului border"
+      },
+      "demo": {
+        "overview": "Prezentare",
+        "members": "Participanți",
+        "settings": "Setări"
+      }
+    },
+    "textarea": {
+      "description": "Câmp multilinie cu label, helper și setare resize.",
+      "controls": {
+        "label": {
+          "default": "Comentariu"
+        },
+        "placeholder": {
+          "default": "Introduceți text…"
+        }
+      },
+      "inputs": {
+        "label": "Etichetă deasupra câmpului",
+        "placeholder": "Placeholder",
+        "rows": "Număr de rânduri vizibile",
+        "helpertext": "Indiciu / eroare",
+        "error": "Stare de eroare",
+        "disabled": "Dezactivează câmpul",
+        "resize": "Comportament resize"
+      },
+      "outputs": {
+        "valuechange": "Modificare valoare"
+      },
+      "examples": {
+        "0": {
+          "title": "Cu ngModel"
+        }
+      },
+      "tokens": {
+        "lz_textarea_border": "Culoarea chenarului",
+        "lz_textarea_bg": "Fundal"
+      }
+    },
+    "tooltip": {
+      "description": "Wrapper peste tag/element: panou CDK Overlay la hover sau clic. Alias: `lz-tooltip-hover`.",
+      "controls": {
+        "title": {
+          "default": "Titlu"
+        },
+        "text": {
+          "default": "Text tooltip"
+        }
+      },
+      "inputs": {
+        "title": "Titlu panou",
+        "text": "Text panou",
+        "img": "URL imagine în panou",
+        "position": "Poziția CDK overlay",
+        "theme": "Tema panoului",
+        "arrow": "Afișează săgeata",
+        "disabled": "Dezactivează deschiderea",
+        "trigger": "Metoda de deschidere",
+        "triggerclass": "Clasa wrapper-ului trigger"
+      },
+      "outputs": {
+        "default": "Trigger — buton, pictogramă, link etc."
+      },
+      "slots": {
+        "default": "Trigger — buton, pictogramă, link etc."
+      },
+      "examples": {
+        "0": {
+          "title": "Hover"
+        },
+        "1": {
+          "title": "Clic + săgeată"
+        }
+      },
+      "tokens": {
+        "cdk_overlay_pane": "Clasa lz-tooltip-cdk-pane",
+        "data_panel_theme": "Tema dark / light a panoului (a nu se confunda cu data-theme al aplicației)"
+      },
+      "demo": {
+        "trigger": "Treci cu mouse-ul"
+      }
+    }
+  }
+}

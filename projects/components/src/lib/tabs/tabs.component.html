@@ -1,0 +1,45 @@
+<div
+  class="lz-tabs"
+  [attr.data-style]="style()"
+  [attr.data-size]="size()"
+  [class]="class() ?? ''"
+  role="tablist"
+>
+  @for (tab of tabs(); track $index; let i = $index) {
+    <button
+      type="button"
+      class="lz-tabs__tab"
+      [attr.data-active]="activeTab() === i ? 'true' : null"
+      [attr.data-disabled]="isTabDisabled(i) ? 'true' : null"
+      [attr.aria-selected]="activeTab() === i"
+      [attr.aria-disabled]="isTabDisabled(i)"
+      role="tab"
+      (click)="setActiveTab(i)"
+    >
+      @if (icons()[i]) {
+        <lz-icon [name]="icons()[i]" />
+      }
+      @if (isTabDisabled(i) && getDisabledTooltip(i)) {
+        <lz-tooltip
+          [text]="getDisabledTooltip(i)"
+          position="bottom"
+          [trigger]="disabledTabTooltipTrigger()"
+          triggerClass="lz-tabs__disabled-tooltip-trigger"
+        >
+          <span class="lz-tabs__label">{{ tab }}</span>
+        </lz-tooltip>
+      } @else {
+        <span class="lz-tabs__label">{{ tab }}</span>
+      }
+      @if (badges()[i]?.text) {
+        <lz-badge [color]="badges()[i]?.variant || 'gray'" size="sm" [pill]="true" [border]="true">
+          {{ badges()[i]?.text }}
+        </lz-badge>
+      }
+    </button>
+  }
+
+  @if (showUnderline()) {
+    <div class="lz-tabs__underline" [ngStyle]="underlineStyle()"></div>
+  }
+</div>

@@ -1,0 +1,48 @@
+:host.lz-auth-footer-host {
+  display: block;
+}
+
+.lz-auth-footer {
+  min-height: 54px;
+  height: auto;
+  flex-shrink: 0;
+  padding-block: 0.75rem;
+  padding-inline: 1rem;
+  border-top: 1px solid rgb(18 18 18 / 10%); // gray-900/10
+}
+
+.lz-auth-footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  max-width: 80rem; // max-w-7xl
+  margin-inline: auto;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--lz-font-sans);
+  font-size: 0.75rem;
+  color: #4f5255; // gray-600
+  text-align: center;
+}
+
+@media (min-width: 640px) {
+  .lz-auth-footer {
+    height: 54px;
+    padding-block: 0;
+  }
+
+  .lz-auth-footer__inner {
+    flex-wrap: nowrap;
+  }
+}
+
+.lz-auth-footer__link {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #121212; // gray-900
+  }
+}

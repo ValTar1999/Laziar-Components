@@ -1,0 +1,16 @@
+<docs-component-page [meta]="meta">
+  <ng-template docsPreview let-values>
+    <lz-badge
+      [color]="$any(str(values, 'color', 'gray'))"
+      [size]="$any(str(values, 'size', 'sm'))"
+      [border]="bool(values, 'border')"
+      [pill]="bool(values, 'pill')"
+      [disabled]="bool(values, 'disabled')"
+      [icon]="optStr(values, 'icon')"
+      [iconPosition]="$any(str(values, 'iconPosition', 'left'))"
+      [iconVariant]="$any(str(values, 'iconVariant', 'solid'))"
+    >
+      {{ str(values, 'label') }}
+    </lz-badge>
+  </ng-template>
+</docs-component-page>

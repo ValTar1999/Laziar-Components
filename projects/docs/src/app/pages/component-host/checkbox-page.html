@@ -1,0 +1,14 @@
+<docs-component-page [meta]="meta">
+  <ng-template docsPreview let-values>
+    <lz-checkbox
+      [title]="str(values, 'title')"
+      [type]="$any(str(values, 'type', 'checkbox'))"
+      [variant]="$any(str(values, 'variant', 'default'))"
+      [checked]="bool(values, 'checked')"
+      [disabled]="bool(values, 'disabled')"
+      [indeterminate]="bool(values, 'indeterminate')"
+      [rounded]="bool(values, 'rounded')"
+      [description]="str(values, 'description')"
+    />
+  </ng-template>
+</docs-component-page>

@@ -1,0 +1,120 @@
+:host.lz-tooltip-host {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 0;
+}
+
+.lz-tooltip__trigger {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  min-width: 0;
+  cursor: pointer;
+}
+
+.lz-tooltip__panel {
+  position: relative;
+  box-sizing: border-box;
+  max-width: min(20rem, calc(100vw - 1rem));
+  min-width: 0;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  font-family: var(--lz-font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1rem;
+  word-break: break-word;
+  box-shadow: var(--lz-shadow-md);
+}
+
+/* Absolute panel colors — do not use [data-theme] (collides with ThemeService). */
+.lz-tooltip__panel[data-panel-theme='dark'] {
+  background-color: #121212;
+  color: #fffffa;
+}
+
+.lz-tooltip__panel[data-panel-theme='light'] {
+  background-color: #f4f5f5;
+  color: #121212;
+}
+
+.lz-tooltip__img-wrap {
+  margin-bottom: 0.75rem;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  border-radius: 0.125rem;
+}
+
+.lz-tooltip__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.lz-tooltip__title {
+  color: #898d92;
+}
+
+.lz-tooltip__panel[data-panel-theme='dark'] .lz-tooltip__title {
+  color: #a5a8ab;
+}
+
+.lz-tooltip__text {
+  white-space: pre-line;
+}
+
+.lz-tooltip__arrow {
+  position: absolute;
+}
+
+.lz-tooltip__arrow--top {
+  left: 50%;
+  bottom: -0.5rem;
+  transform: translateX(-50%);
+}
+
+.lz-tooltip__arrow--bottom {
+  left: 50%;
+  top: -0.5rem;
+  transform: translateX(-50%) rotate(180deg);
+}
+
+.lz-tooltip__arrow--left {
+  top: 50%;
+  right: -1rem;
+  transform: translateY(-50%) rotate(-90deg);
+}
+
+.lz-tooltip__arrow--right {
+  top: 50%;
+  left: -1rem;
+  transform: translateY(-50%) rotate(90deg);
+}
+
+.lz-tooltip__arrow--top-left {
+  left: 1rem;
+  bottom: -0.5rem;
+}
+
+.lz-tooltip__arrow--top-right {
+  right: 1rem;
+  bottom: -0.5rem;
+}
+
+.lz-tooltip__arrow--bottom-left {
+  left: 1rem;
+  top: -0.5rem;
+  transform: rotate(180deg);
+}
+
+.lz-tooltip__arrow--bottom-right {
+  right: 1rem;
+  top: -0.5rem;
+  transform: rotate(180deg);
+}

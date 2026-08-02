@@ -2,43 +2,49 @@
   <header class="cmp__intro">
     <p class="cmp__eyebrow">{{ meta().selector }}</p>
     <h1 class="cmp__title">{{ meta().name }}</h1>
-    <p class="cmp__desc">{{ meta().description }}</p>
+    <p class="cmp__desc">
+      {{ meta().description | docsT: 'components.' + docId() + '.description' }}
+    </p>
   </header>
 
-  <!-- ПРЕВЬЮ + ПЕСОЧНИЦА -->
   <section class="cmp__section cmp__playground" aria-labelledby="cmp-preview-heading">
     <div class="cmp__playground-main">
-      <h2 id="cmp-preview-heading" class="cmp__section-title">Превью</h2>
+      <h2 id="cmp-preview-heading" class="cmp__section-title">
+        {{ 'componentPage.preview' | transloco }}
+      </h2>
       <div class="cmp__stage">
         @if (previewTpl(); as tpl) {
           <ng-container *ngTemplateOutlet="tpl; context: previewCtx()" />
         } @else {
-          <p class="cmp__empty">Превью не задано</p>
+          <p class="cmp__empty">{{ 'componentPage.previewEmpty' | transloco }}</p>
         }
       </div>
     </div>
 
     <aside class="cmp__playground-side" aria-labelledby="cmp-sandbox-heading">
-      <h2 id="cmp-sandbox-heading" class="cmp__section-title">Песочница</h2>
+      <h2 id="cmp-sandbox-heading" class="cmp__section-title">
+        {{ 'componentPage.sandbox' | transloco }}
+      </h2>
       <docs-sandbox-panel
         [controls]="meta().controls"
         [values]="values()"
+        [docId]="docId()"
         (valuesChange)="onValues($event)"
       />
     </aside>
   </section>
 
-  <!-- КОД -->
   <section class="cmp__section" aria-labelledby="cmp-code-heading">
-    <h2 id="cmp-code-heading" class="cmp__section-title">Код</h2>
-    <p class="cmp__section-lead">Синхронизирован с песочницей — меняйте контролы, код обновится.</p>
+    <h2 id="cmp-code-heading" class="cmp__section-title">{{ 'componentPage.code' | transloco }}</h2>
+    <p class="cmp__section-lead">{{ 'componentPage.codeLead' | transloco }}</p>
     <docs-code-block [code]="liveCode()" />
   </section>
 
-  <!-- ВАРИАНТЫ -->
   <section class="cmp__section" aria-labelledby="cmp-variants-heading">
-    <h2 id="cmp-variants-heading" class="cmp__section-title">Варианты</h2>
-    <p class="cmp__section-lead">Предустановленные комбинации variant × size.</p>
+    <h2 id="cmp-variants-heading" class="cmp__section-title">
+      {{ 'componentPage.variants' | transloco }}
+    </h2>
+    <p class="cmp__section-lead">{{ 'componentPage.variantsLead' | transloco }}</p>
     <div class="cmp__variants">
       @for (variant of meta().variants; track variant.label) {
         <figure class="cmp__variant">
@@ -51,24 +57,23 @@
           <docs-code-block [code]="variantCode(variant.props, variant.code)" />
         </figure>
       } @empty {
-        <p class="cmp__empty">Варианты появятся вместе с компонентом.</p>
+        <p class="cmp__empty">{{ 'componentPage.variantsEmpty' | transloco }}</p>
       }
     </div>
   </section>
 
-  <!-- API -->
   <section class="cmp__section" aria-labelledby="cmp-api-heading">
-    <h2 id="cmp-api-heading" class="cmp__section-title">API</h2>
+    <h2 id="cmp-api-heading" class="cmp__section-title">{{ 'componentPage.api' | transloco }}</h2>
 
-    <h3 class="cmp__subheading">Inputs</h3>
+    <h3 class="cmp__subheading">{{ 'componentPage.inputs' | transloco }}</h3>
     <div class="cmp__table-wrap">
       <table class="cmp__table">
         <thead>
           <tr>
-            <th>Имя</th>
-            <th>Тип</th>
-            <th>Дефолт</th>
-            <th>Описание</th>
+            <th>{{ 'componentPage.col.name' | transloco }}</th>
+            <th>{{ 'componentPage.col.type' | transloco }}</th>
+            <th>{{ 'componentPage.col.default' | transloco }}</th>
+            <th>{{ 'componentPage.col.description' | transloco }}</th>
           </tr>
         </thead>
         <tbody>
@@ -84,28 +89,32 @@
                 @if (row.default !== undefined) {
                   <code>{{ row.default }}</code>
                 } @else {
-                  —
+                  {{ 'componentPage.emDash' | transloco }}
                 }
               </td>
-              <td>{{ row.description }}</td>
+              <td>
+                {{
+                  row.description | docsT: 'components.' + docId() + '.inputs.' + keySeg(row.name)
+                }}
+              </td>
             </tr>
           } @empty {
             <tr>
-              <td colspan="4">Нет inputs</td>
+              <td colspan="4">{{ 'componentPage.empty.inputs' | transloco }}</td>
             </tr>
           }
         </tbody>
       </table>
     </div>
 
-    <h3 class="cmp__subheading">Outputs</h3>
+    <h3 class="cmp__subheading">{{ 'componentPage.outputs' | transloco }}</h3>
     <div class="cmp__table-wrap">
       <table class="cmp__table">
         <thead>
           <tr>
-            <th>Имя</th>
-            <th>Тип</th>
-            <th>Описание</th>
+            <th>{{ 'componentPage.col.name' | transloco }}</th>
+            <th>{{ 'componentPage.col.type' | transloco }}</th>
+            <th>{{ 'componentPage.col.description' | transloco }}</th>
           </tr>
         </thead>
         <tbody>
@@ -117,24 +126,28 @@
               <td>
                 <code>{{ row.type }}</code>
               </td>
-              <td>{{ row.description }}</td>
+              <td>
+                {{
+                  row.description | docsT: 'components.' + docId() + '.outputs.' + keySeg(row.name)
+                }}
+              </td>
             </tr>
           } @empty {
             <tr>
-              <td colspan="3">Нет outputs</td>
+              <td colspan="3">{{ 'componentPage.empty.outputs' | transloco }}</td>
             </tr>
           }
         </tbody>
       </table>
     </div>
 
-    <h3 class="cmp__subheading">Слоты (ng-content)</h3>
+    <h3 class="cmp__subheading">{{ 'componentPage.slots' | transloco }}</h3>
     <div class="cmp__table-wrap">
       <table class="cmp__table">
         <thead>
           <tr>
-            <th>Имя / select</th>
-            <th>Описание</th>
+            <th>{{ 'componentPage.col.slotName' | transloco }}</th>
+            <th>{{ 'componentPage.col.description' | transloco }}</th>
           </tr>
         </thead>
         <tbody>
@@ -143,11 +156,15 @@
               <td>
                 <code>{{ row.name }}</code>
               </td>
-              <td>{{ row.description }}</td>
+              <td>
+                {{
+                  row.description | docsT: 'components.' + docId() + '.slots.' + keySeg(row.name)
+                }}
+              </td>
             </tr>
           } @empty {
             <tr>
-              <td colspan="2">Нет слотов</td>
+              <td colspan="2">{{ 'componentPage.empty.slots' | transloco }}</td>
             </tr>
           }
         </tbody>
@@ -162,17 +179,17 @@
           [attr.aria-expanded]="deprecatedOpen()"
           (click)="toggleDeprecated()"
         >
-          Deprecated-алиасы ({{ meta().deprecated!.length }})
+          {{ 'componentPage.deprecatedAliases' | transloco: { count: meta().deprecated!.length } }}
         </button>
         @if (deprecatedOpen()) {
           <div class="cmp__table-wrap">
             <table class="cmp__table">
               <thead>
                 <tr>
-                  <th>Имя</th>
-                  <th>Тип</th>
-                  <th>Замена</th>
-                  <th>Описание</th>
+                  <th>{{ 'componentPage.col.name' | transloco }}</th>
+                  <th>{{ 'componentPage.col.type' | transloco }}</th>
+                  <th>{{ 'componentPage.col.replacedBy' | transloco }}</th>
+                  <th>{{ 'componentPage.col.description' | transloco }}</th>
                 </tr>
               </thead>
               <tbody>
@@ -180,7 +197,9 @@
                   <tr>
                     <td>
                       <code>{{ row.name }}</code>
-                      <span class="cmp__badge">deprecated</span>
+                      <span class="cmp__badge">{{
+                        'componentPage.deprecatedBadge' | transloco
+                      }}</span>
                     </td>
                     <td>
                       <code>{{ row.type }}</code>
@@ -189,10 +208,15 @@
                       @if (row.replacedBy) {
                         <code>{{ row.replacedBy }}</code>
                       } @else {
-                        —
+                        {{ 'componentPage.emDash' | transloco }}
                       }
                     </td>
-                    <td>{{ row.description }}</td>
+                    <td>
+                      {{
+                        row.description
+                          | docsT: 'components.' + docId() + '.deprecated.' + keySeg(row.name)
+                      }}
+                    </td>
                   </tr>
                 }
               </tbody>
@@ -203,34 +227,43 @@
     }
   </section>
 
-  <!-- ПРИМЕРЫ -->
   <section class="cmp__section" aria-labelledby="cmp-examples-heading">
-    <h2 id="cmp-examples-heading" class="cmp__section-title">Примеры</h2>
+    <h2 id="cmp-examples-heading" class="cmp__section-title">
+      {{ 'componentPage.examples' | transloco }}
+    </h2>
     <div class="cmp__examples">
-      @for (example of meta().examples; track example.title) {
+      @for (example of meta().examples; track example.title; let i = $index) {
         <article class="cmp__example">
-          <h3 class="cmp__subheading">{{ example.title }}</h3>
+          <h3 class="cmp__subheading">
+            {{ example.title | docsT: 'components.' + docId() + '.examples.' + i + '.title' }}
+          </h3>
           @if (example.description) {
-            <p class="cmp__section-lead">{{ example.description }}</p>
+            <p class="cmp__section-lead">
+              {{
+                example.description
+                  | docsT: 'components.' + docId() + '.examples.' + i + '.description'
+              }}
+            </p>
           }
           <docs-code-block [code]="example.code" />
         </article>
       } @empty {
-        <p class="cmp__empty">Примеры появятся позже.</p>
+        <p class="cmp__empty">{{ 'componentPage.examplesEmpty' | transloco }}</p>
       }
     </div>
   </section>
 
-  <!-- ТОКЕНЫ -->
   <section class="cmp__section" aria-labelledby="cmp-tokens-heading">
-    <h2 id="cmp-tokens-heading" class="cmp__section-title">Токены компонента</h2>
-    <p class="cmp__section-lead">CSS-переменные, которые влияют на внешний вид.</p>
+    <h2 id="cmp-tokens-heading" class="cmp__section-title">
+      {{ 'componentPage.tokens' | transloco }}
+    </h2>
+    <p class="cmp__section-lead">{{ 'componentPage.tokensLead' | transloco }}</p>
     <div class="cmp__table-wrap">
       <table class="cmp__table">
         <thead>
           <tr>
-            <th>Токен</th>
-            <th>Описание</th>
+            <th>{{ 'componentPage.col.token' | transloco }}</th>
+            <th>{{ 'componentPage.col.description' | transloco }}</th>
           </tr>
         </thead>
         <tbody>
@@ -239,11 +272,16 @@
               <td>
                 <code>{{ token.name }}</code>
               </td>
-              <td>{{ token.description }}</td>
+              <td>
+                {{
+                  token.description
+                    | docsT: 'components.' + docId() + '.tokens.' + keySeg(token.name)
+                }}
+              </td>
             </tr>
           } @empty {
             <tr>
-              <td colspan="2">Нет специфичных токенов</td>
+              <td colspan="2">{{ 'componentPage.empty.tokens' | transloco }}</td>
             </tr>
           }
         </tbody>

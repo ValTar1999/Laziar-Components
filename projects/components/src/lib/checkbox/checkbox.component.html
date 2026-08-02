@@ -1,0 +1,24 @@
+<label [ngClass]="wrapperClasses()">
+  <span class="lz-checkbox__input-wrapper">
+    <input
+      #inputElement
+      [type]="type()"
+      [checked]="checked()"
+      [disabled]="disabled()"
+      [ngClass]="inputClasses()"
+      [attr.title]="title() || null"
+      (change)="onInputChange($event)"
+    />
+  </span>
+
+  @if (title()) {
+    <div [ngClass]="labelClasses()">
+      <span class="lz-checkbox__title">{{ title() }}</span>
+      @if (description()) {
+        <div class="lz-checkbox__description">
+          {{ description() }}
+        </div>
+      }
+    </div>
+  }
+</label>

@@ -1,0 +1,9 @@
+<docs-component-page [meta]="meta">
+  <ng-template docsPreview let-values>
+    <lz-progress-circle
+      [progress]="num(values, 'progress', 75)"
+      [size]="$any(str(values, 'size', 'md'))"
+      [variant]="$any(str(values, 'variant', 'red'))"
+    />
+  </ng-template>
+</docs-component-page>

@@ -1,0 +1,214 @@
+:host.lz-live-event-card-host {
+  display: block;
+}
+
+.lz-live-event-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem; /* gap-3 */
+  font-family: var(--lz-font-sans);
+
+  &--bottom-border {
+    padding-bottom: 1.25rem; /* pb-5 */
+    border-bottom: 1px solid #f3f4f6; /* border-gray-100 */
+  }
+}
+
+.lz-live-event-card__header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* gap-2 */
+}
+
+.lz-live-event-card__publisher {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #111827; /* text-gray-900 */
+  font-family: inherit;
+  font-size: 0.75rem; /* text-xs */
+  font-weight: 500;
+  line-height: 1rem; /* leading-4 */
+  letter-spacing: -0.18px;
+  text-align: left;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.lz-live-event-card__title {
+  display: block;
+  color: #111827; /* text-gray-900 */
+  font-family: var(--lz-font-serif);
+  font-weight: 500;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  .lz-live-event-card[data-size='sm'] & {
+    font-size: 1rem; /* text-base */
+    line-height: 1.5rem; /* leading-6 */
+  }
+
+  .lz-live-event-card[data-size='md'] & {
+    font-size: 1.25rem; /* text-xl */
+    line-height: 1.75rem; /* leading-7 */
+    letter-spacing: -0.7px;
+  }
+}
+
+.lz-live-event-card__entries {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lz-live-event-card__entry {
+  position: relative;
+
+  .lz-live-event-card[data-size='sm'] & {
+    padding-left: 0.75rem; /* pl-3 */
+
+    &:not(.lz-live-event-card__entry--last) {
+      padding-bottom: 1.5rem; /* pb-6 */
+    }
+  }
+
+  .lz-live-event-card[data-size='md'] & {
+    padding-left: 1rem; /* pl-4 */
+
+    &:not(.lz-live-event-card__entry--last) {
+      padding-bottom: 1.25rem; /* pb-5 */
+    }
+  }
+}
+
+.lz-live-event-card__dot {
+  position: absolute;
+  left: 0;
+  top: 0.375rem; /* top-1.5 */
+  border-radius: 9999px;
+  background-color: #ef4444; /* bg-red-500 */
+
+  .lz-live-event-card[data-size='sm'] & {
+    width: 0.25rem; /* w-1 */
+    height: 0.25rem; /* h-1 */
+  }
+
+  .lz-live-event-card[data-size='md'] & {
+    width: 0.375rem; /* w-1.5 */
+    height: 0.375rem; /* h-1.5 */
+  }
+}
+
+.lz-live-event-card__connector {
+  position: absolute;
+  top: 1rem; /* top-4 */
+  bottom: 0;
+  width: 1px;
+  background-color: #f3f4f6; /* bg-gray-100 */
+
+  .lz-live-event-card[data-size='sm'] & {
+    left: 1px; /* left-px */
+  }
+
+  .lz-live-event-card[data-size='md'] & {
+    left: 2px; /* left-[2px] */
+  }
+}
+
+.lz-live-event-card__time {
+  color: #ef4444; /* text-red-500 */
+  font-family: inherit;
+  font-size: 0.75rem; /* text-xs */
+  font-weight: 500;
+  line-height: 1rem; /* leading-4 */
+
+  .lz-live-event-card[data-size='sm'] & {
+    margin-bottom: 0.25rem; /* mb-1 */
+  }
+}
+
+.lz-live-event-card__text {
+  color: #111827; /* text-gray-900 */
+  font-family: inherit;
+  font-weight: 500;
+
+  .lz-live-event-card[data-size='sm'] & {
+    font-size: 0.75rem; /* text-xs */
+    line-height: 1rem; /* leading-4 */
+  }
+
+  .lz-live-event-card[data-size='md'] & {
+    margin-top: 0.25rem; /* mt-1 */
+    font-size: 1rem; /* text-base */
+    line-height: 1.5rem; /* leading-6 */
+    letter-spacing: -0.24px;
+  }
+}
+
+.lz-live-event-card__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: -0.25rem; /* -mb-1 */
+  margin-right: -0.5rem; /* -mr-2 */
+}
+
+.lz-live-event-card__action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem; /* w-8 */
+  height: 2rem; /* h-8 */
+  padding: 0;
+  border: 0;
+  border-radius: 9999px;
+  background: transparent;
+  box-shadow: 0 0 0 2px transparent; /* ring-2 ring-transparent */
+  color: #6b7280; /* text-gray-500 */
+  cursor: pointer;
+  transition:
+    background-color 300ms,
+    box-shadow 300ms,
+    color 300ms;
+
+  &[data-active='true'] {
+    color: #22c55e; /* text-green-500 */
+  }
+
+  &:hover,
+  &:focus {
+    background-color: rgba(17, 24, 39, 0.05); /* hover/focus:bg-gray-900/5 */
+    color: #111827; /* group-hover/focus:!text-gray-900 */
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow:
+      0 0 0 2px rgba(17, 24, 39, 0.1),
+      0 0 0 1px #fffffa; /* focus:ring-gray-900/10 focus:ring-offset-1 focus:ring-offset-cFFFFFA */
+  }
+
+  lz-icon {
+    width: 1rem; /* w-4 */
+    height: 1rem; /* h-4 */
+    color: inherit;
+
+    ::ng-deep .lz-icon {
+      width: inherit;
+      height: inherit;
+    }
+  }
+}

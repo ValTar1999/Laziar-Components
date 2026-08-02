@@ -1,0 +1,40 @@
+<ng-template #panelTpl>
+  <div class="lz-tooltip__panel" [attr.data-panel-theme]="theme()">
+    @if (img()) {
+      <div class="lz-tooltip__img-wrap">
+        <img [src]="img()" class="lz-tooltip__img" alt="" />
+      </div>
+    }
+    @if (title()) {
+      <div class="lz-tooltip__title">{{ title() }}</div>
+    }
+    @if (text()) {
+      <span class="lz-tooltip__text">{{ text() }}</span>
+    }
+
+    @if (arrow()) {
+      <svg
+        class="lz-tooltip__arrow"
+        [class]="arrowClasses()"
+        [attr.fill]="arrowFill()"
+        width="24"
+        height="8"
+        viewBox="0 0 24 8"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <path
+          d="M0.832284 0H23.379C19.1366 0 14.8943 4.53165 13.055 6.77361C12.5938 7.33581 11.6697 7.30068 11.2421 6.71249C9.59782 4.45039 5.73929 0 0.832284 0Z"
+        />
+      </svg>
+    }
+  </div>
+</ng-template>
+
+<div
+  [class]="resolvedTriggerClass()"
+  (mouseenter)="onTriggerMouseEnter()"
+  (mouseleave)="onTriggerMouseLeave($event)"
+>
+  <ng-content />
+</div>

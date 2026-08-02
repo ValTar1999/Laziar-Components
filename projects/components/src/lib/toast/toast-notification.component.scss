@@ -1,0 +1,97 @@
+:host {
+  display: block;
+}
+
+.lz-toast-notification {
+  display: flex;
+  min-height: 3.5rem;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--lz-color-neutral-900) 8%, transparent);
+  border-radius: var(--lz-radius-md, 0.5rem);
+  background: var(--lz-color-neutral-surface);
+  box-shadow: var(--lz-shadow-lg);
+  color: var(--lz-color-text-secondary);
+  font-family: var(--lz-font-sans);
+
+  &__icon-wrapper {
+    display: inline-flex;
+    width: 2.25rem;
+    height: 2.25rem;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--lz-color-background);
+    border-radius: 50%;
+    box-shadow: var(--lz-shadow-xs);
+  }
+
+  &__icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: var(--lz-color-text-inverse);
+  }
+
+  &__message {
+    min-width: 0;
+    flex: 1;
+    margin: 0;
+    padding-top: 0.5rem;
+    color: var(--lz-color-text-secondary);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    overflow-wrap: anywhere;
+
+    strong {
+      color: var(--lz-color-text-primary);
+      font-weight: 600;
+    }
+  }
+
+  &__divider {
+    width: 1px;
+    height: 1.25rem;
+    flex: 0 0 auto;
+    margin-top: 0.5rem;
+    background: color-mix(in srgb, var(--lz-color-neutral-900) 10%, transparent);
+  }
+
+  &__close {
+    flex: 0 0 auto;
+
+    .lz-button {
+      width: 1.25rem;
+      height: 1.25rem;
+      min-height: 1.25rem;
+      padding: 0;
+      color: var(--lz-color-text-muted);
+    }
+
+    .lz-button:hover:not(:disabled) {
+      color: var(--lz-color-text-primary);
+      background: transparent;
+    }
+  }
+
+  &__close-icon {
+    width: 0.625rem;
+    height: 0.625rem;
+  }
+
+  &[data-type='success'] &__icon-wrapper {
+    background: var(--lz-color-success-400);
+  }
+
+  &[data-type='error'] &__icon-wrapper {
+    background: var(--lz-color-danger-400);
+  }
+
+  &[data-type='warning'] &__icon-wrapper {
+    background: var(--lz-color-warning-400);
+  }
+
+  &[data-type='info'] &__icon-wrapper {
+    background: var(--lz-color-secondary-400);
+  }
+}

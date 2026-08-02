@@ -1,0 +1,16 @@
+<docs-component-page [meta]="meta">
+  <ng-template docsPreview let-values>
+    <lz-alert
+      [title]="str(values, 'title')"
+      [text]="str(values, 'text')"
+      [iconName]="str(values, 'iconName', 'check-circle')"
+      [iconVariant]="$any(str(values, 'iconVariant', 'outline'))"
+      [variant]="$any(str(values, 'variant', 'default'))"
+      [size]="$any(str(values, 'size', 'sm'))"
+      [padding]="$any(str(values, 'padding', 'p-4'))"
+      [isRow]="bool(values, 'isRow')"
+      [isRowtext]="bool(values, 'isRowtext')"
+      [showCloseButton]="bool(values, 'showCloseButton')"
+    />
+  </ng-template>
+</docs-component-page>

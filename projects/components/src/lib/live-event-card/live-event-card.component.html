@@ -1,0 +1,71 @@
+<article
+  class="lz-live-event-card"
+  [attr.data-size]="size()"
+  [class.lz-live-event-card--bottom-border]="showBottomBorder()"
+>
+  <div class="lz-live-event-card__header">
+    <lz-avatar
+      size="xxs"
+      variant="plain"
+      [imgUrl]="avatarImgUrl()"
+      [firstName]="avatarFirstName()"
+      [lastName]="avatarLastName()"
+    />
+    <button type="button" class="lz-live-event-card__publisher" (click)="onPublisherClick()">
+      {{ publisher() }}
+    </button>
+  </div>
+
+  <a class="lz-live-event-card__title" [href]="link()" (click)="onTitleClick($event)">
+    {{ eventTitle() }}
+  </a>
+
+  <ul class="lz-live-event-card__entries">
+    @for (entry of entries(); track $index; let entryLast = $last) {
+      <li class="lz-live-event-card__entry" [class.lz-live-event-card__entry--last]="entryLast">
+        <span class="lz-live-event-card__dot" aria-hidden="true"></span>
+        @if (!entryLast) {
+          <span class="lz-live-event-card__connector" aria-hidden="true"></span>
+        }
+        <div class="lz-live-event-card__time">{{ entry.time }}</div>
+        <div class="lz-live-event-card__text">{{ entry.text }}</div>
+      </li>
+    }
+  </ul>
+
+  @if (showActions()) {
+    <div class="lz-live-event-card__actions">
+      <lz-tooltip position="top" [text]="watchLaterTooltip()">
+        <button
+          type="button"
+          class="lz-live-event-card__action"
+          [attr.data-active]="watchLater() ? 'true' : 'false'"
+          (click)="onWatchLaterToggle()"
+          [attr.aria-label]="watchLaterTooltip()"
+        >
+          <lz-icon
+            [name]="watchLater() ? 'clock-check' : 'clock'"
+            [type]="watchLater() ? 'custom' : 'outline'"
+            class="lz-live-event-card__action-icon"
+          />
+        </button>
+      </lz-tooltip>
+
+      <lz-tooltip position="top" [text]="saveTooltip()">
+        <button
+          type="button"
+          class="lz-live-event-card__action"
+          [attr.data-active]="isSaved() ? 'true' : 'false'"
+          (click)="onSaveToListToggle()"
+          [attr.aria-label]="saveTooltip()"
+        >
+          <lz-icon
+            name="bookmark"
+            [type]="isSaved() ? 'solid' : 'outline'"
+            class="lz-live-event-card__action-icon"
+          />
+        </button>
+      </lz-tooltip>
+    </div>
+  }
+</article>

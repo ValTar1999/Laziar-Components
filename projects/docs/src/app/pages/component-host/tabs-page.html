@@ -1,0 +1,10 @@
+<docs-component-page [meta]="meta">
+  <ng-template docsPreview let-values>
+    <lz-tabs
+      [tabs]="tabs()"
+      [style]="$any(str(values, 'style', 'outline'))"
+      [size]="$any(str(values, 'size', 'md'))"
+      [activeTab]="num(values, 'activeTab', 0)"
+    />
+  </ng-template>
+</docs-component-page>

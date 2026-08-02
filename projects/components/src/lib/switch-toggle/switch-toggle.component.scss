@@ -1,0 +1,142 @@
+/**
+ * Switch Toggle — эталон publikator + frontend (Tailwind → tokens).
+ * focus-within:ring-2 ring-gray-900/10, p-px / p-0.5, sizes 26×16 / 34×20.
+ */
+
+:host.lz-switch-toggle-host {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  font-family: var(--lz-font-sans);
+  vertical-align: middle;
+}
+
+.lz-switch-toggle__container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  transition:
+    background-color var(--lz-duration-normal) var(--lz-easing-standard),
+    box-shadow var(--lz-duration-normal) var(--lz-easing-standard);
+
+  /* Tailwind: focus-within:ring-2 focus-within:ring-gray-900/10 */
+  &:focus-within {
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--lz-color-neutral-900) 10%, transparent);
+  }
+}
+
+/* Tailwind: p-px */
+.lz-switch-toggle__container--sm {
+  padding: 1px;
+}
+
+/* Tailwind: p-0.5 */
+.lz-switch-toggle__container--md {
+  padding: 0.125rem;
+}
+
+/* Tailwind: opacity-70 cursor-not-allowed */
+.lz-switch-toggle__container--disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.lz-switch-toggle__toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: background-color var(--lz-duration-normal) var(--lz-easing-standard);
+
+  /* Tailwind: focus:outline-none */
+  &:focus {
+    outline: none;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+/* Tailwind: h-4 w-[26px] */
+.lz-switch-toggle__toggle--sm {
+  height: 1rem;
+  width: 26px;
+}
+
+/* Tailwind: h-5 w-[34px] */
+.lz-switch-toggle__toggle--md {
+  height: 1.25rem;
+  width: 34px;
+}
+
+/* Tailwind: bg-gray-50 (also when disabled) */
+.lz-switch-toggle__toggle--inactive {
+  background-color: var(--lz-color-neutral-50);
+}
+
+/* Tailwind: hover:bg-gray-100 when !active && !disabled */
+.lz-switch-toggle__toggle--hoverable:hover {
+  background-color: var(--lz-color-neutral-100);
+}
+
+/* Tailwind: bg-gray-900 */
+.lz-switch-toggle__toggle--active {
+  background-color: var(--lz-color-neutral-900);
+}
+
+.lz-switch-toggle__circle {
+  display: inline-block;
+  border-radius: 9999px;
+  transition:
+    background-color var(--lz-duration-normal) var(--lz-easing-standard),
+    transform var(--lz-duration-normal) var(--lz-easing-standard);
+}
+
+/* Tailwind: h-3 w-3 */
+.lz-switch-toggle__circle--sm {
+  height: 0.75rem;
+  width: 0.75rem;
+}
+
+/* Tailwind: h-4 w-4 */
+.lz-switch-toggle__circle--md {
+  height: 1rem;
+  width: 1rem;
+}
+
+/* Tailwind: bg-gray-100 */
+.lz-switch-toggle__circle--disabled {
+  background-color: var(--lz-color-neutral-100);
+}
+
+/* Tailwind: bg-gray-surface */
+.lz-switch-toggle__circle--active {
+  background-color: var(--lz-color-neutral-surface);
+}
+
+/* Tailwind: bg-white */
+.lz-switch-toggle__circle--inactive {
+  background-color: var(--lz-color-background);
+}
+
+/* Tailwind: translate-x-0.5 */
+.lz-switch-toggle__circle--left {
+  transform: translateX(0.125rem);
+}
+
+/* Tailwind: translate-x-3 */
+.lz-switch-toggle__circle--right.lz-switch-toggle__circle--sm {
+  transform: translateX(0.75rem);
+}
+
+/* Tailwind: translate-x-4 */
+.lz-switch-toggle__circle--right.lz-switch-toggle__circle--md {
+  transform: translateX(1rem);
+}

@@ -1,63 +1,76 @@
-<div class="sandbox" role="group" aria-label="Песочница">
+<div class="sandbox" role="group" [attr.aria-label]="'sandbox.aria' | transloco">
   @for (control of entries(); track control.name) {
-    <div class="sandbox__field">
-      <label class="sandbox__label" [attr.for]="'sandbox-' + control.name">
-        {{ control.label ?? control.name }}
-      </label>
+    <div class="sandbox__field" [class.sandbox__field--switch]="control.kind === 'boolean'">
+      @if (control.kind !== 'boolean') {
+        <label class="sandbox__label" [attr.for]="'sandbox-' + control.name">
+          {{
+            control.label ?? control.name
+              | docsT: 'components.' + docId() + '.controls.' + control.name + '.label'
+          }}
+        </label>
+      }
 
       @switch (control.kind) {
         @case ('select') {
-          <select
-            class="sandbox__control"
-            [id]="'sandbox-' + control.name"
-            [value]="asString(control.name)"
-            (change)="onString(control.name, $event)"
-          >
-            @for (opt of control.options ?? []; track opt) {
-              <option [value]="opt" [selected]="asString(control.name) === opt">{{ opt }}</option>
-            }
-          </select>
-        }
-        @case ('boolean') {
-          <input
-            class="sandbox__checkbox"
-            type="checkbox"
-            [id]="'sandbox-' + control.name"
-            [checked]="asBoolean(control.name)"
-            (change)="onBoolean(control.name, $event)"
+          <lz-select
+            size="sm"
+            [options]="selectOptions(control)"
+            [ngModel]="asString(control.name)"
+            (ngModelChange)="onSelect(control.name, $event)"
           />
         }
+        @case ('boolean') {
+          <div class="sandbox__switch">
+            <span class="sandbox__label">
+              {{
+                control.label ?? control.name
+                  | docsT: 'components.' + docId() + '.controls.' + control.name + '.label'
+              }}
+            </span>
+            <lz-switch-toggle
+              size="md"
+              [active]="asBoolean(control.name)"
+              (changed)="update(control.name, $event)"
+            />
+          </div>
+        }
         @case ('number') {
-          <input
-            class="sandbox__control"
-            type="number"
-            [id]="'sandbox-' + control.name"
-            [value]="asNumber(control.name)"
-            (input)="onNumber(control.name, $event)"
+          <lz-input
+            size="sm"
+            pill
+            [ngModel]="asNumberString(control.name)"
+            (ngModelChange)="onNumberInput(control.name, $event)"
           />
         }
         @case ('color') {
-          <input
-            class="sandbox__color"
-            type="color"
-            [id]="'sandbox-' + control.name"
-            [value]="asString(control.name)"
-            (input)="onString(control.name, $event)"
-          />
+          <label class="sandbox__color-wrap" [attr.for]="'sandbox-' + control.name">
+            <input
+              class="sandbox__color"
+              type="color"
+              [id]="'sandbox-' + control.name"
+              [value]="asString(control.name)"
+              (input)="update(control.name, $any($event.target).value)"
+            />
+            <span class="sandbox__color-value">{{ asString(control.name) }}</span>
+          </label>
         }
         @default {
-          <input
-            class="sandbox__control"
-            type="text"
-            [id]="'sandbox-' + control.name"
-            [value]="asString(control.name)"
-            (input)="onString(control.name, $event)"
+          <lz-input
+            size="sm"
+            pill
+            [ngModel]="asString(control.name)"
+            (ngModelChange)="update(control.name, $event)"
           />
         }
       }
 
       @if (control.description) {
-        <span class="sandbox__hint">{{ control.description }}</span>
+        <span class="sandbox__hint">
+          {{
+            control.description
+              | docsT: 'components.' + docId() + '.controls.' + control.name + '.hint'
+          }}
+        </span>
       }
     </div>
   }

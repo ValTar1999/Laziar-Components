@@ -1,0 +1,10 @@
+<docs-component-page [meta]="meta">
+  <ng-template docsPreview let-values>
+    <lz-tab-button
+      [label]="str(values, 'label', overviewFallback())"
+      [active]="bool(values, 'active')"
+      [size]="$any(str(values, 'size', 'md'))"
+      [variant]="$any(str(values, 'variant', 'bg'))"
+    />
+  </ng-template>
+</docs-component-page>

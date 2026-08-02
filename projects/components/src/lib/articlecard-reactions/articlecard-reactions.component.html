@@ -1,0 +1,13 @@
+<div class="lz-articlecard-reactions">
+  @for (e of emoji(); track $index; let i = $index) {
+    <span
+      class="lz-articlecard-reactions__emoji"
+      [class.lz-articlecard-reactions__emoji--stacked]="i > 0"
+    >
+      {{ e }}
+    </span>
+  }
+  @if (shouldShowMoreBadge()) {
+    <span class="lz-articlecard-reactions__more">+{{ moreReactionsCount() }}</span>
+  }
+</div>

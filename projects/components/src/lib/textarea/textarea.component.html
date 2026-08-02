@@ -1,0 +1,22 @@
+<div class="lz-textarea-container">
+  @if (label()) {
+    <label class="lz-textarea-label" [attr.for]="textareaId">{{ label() }}</label>
+  }
+
+  <textarea
+    class="lz-textarea-field"
+    [id]="textareaId"
+    [placeholder]="placeholder()"
+    [rows]="rows()"
+    [disabled]="effectiveDisabled()"
+    [value]="value()"
+    [attr.data-error]="error()"
+    [attr.data-resize]="resize()"
+    (input)="onInput($event)"
+    (blur)="onBlur()"
+  ></textarea>
+
+  @if (helperText()) {
+    <span class="lz-textarea-helper" [attr.data-error]="error()">{{ helperText() }}</span>
+  }
+</div>

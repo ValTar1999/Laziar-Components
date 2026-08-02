@@ -1,0 +1,34 @@
+<div
+  class="lz-loading"
+  [attr.data-color]="color()"
+  [attr.data-size]="size()"
+  [attr.data-variant]="variant()"
+  role="status"
+  aria-label="Loading"
+>
+  @if (variant() === 'spinner') {
+    <svg class="lz-loading__spinner" viewBox="0 0 50 50" aria-hidden="true">
+      <circle
+        cx="25"
+        cy="25"
+        r="20"
+        fill="none"
+        stroke-width="4"
+        stroke-linecap="round"
+        stroke-dasharray="90 150"
+        stroke-dashoffset="0"
+      />
+    </svg>
+  } @else {
+    <div class="lz-loading__dots" aria-hidden="true">
+      @for (dot of dots; track dot) {
+        <span
+          class="lz-loading__dot"
+          [style.top]="dotStyle(dot)['top']"
+          [style.left]="dotStyle(dot)['left']"
+          [style.animation-delay]="dotStyle(dot)['animationDelay']"
+        ></span>
+      }
+    </div>
+  }
+</div>

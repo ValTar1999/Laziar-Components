@@ -1,0 +1,84 @@
+/**
+ * Swiper carousel styles — ported from publikator `swiper.component.css` + Tailwind classes.
+ */
+
+:host.lz-swiper-host {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.lz-swiper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.lz-swiper__container,
+:host ::ng-deep swiper-container {
+  overflow: hidden;
+  width: 100%;
+  max-width: 100vw;
+  height: 100%;
+}
+
+.lz-swiper__nav,
+.swiper-button-prev,
+.swiper-button-next {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  margin: auto;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  cursor: pointer;
+  background-color: #f9fafb; /* bg-gray-50 */
+  border-radius: 9999px; /* rounded-full */
+  border: 1px solid #f3f4f6; /* border-gray-100 */
+  transition:
+    background-color 300ms ease,
+    border-color 300ms ease;
+
+  &::after {
+    display: none;
+  }
+
+  &:hover {
+    background-color: #111827; /* hover:bg-gray-900 */
+    border-color: #111827; /* hover:border-gray-900 */
+
+    .lz-swiper__nav-icon {
+      fill: #ffffff; /* group-hover:fill-white */
+    }
+  }
+
+  svg {
+    width: 12px;
+    height: 14px;
+  }
+}
+
+.lz-swiper__nav--prev,
+.swiper-button-prev {
+  svg {
+    rotate: 180deg;
+  }
+}
+
+.lz-swiper__nav--disabled,
+.swiper-button-prev.swiper-button-disabled,
+.swiper-button-next.swiper-button-disabled {
+  display: none;
+  cursor: default;
+  pointer-events: none;
+}
+
+.lz-swiper__nav-icon {
+  fill: #6b7280; /* fill-gray-500 */
+  transition: fill 300ms ease;
+}

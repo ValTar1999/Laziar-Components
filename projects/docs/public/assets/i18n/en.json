@@ -1,0 +1,854 @@
+{
+  "nav": {
+    "brand": "Laziar component",
+    "docsAria": "Documentation",
+    "expandMenu": "Expand menu",
+    "collapseMenu": "Collapse menu",
+    "openMenu": "Open navigation",
+    "closeMenu": "Close navigation",
+    "groups": {
+      "start": "Start",
+      "theming": "Theming",
+      "forms": "Forms",
+      "feedback": "Feedback",
+      "dataDisplay": "Data Display",
+      "navigation": "Navigation",
+      "services": "Services"
+    },
+    "items": {
+      "introduction": "Introduction",
+      "tokensTheme": "Tokens & Theme",
+      "button": "Button",
+      "checkbox": "Checkbox",
+      "switch": "Switch",
+      "input": "Input",
+      "textarea": "Textarea",
+      "select": "Select",
+      "stub": "Stub",
+      "alert": "Alert",
+      "badge": "Badge",
+      "loading": "Loading",
+      "progressCircle": "Progress Circle",
+      "tooltip": "Tooltip",
+      "pulseDot": "Pulse Dot",
+      "avatar": "Avatar",
+      "avatarGroup": "Avatar Group",
+      "icon": "Icon",
+      "tabs": "Tabs",
+      "tabButton": "Tab Button",
+      "buttonGroup": "Button Group",
+      "themeService": "ThemeService"
+    }
+  },
+  "header": {
+    "searchPlaceholder": "Search…",
+    "themeAria": "Theme",
+    "themeLight": "Light",
+    "themeDark": "Dark",
+    "themeAuto": "Auto",
+    "repo": "Repository"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "close": "Close",
+    "follow": "Follow",
+    "share": "Share",
+    "online": "Online",
+    "loading": "Loading…"
+  },
+  "footer": {
+    "copyright": "© Laziar Components",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "docs": "Documentation"
+  },
+  "gettingStarted": {
+    "eyebrow": "Getting Started",
+    "title": "Build interfaces from components",
+    "lead": "The docs site already uses <code>lz-logo</code>, <code>lz-button</code>, <code>lz-input</code>, <code>lz-icon</code>, <code>lz-tooltip</code>, and <code>lz-toast-container</code>. Below is a live UI fragment built from the same primitives.",
+    "alertTitle": "Library connected",
+    "alertText": "Import components from @laziar/components and build screens without custom CSS chrome.",
+    "profile": "Profile",
+    "metaText": "Design system · Angular",
+    "shareTooltip": "Share profile",
+    "subscription": "Subscription",
+    "emailPlaceholder": "Email",
+    "newsletter": "Newsletter",
+    "newsletterHint": "Once a week",
+    "agreeTerms": "I agree to the terms",
+    "install": "Install",
+    "quickStart": "Quick start",
+    "stepTheme": "Include <code>@laziar/components/styles/theme.css</code>.",
+    "stepInject": "Inject <code>ThemeService</code> for light / dark / auto.",
+    "stepImport": "Import components: <code>Button</code>, <code>Input</code>, <code>Logo</code>, <code>Icon</code>…",
+    "toastMessage": "Site built from @laziar/components",
+    "toastBold": "Done",
+    "brandName": "Laziar Components",
+    "linkTheming": "Theming"
+  },
+  "componentPage": {
+    "preview": "Preview",
+    "previewEmpty": "Preview is not set",
+    "sandbox": "Sandbox",
+    "code": "Code",
+    "codeLead": "Synced with the sandbox — change controls and the code updates.",
+    "variants": "Variants",
+    "variantsLead": "Preset combinations of variant × size.",
+    "variantsEmpty": "Variants will appear with the component.",
+    "api": "API",
+    "inputs": "Inputs",
+    "outputs": "Outputs",
+    "slots": "Slots (ng-content)",
+    "col": {
+      "name": "Name",
+      "type": "Type",
+      "default": "Default",
+      "description": "Description",
+      "slotName": "Name / select",
+      "replacedBy": "Replaced by",
+      "token": "Token"
+    },
+    "empty": {
+      "inputs": "No inputs",
+      "outputs": "No outputs",
+      "slots": "No slots",
+      "tokens": "No component-specific tokens"
+    },
+    "emDash": "—",
+    "deprecatedAliases": "Deprecated aliases ({{count}})",
+    "deprecatedBadge": "deprecated",
+    "examples": "Examples",
+    "examplesEmpty": "Examples coming soon.",
+    "tokens": "Component tokens",
+    "tokensLead": "CSS variables that affect appearance."
+  },
+  "sandbox": {
+    "aria": "Sandbox"
+  },
+  "codeBlock": {
+    "copy": "Copy",
+    "copied": "Copied"
+  },
+  "theming": {
+    "eyebrow": "Theming",
+    "title": "Tokens & ThemeService",
+    "lead": "The visual system is built on semantic CSS variables <code>--lz-*</code>. The header switch uses <code>ThemeService</code> (light / dark / auto).",
+    "connect": "Setup",
+    "palette": "Palette",
+    "note": "Full token table — in <code>docs/THEMING.md</code>."
+  },
+  "componentHost": {
+    "missing": "Component \"{{name}}\" is not documented yet."
+  },
+  "languageSwitcher": {
+    "aria": "Language"
+  },
+  "components": {
+    "alert": {
+      "description": "Notification banner with an icon, title, text, and optional close button. Supports semantic variants and horizontal layout.",
+      "controls": {
+        "title": {
+          "default": "Success"
+        },
+        "text": {
+          "default": "Changes saved."
+        },
+        "iconName": {
+          "hint": "lz-icon symbol name"
+        }
+      },
+      "inputs": {
+        "title": "Banner title",
+        "text": "Main text",
+        "iconname": "lz-icon icon name",
+        "iconvariant": "Icon sprite variant",
+        "variant": "Semantic / color variant",
+        "size": "Typography size",
+        "padding": "Inner spacing",
+        "isrow": "Horizontal content layout",
+        "isrowtext": "Title and text on one line",
+        "showclosebutton": "Show close button",
+        "closecolor": "Close button color override",
+        "buttonvariant": "Close button variant override"
+      },
+      "outputs": {
+        "closed": "Close button click"
+      },
+      "slots": {
+        "default": "Additional content in the alert body (next to text)"
+      },
+      "examples": {
+        "0": {
+          "title": "Success"
+        },
+        "1": {
+          "title": "Error without close"
+        },
+        "2": {
+          "title": "Row"
+        }
+      },
+      "tokens": {
+        "lz_color_primary_secondary": "Semantic variant palettes",
+        "lz_radius": "Container rounding",
+        "lz_font_size": "title / text typography by size"
+      }
+    },
+    "avatar-group": {
+      "description": "Avatar group with a visible-item limit and remaining count. Suitable for participant lists.",
+      "controls": {
+        "max": {
+          "hint": "Number of avatars to show before “+N”"
+        },
+        "reverse": {
+          "hint": "Reverse stacking order (z-index)"
+        }
+      },
+      "inputs": {
+        "avatars": "Participant list: firstName, lastName, optional imgUrl",
+        "max": "Maximum visible avatars; the rest are in “+N”",
+        "size": "Group item size",
+        "reverse": "Reverses stacking z-index"
+      },
+      "examples": {
+        "0": {
+          "title": "Chat participants"
+        },
+        "1": {
+          "title": "Reverse stacking"
+        }
+      },
+      "tokens": {
+        "lz_color_gray": "Fallback-initials and remaining “+N” background",
+        "lz_radius_full": "Round item shape"
+      }
+    },
+    "avatar": {
+      "description": "User avatar: initials, image, sizes, and status indicators (online / notification).",
+      "controls": {
+        "firstName": {
+          "default": "Anna"
+        },
+        "lastName": {
+          "default": "Ivanova"
+        },
+        "imgUrl": {
+          "hint": "Image URL; empty string — initials / placeholder"
+        }
+      },
+      "inputs": {
+        "firstname": "First name (for initials and alt)",
+        "lastname": "Last name (for initials and alt)",
+        "imgurl": "Photo URL; without it — initials or placeholder",
+        "size": "Avatar size",
+        "variant": "default — placeholder border/background; plain — without them",
+        "topnotification": "Show indicator at top right",
+        "bottomnotification": "Show indicator at bottom right",
+        "topnotificationstatus": "Top indicator color",
+        "bottomnotificationstatus": "Bottom indicator color",
+        "imgnotification": "Additional badge image over avatar",
+        "containerclass": "Additional class on the avatar container"
+      },
+      "examples": {
+        "0": {
+          "title": "Initials"
+        },
+        "1": {
+          "title": "With photo and status"
+        },
+        "2": {
+          "title": "Plain without border"
+        }
+      },
+      "tokens": {
+        "lz_color_gray": "Initials and placeholder background / text",
+        "lz_color_success": "success indicator",
+        "lz_color_danger": "error indicator",
+        "lz_color_warning": "warning indicator",
+        "lz_radius_full": "Round avatar shape"
+      }
+    },
+    "badge": {
+      "description": "Compact chip/label with a color palette, sizes, pill shape, and optional icon.",
+      "controls": {
+        "label": {
+          "hint": "Projected content (ng-content)"
+        },
+        "icon": {
+          "hint": "lz-icon name; empty — no icon"
+        }
+      },
+      "inputs": {
+        "color": "Color theme (alias magrnta → magenta available)",
+        "size": "Badge size",
+        "border": "Border (border ring)",
+        "pill": "Fully rounded shape",
+        "disabled": "Disabled state",
+        "icon": "Icon name; custom — [lzBadgeIcon] slot",
+        "iconposition": "Icon position",
+        "iconvariant": "lz-icon sprite variant",
+        "img": "Image URL on the left",
+        "iconclickable": "Icon is clickable and emits iconClick",
+        "iconarialabel": "aria-label for the clickable icon"
+      },
+      "outputs": {
+        "iconclick": "Icon click (if iconClickable)"
+      },
+      "slots": {
+        "default": "Badge text / content",
+        "lzbadgeicon": "Custom icon instead of named lz-icon"
+      },
+      "examples": {
+        "0": {
+          "title": "Status"
+        },
+        "1": {
+          "title": "With icon"
+        },
+        "2": {
+          "title": "With border"
+        }
+      },
+      "tokens": {
+        "lz_badge_50_100_200_500_600_900": "Neutral gray scale",
+        "lz_green_lz_red": "Badge color palettes",
+        "lz_icon_size": "Icon size inside the badge"
+      }
+    },
+    "button-group": {
+      "description": "Wrapper for a segmented button group: shared border, edge rounding, and optional dividers (line).",
+      "controls": {
+        "line": {
+          "hint": "Dividers between buttons"
+        }
+      },
+      "inputs": {
+        "line": "Show dividers between child buttons",
+        "divided": "@deprecated — line alias"
+      },
+      "outputs": {
+        "default": "Child lz-button elements (or native button)"
+      },
+      "slots": {
+        "default": "Child lz-button elements (or native button)"
+      },
+      "deprecated": {
+        "divided": "Old divider name"
+      },
+      "examples": {
+        "0": {
+          "title": "Segmented switch"
+        },
+        "1": {
+          "title": "Without dividers"
+        }
+      },
+      "tokens": {
+        "lz_color_gray": "Group border and dividers",
+        "lz_radius_md": "Container rounding (0.5rem)"
+      },
+      "demo": {
+        "left": "Left",
+        "center": "Center",
+        "right": "Right"
+      }
+    },
+    "button": {
+      "description": "Reference library component. Unified publikator + agora-frontend API: variants, sizes, palette, a11y, and explicit buttonClick.",
+      "controls": {
+        "label": {
+          "default": "Save"
+        },
+        "icon": {
+          "hint": "Symbol name from /assets/icons/icons-{outline|solid|…}.svg (for example check, x-mark, plus)"
+        },
+        "iconVariant": {
+          "hint": "lz-icon sprite: outline / solid / mini / micro"
+        }
+      },
+      "inputs": {
+        "label": "Button text (alternative — default ng-content)",
+        "variant": "Visual variant",
+        "size": "Size (publikator padding)",
+        "type": "Native <button> type",
+        "icon": "Icon name; custom — [lzButtonIcon] slot",
+        "iconvariant": "Sprite variant for lz-icon (type)",
+        "iconposition": "Icon position relative to text",
+        "iconclass": "Additional class on icon wrapper",
+        "disabled": "Disables button and blocks buttonClick",
+        "pill": "Fully rounded (rounded-full)",
+        "color": "Palette → semantic tokens",
+        "fullwidth": "Stretch to 100% host width",
+        "arialabel": "aria-label (required for icon-only, otherwise fallback)",
+        "ariacurrentpage": "Sets aria-current=\"page\" (pagination)"
+      },
+      "outputs": {
+        "buttonclick": "Click / activation, only when not disabled"
+      },
+      "slots": {
+        "default": "Additional content beside label",
+        "lzbuttonicon": "Custom icon instead of named lz-icon"
+      },
+      "deprecated": {
+        "rounded": "Old name from publikator/agora",
+        "icondirection": "Old icon-position name"
+      },
+      "examples": {
+        "0": {
+          "title": "In a form",
+          "description": "Submit primary + secondary cancel."
+        },
+        "1": {
+          "title": "In a modal",
+          "description": "Dialog footer."
+        },
+        "2": {
+          "title": "Icon-only with a11y"
+        },
+        "3": {
+          "title": "Deprecated alias (migrations)",
+          "description": "rounded → pill; do not use in new code."
+        }
+      },
+      "tokens": {
+        "lz_button_fg": "Text / icon color",
+        "lz_button_bg": "Background",
+        "lz_button_bg_hover": "Hover background",
+        "lz_button_border": "Border color",
+        "lz_button_ring": "focus-visible ring",
+        "lz_button_radius": "Rounding (overridden by pill)",
+        "lz_button_icon_size": "Icon size by size",
+        "lz_button_tone": "Local tone scale from color",
+        "lz_color_primary_secondary": "Semantic palettes",
+        "lz_color_purple": "purple palette for color=\"purple\"",
+        "lz_duration_normal": "Transition duration",
+        "lz_radius_full": "Pill shape"
+      }
+    },
+    "checkbox": {
+      "description": "Checkbox and radio button with title, description, and error states.",
+      "controls": {
+        "title": {
+          "default": "Accept"
+        }
+      },
+      "inputs": {
+        "type": "Native input type",
+        "variant": "Visual validation state",
+        "checked": "Whether the element is checked",
+        "disabled": "Disables interaction",
+        "indeterminate": "Indeterminate state (checkbox only)",
+        "rounded": "Rounded appearance (often with radio)",
+        "title": "Title / label",
+        "description": "Caption below title"
+      },
+      "outputs": {
+        "checkedchange": "checked change on click"
+      },
+      "examples": {
+        "0": {
+          "title": "Consent"
+        },
+        "1": {
+          "title": "Radio group"
+        }
+      },
+      "tokens": {
+        "lz_checkbox_border": "Border color",
+        "lz_checkbox_bg_checked": "Background when checked",
+        "lz_checkbox_error": "variant=error accent"
+      }
+    },
+    "icon": {
+      "description": "SVG icon from Heroicons / custom sprites: outline, solid, mini, micro, custom. Name is the symbol id in the sprite.",
+      "controls": {
+        "name": {
+          "hint": "Symbol name (for example check, x-mark, plus)"
+        },
+        "type": {
+          "hint": "Sprite: icons-{type}.svg"
+        }
+      },
+      "inputs": {
+        "name": "Symbol id in SVG sprite",
+        "type": "Sprite variant",
+        "class": "Additional SVG classes (alias iconClass); w-* disables default size",
+        "assetspath": "Base path to sprite folder"
+      },
+      "examples": {
+        "0": {
+          "title": "In a button"
+        },
+        "1": {
+          "title": "Custom size via class"
+        },
+        "2": {
+          "title": "Custom sprite",
+          "description": "The symbol must be in icons-custom.svg."
+        }
+      },
+      "tokens": {
+        "lz_icon_size": "Default width/height (1.5rem)",
+        "currentcolor": "Icon color inherits from parent"
+      }
+    },
+    "input": {
+      "description": "Text field with label, helper, button, and appearance variants.",
+      "controls": {
+        "withButton": {
+          "hint": "Empty string → null (no button)"
+        }
+      },
+      "inputs": {
+        "label": "Label above field",
+        "placeholder": "Placeholder",
+        "type": "Input type",
+        "size": "Field size",
+        "helpertext": "Hint / error below field",
+        "error": "Error state",
+        "disabled": "Disables field",
+        "pill": "Fully rounded",
+        "appearance": "Visual style",
+        "prefix": "Prefix on the left in field",
+        "withbutton": "Embedded button position",
+        "buttonlabel": "Button text",
+        "iconbutton": "Icon instead of button text"
+      },
+      "outputs": {
+        "valuechange": "Value change"
+      },
+      "examples": {
+        "0": {
+          "title": "With ngModel"
+        },
+        "1": {
+          "title": "Search"
+        }
+      },
+      "tokens": {
+        "lz_input_border": "Border color",
+        "lz_input_bg": "Field background",
+        "lz_input_error": "Error accent"
+      }
+    },
+    "loading": {
+      "description": "Loading indicator: circular spinner or a ring of dots.",
+      "inputs": {
+        "color": "Indicator color",
+        "size": "Size",
+        "variant": "Animation type"
+      },
+      "examples": {
+        "0": {
+          "title": "In a content block"
+        },
+        "1": {
+          "title": "Dots"
+        }
+      },
+      "tokens": {
+        "lz_loading_size": "Width / height by size",
+        "lz_loading_tone": "Stroke / dot color"
+      }
+    },
+    "progress-circle": {
+      "description": "Circular progress with percentage (label at larger sizes).",
+      "controls": {
+        "progress": {
+          "hint": "Percentage 0–100"
+        }
+      },
+      "inputs": {
+        "progress": "Fill percentage (clamped 0–100)",
+        "size": "Diameter; label on lg / xl / xxl",
+        "variant": "Arc color"
+      },
+      "examples": {
+        "0": {
+          "title": "File upload"
+        },
+        "1": {
+          "title": "Compact"
+        }
+      },
+      "tokens": {
+        "arc_color_inline": "red → #ef4444, white → #121212",
+        "size_map": "xs–xxl → px and strokeWidth"
+      }
+    },
+    "pulse-dot": {
+      "description": "Pulsing status dot (live / online). No inputs.",
+      "examples": {
+        "0": {
+          "title": "Next to title"
+        },
+        "1": {
+          "title": "In a list"
+        }
+      },
+      "tokens": {
+        "core_d50b0b": "Center dot color",
+        "ring_ec3131": "Pulsing ring color"
+      }
+    },
+    "select": {
+      "description": "Dropdown list with label, sm/md sizes, and helper text.",
+      "controls": {
+        "label": {
+          "default": "Select an option"
+        },
+        "placeholder": {
+          "default": "Select…"
+        }
+      },
+      "inputs": {
+        "label": "Label above field",
+        "placeholder": "Text when nothing is selected",
+        "size": "Control size",
+        "helpertext": "Hint below field",
+        "disabled": "Disables select"
+      },
+      "outputs": {
+        "opened": "Fires when the list opens"
+      },
+      "examples": {
+        "0": {
+          "title": "With ngModel"
+        }
+      },
+      "tokens": {
+        "lz_select_border": "Border color",
+        "lz_select_bg": "Trigger background"
+      },
+      "demo": {
+        "optionA": "Option A",
+        "optionB": "Option B",
+        "optionC": "Option C"
+      }
+    },
+    "stub": {
+      "description": "Placeholder for testing the documentation framework: preview, sandbox, synchronized code, variants, API, and tokens.",
+      "controls": {
+        "variant": {
+          "hint": "Visual variant"
+        },
+        "label": {
+          "default": "Click me"
+        },
+        "accent": {
+          "hint": "Local accent (color picker demo)"
+        },
+        "maxWidth": {
+          "hint": "Maximum width in px"
+        }
+      },
+      "inputs": {
+        "variant": "Button visual style",
+        "size": "Size",
+        "disabled": "Disables interaction",
+        "label": "Text (in the real API it will be via ng-content)",
+        "accent": "Demo color for color picker",
+        "maxwidth": "Width limit"
+      },
+      "outputs": {
+        "pressed": "Button click (when not disabled)"
+      },
+      "slots": {
+        "default": "Button content (icon + text)",
+        "lzprefix": "Slot to the left of text"
+      },
+      "deprecated": {
+        "type": "Old variant name from publikator",
+        "btnsize": "Deprecated size alias"
+      },
+      "examples": {
+        "0": {
+          "title": "In a form",
+          "description": "Primary submit button next to secondary cancel."
+        },
+        "1": {
+          "title": "In a modal",
+          "description": "Dialog footer with right alignment."
+        }
+      },
+      "tokens": {
+        "lz_color_primary": "primary variant fill",
+        "lz_color_secondary": "secondary variant fill",
+        "lz_radius_md": "Button rounding",
+        "lz_duration_fast": "hover/focus transition duration",
+        "lz_shadow_focus": "Focus ring"
+      }
+    },
+    "switch-toggle": {
+      "description": "On/off toggle with sm and md sizes.",
+      "inputs": {
+        "active": "On state",
+        "disabled": "Disables toggling",
+        "size": "Toggle size"
+      },
+      "outputs": {
+        "changed": "New active value after click"
+      },
+      "examples": {
+        "0": {
+          "title": "Setting"
+        }
+      },
+      "tokens": {
+        "lz_switch_toggle_track_active": "Track background when on",
+        "lz_switch_toggle_thumb": "Thumb color"
+      }
+    },
+    "tab-button": {
+      "description": "Single tab button: solid/bg (fill) and line (underline) variants. solid is an alias for bg.",
+      "controls": {
+        "label": {
+          "default": "Overview"
+        },
+        "variant": {
+          "hint": "solid and bg are equivalent"
+        }
+      },
+      "inputs": {
+        "label": "Button text",
+        "active": "Active state",
+        "size": "Size",
+        "variant": "solid → bg; line — underline indicator",
+        "link": "If set, renders routerLink instead of button"
+      },
+      "examples": {
+        "0": {
+          "title": "Tab group"
+        },
+        "1": {
+          "title": "With routerLink"
+        }
+      },
+      "tokens": {
+        "lz_color_gray": "Text and background of active bg/solid",
+        "lz_duration_normal": "hover / active transition",
+        "lz_radius_md": "Control rounding"
+      },
+      "demo": {
+        "overview": "Overview"
+      }
+    },
+    "tabs": {
+      "description": "Horizontal tab list: outline / underline / border styles, sizes, and active index. Supports badges, icons, and disabled tabs.",
+      "controls": {
+        "activeTab": {
+          "hint": "Active tab index (one-way in sandbox)"
+        }
+      },
+      "inputs": {
+        "tabs": "Tab labels",
+        "style": "Tab-list visual style",
+        "size": "Size (tab padding)",
+        "activetab": "Two-way active tab index",
+        "badges": "Optional badges by tab index",
+        "icons": "Icon names (lz-icon) by index",
+        "disabledtabindexes": "Indexes of unavailable tabs",
+        "disabledtabtooltips": "Tooltips for disabled tabs (key is string index)",
+        "disabledtabtooltiptrigger": "Tooltip trigger on disabled tab",
+        "class": "Additional class on root"
+      },
+      "outputs": {
+        "activetab": "Active index change (model)"
+      },
+      "examples": {
+        "0": {
+          "title": "Basic tab list"
+        },
+        "1": {
+          "title": "With icons and badges"
+        }
+      },
+      "tokens": {
+        "lz_color_gray": "Tab text and dividers",
+        "lz_duration_normal": "Color / indicator transition",
+        "lz_radius_md": "border style rounding"
+      },
+      "demo": {
+        "overview": "Overview",
+        "members": "Members",
+        "settings": "Settings"
+      }
+    },
+    "textarea": {
+      "description": "Multiline field with label, helper, and resize setting.",
+      "controls": {
+        "label": {
+          "default": "Comment"
+        },
+        "placeholder": {
+          "default": "Enter text…"
+        }
+      },
+      "inputs": {
+        "label": "Label above field",
+        "placeholder": "Placeholder",
+        "rows": "Number of visible rows",
+        "helpertext": "Hint / error",
+        "error": "Error state",
+        "disabled": "Disables field",
+        "resize": "Resize behavior"
+      },
+      "outputs": {
+        "valuechange": "Value change"
+      },
+      "examples": {
+        "0": {
+          "title": "With ngModel"
+        }
+      },
+      "tokens": {
+        "lz_textarea_border": "Border color",
+        "lz_textarea_bg": "Background"
+      }
+    },
+    "tooltip": {
+      "description": "Wrapper around a tag/element: CDK Overlay panel on hover or click. Alias: `lz-tooltip-hover`.",
+      "controls": {
+        "title": {
+          "default": "Title"
+        },
+        "text": {
+          "default": "Tooltip text"
+        }
+      },
+      "inputs": {
+        "title": "Panel title",
+        "text": "Panel text",
+        "img": "Image URL in panel",
+        "position": "CDK overlay position",
+        "theme": "Panel theme",
+        "arrow": "Show arrow",
+        "disabled": "Disables opening",
+        "trigger": "Opening method",
+        "triggerclass": "Trigger wrapper class"
+      },
+      "outputs": {
+        "default": "Trigger — button, icon, link, etc."
+      },
+      "slots": {
+        "default": "Trigger — button, icon, link, etc."
+      },
+      "examples": {
+        "0": {
+          "title": "Hover"
+        },
+        "1": {
+          "title": "Click + arrow"
+        }
+      },
+      "tokens": {
+        "cdk_overlay_pane": "lz-tooltip-cdk-pane class",
+        "data_panel_theme": "dark / light panel theme (do not confuse with application data-theme)"
+      },
+      "demo": {
+        "trigger": "Hover me"
+      }
+    }
+  }
+}

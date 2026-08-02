@@ -1,0 +1,28 @@
+<docs-component-page [meta]="meta">
+  <ng-template docsPreview let-values>
+    <lz-tooltip
+      [title]="str(values, 'title')"
+      [text]="str(values, 'text')"
+      [position]="$any(str(values, 'position', 'top'))"
+      [theme]="$any(str(values, 'theme', 'dark'))"
+      [arrow]="bool(values, 'arrow')"
+      [disabled]="bool(values, 'disabled')"
+      [trigger]="$any(str(values, 'trigger', 'hover'))"
+    >
+      <button
+        type="button"
+        class="docs-trigger"
+        style="
+          padding: 0.5rem 0.75rem;
+          border: 1px solid #d4d4d8;
+          border-radius: 0.375rem;
+          background: #fff;
+          cursor: pointer;
+          font: inherit;
+        "
+      >
+        {{ 'components.tooltip.demo.trigger' | transloco }}
+      </button>
+    </lz-tooltip>
+  </ng-template>
+</docs-component-page>

@@ -1,0 +1,12 @@
+<div class="lz-toast-container" aria-live="polite" aria-atomic="false">
+  @for (toast of toasts(); track toast.id) {
+    <div class="lz-toast-container__item">
+      <lz-toast-notification
+        [message]="toast.message"
+        [messageBold]="toast.messageBold"
+        [type]="toast.type"
+        (closed)="dismiss(toast.id)"
+      ></lz-toast-notification>
+    </div>
+  }
+</div>

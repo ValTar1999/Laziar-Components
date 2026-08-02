@@ -1,0 +1,854 @@
+{
+  "nav": {
+    "brand": "Laziar component",
+    "docsAria": "Документация",
+    "expandMenu": "Развернуть меню",
+    "collapseMenu": "Свернуть меню",
+    "openMenu": "Открыть навигацию",
+    "closeMenu": "Закрыть навигацию",
+    "groups": {
+      "start": "Старт",
+      "theming": "Темы",
+      "forms": "Формы",
+      "feedback": "Обратная связь",
+      "dataDisplay": "Отображение данных",
+      "navigation": "Навигация",
+      "services": "Сервисы"
+    },
+    "items": {
+      "introduction": "Введение",
+      "tokensTheme": "Токены и тема",
+      "button": "Button",
+      "checkbox": "Checkbox",
+      "switch": "Switch",
+      "input": "Input",
+      "textarea": "Textarea",
+      "select": "Select",
+      "stub": "Stub",
+      "alert": "Alert",
+      "badge": "Badge",
+      "loading": "Loading",
+      "progressCircle": "Progress Circle",
+      "tooltip": "Tooltip",
+      "pulseDot": "Pulse Dot",
+      "avatar": "Avatar",
+      "avatarGroup": "Avatar Group",
+      "icon": "Icon",
+      "tabs": "Tabs",
+      "tabButton": "Tab Button",
+      "buttonGroup": "Button Group",
+      "themeService": "ThemeService"
+    }
+  },
+  "header": {
+    "searchPlaceholder": "Поиск…",
+    "themeAria": "Тема",
+    "themeLight": "Light",
+    "themeDark": "Dark",
+    "themeAuto": "Auto",
+    "repo": "Репозиторий"
+  },
+  "common": {
+    "save": "Сохранить",
+    "cancel": "Отмена",
+    "close": "Закрыть",
+    "follow": "Follow",
+    "share": "Share",
+    "online": "Online",
+    "loading": "Загрузка…"
+  },
+  "footer": {
+    "copyright": "© Laziar Components",
+    "privacy": "Конфиденциальность",
+    "terms": "Условия",
+    "docs": "Документация"
+  },
+  "gettingStarted": {
+    "eyebrow": "Начало работы",
+    "title": "Собери интерфейс из компонентов",
+    "lead": "Docs-сайт уже использует <code>lz-logo</code>, <code>lz-button</code>, <code>lz-input</code>, <code>lz-icon</code>, <code>lz-tooltip</code> и <code>lz-toast-container</code>. Ниже — живой фрагмент UI из тех же примитивов.",
+    "alertTitle": "Библиотека подключена",
+    "alertText": "Импортируй компоненты из @laziar/components и собирай экраны без кастомного CSS-хрома.",
+    "profile": "Профиль",
+    "metaText": "Design system · Angular",
+    "shareTooltip": "Поделиться профилем",
+    "subscription": "Подписка",
+    "emailPlaceholder": "Email",
+    "newsletter": "Newsletter",
+    "newsletterHint": "Раз в неделю",
+    "agreeTerms": "Согласен с условиями",
+    "install": "Установка",
+    "quickStart": "Быстрый старт",
+    "stepTheme": "Подключи <code>@laziar/components/styles/theme.css</code>.",
+    "stepInject": "Инжектни <code>ThemeService</code> для light / dark / auto.",
+    "stepImport": "Импортируй компоненты: <code>Button</code>, <code>Input</code>, <code>Logo</code>, <code>Icon</code>…",
+    "toastMessage": "Сайт собран из компонентов @laziar/components",
+    "toastBold": "Готово",
+    "brandName": "Laziar Components",
+    "linkTheming": "Theming"
+  },
+  "componentPage": {
+    "preview": "Превью",
+    "previewEmpty": "Превью не задано",
+    "sandbox": "Песочница",
+    "code": "Код",
+    "codeLead": "Синхронизирован с песочницей — меняйте контролы, код обновится.",
+    "variants": "Варианты",
+    "variantsLead": "Предустановленные комбинации variant × size.",
+    "variantsEmpty": "Варианты появятся вместе с компонентом.",
+    "api": "API",
+    "inputs": "Inputs",
+    "outputs": "Outputs",
+    "slots": "Слоты (ng-content)",
+    "col": {
+      "name": "Имя",
+      "type": "Тип",
+      "default": "Дефолт",
+      "description": "Описание",
+      "slotName": "Имя / select",
+      "replacedBy": "Замена",
+      "token": "Токен"
+    },
+    "empty": {
+      "inputs": "Нет inputs",
+      "outputs": "Нет outputs",
+      "slots": "Нет слотов",
+      "tokens": "Нет специфичных токенов"
+    },
+    "emDash": "—",
+    "deprecatedAliases": "Deprecated-алиасы ({{count}})",
+    "deprecatedBadge": "deprecated",
+    "examples": "Примеры",
+    "examplesEmpty": "Примеры появятся позже.",
+    "tokens": "Токены компонента",
+    "tokensLead": "CSS-переменные, которые влияют на внешний вид."
+  },
+  "sandbox": {
+    "aria": "Песочница"
+  },
+  "codeBlock": {
+    "copy": "Копировать",
+    "copied": "Скопировано"
+  },
+  "theming": {
+    "eyebrow": "Theming",
+    "title": "Токены и ThemeService",
+    "lead": "Вся визуальная система построена на семантических CSS-переменных <code>--lz-*</code>. Переключатель в шапке использует <code>ThemeService</code> (light / dark / auto).",
+    "connect": "Подключение",
+    "palette": "Палитра",
+    "note": "Полная таблица токенов — в <code>docs/THEMING.md</code>."
+  },
+  "componentHost": {
+    "missing": "Компонент «{{name}}» ещё не задокументирован."
+  },
+  "languageSwitcher": {
+    "aria": "Язык"
+  },
+  "components": {
+    "alert": {
+      "description": "Баннер уведомления с иконкой, заголовком, текстом и опциональной кнопкой закрытия. Поддерживает семантические варианты и горизонтальную раскладку.",
+      "controls": {
+        "title": {
+          "default": "Успешно"
+        },
+        "text": {
+          "default": "Изменения сохранены."
+        },
+        "iconName": {
+          "hint": "Имя символа lz-icon"
+        }
+      },
+      "inputs": {
+        "title": "Заголовок баннера",
+        "text": "Основной текст",
+        "iconname": "Имя иконки lz-icon",
+        "iconvariant": "Вариант спрайта иконки",
+        "variant": "Семантический / цветовой вариант",
+        "size": "Типографический размер",
+        "padding": "Внутренние отступы",
+        "isrow": "Горизонтальная раскладка контента",
+        "isrowtext": "Заголовок и текст в одну строку",
+        "showclosebutton": "Показать кнопку закрытия",
+        "closecolor": "Переопределение цвета кнопки закрытия",
+        "buttonvariant": "Переопределение варианта кнопки закрытия"
+      },
+      "outputs": {
+        "closed": "Клик по кнопке закрытия"
+      },
+      "slots": {
+        "default": "Доп. контент в теле алерта (рядом с текстом)"
+      },
+      "examples": {
+        "0": {
+          "title": "Успех"
+        },
+        "1": {
+          "title": "Ошибка без закрытия"
+        },
+        "2": {
+          "title": "Строка"
+        }
+      },
+      "tokens": {
+        "lz_color_primary_secondary": "Семантические палитры вариантов",
+        "lz_radius": "Скругление контейнера",
+        "lz_font_size": "Типографика title / text по size"
+      }
+    },
+    "avatar-group": {
+      "description": "Группа аватаров с ограничением видимых элементов и счётчиком оставшихся. Подходит для списков участников.",
+      "controls": {
+        "max": {
+          "hint": "Сколько аватаров показать до «+N»"
+        },
+        "reverse": {
+          "hint": "Обратный порядок наложения (z-index)"
+        }
+      },
+      "inputs": {
+        "avatars": "Список участников: firstName, lastName, опционально imgUrl",
+        "max": "Максимум видимых аватаров; остальные — в «+N»",
+        "size": "Размер элементов группы",
+        "reverse": "Инвертирует z-index наложения"
+      },
+      "examples": {
+        "0": {
+          "title": "Участники чата"
+        },
+        "1": {
+          "title": "Обратное наложение"
+        }
+      },
+      "tokens": {
+        "lz_color_gray": "Фон fallback-инициалов и остатка «+N»",
+        "lz_radius_full": "Круглая форма элементов"
+      }
+    },
+    "avatar": {
+      "description": "Аватар пользователя: инициалы, изображение, размеры и статусные индикаторы (онлайн / уведомление).",
+      "controls": {
+        "firstName": {
+          "default": "Анна"
+        },
+        "lastName": {
+          "default": "Иванова"
+        },
+        "imgUrl": {
+          "hint": "URL изображения; пустая строка — инициалы / плейсхолдер"
+        }
+      },
+      "inputs": {
+        "firstname": "Имя (для инициалов и alt)",
+        "lastname": "Фамилия (для инициалов и alt)",
+        "imgurl": "URL фото; без него — инициалы или плейсхолдер",
+        "size": "Размер аватара",
+        "variant": "default — рамка/фон плейсхолдера; plain — без них",
+        "topnotification": "Показать индикатор сверху справа",
+        "bottomnotification": "Показать индикатор снизу справа",
+        "topnotificationstatus": "Цвет верхнего индикатора",
+        "bottomnotificationstatus": "Цвет нижнего индикатора",
+        "imgnotification": "Доп. изображение-бейдж поверх аватара",
+        "containerclass": "Доп. класс на контейнере аватара"
+      },
+      "examples": {
+        "0": {
+          "title": "Инициалы"
+        },
+        "1": {
+          "title": "С фото и статусом"
+        },
+        "2": {
+          "title": "Plain без рамки"
+        }
+      },
+      "tokens": {
+        "lz_color_gray": "Фон / текст инициалов и плейсхолдера",
+        "lz_color_success": "Индикатор success",
+        "lz_color_danger": "Индикатор error",
+        "lz_color_warning": "Индикатор warning",
+        "lz_radius_full": "Круглая форма аватара"
+      }
+    },
+    "badge": {
+      "description": "Компактный чип/метка со цветовой палитрой, размерами, pill-формой и опциональной иконкой.",
+      "controls": {
+        "label": {
+          "hint": "Projected-контент (ng-content)"
+        },
+        "icon": {
+          "hint": "Имя lz-icon; пусто — без иконки"
+        }
+      },
+      "inputs": {
+        "color": "Цветовая тема (есть alias magrnta → magenta)",
+        "size": "Размер бейджа",
+        "border": "Рамка (border ring)",
+        "pill": "Полностью скруглённая форма",
+        "disabled": "Неактивное состояние",
+        "icon": "Имя иконки; кастом — слот [lzBadgeIcon]",
+        "iconposition": "Позиция иконки",
+        "iconvariant": "Вариант спрайта lz-icon",
+        "img": "URL изображения слева",
+        "iconclickable": "Иконка кликабельна и эмитит iconClick",
+        "iconarialabel": "aria-label для кликабельной иконки"
+      },
+      "outputs": {
+        "iconclick": "Клик по иконке (если iconClickable)"
+      },
+      "slots": {
+        "default": "Текст / контент бейджа",
+        "lzbadgeicon": "Кастомная иконка вместо lz-icon по имени"
+      },
+      "examples": {
+        "0": {
+          "title": "Статус"
+        },
+        "1": {
+          "title": "С иконкой"
+        },
+        "2": {
+          "title": "С рамкой"
+        }
+      },
+      "tokens": {
+        "lz_badge_50_100_200_500_600_900": "Нейтральная шкала gray",
+        "lz_green_lz_red": "Палитры цветов бейджа",
+        "lz_icon_size": "Размер иконки внутри бейджа"
+      }
+    },
+    "button-group": {
+      "description": "Обёртка для сегментированной группы кнопок: общая рамка, скругление краёв и опциональные разделители (line).",
+      "controls": {
+        "line": {
+          "hint": "Разделители между кнопками"
+        }
+      },
+      "inputs": {
+        "line": "Показать разделители между дочерними кнопками",
+        "divided": "@deprecated — алиас line"
+      },
+      "outputs": {
+        "default": "Дочерние lz-button (или нативные button)"
+      },
+      "slots": {
+        "default": "Дочерние lz-button (или нативные button)"
+      },
+      "deprecated": {
+        "divided": "Старое имя разделителей"
+      },
+      "examples": {
+        "0": {
+          "title": "Сегментированный переключатель"
+        },
+        "1": {
+          "title": "Без разделителей"
+        }
+      },
+      "tokens": {
+        "lz_color_gray": "Рамка группы и разделители",
+        "lz_radius_md": "Скругление контейнера (0.5rem)"
+      },
+      "demo": {
+        "left": "Слева",
+        "center": "Центр",
+        "right": "Справа"
+      }
+    },
+    "button": {
+      "description": "Эталонный компонент библиотеки. Объединённый API publikator + agora-frontend: варианты, размеры, палитра, a11y и явный buttonClick.",
+      "controls": {
+        "label": {
+          "default": "Сохранить"
+        },
+        "icon": {
+          "hint": "Имя символа из /assets/icons/icons-{outline|solid|…}.svg (например check, x-mark, plus)"
+        },
+        "iconVariant": {
+          "hint": "Спрайт lz-icon: outline / solid / mini / micro"
+        }
+      },
+      "inputs": {
+        "label": "Текст кнопки (альтернатива — default ng-content)",
+        "variant": "Визуальный вариант",
+        "size": "Размер (паддинги publikator)",
+        "type": "Нативный type у <button>",
+        "icon": "Имя иконки; кастом — слот [lzButtonIcon]",
+        "iconvariant": "Вариант спрайта для lz-icon (type)",
+        "iconposition": "Позиция иконки относительно текста",
+        "iconclass": "Доп. класс на обёртке иконки",
+        "disabled": "Отключает кнопку и блокирует buttonClick",
+        "pill": "Полностью скруглённая (rounded-full)",
+        "color": "Палитра → семантические токены",
+        "fullwidth": "Растянуть на 100% ширины хоста",
+        "arialabel": "aria-label (обязателен для icon-only, иначе fallback)",
+        "ariacurrentpage": "Ставит aria-current=\"page\" (пагинация)"
+      },
+      "outputs": {
+        "buttonclick": "Клик / активация, только если не disabled"
+      },
+      "slots": {
+        "default": "Доп. содержимое рядом с label",
+        "lzbuttonicon": "Кастомная иконка вместо lz-icon по имени"
+      },
+      "deprecated": {
+        "rounded": "Старое имя из publikator/agora",
+        "icondirection": "Старое имя позиции иконки"
+      },
+      "examples": {
+        "0": {
+          "title": "В форме",
+          "description": "Submit primary + secondary cancel."
+        },
+        "1": {
+          "title": "В модалке",
+          "description": "Футер диалога."
+        },
+        "2": {
+          "title": "Icon-only с a11y"
+        },
+        "3": {
+          "title": "Deprecated-алиас (миграции)",
+          "description": "rounded → pill; не используйте в новом коде."
+        }
+      },
+      "tokens": {
+        "lz_button_fg": "Цвет текста / иконки",
+        "lz_button_bg": "Фон",
+        "lz_button_bg_hover": "Фон при hover",
+        "lz_button_border": "Цвет рамки",
+        "lz_button_ring": "Кольцо focus-visible",
+        "lz_button_radius": "Скругление (перебивается pill)",
+        "lz_button_icon_size": "Размер иконки по size",
+        "lz_button_tone": "Локальная шкала тона от color",
+        "lz_color_primary_secondary": "Семантические палитры",
+        "lz_color_purple": "Палитра purple для color=\"purple\"",
+        "lz_duration_normal": "Длительность transition",
+        "lz_radius_full": "Pill-форма"
+      }
+    },
+    "checkbox": {
+      "description": "Чекбокс и радиокнопка с заголовком, описанием и состояниями ошибки.",
+      "controls": {
+        "title": {
+          "default": "Принять"
+        }
+      },
+      "inputs": {
+        "type": "Нативный тип input",
+        "variant": "Визуальное состояние валидации",
+        "checked": "Отмечен ли элемент",
+        "disabled": "Отключает взаимодействие",
+        "indeterminate": "Промежуточное состояние (только checkbox)",
+        "rounded": "Скруглённый вид (часто с radio)",
+        "title": "Заголовок / label",
+        "description": "Подпись под заголовком"
+      },
+      "outputs": {
+        "checkedchange": "Изменение checked при клике"
+      },
+      "examples": {
+        "0": {
+          "title": "Согласие"
+        },
+        "1": {
+          "title": "Радиогруппа"
+        }
+      },
+      "tokens": {
+        "lz_checkbox_border": "Цвет рамки",
+        "lz_checkbox_bg_checked": "Фон в checked",
+        "lz_checkbox_error": "Акцент variant=error"
+      }
+    },
+    "icon": {
+      "description": "SVG-иконка из спрайтов Heroicons / кастомных: outline, solid, mini, micro, custom. Имя — id символа в спрайте.",
+      "controls": {
+        "name": {
+          "hint": "Имя символа (например check, x-mark, plus)"
+        },
+        "type": {
+          "hint": "Спрайт: icons-{type}.svg"
+        }
+      },
+      "inputs": {
+        "name": "Id символа в SVG-спрайте",
+        "type": "Вариант спрайта",
+        "class": "Доп. классы на SVG (alias iconClass); w-* отключает дефолтный размер",
+        "assetspath": "Базовый путь к папке спрайтов"
+      },
+      "examples": {
+        "0": {
+          "title": "В кнопке"
+        },
+        "1": {
+          "title": "Кастомный размер через class"
+        },
+        "2": {
+          "title": "Кастомный спрайт",
+          "description": "Символ должен быть в icons-custom.svg."
+        }
+      },
+      "tokens": {
+        "lz_icon_size": "Ширина/высота по умолчанию (1.5rem)",
+        "currentcolor": "Цвет иконки наследует от родителя"
+      }
+    },
+    "input": {
+      "description": "Текстовое поле с label, helper, кнопкой и вариантами appearance.",
+      "controls": {
+        "withButton": {
+          "hint": "Пустая строка → null (без кнопки)"
+        }
+      },
+      "inputs": {
+        "label": "Подпись над полем",
+        "placeholder": "Placeholder",
+        "type": "Тип input",
+        "size": "Размер поля",
+        "helpertext": "Подсказка / ошибка под полем",
+        "error": "Состояние ошибки",
+        "disabled": "Отключает поле",
+        "pill": "Полное скругление",
+        "appearance": "Визуальный стиль",
+        "prefix": "Префикс слева в поле",
+        "withbutton": "Позиция встроенной кнопки",
+        "buttonlabel": "Текст кнопки",
+        "iconbutton": "Иконка вместо текста кнопки"
+      },
+      "outputs": {
+        "valuechange": "Изменение значения"
+      },
+      "examples": {
+        "0": {
+          "title": "С ngModel"
+        },
+        "1": {
+          "title": "Поиск"
+        }
+      },
+      "tokens": {
+        "lz_input_border": "Цвет рамки",
+        "lz_input_bg": "Фон поля",
+        "lz_input_error": "Акцент ошибки"
+      }
+    },
+    "loading": {
+      "description": "Индикатор загрузки: круговой spinner или кольцо из точек.",
+      "inputs": {
+        "color": "Цвет индикатора",
+        "size": "Размер",
+        "variant": "Тип анимации"
+      },
+      "examples": {
+        "0": {
+          "title": "В блоке контента"
+        },
+        "1": {
+          "title": "Точки"
+        }
+      },
+      "tokens": {
+        "lz_loading_size": "Ширина / высота по size",
+        "lz_loading_tone": "Цвет stroke / точек"
+      }
+    },
+    "progress-circle": {
+      "description": "Круговой прогресс с процентом (подпись на крупных размерах).",
+      "controls": {
+        "progress": {
+          "hint": "Процент 0–100"
+        }
+      },
+      "inputs": {
+        "progress": "Процент заполнения (кламп 0–100)",
+        "size": "Диаметр; label на lg / xl / xxl",
+        "variant": "Цвет дуги"
+      },
+      "examples": {
+        "0": {
+          "title": "Загрузка файла"
+        },
+        "1": {
+          "title": "Компактный"
+        }
+      },
+      "tokens": {
+        "arc_color_inline": "red → #ef4444, white → #121212",
+        "size_map": "xs–xxl → px и strokeWidth"
+      }
+    },
+    "pulse-dot": {
+      "description": "Пульсирующая точка статуса (live / online). Без входных параметров.",
+      "examples": {
+        "0": {
+          "title": "Рядом с заголовком"
+        },
+        "1": {
+          "title": "В списке"
+        }
+      },
+      "tokens": {
+        "core_d50b0b": "Цвет центральной точки",
+        "ring_ec3131": "Цвет пульсирующего кольца"
+      }
+    },
+    "select": {
+      "description": "Выпадающий список с label, размерами sm/md и helper-текстом.",
+      "controls": {
+        "label": {
+          "default": "Выберите опцию"
+        },
+        "placeholder": {
+          "default": "Выберите…"
+        }
+      },
+      "inputs": {
+        "label": "Подпись над полем",
+        "placeholder": "Текст, когда ничего не выбрано",
+        "size": "Размер контрола",
+        "helpertext": "Подсказка под полем",
+        "disabled": "Отключает select"
+      },
+      "outputs": {
+        "opened": "Срабатывает при открытии списка"
+      },
+      "examples": {
+        "0": {
+          "title": "С ngModel"
+        }
+      },
+      "tokens": {
+        "lz_select_border": "Цвет рамки",
+        "lz_select_bg": "Фон триггера"
+      },
+      "demo": {
+        "optionA": "Опция A",
+        "optionB": "Опция B",
+        "optionC": "Опция C"
+      }
+    },
+    "stub": {
+      "description": "Заглушка для проверки каркаса документации: превью, песочница, синхронизированный код, варианты, API и токены.",
+      "controls": {
+        "variant": {
+          "hint": "Визуальный вариант"
+        },
+        "label": {
+          "default": "Нажми меня"
+        },
+        "accent": {
+          "hint": "Локальный акцент (демо color picker)"
+        },
+        "maxWidth": {
+          "hint": "Максимальная ширина в px"
+        }
+      },
+      "inputs": {
+        "variant": "Визуальный стиль кнопки",
+        "size": "Размер",
+        "disabled": "Отключает взаимодействие",
+        "label": "Текст (в реальном API будет через ng-content)",
+        "accent": "Демо-цвет для color picker",
+        "maxwidth": "Ограничение ширины"
+      },
+      "outputs": {
+        "pressed": "Клик по кнопке (когда не disabled)"
+      },
+      "slots": {
+        "default": "Содержимое кнопки (иконка + текст)",
+        "lzprefix": "Слот слева от текста"
+      },
+      "deprecated": {
+        "type": "Старое имя варианта из публикатора",
+        "btnsize": "Устаревший алиас размера"
+      },
+      "examples": {
+        "0": {
+          "title": "В форме",
+          "description": "Primary-кнопка сабмита рядом с secondary cancel."
+        },
+        "1": {
+          "title": "В модалке",
+          "description": "Футер диалога с выравниванием вправо."
+        }
+      },
+      "tokens": {
+        "lz_color_primary": "Заливка primary-варианта",
+        "lz_color_secondary": "Заливка secondary-варианта",
+        "lz_radius_md": "Скругление кнопки",
+        "lz_duration_fast": "Длительность hover/focus transition",
+        "lz_shadow_focus": "Кольцо фокуса"
+      }
+    },
+    "switch-toggle": {
+      "description": "Переключатель вкл/выкл с размерами sm и md.",
+      "inputs": {
+        "active": "Состояние вкл",
+        "disabled": "Отключает переключение",
+        "size": "Размер переключателя"
+      },
+      "outputs": {
+        "changed": "Новое значение active после клика"
+      },
+      "examples": {
+        "0": {
+          "title": "Настройка"
+        }
+      },
+      "tokens": {
+        "lz_switch_toggle_track_active": "Фон трека во вкл",
+        "lz_switch_toggle_thumb": "Цвет ползунка"
+      }
+    },
+    "tab-button": {
+      "description": "Одиночная вкладка-кнопка: варианты solid/bg (заливка) и line (подчёркивание). solid — алиас bg.",
+      "controls": {
+        "label": {
+          "default": "Обзор"
+        },
+        "variant": {
+          "hint": "solid и bg эквивалентны"
+        }
+      },
+      "inputs": {
+        "label": "Текст кнопки",
+        "active": "Активное состояние",
+        "size": "Размер",
+        "variant": "solid → bg; line — underline-индикатор",
+        "link": "Если задан — рендерит routerLink вместо button"
+      },
+      "examples": {
+        "0": {
+          "title": "Группа вкладок"
+        },
+        "1": {
+          "title": "С routerLink"
+        }
+      },
+      "tokens": {
+        "lz_color_gray": "Текст и фон активного bg/solid",
+        "lz_duration_normal": "Transition hover / active",
+        "lz_radius_md": "Скругление control"
+      },
+      "demo": {
+        "overview": "Обзор"
+      }
+    },
+    "tabs": {
+      "description": "Горизонтальный таб-лист: стили outline / underline / border, размеры и активный индекс. Поддерживает badges, icons и disabled-вкладки.",
+      "controls": {
+        "activeTab": {
+          "hint": "Индекс активной вкладки (one-way в песочнице)"
+        }
+      },
+      "inputs": {
+        "tabs": "Подписи вкладок",
+        "style": "Визуальный стиль таб-листа",
+        "size": "Размер (паддинги вкладок)",
+        "activetab": "Двусторонний индекс активной вкладки",
+        "badges": "Опциональные бейджи по индексу вкладки",
+        "icons": "Имена иконок (lz-icon) по индексу",
+        "disabledtabindexes": "Индексы недоступных вкладок",
+        "disabledtabtooltips": "Тултипы для disabled-вкладок (ключ — индекс строкой)",
+        "disabledtabtooltiptrigger": "Триггер тултипа на disabled-вкладке",
+        "class": "Доп. класс на корне"
+      },
+      "outputs": {
+        "activetab": "Изменение активного индекса (model)"
+      },
+      "examples": {
+        "0": {
+          "title": "Базовый таб-лист"
+        },
+        "1": {
+          "title": "С иконками и бейджами"
+        }
+      },
+      "tokens": {
+        "lz_color_gray": "Текст вкладок и разделители",
+        "lz_duration_normal": "Transition цвета / индикатора",
+        "lz_radius_md": "Скругление стиля border"
+      },
+      "demo": {
+        "overview": "Обзор",
+        "members": "Участники",
+        "settings": "Настройки"
+      }
+    },
+    "textarea": {
+      "description": "Многострочное поле с label, helper и настройкой resize.",
+      "controls": {
+        "label": {
+          "default": "Комментарий"
+        },
+        "placeholder": {
+          "default": "Введите текст…"
+        }
+      },
+      "inputs": {
+        "label": "Подпись над полем",
+        "placeholder": "Placeholder",
+        "rows": "Число видимых строк",
+        "helpertext": "Подсказка / ошибка",
+        "error": "Состояние ошибки",
+        "disabled": "Отключает поле",
+        "resize": "Поведение resize"
+      },
+      "outputs": {
+        "valuechange": "Изменение значения"
+      },
+      "examples": {
+        "0": {
+          "title": "С ngModel"
+        }
+      },
+      "tokens": {
+        "lz_textarea_border": "Цвет рамки",
+        "lz_textarea_bg": "Фон"
+      }
+    },
+    "tooltip": {
+      "description": "Обёртка над тегом/элементом: CDK Overlay панель по hover или click. Алиас: `lz-tooltip-hover`.",
+      "controls": {
+        "title": {
+          "default": "Заголовок"
+        },
+        "text": {
+          "default": "Текст подсказки"
+        }
+      },
+      "inputs": {
+        "title": "Заголовок панели",
+        "text": "Текст панели",
+        "img": "URL изображения в панели",
+        "position": "Позиция CDK overlay",
+        "theme": "Тема панели",
+        "arrow": "Показать стрелку",
+        "disabled": "Отключает открытие",
+        "trigger": "Способ открытия",
+        "triggerclass": "Класс обёртки триггера"
+      },
+      "outputs": {
+        "default": "Триггер — кнопка, иконка, ссылка и т.д."
+      },
+      "slots": {
+        "default": "Триггер — кнопка, иконка, ссылка и т.д."
+      },
+      "examples": {
+        "0": {
+          "title": "Hover"
+        },
+        "1": {
+          "title": "Click + стрелка"
+        }
+      },
+      "tokens": {
+        "cdk_overlay_pane": "Класс lz-tooltip-cdk-pane",
+        "data_panel_theme": "Тема панели dark / light (не путать с data-theme приложения)"
+      },
+      "demo": {
+        "trigger": "Наведи"
+      }
+    }
+  }
+}

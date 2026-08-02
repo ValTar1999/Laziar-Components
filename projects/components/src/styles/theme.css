@@ -1,8 +1,10 @@
 /**
  * Laziar design tokens (light defaults).
  * Source of truth: docs/analysis/design-audit.md — shared brand scales from
- * publikator/agora; breakpoints & spacing prefer publikator (standard Tailwind);
- * disabled gray prefers publikator gray-900/30 over agora #B3B3B3.
+ * Sources: frontend + publikator (not agora-frontend).
+ * Breakpoints & spacing prefer publikator (standard Tailwind).
+ * Button gray disabled currently follows publikator gray-900/30;
+ * frontend uses #B3B3B3 — unify when product picks one.
  */
 
 :root,
@@ -91,18 +93,18 @@
   --lz-color-neutral-900: #121212;
   --lz-color-neutral: var(--lz-color-neutral-500);
 
-  /* ─── Palette: purple (button / accent from design systems) ─── */
-  --lz-color-purple-surface: #faf5ff;
-  --lz-color-purple-50: #f3e8ff;
-  --lz-color-purple-100: #e9d5ff;
-  --lz-color-purple-200: #d8b4fe;
-  --lz-color-purple-300: #c084fc;
-  --lz-color-purple-400: #a855f7;
-  --lz-color-purple-500: #9333ea;
-  --lz-color-purple-600: #7e22ce;
-  --lz-color-purple-700: #6b21a8;
-  --lz-color-purple-800: #581c87;
-  --lz-color-purple-900: #3b0764;
+  /* ─── Palette: purple (publikator / agora tailwind.config) ─── */
+  --lz-color-purple-surface: #faf5fe;
+  --lz-color-purple-50: #f6ecfd;
+  --lz-color-purple-100: #edd8fd;
+  --lz-color-purple-200: #cc9ef0;
+  --lz-color-purple-300: #b56bf0;
+  --lz-color-purple-400: #9040ce;
+  --lz-color-purple-500: #6821a1;
+  --lz-color-purple-600: #50197b;
+  --lz-color-purple-700: #3e135f;
+  --lz-color-purple-800: #1c0f30;
+  --lz-color-purple-900: #0c0614;
   --lz-color-purple: var(--lz-color-purple-500);
 
   /* ─── Surfaces & text ─── */
@@ -121,6 +123,7 @@
   /* ─── Spacing scale (rem; 2-5 = 10px from publikator) ─── */
   --lz-space-0: 0;
   --lz-space-1: 0.25rem;
+  --lz-space-1-5: 0.375rem; /* Tailwind 1.5 — button sm padding (publikator py-1.5) */
   --lz-space-2: 0.5rem;
   --lz-space-2-5: 0.625rem;
   --lz-space-3: 0.75rem;
@@ -169,6 +172,7 @@
   --lz-font-weight-semibold: 600;
   --lz-font-weight-bold: 700;
 
+  /* fontSize from frontend/tailwind.config.mjs (3.1xl → 3-1xl, 6.1xl → 6-1xl) */
   --lz-font-size-xs: 0.75rem;
   --lz-font-size-sm: 0.875rem;
   --lz-font-size-base: 1rem;
@@ -176,8 +180,50 @@
   --lz-font-size-xl: 1.25rem;
   --lz-font-size-2xl: 1.5rem;
   --lz-font-size-3xl: 1.75rem;
+  --lz-font-size-3-1xl: 2rem;
   --lz-font-size-4xl: 2.5rem;
   --lz-font-size-5xl: 3rem;
+  --lz-font-size-6xl: 3.5rem;
+  --lz-font-size-6-1xl: 4rem;
+  --lz-font-size-7xl: 4.5rem;
+  --lz-font-size-8xl: 5.5rem;
+  --lz-font-size-9xl: 6rem;
+  --lz-font-size-10xl: 8rem;
+  --lz-font-size-s7px: 7px;
+  --lz-font-size-s10px: 10px;
+  --lz-font-size-s10-l130: 10px;
+  --lz-font-size-s11-l130: 11px;
+  --lz-font-size-s12-l130: 12px;
+  --lz-font-size-s12-l160: 12px;
+  --lz-font-size-s13-l120: 13px;
+  --lz-font-size-s13-l130: 13px;
+  --lz-font-size-s13-l160: 13px;
+  --lz-font-size-s14-l130: 14px;
+  --lz-font-size-s14-l140: 14px;
+  --lz-font-size-s14-l160: 14px;
+  --lz-font-size-s15-l130: 15px;
+  --lz-font-size-s15-l160: 15px;
+  --lz-font-size-s16-l130: 16px;
+  --lz-font-size-s16-l170: 16px;
+  --lz-font-size-s17-l130: 17px;
+  --lz-font-size-s17-l160: 17px;
+  --lz-font-size-s17-l170: 17px;
+  --lz-font-size-s18-l130: 18px;
+  --lz-font-size-s18-l140: 18px;
+  --lz-font-size-s18-l160: 18px;
+  --lz-font-size-s18-l170: 18px;
+  --lz-font-size-s20-l140: 20px;
+  --lz-font-size-s20-l160: 20px;
+  --lz-font-size-s24-l140: 24px;
+  --lz-font-size-s26-l140: 26px;
+  --lz-font-size-s28-l100: 28px;
+  --lz-font-size-s28-l140: 28px;
+  --lz-font-size-s32-l140: 32px;
+  --lz-font-size-s32-l130: 32px;
+  --lz-font-size-s40-l140: 40px;
+  --lz-font-size-s48-l140: 48px;
+  --lz-font-size-s56-l130: 56px;
+  --lz-font-size-s56-l140: 56px;
 
   --lz-line-height-xs: 1.25rem;
   --lz-line-height-sm: 1.5rem;
@@ -186,6 +232,50 @@
   --lz-line-height-xl: 2rem;
   --lz-line-height-2xl: 2.25rem;
   --lz-line-height-3xl: 2.25rem;
+  --lz-line-height-3-1xl: 2.5rem;
+  --lz-line-height-4xl: 3rem;
+  --lz-line-height-5xl: 3.5rem;
+  --lz-line-height-6xl: 4.5rem;
+  --lz-line-height-6-1xl: 5rem;
+  --lz-line-height-7xl: 5.5rem;
+  --lz-line-height-8xl: 5.5rem;
+  --lz-line-height-9xl: 7rem;
+  --lz-line-height-10xl: 9rem;
+  --lz-line-height-s7px: -0.011rem;
+  --lz-line-height-s10px: -0.011rem;
+  --lz-line-height-s10-l130: 130%;
+  --lz-line-height-s11-l130: 130%;
+  --lz-line-height-s12-l130: 130%;
+  --lz-line-height-s12-l160: 160%;
+  --lz-line-height-s13-l120: 120%;
+  --lz-line-height-s13-l130: 130%;
+  --lz-line-height-s13-l160: 160%;
+  --lz-line-height-s14-l130: 130%;
+  --lz-line-height-s14-l140: 140%;
+  --lz-line-height-s14-l160: 160%;
+  --lz-line-height-s15-l130: 130%;
+  --lz-line-height-s15-l160: 160%;
+  --lz-line-height-s16-l130: 130%;
+  --lz-line-height-s16-l170: 170%;
+  --lz-line-height-s17-l130: 130%;
+  --lz-line-height-s17-l160: 160%;
+  --lz-line-height-s17-l170: 170%;
+  --lz-line-height-s18-l130: 130%;
+  --lz-line-height-s18-l140: 140%;
+  --lz-line-height-s18-l160: 160%;
+  --lz-line-height-s18-l170: 170%;
+  --lz-line-height-s20-l140: 140%;
+  --lz-line-height-s20-l160: 160%;
+  --lz-line-height-s24-l140: 140%;
+  --lz-line-height-s26-l140: 140%;
+  --lz-line-height-s28-l100: 100%;
+  --lz-line-height-s28-l140: 140%;
+  --lz-line-height-s32-l140: 140%;
+  --lz-line-height-s32-l130: 130%;
+  --lz-line-height-s40-l140: 140%;
+  --lz-line-height-s48-l140: 140%;
+  --lz-line-height-s56-l130: 130%;
+  --lz-line-height-s56-l140: 140%;
   --lz-line-height-tight: 1.25;
   --lz-line-height-snug: 1.375;
   --lz-line-height-normal: 1.5;
@@ -194,7 +284,33 @@
   --lz-letter-spacing-xs: -0.01125rem;
   --lz-letter-spacing-sm: -0.013125rem;
   --lz-letter-spacing-base: -0.02rem;
-  --lz-letter-spacing-lg: -0.025rem;
+  --lz-letter-spacing-lg: -0.034rem;
+  --lz-letter-spacing-xl: -0.03rem;
+  --lz-letter-spacing-2xl: -0.035rem;
+  --lz-letter-spacing-3xl: -0.04rem;
+  --lz-letter-spacing-3-1xl: -0.045rem;
+  --lz-letter-spacing-4xl: -0.05rem;
+  --lz-letter-spacing-5xl: -0.05rem;
+  --lz-letter-spacing-6xl: -0.055rem;
+  --lz-letter-spacing-6-1xl: -0.055rem;
+  --lz-letter-spacing-7xl: -0.055rem;
+  --lz-letter-spacing-8xl: -0.055rem;
+  --lz-letter-spacing-9xl: -0.055rem;
+  --lz-letter-spacing-10xl: -0.055rem;
+  --lz-letter-spacing-s10-l130: 2px;
+  --lz-letter-spacing-s16-l170: 0.3px;
+  --lz-letter-spacing-s17-l170: 0.3px;
+  --lz-letter-spacing-s18-l140: -0.5px;
+  --lz-letter-spacing-s18-l170: 0.3px;
+  --lz-letter-spacing-s20-l140: -0.5px;
+  --lz-letter-spacing-s20-l160: -0.5px;
+  --lz-letter-spacing-s24-l140: -1px;
+  --lz-letter-spacing-s26-l140: -1px;
+  --lz-letter-spacing-s28-l100: -1.5px;
+  --lz-letter-spacing-s28-l140: -1.5px;
+  --lz-letter-spacing-s32-l140: -1.5px;
+  --lz-letter-spacing-s32-l130: -1.5px;
+  --lz-letter-spacing-s40-l140: -1.5px;
 
   /* ─── Breakpoints (publikator / standard Tailwind — for JS & docs) ─── */
   --lz-breakpoint-sm: 640px;
@@ -222,7 +338,8 @@
 }
 
 /**
- * Dark theme — explicit [data-theme="dark"] and system preference when auto.
+ * Dark theme — applied when ThemeService sets data-theme="dark",
+ * or (without ThemeService) when the OS prefers dark and no theme attr is set.
  */
 [data-theme='dark'] {
   color-scheme: dark;
@@ -305,17 +422,17 @@
   --lz-color-neutral-900: #f4f5f5;
   --lz-color-neutral: var(--lz-color-neutral-500);
 
-  --lz-color-purple-surface: #3b0764;
-  --lz-color-purple-50: #3b0764;
-  --lz-color-purple-100: #581c87;
-  --lz-color-purple-200: #6b21a8;
-  --lz-color-purple-300: #7e22ce;
-  --lz-color-purple-400: #9333ea;
-  --lz-color-purple-500: #a855f7;
-  --lz-color-purple-600: #c084fc;
-  --lz-color-purple-700: #d8b4fe;
-  --lz-color-purple-800: #e9d5ff;
-  --lz-color-purple-900: #f3e8ff;
+  --lz-color-purple-surface: #1c0f30;
+  --lz-color-purple-50: #0c0614;
+  --lz-color-purple-100: #1c0f30;
+  --lz-color-purple-200: #3e135f;
+  --lz-color-purple-300: #50197b;
+  --lz-color-purple-400: #6821a1;
+  --lz-color-purple-500: #9040ce;
+  --lz-color-purple-600: #b56bf0;
+  --lz-color-purple-700: #cc9ef0;
+  --lz-color-purple-800: #edd8fd;
+  --lz-color-purple-900: #f6ecfd;
   --lz-color-purple: var(--lz-color-purple-500);
 
   --lz-color-background: #121212;
@@ -338,9 +455,9 @@
   --lz-shadow-sticky: -4px 0 20px -2px rgb(0 0 0 / 0.45);
 }
 
+/* No-JS / SSR fallback when ThemeService has not set data-theme yet */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']),
-  [data-theme='auto'] {
+  :root:not([data-theme]) {
     color-scheme: dark;
 
     --lz-color-primary-surface: #2a0303;
@@ -421,17 +538,17 @@
     --lz-color-neutral-900: #f4f5f5;
     --lz-color-neutral: var(--lz-color-neutral-500);
 
-    --lz-color-purple-surface: #3b0764;
-    --lz-color-purple-50: #3b0764;
-    --lz-color-purple-100: #581c87;
-    --lz-color-purple-200: #6b21a8;
-    --lz-color-purple-300: #7e22ce;
-    --lz-color-purple-400: #9333ea;
-    --lz-color-purple-500: #a855f7;
-    --lz-color-purple-600: #c084fc;
-    --lz-color-purple-700: #d8b4fe;
-    --lz-color-purple-800: #e9d5ff;
-    --lz-color-purple-900: #f3e8ff;
+    --lz-color-purple-surface: #1c0f30;
+    --lz-color-purple-50: #0c0614;
+    --lz-color-purple-100: #1c0f30;
+    --lz-color-purple-200: #3e135f;
+    --lz-color-purple-300: #50197b;
+    --lz-color-purple-400: #6821a1;
+    --lz-color-purple-500: #9040ce;
+    --lz-color-purple-600: #b56bf0;
+    --lz-color-purple-700: #cc9ef0;
+    --lz-color-purple-800: #edd8fd;
+    --lz-color-purple-900: #f6ecfd;
     --lz-color-purple: var(--lz-color-purple-500);
 
     --lz-color-background: #121212;
@@ -453,4 +570,10 @@
     --lz-shadow-focus: 0 0 0 2px var(--lz-color-background), 0 0 0 4px var(--lz-color-focus-ring);
     --lz-shadow-sticky: -4px 0 20px -2px rgb(0 0 0 / 0.45);
   }
+}
+
+/* CDK Overlay — above sticky chrome (header / sidebar) */
+.cdk-overlay-container,
+.lz-tooltip-cdk-pane {
+  z-index: var(--lz-z-tooltip, 1500);
 }

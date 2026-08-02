@@ -1,0 +1,12 @@
+<lz-button-group class="lang-switcher" [attr.aria-label]="'languageSwitcher.aria' | transloco">
+  @for (lang of langs; track lang) {
+    <lz-button
+      [label]="label(lang)"
+      size="sm"
+      pill
+      color="gray"
+      [variant]="variant(lang)"
+      (buttonClick)="setLang(lang)"
+    />
+  }
+</lz-button-group>

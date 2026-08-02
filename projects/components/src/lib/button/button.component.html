@@ -1,34 +1,32 @@
 <button
   class="lz-button"
-  [class.lz-button--icon-end]="!isIconOnly() && resolvedIconPosition() === 'right'"
+  [class.lz-button--full]="fullWidth()"
+  [class.lz-button--icon-end]="!isIconOnly() && resolvedIconPosition() === 'right' && !!icon()"
   [attr.type]="type()"
   [disabled]="disabled()"
-  [attr.aria-label]="effectiveAriaLabel()"
+  [attr.aria-label]="ariaLabel() ?? null"
   [attr.aria-current]="ariaCurrentPage() ? 'page' : null"
-  [attr.aria-disabled]="disabled() ? 'true' : null"
   [attr.data-variant]="variant()"
   [attr.data-size]="size()"
   [attr.data-color]="color()"
   [attr.data-pill]="resolvedPill() ? 'true' : null"
   [attr.data-icon-only]="isIconOnly() ? 'true' : null"
-  [attr.data-icon-variant]="iconVariant() ?? null"
-  (click)="onClick($event)"
+  (click)="onClick()"
 >
-  <span
-    class="lz-button__icon"
-    [class]="iconClass() ?? ''"
-    [hidden]="!showIcon()"
-    aria-hidden="true"
-  >
-    <ng-content select="[lzButtonIcon]" />
-    <span class="lz-button__icon-fallback" [attr.data-icon]="icon() ?? 'icon'"></span>
-  </span>
+  @if (icon()) {
+    <span [class]="iconWrapperClass()" aria-hidden="true">
+      <ng-content select="[lzButtonIcon]" />
+      <span class="lz-button__icon-fallback">
+        <lz-icon [name]="icon()!" [type]="iconVariant() ?? 'outline'" />
+      </span>
+    </span>
+  }
 
-  @if (showLabel()) {
+  @if (!isIconOnly() && label()) {
     <span class="lz-button__label">{{ label() }}</span>
   }
 
-  <span class="lz-button__content">
+  <span class="lz-button__projected">
     <ng-content />
   </span>
 </button>

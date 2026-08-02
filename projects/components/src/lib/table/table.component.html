@@ -1,0 +1,185 @@
+<div class="lz-table" [attr.data-shadow]="showShadow() ? 'true' : null">
+  <div
+    #scrollContainer
+    class="lz-table__scroll"
+    [attr.data-scrollbar]="showScrollbar() ? 'true' : null"
+    [style.max-height]="scrollMaxHeight() ?? null"
+  >
+    <table class="lz-table__native" [attr.aria-labelledby]="tableLabelledBy() ?? null">
+      <thead class="lz-table__head">
+        <tr class="lz-table__header-row">
+          @for (column of columns(); track column.key; let last = $last) {
+            <th
+              class="lz-table__header-cell"
+              [class]="headerCellClass(column)"
+              [attr.data-align]="column.align ?? 'left'"
+              [attr.data-sticky]="column.sticky ? (column.stickyPosition ?? 'left') : null"
+            >
+              @if (last && column.sticky) {
+                <span
+                  class="lz-table__sticky-shadow"
+                  [attr.data-visible]="!isScrolledToEnd()"
+                ></span>
+              }
+              @if (headerTemplate(); as template) {
+                <ng-container
+                  [ngTemplateOutlet]="template"
+                  [ngTemplateOutletContext]="{ $implicit: column }"
+                />
+              } @else {
+                {{ column.header }}
+              }
+            </th>
+          }
+        </tr>
+      </thead>
+      <tbody class="lz-table__body">
+        @for (row of data(); track $index) {
+          <tr
+            class="lz-table__row"
+            [class]="resolveRowClass(row)"
+            [class.lz-table__row--interactive]="canInteractWithRow(row)"
+            [attr.tabindex]="canInteractWithRow(row) ? 0 : null"
+            [attr.role]="resolveRowRole(row)"
+            [attr.aria-label]="resolveRowAriaLabel(row)"
+            (click)="onRowClick(row)"
+            (keydown)="onRowKeydown($event, row)"
+          >
+            @for (column of columns(); track column.key; let last = $last) {
+              <td
+                class="lz-table__cell"
+                [class]="bodyCellClass(column)"
+                [attr.data-align]="column.align ?? 'left'"
+                [attr.data-sticky]="column.sticky ? (column.stickyPosition ?? 'left') : null"
+                [attr.data-elevated]="
+                  column.sticky && isElevatedStickyCell(row, column) ? 'true' : null
+                "
+              >
+                @if (last && column.sticky) {
+                  <span
+                    class="lz-table__sticky-shadow"
+                    [attr.data-visible]="!isScrolledToEnd()"
+                  ></span>
+                }
+                @if (cellTemplate(); as template) {
+                  <ng-container
+                    [ngTemplateOutlet]="template"
+                    [ngTemplateOutletContext]="{
+                      $implicit: row,
+                      column: column,
+                      value: getValue(row, column),
+                    }"
+                  />
+                } @else {
+                  {{ getValue(row, column) }}
+                }
+              </td>
+            }
+          </tr>
+          @if (shouldShowRowDetail(row) && rowDetailTemplate(); as template) {
+            <tr class="lz-table__detail-row">
+              <td class="lz-table__detail-cell" [attr.colspan]="columns().length">
+                <ng-container
+                  [ngTemplateOutlet]="template"
+                  [ngTemplateOutletContext]="{ $implicit: row }"
+                />
+              </td>
+            </tr>
+          }
+        }
+      </tbody>
+    </table>
+  </div>
+
+  @if (showPagination() && paginationItemCount() > 0) {
+    <div class="lz-table__pagination">
+      <div class="lz-table__pagination-info">
+        <p class="lz-table__range">
+          {{ paginationShowingLabel() }} <strong>{{ rangeStart() }}</strong> –
+          <strong>{{ rangeEnd() }}</strong> {{ paginationOfLabel() }}
+          <strong>{{ paginationItemCount() }}</strong> {{ paginationResultsLabel() }}
+        </p>
+        <span class="lz-table__divider" aria-hidden="true"></span>
+        <div #pageSizeMenuRoot class="lz-table__page-size">
+          <lz-button
+            class="lz-table__page-size-trigger"
+            variant="outline"
+            size="xs"
+            [pill]="true"
+            [label]="'' + pageSize()"
+            [disabled]="paginationBusy()"
+            [attr.aria-expanded]="pageSizeDropdownOpen()"
+            aria-haspopup="listbox"
+            [attr.aria-label]="pageSizeAriaLabel()"
+            (buttonClick)="togglePageSizeDropdown()"
+          >
+            <lz-icon lzButtonIcon name="chevron-down" type="mini" />
+          </lz-button>
+          @if (pageSizeDropdownOpen()) {
+            <div class="lz-table__page-size-menu" role="listbox">
+              @for (option of pageSizeOptions(); track option) {
+                <button
+                  type="button"
+                  class="lz-table__page-size-option"
+                  [attr.aria-selected]="option === pageSize()"
+                  [attr.data-selected]="option === pageSize() ? 'true' : null"
+                  role="option"
+                  (click)="selectPageSize(option)"
+                >
+                  {{ option }}
+                </button>
+              }
+            </div>
+          }
+        </div>
+      </div>
+      <nav class="lz-table__pages" aria-label="Paginare">
+        <button
+          type="button"
+          class="lz-table__page-button"
+          [disabled]="clampedPage() <= 1 || paginationBusy()"
+          aria-label="Pagina anterioară"
+          (click)="goPrev()"
+        >
+          <lz-icon name="chevron-left" type="mini" />
+        </button>
+        @for (item of pageItems(); track $index) {
+          @if (isEllipsis(item)) {
+            <span class="lz-table__ellipsis">…</span>
+          } @else {
+            <button
+              type="button"
+              class="lz-table__page-button"
+              [attr.data-current]="item === clampedPage() ? 'true' : null"
+              [attr.aria-current]="item === clampedPage() ? 'page' : null"
+              [disabled]="paginationBusy()"
+              (click)="goPage(item)"
+            >
+              {{ item }}
+            </button>
+          }
+        }
+        <button
+          type="button"
+          class="lz-table__page-button"
+          [disabled]="clampedPage() >= paginationTotalPages() || paginationBusy()"
+          aria-label="Pagina următoare"
+          (click)="goNext()"
+        >
+          <lz-icon name="chevron-right" type="mini" />
+        </button>
+      </nav>
+    </div>
+  } @else if (showResultsCount() && displayedResultsCount() > 0) {
+    <div class="lz-table__results-count">
+      <strong>{{ displayedResultsCount() }}</strong> {{ resultsCountLabel() }}
+    </div>
+  }
+</div>
+
+@if (data().length === 0 && emptyMessage()) {
+  <div class="lz-table__empty">
+    <div class="lz-table__empty-icon" aria-hidden="true">⌑</div>
+    <h3>{{ emptyMessage() }}</h3>
+  </div>
+}

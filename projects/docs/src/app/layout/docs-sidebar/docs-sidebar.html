@@ -1,25 +1,70 @@
-<nav class="sidebar" aria-label="Документация">
-  @for (group of groups(); track group.id) {
-    <section class="sidebar__group">
-      <h2 class="sidebar__heading">{{ group.label }}</h2>
-      @if (group.items.length) {
-        <ul class="sidebar__list">
-          @for (item of group.items; track item.id) {
-            <li>
-              <a
-                class="sidebar__link"
-                [routerLink]="item.route"
-                routerLinkActive="is-active"
-                [routerLinkActiveOptions]="{ exact: true }"
-              >
-                {{ item.label }}
-              </a>
-            </li>
-          }
-        </ul>
-      } @else {
-        <p class="sidebar__empty">Скоро</p>
+<aside
+  class="sidebar"
+  [class.sidebar--collapsed]="collapsed()"
+  [attr.aria-label]="'nav.docsAria' | transloco"
+>
+  <div class="sidebar__brand">
+    <a
+      class="sidebar__logo"
+      routerLink="/getting-started"
+      [title]="'nav.brand' | transloco"
+      (click)="onNavigate()"
+    >
+      <span class="sidebar__logo-text">{{ 'nav.brand' | transloco }}</span>
+    </a>
+
+    <lz-tooltip [text]="collapseLabel()" position="bottom">
+      <lz-button
+        variant="iconOnly"
+        size="sm"
+        color="gray"
+        icon="view-columns"
+        iconVariant="outline"
+        [ariaLabel]="collapseLabel()"
+        (buttonClick)="toggleCollapsed()"
+      />
+    </lz-tooltip>
+  </div>
+
+  <nav class="sidebar__nav">
+    @for (group of groups(); track group.id) {
+      @if (group.dividerBefore) {
+        <div class="sidebar__divider" role="separator"></div>
       }
-    </section>
-  }
-</nav>
+
+      <section class="sidebar__group">
+        @if (group.label) {
+          <h2 class="sidebar__heading">{{ group.label | transloco }}</h2>
+        }
+        @if (group.items.length) {
+          <ul class="sidebar__list">
+            @for (item of group.items; track item.id) {
+              <li>
+                <lz-tooltip
+                  [text]="item.label | transloco"
+                  position="right"
+                  theme="dark"
+                  [disabled]="!collapsed()"
+                  triggerClass="sidebar__tooltip-trigger"
+                >
+                  <a
+                    class="sidebar__link"
+                    [routerLink]="item.route"
+                    routerLinkActive="is-active"
+                    [routerLinkActiveOptions]="{ exact: true }"
+                    (click)="onNavigate()"
+                  >
+                    @if (item.icon) {
+                      <lz-icon [name]="item.icon" type="outline" iconClass="sidebar__icon" />
+                    }
+                    <span class="sidebar__label">{{ item.label | transloco }}</span>
+                  </a>
+                </lz-tooltip>
+              </li>
+            }
+          </ul>
+        }
+      </section>
+    }
+  </nav>
+</aside>

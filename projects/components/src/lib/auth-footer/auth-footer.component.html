@@ -1,0 +1,11 @@
+<footer class="lz-auth-footer">
+  <div class="lz-auth-footer__inner">
+    <span>© {{ currentYear() }} {{ companyName() }}</span>
+    <span aria-hidden="true">·</span>
+    <a class="lz-auth-footer__link" [routerLink]="aboutRoute()">{{ aboutLabel() }}</a>
+    <span aria-hidden="true">·</span>
+    <a class="lz-auth-footer__link" [routerLink]="termsRoute()">{{ termsLabel() }}</a>
+    <span aria-hidden="true">·</span>
+    <a class="lz-auth-footer__link" [routerLink]="contactsRoute()">{{ contactsLabel() }}</a>
+  </div>
+</footer>

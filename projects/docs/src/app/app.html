@@ -1,13 +1,40 @@
-<div class="shell">
-  <docs-header class="shell__header" (searchChange)="onSearch($event)" />
+<div
+  class="shell"
+  [class.shell--nav-open]="mobileNavOpen()"
+  [class.shell--desktop]="isDesktop()"
+  [style.--docs-header-height]="headerHeight() > 0 ? headerHeight() + 'px' : null"
+>
+  @if (mobileNavOpen() && !isDesktop()) {
+    <button
+      type="button"
+      class="shell__backdrop"
+      [attr.aria-label]="'nav.closeMenu' | transloco"
+      (click)="closeMobileNav()"
+    ></button>
+  }
 
-  <div class="shell__body">
-    <aside class="shell__sidebar">
-      <docs-sidebar [groups]="navGroups()" />
-    </aside>
+  <aside class="shell__sidebar" [class.shell__sidebar--open]="mobileNavOpen()">
+    <docs-sidebar
+      [groups]="navGroups()"
+      [collapsed]="navCollapsed()"
+      (collapsedChange)="navCollapsed.set($event)"
+      (closeMobile)="closeMobileNav()"
+    />
+  </aside>
+
+  <div class="shell__main">
+    <docs-header
+      #headerHost
+      class="shell__header"
+      [mobileNavOpen]="mobileNavOpen()"
+      (menuToggle)="toggleMobileNav()"
+      (searchChange)="onSearch($event)"
+    />
 
     <main class="shell__content">
       <router-outlet />
     </main>
   </div>
 </div>
+
+<lz-toast-container />

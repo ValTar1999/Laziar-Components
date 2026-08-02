@@ -6,13 +6,15 @@ describe('ThemeService', () => {
   beforeEach(() => {
     localStorage.removeItem(LZ_THEME_STORAGE_KEY);
     document.documentElement.removeAttribute('data-theme');
+    document.documentElement.removeAttribute('data-theme-mode');
     TestBed.configureTestingModule({});
   });
 
-  it('should default to auto and set data-theme', () => {
+  it('should default to auto and apply resolved theme to data-theme', () => {
     const service = TestBed.inject(ThemeService);
     expect(service.mode()).toBe('auto');
-    expect(document.documentElement.getAttribute('data-theme')).toBe('auto');
+    expect(document.documentElement.getAttribute('data-theme-mode')).toBe('auto');
+    expect(document.documentElement.getAttribute('data-theme')).toBe(service.resolved());
   });
 
   it('should persist light mode', () => {
@@ -22,6 +24,7 @@ describe('ThemeService', () => {
     expect(service.resolved()).toBe('light');
     expect(localStorage.getItem(LZ_THEME_STORAGE_KEY)).toBe('light');
     expect(document.documentElement.getAttribute('data-theme')).toBe('light');
+    expect(document.documentElement.getAttribute('data-theme-mode')).toBe('light');
   });
 
   it('should persist dark mode', () => {
@@ -29,5 +32,6 @@ describe('ThemeService', () => {
     service.setMode('dark');
     expect(service.resolved()).toBe('dark');
     expect(document.documentElement.getAttribute('data-theme')).toBe('dark');
+    expect(document.documentElement.getAttribute('data-theme-mode')).toBe('dark');
   });
 });

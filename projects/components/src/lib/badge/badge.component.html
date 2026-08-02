@@ -1,0 +1,55 @@
+<div
+  class="lz-badge"
+  [attr.data-color]="resolvedColor()"
+  [attr.data-size]="size()"
+  [attr.data-icon-position]="hasIcon() ? iconPosition() : null"
+  [attr.data-border]="border() ? 'true' : null"
+  [attr.data-pill]="pill() ? 'true' : null"
+  [attr.data-disabled]="disabled() ? 'true' : null"
+>
+  @if (img()) {
+    <img [src]="img()" class="lz-badge__image" alt="" />
+  }
+
+  <ng-content select="[lzBadgeIcon]"></ng-content>
+
+  @if (icon() && iconPosition() === 'left') {
+    @if (iconClickable()) {
+      <button
+        type="button"
+        (click)="onIconClick()"
+        class="lz-badge__icon-button lz-badge__icon-button--left"
+        [disabled]="disabled()"
+        [attr.aria-label]="iconAriaLabel() || null"
+      >
+        <lz-icon [name]="icon()!" [type]="iconVariant()" />
+      </button>
+    } @else {
+      <span class="lz-badge__icon lz-badge__icon--left">
+        <lz-icon [name]="icon()!" [type]="iconVariant()" />
+      </span>
+    }
+  }
+
+  <div class="lz-badge__content">
+    <ng-content></ng-content>
+  </div>
+
+  @if (icon() && iconPosition() === 'right') {
+    @if (iconClickable()) {
+      <button
+        type="button"
+        (click)="onIconClick()"
+        class="lz-badge__icon-button lz-badge__icon-button--right"
+        [disabled]="disabled()"
+        [attr.aria-label]="iconAriaLabel() || null"
+      >
+        <lz-icon [name]="icon()!" [type]="iconVariant()" />
+      </button>
+    } @else {
+      <span class="lz-badge__icon lz-badge__icon--right">
+        <lz-icon [name]="icon()!" [type]="iconVariant()" />
+      </span>
+    }
+  }
+</div>

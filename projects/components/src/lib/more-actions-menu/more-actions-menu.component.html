@@ -1,0 +1,139 @@
+@if (showSavedActions()) {
+  <div class="lz-more-actions-menu__group">
+    <button
+      type="button"
+      role="menuitem"
+      class="lz-more-actions-menu__row"
+      [attr.data-layout]="layout()"
+      (click)="watchLater.emit()"
+    >
+      <span
+        class="lz-more-actions-menu__icon"
+        [attr.data-layout]="layout()"
+        [attr.data-active]="isWatchLater()"
+      >
+        <lz-icon
+          [name]="isWatchLater() ? 'clock-check' : 'clock'"
+          [type]="isWatchLater() ? 'custom' : 'outline'"
+        ></lz-icon>
+      </span>
+      <div>{{ watchLaterLabel() }}</div>
+    </button>
+    <lz-tooltip
+      [text]="disableSaveToList() ? 'In curand' : ''"
+      position="top"
+      [disabled]="!disableSaveToList()"
+    >
+      <button
+        type="button"
+        role="menuitem"
+        class="lz-more-actions-menu__row"
+        [attr.data-layout]="layout()"
+        [attr.data-disabled]="disableSaveToList()"
+        [disabled]="disableSaveToList()"
+        (click)="saveToList.emit()"
+      >
+        <span class="lz-more-actions-menu__icon" [attr.data-layout]="layout()">
+          <lz-icon name="bookmark" [type]="isSavedToList() ? 'solid' : 'outline'"></lz-icon>
+        </span>
+        <div>{{ saveToListLabel() }}</div>
+      </button>
+    </lz-tooltip>
+  </div>
+  <div class="lz-more-actions-menu__divider"></div>
+}
+
+<div class="lz-more-actions-menu__group">
+  <button
+    type="button"
+    role="menuitem"
+    class="lz-more-actions-menu__row"
+    [attr.data-layout]="layout()"
+    (click)="share.emit()"
+  >
+    <span class="lz-more-actions-menu__icon" [attr.data-layout]="layout()">
+      <lz-icon name="arrow-up-tray" type="outline"></lz-icon>
+    </span>
+    <div>Distribuie</div>
+  </button>
+  <button
+    type="button"
+    role="menuitem"
+    class="lz-more-actions-menu__row"
+    [attr.data-layout]="layout()"
+    (click)="copyLink.emit()"
+  >
+    <span class="lz-more-actions-menu__icon" [attr.data-layout]="layout()">
+      <lz-icon name="link" type="outline"></lz-icon>
+    </span>
+    <div>Copiază link...</div>
+  </button>
+</div>
+
+<div class="lz-more-actions-menu__divider"></div>
+
+<div class="lz-more-actions-menu__group">
+  <lz-tooltip
+    [text]="disablePublisherFollow() ? 'In curand' : ''"
+    position="top"
+    [disabled]="!disablePublisherFollow()"
+  >
+    <button
+      type="button"
+      role="menuitem"
+      class="lz-more-actions-menu__row"
+      [attr.data-layout]="layout()"
+      [attr.data-disabled]="disablePublisherFollow()"
+      [disabled]="disablePublisherFollow()"
+      (click)="publisherFollow.emit()"
+    >
+      <span class="lz-more-actions-menu__icon" [attr.data-layout]="layout()">
+        <lz-icon name="note-panel" type="custom"></lz-icon>
+      </span>
+      <div>{{ publisherFollowLabel() }}</div>
+    </button>
+  </lz-tooltip>
+
+  <lz-tooltip
+    [text]="disableAuthorFollow() ? 'In curand' : ''"
+    position="top"
+    [disabled]="!disableAuthorFollow()"
+  >
+    <button
+      type="button"
+      role="menuitem"
+      class="lz-more-actions-menu__row"
+      [attr.data-layout]="layout()"
+      [attr.data-disabled]="disableAuthorFollow()"
+      [disabled]="disableAuthorFollow()"
+      (click)="authorFollow.emit()"
+    >
+      <span class="lz-more-actions-menu__icon" [attr.data-layout]="layout()">
+        <lz-icon name="user-plus" type="outline"></lz-icon>
+      </span>
+      <div>{{ authorFollowLabel() }}</div>
+    </button>
+  </lz-tooltip>
+
+  <lz-tooltip
+    [text]="disableReport() ? 'In curand' : ''"
+    position="top"
+    [disabled]="!disableReport()"
+  >
+    <button
+      type="button"
+      role="menuitem"
+      class="lz-more-actions-menu__row"
+      [attr.data-layout]="layout()"
+      [attr.data-disabled]="disableReport()"
+      [attr.data-variant]="disableReport() ? null : 'report'"
+      [disabled]="disableReport()"
+      (click)="report.emit()"
+    >
+      <span class="lz-more-actions-menu__icon" [attr.data-layout]="layout()">
+        <lz-icon name="flag" type="outline"></lz-icon>
+      </span>
+      <div>Raporteaza</div>
+    </button>
+  </lz-tooltip>
+</div>

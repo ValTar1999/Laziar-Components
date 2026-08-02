@@ -1,0 +1,45 @@
+<div class="lz-avatar" [attr.data-size]="size()">
+  <div [class]="avatarContainerClass()">
+    <ng-container *ngIf="hasImage(); else defaultContent">
+      <img [src]="imgUrl()" [alt]="imageAlt()" class="lz-avatar__image" />
+    </ng-container>
+
+    <ng-template #defaultContent>
+      <ng-container *ngIf="showPlaceholder(); else initialsContent">
+        <!-- We'll use a simple SVG placeholder instead of external asset -->
+        <svg class="lz-avatar__placeholder" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+          />
+        </svg>
+      </ng-container>
+
+      <ng-template #initialsContent>
+        <span [class]="initialsClass()">{{ initials() }}</span>
+      </ng-template>
+    </ng-template>
+  </div>
+
+  <div
+    *ngIf="topNotification()"
+    class="lz-avatar__notification-wrapper lz-avatar__notification-wrapper--top"
+    [class]="topNotificationClass()"
+    [attr.data-size]="size()"
+  ></div>
+
+  <div
+    *ngIf="bottomNotification()"
+    class="lz-avatar__notification-wrapper lz-avatar__notification-wrapper--bottom"
+    [class]="bottomNotificationClass()"
+    [attr.data-size]="size()"
+  ></div>
+
+  <img
+    *ngIf="imgNotification()"
+    class="lz-avatar__img-notification-wrapper"
+    [class]="imgNotificationClass()"
+    [src]="imgNotification()"
+    alt="imgNotification"
+    [attr.data-size]="size()"
+  />
+</div>

@@ -1,0 +1,109 @@
+/**
+ * Textarea — токены theme.css, паттерн как у lz-button.
+ */
+
+:host.lz-textarea-host {
+  display: block;
+  width: 100%;
+  font-family: var(--lz-font-sans);
+}
+
+.lz-textarea-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.lz-textarea-label {
+  display: block;
+  font-family: var(--lz-font-sans);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  color: var(--lz-color-neutral-700);
+}
+
+.lz-textarea-field {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: 0.5rem;
+  border: 1px solid var(--lz-color-neutral-200);
+  border-radius: 0.375rem;
+  background-color: var(--lz-color-background);
+  color: var(--lz-color-neutral-900);
+  font-family: var(--lz-font-sans);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  outline: none;
+  box-shadow: var(--lz-shadow-xs);
+  transition:
+    color var(--lz-duration-normal) var(--lz-easing-standard),
+    background-color var(--lz-duration-normal) var(--lz-easing-standard),
+    border-color var(--lz-duration-normal) var(--lz-easing-standard),
+    box-shadow var(--lz-duration-normal) var(--lz-easing-standard),
+    opacity var(--lz-duration-normal) var(--lz-easing-standard);
+
+  &::placeholder {
+    font-size: 0.875rem;
+    color: var(--lz-color-neutral-400);
+  }
+
+  &:focus {
+    border-color: var(--lz-color-neutral-900);
+    box-shadow: var(--lz-shadow-focus);
+  }
+
+  &:hover:not(:disabled) {
+    border-color: var(--lz-color-neutral-900);
+  }
+
+  &[data-error='true'] {
+    border-color: var(--lz-color-danger-500);
+
+    &:hover:not(:disabled) {
+      border-color: var(--lz-color-danger-600);
+    }
+
+    &:focus {
+      border-color: var(--lz-color-danger-500);
+      box-shadow:
+        0 0 0 2px var(--lz-color-background),
+        0 0 0 4px color-mix(in srgb, var(--lz-color-danger-500) 10%, transparent);
+    }
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.6;
+  }
+
+  &[data-resize='none'] {
+    resize: none;
+  }
+
+  &[data-resize='vertical'] {
+    resize: vertical;
+  }
+
+  &[data-resize='horizontal'] {
+    resize: horizontal;
+  }
+
+  &[data-resize='both'] {
+    resize: both;
+  }
+}
+
+.lz-textarea-helper {
+  font-family: var(--lz-font-sans);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: var(--lz-color-neutral-500);
+
+  &[data-error='true'] {
+    color: var(--lz-color-danger-500);
+  }
+}
