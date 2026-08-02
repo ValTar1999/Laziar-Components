@@ -189,7 +189,7 @@ export const AVATAR_COMPONENT_META: DocsComponentMeta = {
       code: `<lz-avatar
   firstName="Анна"
   lastName="Иванова"
-  imgUrl="/assets/demo/avatar.jpg"
+  imgUrl="assets/demo/avatar.jpg"
   size="lg"
   [topNotification]="true"
   topNotificationStatus="success"

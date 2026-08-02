@@ -52,7 +52,7 @@ export const ICON_COMPONENT_META: DocsComponentMeta = {
     {
       name: 'assetsPath',
       type: 'string',
-      default: `'/assets/icons'`,
+      default: `'assets/icons'`,
       description: 'Базовый путь к папке спрайтов',
     },
   ],

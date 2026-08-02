@@ -23,7 +23,7 @@ export class Icon {
   readonly iconClass = input<string | undefined>(undefined);
 
   /** Base path to sprite folder (apps may override). */
-  readonly assetsPath = input('/assets/icons');
+  readonly assetsPath = input('assets/icons');
 
   protected readonly href = computed(
     () => `${this.assetsPath()}/icons-${this.type()}.svg#${this.name()}`,

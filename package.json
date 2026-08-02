@@ -8,6 +8,7 @@
     "start:docs": "ng serve docs",
     "build": "ng build docs",
     "build:docs": "ng build docs",
+    "build:gh-pages": "ng build docs --configuration production --base-href /Laziar-Components/",
     "build:lib": "ng build components",
     "watch": "ng build docs --watch --configuration development",
     "test": "ng test",
