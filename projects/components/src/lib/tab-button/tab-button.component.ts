@@ -1,5 +1,5 @@
 import { booleanAttribute, Component, computed, input } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { LzTabButtonSize, LzTabButtonVariant } from './tab-button.types';
 
 /**
@@ -9,7 +9,7 @@ import { LzTabButtonSize, LzTabButtonVariant } from './tab-button.types';
 @Component({
   selector: 'lz-tab-button',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterLink],
   templateUrl: './tab-button.component.html',
   styleUrl: './tab-button.component.scss',
   host: {

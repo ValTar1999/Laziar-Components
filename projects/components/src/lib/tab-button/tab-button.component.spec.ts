@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideRouter } from '@angular/router';
 import { TabButton } from './tab-button.component';
 
 describe('TabButton', () => {
@@ -8,7 +8,8 @@ describe('TabButton', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TabButton, RouterTestingModule],
+      imports: [TabButton],
+      providers: [provideRouter([])],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TabButton);
@@ -36,7 +37,7 @@ describe('TabButton', () => {
 
     const root = fixture.nativeElement.querySelector('.lz-tab-button');
     expect(root?.getAttribute('data-active')).toBe('true');
-    expect(root?.getAttribute('data-variant')).toBe('solid');
+    expect(root?.getAttribute('data-variant')).toBe('bg');
   });
 
   it('should show line indicator when line variant is active', () => {
@@ -71,8 +72,10 @@ describe('TabButton', () => {
     fixture.componentRef.setInput('link', '/test');
     fixture.detectChanges();
 
-    const link = fixture.nativeElement.querySelector('a.lz-tab-button__control');
+    const link = fixture.nativeElement.querySelector(
+      'a.lz-tab-button__control',
+    ) as HTMLAnchorElement | null;
     expect(link).toBeTruthy();
-    expect(link?.getAttribute('ng-reflect-router-link')).toBe('/test');
+    expect(link?.getAttribute('href')).toBe('/test');
   });
 });

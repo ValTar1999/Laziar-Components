@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterLink } from '@angular/router';
 
 /**
  * Laziar wordmark logo for `@laziar/components`.
@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router';
 @Component({
   selector: 'lz-logo',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterLink],
   templateUrl: './logo.component.html',
   styleUrl: './logo.component.scss',
   host: {

@@ -1,5 +1,5 @@
 import { Component, computed, input } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { Icon } from '../icon/icon.component';
 
 /**
@@ -9,7 +9,7 @@ import { Icon } from '../icon/icon.component';
 @Component({
   selector: 'lz-login-prompt-banner',
   standalone: true,
-  imports: [RouterModule, Icon],
+  imports: [RouterLink, Icon],
   templateUrl: './login-prompt-banner.component.html',
   styleUrl: './login-prompt-banner.component.scss',
   host: {
