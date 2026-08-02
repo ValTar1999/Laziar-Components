@@ -18,17 +18,10 @@
       </a>
     </div>
 
-    <div class="header__repo header__repo--icon">
-      <lz-button
-        variant="iconOnly"
-        size="sm"
-        color="gray"
-        icon="arrow-top-right-on-square"
-        iconVariant="outline"
-        [ariaLabel]="'header.repo' | transloco"
-        (buttonClick)="openRepo()"
-      />
-    </div>
+    <a class="header__repo-link" [href]="repoUrl" target="_blank" rel="noopener noreferrer">
+      <span class="header__repo-label">{{ 'header.repo' | transloco }}</span>
+      <lz-icon name="arrow-top-right-on-square" type="outline" iconClass="header__repo-icon" />
+    </a>
   </div>
 
   <div class="header__leading">
@@ -75,18 +68,14 @@
       />
     </lz-button-group>
 
-    <div class="header__repo header__repo--full">
-      <lz-button
-        [label]="'header.repo' | transloco"
-        size="sm"
-        variant="outline"
-        color="gray"
-        pill
-        icon="arrow-top-right-on-square"
-        iconVariant="outline"
-        iconPosition="right"
-        (buttonClick)="openRepo()"
-      />
-    </div>
+    <a
+      class="header__repo-link header__repo-link--desktop"
+      [href]="repoUrl"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <span class="header__repo-label">{{ 'header.repo' | transloco }}</span>
+      <lz-icon name="arrow-top-right-on-square" type="outline" iconClass="header__repo-icon" />
+    </a>
   </div>
 </header>

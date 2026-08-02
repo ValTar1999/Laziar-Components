@@ -2,7 +2,14 @@ import { Component, inject, input, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { TranslocoPipe } from '@jsverse/transloco';
-import { Button, ButtonGroup, InputComponent, LzThemeMode, ThemeService } from '@laziar/components';
+import {
+  Button,
+  ButtonGroup,
+  Icon,
+  InputComponent,
+  LzThemeMode,
+  ThemeService,
+} from '@laziar/components';
 import { DOCS_REPO_URL } from '../../core/docs-nav';
 import { LanguageSwitcherComponent } from '../../shared/language-switcher/language-switcher';
 
@@ -14,6 +21,7 @@ import { LanguageSwitcherComponent } from '../../shared/language-switcher/langua
     RouterLink,
     Button,
     ButtonGroup,
+    Icon,
     InputComponent,
     TranslocoPipe,
     LanguageSwitcherComponent,
@@ -39,10 +47,6 @@ export class DocsHeader {
 
   protected setTheme(mode: LzThemeMode): void {
     this.theme.setMode(mode);
-  }
-
-  protected openRepo(): void {
-    window.open(this.repoUrl, '_blank', 'noopener,noreferrer');
   }
 
   protected themeVariant(mode: LzThemeMode): 'secondary' | 'tertiary' {

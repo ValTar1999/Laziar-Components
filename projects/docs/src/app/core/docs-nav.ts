@@ -23,7 +23,7 @@ export interface DocsNavGroup {
   dividerBefore?: boolean;
 }
 
-export const DOCS_REPO_URL = 'https://github.com/laziar/laziar-components';
+export const DOCS_REPO_URL = 'https://github.com/ValTar1999/Laziar-Components';
 
 export const DOCS_NAV: DocsNavGroup[] = [
   {
