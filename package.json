@@ -12,6 +12,7 @@
     "build:lib": "ng build components",
     "watch": "ng build docs --watch --configuration development",
     "test": "ng test",
+    "test:ci": "ng test components --watch=false --browsers=ChromeHeadlessCI && ng test docs --watch=false --browsers=ChromeHeadlessCI",
     "lint": "ng lint",
     "format": "prettier --write .",
     "format:check": "prettier --check .",

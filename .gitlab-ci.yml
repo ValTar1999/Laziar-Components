@@ -1,0 +1,50 @@
+# CI for https://gitlab.agora.md/laziar/frontend-components
+# Replaces Auto DevOps "test" job that fails without Chrome.
+
+image: node:22-bookworm
+
+stages:
+  - test
+  - build
+
+variables:
+  npm_config_cache: '$CI_PROJECT_DIR/.npm'
+  # Debian chromium package binary
+  CHROME_BIN: /usr/bin/chromium
+
+cache:
+  key:
+    files:
+      - package-lock.json
+  paths:
+    - .npm/
+
+.before_node:
+  before_script:
+    - apt-get update -qq
+    - apt-get install -y -qq chromium
+    - npm ci
+
+lint:
+  stage: test
+  extends: .before_node
+  script:
+    - npm run lint
+
+test:
+  stage: test
+  extends: .before_node
+  script:
+    - npm run test:ci
+
+build:
+  stage: build
+  extends: .before_node
+  script:
+    - npm run build:lib
+    - npm run build:docs
+  artifacts:
+    when: on_success
+    expire_in: 1 week
+    paths:
+      - dist/
