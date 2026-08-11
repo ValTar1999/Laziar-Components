@@ -38,9 +38,8 @@ test:
   stage: test
   before_script:
     - apk add --no-cache nodejs npm git chromium nss freetype harfbuzz ca-certificates ttf-freefont
-    - export CHROME_BIN="$(command -v chromium-browser || command -v chromium)"
-    - echo "CHROME_BIN=$CHROME_BIN"
-    - "$CHROME_BIN" --version
+    - export CHROME_BIN=$(command -v chromium-browser || command -v chromium)
+    - echo "CHROME_BIN=$CHROME_BIN"; "$CHROME_BIN" --version
   script:
     - npm ci --prefer-offline --no-audit --no-fund
     - npm run test:ci
