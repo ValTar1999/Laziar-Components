@@ -1,13 +1,18 @@
-# CI for gitlab.agora.md/laziar/frontend-components
-# Shared runners inject `docker volume prune` in pre_build_script, so the job
-# image must include the docker CLI (same pattern as laziar/frontend).
-# Instance runner "Agora Gitlab Runner" only picks up jobs tagged `shared`.
+# Same runner setup as laziar/frontend on gitlab.agora.md:
+# - image must include docker CLI (pre_build_script runs `docker volume prune`)
+# - install Node via apk
+# - runner is tagged `shared`
 
 image: docker:27-cli
 
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_COMMIT_BRANCH == "master"
+
 stages:
-  - test
-  - build
+  - verify
 
 variables:
   npm_config_cache: '$CI_PROJECT_DIR/.npm'
@@ -20,39 +25,36 @@ cache:
   paths:
     - .npm/
 
-.default_tags: &default_tags
+.job:
   tags:
     - shared
-
-.node_job:
-  <<: *default_tags
   interruptible: true
   before_script:
     - apk add --no-cache nodejs npm git
     - node --version
-    - npm --version
 
 lint:
-  extends: .node_job
-  stage: test
+  extends: .job
+  stage: verify
   script:
     - npm ci --prefer-offline --no-audit --no-fund
     - npm run lint
 
 test:
-  extends: .node_job
-  stage: test
+  extends: .job
+  stage: verify
   before_script:
     - apk add --no-cache nodejs npm git chromium nss freetype harfbuzz ca-certificates ttf-freefont
+    - node --version
+  script:
     - export CHROME_BIN=$(command -v chromium-browser || command -v chromium)
     - echo "CHROME_BIN=$CHROME_BIN"; "$CHROME_BIN" --version
-  script:
     - npm ci --prefer-offline --no-audit --no-fund
     - npm run test:ci
 
 build:
-  extends: .node_job
-  stage: build
+  extends: .job
+  stage: verify
   script:
     - npm ci --prefer-offline --no-audit --no-fund
     - npm run build:lib
