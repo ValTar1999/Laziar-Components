@@ -1,7 +1,8 @@
-# CI for https://gitlab.agora.md/laziar/frontend-components
-# Replaces Auto DevOps "test" job that fails without Chrome.
+# CI for gitlab.agora.md/laziar/frontend-components
+# Shared runners inject `docker volume prune` in pre_build_script, so the job
+# image must include the docker CLI (same pattern as laziar/frontend).
 
-image: node:22-bookworm
+image: docker:27-cli
 
 stages:
   - test
@@ -9,8 +10,7 @@ stages:
 
 variables:
   npm_config_cache: '$CI_PROJECT_DIR/.npm'
-  # Debian chromium package binary
-  CHROME_BIN: /usr/bin/chromium
+  PUPPETEER_SKIP_DOWNLOAD: 'true'
 
 cache:
   key:
@@ -19,28 +19,37 @@ cache:
   paths:
     - .npm/
 
-.before_node:
+.node_job:
+  interruptible: true
   before_script:
-    - apt-get update -qq
-    - apt-get install -y -qq chromium
-    - npm ci
+    - apk add --no-cache nodejs npm git
+    - node --version
+    - npm --version
 
 lint:
+  extends: .node_job
   stage: test
-  extends: .before_node
   script:
+    - npm ci --prefer-offline --no-audit --no-fund
     - npm run lint
 
 test:
+  extends: .node_job
   stage: test
-  extends: .before_node
+  before_script:
+    - apk add --no-cache nodejs npm git chromium nss freetype harfbuzz ca-certificates ttf-freefont
+    - export CHROME_BIN="$(command -v chromium-browser || command -v chromium)"
+    - echo "CHROME_BIN=$CHROME_BIN"
+    - "$CHROME_BIN" --version
   script:
+    - npm ci --prefer-offline --no-audit --no-fund
     - npm run test:ci
 
 build:
+  extends: .node_job
   stage: build
-  extends: .before_node
   script:
+    - npm ci --prefer-offline --no-audit --no-fund
     - npm run build:lib
     - npm run build:docs
   artifacts:
