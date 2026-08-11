@@ -3,9 +3,9 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  effect,
   forwardRef,
   input,
-  OnInit,
   output,
   signal,
 } from '@angular/core';
@@ -44,7 +44,7 @@ let nextInputFieldId = 0;
     class: 'lz-input-host',
   },
 })
-export class InputComponent implements ControlValueAccessor, OnInit {
+export class InputComponent implements ControlValueAccessor {
   readonly label = input('');
   readonly helperText = input('');
   readonly type = input<LzInputType>('text');
@@ -75,7 +75,7 @@ export class InputComponent implements ControlValueAccessor, OnInit {
   readonly inputId = `lz-input-${nextInputFieldId++}`;
 
   protected readonly value = signal('');
-  protected readonly initialType = signal<LzInputType>('text');
+  protected readonly initialType = computed(() => this.type());
   protected readonly currentType = signal<LzInputType>('text');
 
   private readonly cvaDisabled = signal(false);
@@ -110,9 +110,10 @@ export class InputComponent implements ControlValueAccessor, OnInit {
     return this.currentType() === 'search' ? 'off' : null;
   });
 
-  ngOnInit(): void {
-    this.initialType.set(this.type());
-    this.currentType.set(this.type());
+  constructor() {
+    effect(() => {
+      this.currentType.set(this.type());
+    });
   }
 
   writeValue(value: string): void {
