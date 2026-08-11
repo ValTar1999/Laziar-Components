@@ -1,6 +1,7 @@
 # CI for gitlab.agora.md/laziar/frontend-components
 # Shared runners inject `docker volume prune` in pre_build_script, so the job
 # image must include the docker CLI (same pattern as laziar/frontend).
+# Instance runner "Agora Gitlab Runner" only picks up jobs tagged `shared`.
 
 image: docker:27-cli
 
@@ -19,7 +20,12 @@ cache:
   paths:
     - .npm/
 
+.default_tags: &default_tags
+  tags:
+    - shared
+
 .node_job:
+  <<: *default_tags
   interruptible: true
   before_script:
     - apk add --no-cache nodejs npm git
