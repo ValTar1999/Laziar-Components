@@ -1,13 +1,18 @@
-<div class="lz-dropdown">
+<div class="lz-dropdown" [class.lz-dropdown--disabled]="disabled()">
   <button
+    #trigger
     type="button"
     class="lz-dropdown__trigger"
+    [id]="dropdownId"
+    [disabled]="disabled()"
     [attr.data-size]="sizeVariant()"
+    [attr.data-disabled]="disabled()"
     [attr.aria-expanded]="isOpen()"
+    [attr.aria-controls]="menuId"
     aria-haspopup="menu"
     (click)="toggleDropdown()"
   >
-    <span>{{ title() }}</span>
+    <span class="lz-dropdown__title">{{ title() }}</span>
     <lz-icon
       name="chevron-down"
       type="mini"
@@ -15,26 +20,27 @@
       [attr.data-open]="isOpen()"
     />
   </button>
-
-  @if (isOpen()) {
-    <div #dropdownMenu class="lz-dropdown__menu" role="menu" [ngStyle]="positionStyle()">
-      @for (section of sections(); track $index) {
-        <section class="lz-dropdown__section">
-          @if (section.heading) {
-            <p class="lz-dropdown__heading">{{ section.heading }}</p>
-          }
-          @for (item of section.items; track item) {
-            <button
-              type="button"
-              class="lz-dropdown__item"
-              role="menuitem"
-              (click)="selectItem(item)"
-            >
-              {{ item }}
-            </button>
-          }
-        </section>
-      }
-    </div>
-  }
 </div>
+
+<ng-template #menuTpl>
+  <div class="lz-dropdown__menu" role="menu" [id]="menuId">
+    @for (section of sections(); track $index) {
+      <section class="lz-dropdown__section">
+        @if (section.heading) {
+          <p class="lz-dropdown__heading">{{ section.heading }}</p>
+        }
+        @for (item of section.items; track item) {
+          <button
+            type="button"
+            class="lz-dropdown__item"
+            role="menuitem"
+            (click)="selectItem(item)"
+            (keydown)="onItemKeydown($event, item)"
+          >
+            {{ item }}
+          </button>
+        }
+      </section>
+    }
+  </div>
+</ng-template>

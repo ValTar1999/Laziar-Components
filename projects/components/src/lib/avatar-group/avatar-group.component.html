@@ -3,26 +3,31 @@
     <div
       class="lz-avatar-group__item"
       [class.lz-avatar-group__item--reverse]="reverse()"
-      [style.z-index]="reverse() ? displayedAvatars().length - i : i"
+      [style.z-index]="reverse() ? displayedAvatars().length - i : i + 1"
     >
-      @if (avatar.imgUrl) {
-        <img
-          [src]="avatar.imgUrl"
-          [alt]="avatar.firstName + ' ' + avatar.lastName"
-          class="lz-avatar-group__image"
-        />
-      } @else {
-        <div class="lz-avatar-group__fallback">
-          {{ getAvatarInitials(avatar) }}
-        </div>
-      }
+      <div class="lz-avatar-group__face">
+        @if (avatar.imgUrl) {
+          <img
+            [src]="avatar.imgUrl"
+            [alt]="avatar.firstName + ' ' + avatar.lastName"
+            class="lz-avatar-group__image"
+          />
+        } @else {
+          <div class="lz-avatar-group__fallback">
+            {{ getAvatarInitials(avatar) }}
+          </div>
+        }
+      </div>
     </div>
   }
 
   @if (remainingCount() > 0) {
-    <div class="lz-avatar-group__item lz-avatar-group__remaining" [attr.data-size]="size()">
-      <div class="lz-avatar-group__remaining-content">
-        <span class="lz-avatar-group__remaining-text"> +{{ remainingCount() }} </span>
+    <div
+      class="lz-avatar-group__item lz-avatar-group__item--remaining"
+      [style.z-index]="displayedAvatars().length + 1"
+    >
+      <div class="lz-avatar-group__face lz-avatar-group__face--placeholder">
+        <span class="lz-avatar-group__remaining-text">+{{ remainingCount() }}</span>
       </div>
     </div>
   }

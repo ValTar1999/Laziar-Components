@@ -38,6 +38,6 @@ export const AlertStylesMap: Record<LzAlertVariant, LzAlertStyles> = {
   warning: { closeColor: 'yellow', buttonVariant: 'link' },
   info: { closeColor: 'blue', buttonVariant: 'link' },
   purple: { closeColor: 'purple', buttonVariant: 'link' },
-  dark: { closeColor: 'gray', buttonVariant: 'primary' },
-  red: { closeColor: 'red', buttonVariant: 'primary' },
+  dark: { closeColor: 'gray', buttonVariant: 'link' },
+  red: { closeColor: 'red', buttonVariant: 'link' },
 };

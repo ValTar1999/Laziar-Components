@@ -7,8 +7,8 @@ const variantSizeGallery = LZ_BUTTON_VARIANTS.flatMap((variant) =>
     props: {
       variant,
       size,
-      color: 'red',
-      // как в publikator: iconOnly = icon без label; остальные — только текст
+      color: 'gray',
+      // as in publikator: iconOnly = icon without label; others — text only
       label: variant === 'iconOnly' ? '' : variant,
       icon: variant === 'iconOnly' ? 'plus' : '',
       disabled: false,
@@ -24,13 +24,13 @@ export const BUTTON_COMPONENT_META: DocsComponentMeta = {
   name: 'Button',
   selector: 'lz-button',
   description:
-    'Эталонный компонент библиотеки. Объединённый API publikator + agora-frontend: варианты, размеры, палитра, a11y и явный buttonClick.',
+    'Reference library component. Unified publikator + agora-frontend API: variants, sizes, palette, a11y, and explicit buttonClick.',
   contentFrom: 'label',
   controls: [
     {
       name: 'label',
       kind: 'string',
-      default: 'Сохранить',
+      default: 'Save',
     },
     {
       name: 'variant',
@@ -48,7 +48,7 @@ export const BUTTON_COMPONENT_META: DocsComponentMeta = {
       name: 'color',
       kind: 'select',
       options: [...LZ_BUTTON_COLORS],
-      default: 'red',
+      default: 'gray',
     },
     {
       name: 'type',
@@ -61,14 +61,14 @@ export const BUTTON_COMPONENT_META: DocsComponentMeta = {
       kind: 'string',
       default: 'check',
       description:
-        'Имя символа из /assets/icons/icons-{outline|solid|…}.svg (например check, x-mark, plus)',
+        'Symbol name from /assets/icons/icons-{outline|solid|…}.svg (for example check, x-mark, plus)',
     },
     {
       name: 'iconVariant',
       kind: 'select',
       options: ['outline', 'solid', 'mini', 'micro'],
       default: 'outline',
-      description: 'Спрайт lz-icon: outline / solid / mini / micro',
+      description: 'lz-icon sprite: outline / solid / mini / micro',
     },
     {
       name: 'iconPosition',
@@ -98,102 +98,102 @@ export const BUTTON_COMPONENT_META: DocsComponentMeta = {
       name: 'label',
       type: 'string',
       default: "''",
-      description: 'Текст кнопки (альтернатива — default ng-content)',
+      description: 'Button text (alternative — default ng-content)',
     },
     {
       name: 'variant',
       type: `'primary' | 'outline' | 'secondary' | 'tertiary' | 'link' | 'iconOnly'`,
       default: `'primary'`,
-      description: 'Визуальный вариант',
+      description: 'Visual variant',
     },
     {
       name: 'size',
       type: `'xs' | 'sm' | 'md' | 'lg' | 'xl'`,
       default: `'md'`,
-      description: 'Размер (паддинги publikator)',
+      description: 'Size (publikator padding)',
     },
     {
       name: 'type',
       type: `'button' | 'submit' | 'reset'`,
       default: `'button'`,
-      description: 'Нативный type у <button>',
+      description: 'Native <button> type',
     },
     {
       name: 'icon',
       type: 'string',
       default: 'undefined',
-      description: 'Имя иконки; кастом — слот [lzButtonIcon]',
+      description: 'Icon name; custom — [lzButtonIcon] slot',
     },
     {
       name: 'iconVariant',
       type: `'outline' | 'solid' | 'mini' | 'micro'`,
       default: 'undefined',
-      description: 'Вариант спрайта для lz-icon (type)',
+      description: 'Sprite variant for lz-icon (type)',
     },
     {
       name: 'iconPosition',
       type: `'left' | 'right'`,
       default: `'right'`,
-      description: 'Позиция иконки относительно текста',
+      description: 'Icon position relative to text',
     },
     {
       name: 'iconClass',
       type: 'string',
       default: 'undefined',
-      description: 'Доп. класс на обёртке иконки',
+      description: 'Extra class on the icon wrapper',
     },
     {
       name: 'disabled',
       type: 'boolean',
       default: 'false',
-      description: 'Отключает кнопку и блокирует buttonClick',
+      description: 'Disables the button and blocks buttonClick',
     },
     {
       name: 'pill',
       type: 'boolean',
       default: 'false',
-      description: 'Полностью скруглённая (rounded-full)',
+      description: 'Fully rounded (rounded-full)',
     },
     {
       name: 'color',
       type: `'gray' | 'red' | 'yellow' | 'green' | 'blue' | 'purple'`,
       default: `'gray'`,
-      description: 'Палитра → семантические токены',
+      description: 'Palette → semantic tokens',
     },
     {
       name: 'fullWidth',
       type: 'boolean',
       default: 'false',
-      description: 'Растянуть на 100% ширины хоста',
+      description: 'Stretch to 100% of host width',
     },
     {
       name: 'ariaLabel',
       type: 'string',
       default: 'undefined',
-      description: 'aria-label (обязателен для icon-only, иначе fallback)',
+      description: 'aria-label (required for icon-only, otherwise fallback)',
     },
     {
       name: 'ariaCurrentPage',
       type: 'boolean',
       default: 'false',
-      description: 'Ставит aria-current="page" (пагинация)',
+      description: 'Sets aria-current="page" (pagination)',
     },
   ],
   outputs: [
     {
       name: 'buttonClick',
       type: 'OutputEmitterRef<void>',
-      description: 'Клик / активация, только если не disabled',
+      description: 'Click / activation, only when not disabled',
     },
   ],
   slots: [
     {
       name: '(default)',
-      description: 'Доп. содержимое рядом с label',
+      description: 'Extra content next to the label',
     },
     {
       name: '[lzButtonIcon]',
-      description: 'Кастомная иконка вместо lz-icon по имени',
+      description: 'Custom icon instead of a named lz-icon',
     },
   ],
   deprecated: [
@@ -201,62 +201,62 @@ export const BUTTON_COMPONENT_META: DocsComponentMeta = {
       name: 'rounded',
       type: 'boolean',
       replacedBy: 'pill',
-      description: 'Старое имя из publikator/agora',
+      description: 'Old name from publikator/agora',
     },
     {
       name: 'iconDirection',
       type: `'left' | 'right'`,
       replacedBy: 'iconPosition',
-      description: 'Старое имя позиции иконки',
+      description: 'Old icon-position name',
     },
   ],
   examples: [
     {
-      title: 'В форме',
+      title: 'In a form',
       description: 'Submit primary + secondary cancel.',
       code: `<form (ngSubmit)="save()">
-  <lz-button variant="secondary" color="gray" label="Отмена" />
-  <lz-button type="submit" variant="primary" color="red" label="Сохранить" icon="check" />
+  <lz-button variant="secondary" color="gray" label="Cancel" />
+  <lz-button type="submit" variant="primary" color="red" label="Save" icon="check" />
 </form>`,
     },
     {
-      title: 'В модалке',
-      description: 'Футер диалога.',
+      title: 'In a modal',
+      description: 'Dialog footer.',
       code: `<footer class="dialog-actions">
-  <lz-button variant="tertiary" color="gray" label="Отмена" (buttonClick)="close()" />
-  <lz-button variant="primary" color="red" label="Удалить" (buttonClick)="confirm()" />
+  <lz-button variant="tertiary" color="gray" label="Cancel" (buttonClick)="close()" />
+  <lz-button variant="primary" color="red" label="Delete" (buttonClick)="confirm()" />
 </footer>`,
     },
     {
-      title: 'Icon-only с a11y',
+      title: 'Icon-only with a11y',
       code: `<lz-button
   variant="iconOnly"
   icon="x-mark"
-  ariaLabel="Закрыть"
+  ariaLabel="Close"
   (buttonClick)="close()"
 />`,
     },
     {
-      title: 'Deprecated-алиас (миграции)',
-      description: 'rounded → pill; не используйте в новом коде.',
-      code: `<!-- предпочтительно -->
+      title: 'Deprecated alias (migrations)',
+      description: 'rounded → pill; do not use in new code.',
+      code: `<!-- preferred -->
 <lz-button pill label="Pill" />
 <!-- @deprecated -->
 <lz-button [rounded]="true" label="Pill" />`,
     },
   ],
   tokens: [
-    { name: '--lz-button-fg', description: 'Цвет текста / иконки' },
-    { name: '--lz-button-bg', description: 'Фон' },
-    { name: '--lz-button-bg-hover', description: 'Фон при hover' },
-    { name: '--lz-button-border', description: 'Цвет рамки' },
-    { name: '--lz-button-ring', description: 'Кольцо focus-visible' },
-    { name: '--lz-button-radius', description: 'Скругление (перебивается pill)' },
-    { name: '--lz-button-icon-size', description: 'Размер иконки по size' },
-    { name: '--lz-button-tone-*', description: 'Локальная шкала тона от color' },
-    { name: '--lz-color-primary / secondary / …', description: 'Семантические палитры' },
-    { name: '--lz-color-purple-*', description: 'Палитра purple для color="purple"' },
-    { name: '--lz-duration-normal', description: 'Длительность transition' },
-    { name: '--lz-radius-full', description: 'Pill-форма' },
+    { name: '--lz-button-fg', description: 'Text / icon color' },
+    { name: '--lz-button-bg', description: 'Background' },
+    { name: '--lz-button-bg-hover', description: 'Hover background' },
+    { name: '--lz-button-border', description: 'Border color' },
+    { name: '--lz-button-ring', description: 'focus-visible ring' },
+    { name: '--lz-button-radius', description: 'Rounding (overridden by pill)' },
+    { name: '--lz-button-icon-size', description: 'Icon size by size' },
+    { name: '--lz-button-tone-*', description: 'Local tone scale from color' },
+    { name: '--lz-color-primary / secondary / …', description: 'Semantic palettes' },
+    { name: '--lz-color-purple-*', description: 'purple palette for color="purple"' },
+    { name: '--lz-duration-normal', description: 'Transition duration' },
+    { name: '--lz-radius-full', description: 'Pill shape' },
   ],
 };

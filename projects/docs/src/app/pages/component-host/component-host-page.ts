@@ -15,6 +15,7 @@ import { InputPage } from './input-page';
 import { LoadingPage } from './loading-page';
 import { ProgressCirclePage } from './progress-circle-page';
 import { PulseDotPage } from './pulse-dot-page';
+import { DropdownPage } from './dropdown-page';
 import { SelectPage } from './select-page';
 import { StubPage } from './stub-page';
 import { SwitchTogglePage } from './switch-toggle-page';
@@ -43,6 +44,7 @@ import { TooltipPage } from './tooltip-page';
     LoadingPage,
     ProgressCirclePage,
     PulseDotPage,
+    DropdownPage,
     SelectPage,
     StubPage,
     SwitchTogglePage,
@@ -88,6 +90,9 @@ import { TooltipPage } from './tooltip-page';
       }
       @case ('pulse-dot') {
         <docs-pulse-dot-page />
+      }
+      @case ('dropdown') {
+        <docs-dropdown-page />
       }
       @case ('select') {
         <docs-select-page />

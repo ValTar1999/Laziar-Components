@@ -5,7 +5,7 @@ export const STUB_COMPONENT_META: DocsComponentMeta = {
   name: 'Stub',
   selector: 'lz-stub',
   description:
-    'Заглушка для проверки каркаса документации: превью, песочница, синхронизированный код, варианты, API и токены.',
+    'Placeholder for testing the documentation framework: preview, sandbox, synchronized code, variants, API, and tokens.',
   contentFrom: 'label',
   controls: [
     {
@@ -13,7 +13,7 @@ export const STUB_COMPONENT_META: DocsComponentMeta = {
       kind: 'select',
       options: ['primary', 'secondary', 'ghost'],
       default: 'primary',
-      description: 'Визуальный вариант',
+      description: 'Visual variant',
     },
     {
       name: 'size',
@@ -29,19 +29,19 @@ export const STUB_COMPONENT_META: DocsComponentMeta = {
     {
       name: 'label',
       kind: 'string',
-      default: 'Нажми меня',
+      default: 'Click me',
     },
     {
       name: 'accent',
       kind: 'color',
       default: '#d50b0b',
-      description: 'Локальный акцент (демо color picker)',
+      description: 'Local accent (color picker demo)',
     },
     {
       name: 'maxWidth',
       kind: 'number',
       default: 280,
-      description: 'Максимальная ширина в px',
+      description: 'Maximum width in px',
     },
   ],
   variants: [
@@ -117,54 +117,54 @@ export const STUB_COMPONENT_META: DocsComponentMeta = {
       name: 'variant',
       type: `'primary' | 'secondary' | 'ghost'`,
       default: `'primary'`,
-      description: 'Визуальный стиль кнопки',
+      description: 'Button visual style',
     },
     {
       name: 'size',
       type: `'sm' | 'md' | 'lg'`,
       default: `'md'`,
-      description: 'Размер',
+      description: 'Size',
     },
     {
       name: 'disabled',
       type: 'boolean',
       default: 'false',
-      description: 'Отключает взаимодействие',
+      description: 'Disables interaction',
     },
     {
       name: 'label',
       type: 'string',
-      default: `'Нажми меня'`,
-      description: 'Текст (в реальном API будет через ng-content)',
+      default: `'Click me'`,
+      description: 'Text (in the real API this goes through ng-content)',
     },
     {
       name: 'accent',
       type: 'string',
       default: `'#d50b0b'`,
-      description: 'Демо-цвет для color picker',
+      description: 'Demo color for the color picker',
     },
     {
       name: 'maxWidth',
       type: 'number',
       default: '280',
-      description: 'Ограничение ширины',
+      description: 'Width limit',
     },
   ],
   outputs: [
     {
       name: 'pressed',
       type: 'EventEmitter<void>',
-      description: 'Клик по кнопке (когда не disabled)',
+      description: 'Button click (when not disabled)',
     },
   ],
   slots: [
     {
       name: '(default)',
-      description: 'Содержимое кнопки (иконка + текст)',
+      description: 'Button content (icon + text)',
     },
     {
       name: '[lzPrefix]',
-      description: 'Слот слева от текста',
+      description: 'Slot to the left of the text',
     },
   ],
   deprecated: [
@@ -172,32 +172,32 @@ export const STUB_COMPONENT_META: DocsComponentMeta = {
       name: 'type',
       type: `'primary' | 'secondary'`,
       replacedBy: 'variant',
-      description: 'Старое имя варианта из публикатора',
+      description: 'Old variant name from publikator',
     },
     {
       name: 'btnSize',
       type: `'sm' | 'md' | 'lg'`,
       replacedBy: 'size',
-      description: 'Устаревший алиас размера',
+      description: 'Deprecated size alias',
     },
   ],
   examples: [
     {
-      title: 'В форме',
-      description: 'Primary-кнопка сабмита рядом с secondary cancel.',
+      title: 'In a form',
+      description: 'Primary submit button next to secondary cancel.',
       code: `<form (ngSubmit)="save()">
-  <lz-stub variant="secondary" size="md">Отмена</lz-stub>
-  <lz-stub variant="primary" size="md">Сохранить</lz-stub>
+  <lz-stub variant="secondary" size="md">Cancel</lz-stub>
+  <lz-stub variant="primary" size="md">Save</lz-stub>
 </form>`,
     },
     {
-      title: 'В модалке',
-      description: 'Футер диалога с выравниванием вправо.',
+      title: 'In a modal',
+      description: 'Dialog footer aligned to the right.',
       code: `<lz-modal>
-  <p>Удалить запись?</p>
+  <p>Delete this record?</p>
   <footer>
-    <lz-stub variant="ghost">Отмена</lz-stub>
-    <lz-stub variant="primary">Удалить</lz-stub>
+    <lz-stub variant="ghost">Cancel</lz-stub>
+    <lz-stub variant="primary">Delete</lz-stub>
   </footer>
 </lz-modal>`,
     },
@@ -205,23 +205,23 @@ export const STUB_COMPONENT_META: DocsComponentMeta = {
   tokens: [
     {
       name: '--lz-color-primary',
-      description: 'Заливка primary-варианта',
+      description: 'primary variant fill',
     },
     {
       name: '--lz-color-secondary',
-      description: 'Заливка secondary-варианта',
+      description: 'secondary variant fill',
     },
     {
       name: '--lz-radius-md',
-      description: 'Скругление кнопки',
+      description: 'Button rounding',
     },
     {
       name: '--lz-duration-fast',
-      description: 'Длительность hover/focus transition',
+      description: 'hover/focus transition duration',
     },
     {
       name: '--lz-shadow-focus',
-      description: 'Кольцо фокуса',
+      description: 'Focus ring',
     },
   ],
 };

@@ -1,4 +1,7 @@
-<div class="lz-select-container">
+<div
+  class="lz-select-container"
+  [class.lz-select-container--disabled]="effectiveDisabled()"
+>
   @if (label()) {
     <label class="lz-select-label" [attr.for]="selectId">
       {{ label() }}
@@ -7,6 +10,7 @@
 
   <div class="lz-select-wrapper">
     <button
+      #trigger
       type="button"
       class="lz-select-trigger"
       [id]="selectId"
@@ -14,7 +18,10 @@
       [attr.data-size]="size()"
       [attr.data-selected]="!!selected()"
       [attr.data-disabled]="effectiveDisabled()"
+      [attr.data-error]="error()"
       [attr.aria-expanded]="isOpen()"
+      [attr.aria-controls]="listboxId"
+      [attr.aria-invalid]="error() ? true : null"
       aria-haspopup="listbox"
       (click)="toggleDropdown()"
     >
@@ -23,17 +30,22 @@
       </span>
     </button>
 
-    <lz-icon name="chevron-up-down" iconClass="lz-select-chevron" />
+    <lz-icon name="chevron-up-down" type="mini" class="lz-select-chevron" />
   </div>
 
   @if (helperText()) {
-    <div class="lz-select-helper">
-      {{ helperText() }}
-    </div>
+    <span class="lz-select-helper" [attr.data-error]="error()">
+      @if (error()) {
+        <lz-icon name="exclamation-circle" type="mini" class="lz-select-helper-icon" />
+      }
+      <span class="lz-select-helper-text">{{ helperText() }}</span>
+    </span>
   }
+</div>
 
-  @if (isOpen()) {
-    <ul class="lz-select-dropdown" role="listbox">
+<ng-template #dropdownTpl>
+  <div class="lz-select-dropdown">
+    <ul class="lz-select-dropdown-list" role="listbox" [id]="listboxId">
       @for (option of options(); track option) {
         <li
           class="lz-select-option"
@@ -57,27 +69,13 @@
               }
             </div>
             @if (isSelected(option)) {
-              <svg
-                class="lz-select-check-icon"
-                [attr.data-has-date]="!!formatOptionDate(option)"
-                width="12"
-                height="12"
-                viewBox="0 0 12 12"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-              >
-                <path
-                  class="lz-select-check-path"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M5.99995 10.8002C8.65092 10.8002 10.8 8.65116 10.8 6.0002C10.8 3.34923 8.65092 1.2002 5.99995 1.2002C3.34898 1.2002 1.19995 3.34923 1.19995 6.0002C1.19995 8.65116 3.34898 10.8002 5.99995 10.8002ZM8.31388 4.91487C8.46006 4.71388 8.41562 4.43244 8.21463 4.28626C8.01364 4.14009 7.7322 4.18452 7.58602 4.38552L5.49577 7.25962L4.36815 6.132C4.19241 5.95626 3.90749 5.95626 3.73175 6.132C3.55602 6.30773 3.55602 6.59266 3.73175 6.76839L5.23175 8.26839C5.32481 8.36145 5.45395 8.40911 5.58515 8.39882C5.71635 8.38852 5.83648 8.32131 5.91388 8.21487L8.31388 4.91487Z"
-                />
-              </svg>
+              <span class="lz-select-check-badge" aria-hidden="true">
+                <lz-icon name="check" type="mini" class="lz-select-check-icon" />
+              </span>
             }
           </div>
         </li>
       }
     </ul>
-  }
-</div>
+  </div>
+</ng-template>

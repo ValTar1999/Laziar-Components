@@ -12,6 +12,12 @@ import { INPUT_COMPONENT_META } from './input.meta';
   standalone: true,
   imports: [ComponentPage, DocsPreviewDirective, FormsModule, InputComponent],
   templateUrl: './input-page.html',
+  styles: `
+    .docs-input-preview {
+      width: 100%;
+      max-width: 32rem;
+    }
+  `,
 })
 export class InputPage {
   protected readonly meta = INPUT_COMPONENT_META;

@@ -1,4 +1,7 @@
-<div class="lz-textarea-container">
+<div
+  class="lz-textarea-container"
+  [class.lz-textarea-container--disabled]="effectiveDisabled()"
+>
   @if (label()) {
     <label class="lz-textarea-label" [attr.for]="textareaId">{{ label() }}</label>
   }
@@ -17,6 +20,11 @@
   ></textarea>
 
   @if (helperText()) {
-    <span class="lz-textarea-helper" [attr.data-error]="error()">{{ helperText() }}</span>
+    <span class="lz-textarea-helper" [attr.data-error]="error()">
+      @if (error()) {
+        <lz-icon name="exclamation-circle" type="mini" class="lz-textarea-helper-icon" />
+      }
+      <span class="lz-textarea-helper-text">{{ helperText() }}</span>
+    </span>
   }
 </div>

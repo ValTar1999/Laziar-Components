@@ -21,6 +21,11 @@ export const LZ_BADGE_SIZES = ['lg', 'md', 'sm'] as const;
 
 export type LzBadgeSize = (typeof LZ_BADGE_SIZES)[number];
 
+/** Fill style from Laziar System Badges: pastel, solid fill, or outline. */
+export const LZ_BADGE_VARIANTS = ['subtle', 'solid', 'outline'] as const;
+
+export type LzBadgeVariant = (typeof LZ_BADGE_VARIANTS)[number];
+
 /** Icon position relative to badge content. */
 export type LzBadgeIconPosition = 'left' | 'right';
 

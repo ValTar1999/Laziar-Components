@@ -4,7 +4,7 @@ import { LZ_SWITCH_TOGGLE_SIZES } from '@laziar/components';
 export const SWITCH_TOGGLE_COMPONENT_META: DocsComponentMeta = {
   name: 'SwitchToggle',
   selector: 'lz-switch-toggle',
-  description: 'Переключатель вкл/выкл с размерами sm и md.',
+  description: 'On/off toggle with sm and md sizes.',
   controls: [
     {
       name: 'active',
@@ -33,6 +33,10 @@ export const SWITCH_TOGGLE_COMPONENT_META: DocsComponentMeta = {
       props: { active: true, disabled: false, size: 'md' },
     },
     {
+      label: 'sm · off',
+      props: { active: false, disabled: false, size: 'sm' },
+    },
+    {
       label: 'sm · on',
       props: { active: true, disabled: false, size: 'sm' },
     },
@@ -46,32 +50,32 @@ export const SWITCH_TOGGLE_COMPONENT_META: DocsComponentMeta = {
       name: 'active',
       type: 'boolean',
       default: 'false',
-      description: 'Состояние вкл',
+      description: 'On state',
     },
     {
       name: 'disabled',
       type: 'boolean',
       default: 'false',
-      description: 'Отключает переключение',
+      description: 'Disables toggling',
     },
     {
       name: 'size',
       type: `'sm' | 'md'`,
       default: `'md'`,
-      description: 'Размер переключателя',
+      description: 'Toggle size',
     },
   ],
   outputs: [
     {
       name: 'changed',
       type: 'OutputEmitterRef<boolean>',
-      description: 'Новое значение active после клика',
+      description: 'New active value after click',
     },
   ],
   slots: [],
   examples: [
     {
-      title: 'Настройка',
+      title: 'Setting',
       code: `<lz-switch-toggle
   [active]="notifications"
   (changed)="notifications = $event"
@@ -79,7 +83,8 @@ export const SWITCH_TOGGLE_COMPONENT_META: DocsComponentMeta = {
     },
   ],
   tokens: [
-    { name: '--lz-switch-toggle-track-active', description: 'Фон трека во вкл' },
-    { name: '--lz-switch-toggle-thumb', description: 'Цвет ползунка' },
+    { name: '--lz-color-neutral-900', description: 'Track in the on state' },
+    { name: '--lz-color-neutral-100', description: 'Track in the off state' },
+    { name: '--lz-color-text-inverse', description: 'Thumb color (#FFFFFA)' },
   ],
 };

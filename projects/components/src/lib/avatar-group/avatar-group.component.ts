@@ -3,8 +3,8 @@ import { LzAvatarGroupItem, LzAvatarGroupSize } from './avatar-group.types';
 import { buildAvatarInitials } from '../avatar/avatar.types';
 
 /**
- * Avatar group component for `@laziar/components`.
- * Ported from publikator avatar-group component.
+ * Stacked avatar group (`@laziar/components`).
+ * Эталон: Laziar System (Figma Avatars) — overlap, cream ring, +N.
  */
 @Component({
   selector: 'lz-avatar-group',

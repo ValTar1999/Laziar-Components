@@ -4,7 +4,7 @@ import { LzTabButtonSize, LzTabButtonVariant } from './tab-button.types';
 
 /**
  * Tab button `@laziar/components`.
- * Union frontend + publikator (`bg` | `line`); `solid` aliases `bg`.
+ * Figma Tab Button: `bg`/`solid` — пилюля; `line` — underline.
  */
 @Component({
   selector: 'lz-tab-button',

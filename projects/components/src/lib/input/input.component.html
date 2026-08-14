@@ -1,4 +1,7 @@
-<div class="lz-input-container">
+<div
+  class="lz-input-container"
+  [class.lz-input-container--disabled]="effectiveDisabled()"
+>
   @if (label()) {
     <label class="lz-input-label" [attr.for]="inputId">{{ label() }}</label>
   }
@@ -9,17 +12,22 @@
     [attr.data-pill]="pill() ? 'true' : null"
     [class.lz-input-wrapper--disabled]="effectiveDisabled()"
   >
-    @if (withButton() === 'left') {
-      <div class="lz-input-button-left">
-        <lz-button
-          [icon]="iconButton()"
-          iconClass="lz-input-button-icon"
-          [size]="buttonSize()"
-          variant="tertiary"
-          [label]="buttonLabel()"
-          [disabled]="effectiveDisabled()"
-        />
-      </div>
+    @if (withButton() === 'left' && showAddon()) {
+      <button
+        type="button"
+        class="lz-input-addon"
+        data-side="left"
+        [attr.data-size]="size()"
+        [attr.data-icon-only]="addonIconOnly() ? 'true' : null"
+        [disabled]="effectiveDisabled()"
+      >
+        @if (iconButton()) {
+          <lz-icon [name]="iconButton()!" type="mini" class="lz-input-addon-icon" />
+        }
+        @if (buttonLabel()) {
+          <span class="lz-input-addon-label">{{ buttonLabel() }}</span>
+        }
+      </button>
     }
 
     @if (prefix() && !withButton()) {
@@ -29,7 +37,7 @@
     @if (currentType() === 'search') {
       <lz-icon
         name="magnifying-glass"
-        type="outline"
+        type="mini"
         class="lz-input-search-icon"
         [attr.data-size]="size()"
       />
@@ -47,9 +55,10 @@
       [attr.data-appearance]="appearance()"
       [attr.data-pill]="pill() ? 'true' : null"
       [attr.data-has-prefix]="!!prefix() && !withButton()"
-      [attr.data-has-button-left]="withButton() === 'left'"
-      [attr.data-has-button-right]="withButton() === 'right'"
+      [attr.data-has-button-left]="withButton() === 'left' && showAddon()"
+      [attr.data-has-button-right]="withButton() === 'right' && showAddon()"
       [attr.data-is-search]="currentType() === 'search'"
+      [attr.data-has-suffix]="showClearButton() || showPasswordToggle()"
       [attr.autocomplete]="autocompleteAttr()"
       (input)="onInput($event)"
       (blur)="onTouched()"
@@ -58,7 +67,7 @@
     @if (showClearButton()) {
       <div class="lz-input-clear" [attr.data-size]="size()">
         <button type="button" class="lz-input-clear-button" (click)="clearSearch()">
-          <lz-icon name="x-circle" type="solid" iconClass="lz-input-clear-icon" />
+          <lz-icon name="x-circle" type="mini" iconClass="lz-input-clear-icon" />
         </button>
       </div>
     }
@@ -74,6 +83,7 @@
           >
             <lz-icon
               [name]="currentType() === 'password' ? 'eye' : 'eye-slash'"
+              type="mini"
               class="lz-input-password-toggle-icon"
             />
           </button>
@@ -81,20 +91,31 @@
       </div>
     }
 
-    @if (withButton() === 'right') {
-      <div class="lz-input-button-right">
-        <lz-button
-          [icon]="iconButton()"
-          [size]="buttonSize()"
-          variant="tertiary"
-          [label]="buttonLabel()"
-          [disabled]="effectiveDisabled()"
-        />
-      </div>
+    @if (withButton() === 'right' && showAddon()) {
+      <button
+        type="button"
+        class="lz-input-addon"
+        data-side="right"
+        [attr.data-size]="size()"
+        [attr.data-icon-only]="addonIconOnly() ? 'true' : null"
+        [disabled]="effectiveDisabled()"
+      >
+        @if (iconButton()) {
+          <lz-icon [name]="iconButton()!" type="mini" class="lz-input-addon-icon" />
+        }
+        @if (buttonLabel()) {
+          <span class="lz-input-addon-label">{{ buttonLabel() }}</span>
+        }
+      </button>
     }
   </div>
 
   @if (helperText()) {
-    <span class="lz-input-helper" [attr.data-error]="error()">{{ helperText() }}</span>
+    <span class="lz-input-helper" [attr.data-error]="error()">
+      @if (error()) {
+        <lz-icon name="exclamation-circle" type="mini" class="lz-input-helper-icon" />
+      }
+      <span class="lz-input-helper-text">{{ helperText() }}</span>
+    </span>
   }
 </div>

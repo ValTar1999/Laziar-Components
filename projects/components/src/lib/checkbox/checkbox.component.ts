@@ -13,7 +13,7 @@ import { LzCheckboxType, LzCheckboxVariant } from './checkbox.types';
 
 /**
  * Checkbox/Radio `@laziar/components`.
- * API/стили — эталон publikator (`checkbox.component.ts` + templates).
+ * Стили — эталон Laziar System (Figma Checkbox/Radio).
  */
 @Component({
   selector: 'lz-checkbox',
@@ -62,12 +62,15 @@ export class Checkbox {
     });
   }
 
+  /** Radio is always circular; `rounded` still forces the pill control on checkbox. */
+  protected readonly isRounded = computed(() => this.rounded() || this.type() === 'radio');
+
   /** CSS classes for the wrapper element. */
   protected readonly wrapperClasses = computed(() => {
     const classes: Record<string, boolean> = {};
 
     classes['lz-checkbox__wrapper'] = true;
-    classes['lz-checkbox__wrapper--rounded'] = this.rounded();
+    classes['lz-checkbox__wrapper--rounded'] = this.isRounded();
     classes['lz-checkbox__wrapper--disabled'] = this.disabled();
 
     return classes;
@@ -79,7 +82,7 @@ export class Checkbox {
     const classes: Record<string, boolean> = {};
 
     classes['lz-checkbox__input'] = true;
-    classes['lz-checkbox__input--rounded'] = this.rounded();
+    classes['lz-checkbox__input--rounded'] = this.isRounded();
     classes['lz-checkbox__input--disabled'] = this.disabled();
     classes[`lz-checkbox__input--${variant}`] = true;
 

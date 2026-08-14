@@ -1,5 +1,12 @@
 <div [ngClass]="containerClasses()">
-  <button type="button" [disabled]="disabled()" [ngClass]="toggleClasses()" (click)="toggle()">
+  <button
+    type="button"
+    role="switch"
+    [attr.aria-checked]="active()"
+    [disabled]="disabled()"
+    [ngClass]="toggleClasses()"
+    (click)="toggle()"
+  >
     <span [ngClass]="circleClasses()"></span>
   </button>
 </div>

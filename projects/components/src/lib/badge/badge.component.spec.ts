@@ -29,6 +29,7 @@ describe('Badge', () => {
     expect(component.iconPosition()).toBe('left');
     expect(component.iconClickable()).toBe(false);
     expect(component.iconAriaLabel()).toBe('');
+    expect(component.variant()).toBe('subtle');
     expect(component.border()).toBe(false);
     expect(component.pill()).toBe(false);
     expect(component.disabled()).toBe(false);
@@ -79,6 +80,22 @@ describe('Badge', () => {
     component['onIconClick']();
 
     expect(spy).not.toHaveBeenCalled();
+  });
+
+  it('should map border to outline variant', () => {
+    fixture.componentRef.setInput('border', true);
+    fixture.detectChanges();
+
+    expect(component['resolvedVariant']()).toBe('outline');
+    expect(badgeEl().getAttribute('data-variant')).toBe('outline');
+  });
+
+  it('should keep solid when variant is solid even if border is set', () => {
+    fixture.componentRef.setInput('variant', 'solid');
+    fixture.componentRef.setInput('border', true);
+    fixture.detectChanges();
+
+    expect(badgeEl().getAttribute('data-variant')).toBe('solid');
   });
 
   it('should compute hasIcon correctly', () => {

@@ -5,13 +5,13 @@ const PROGRESS_SIZES = ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'] as const;
 export const PROGRESS_CIRCLE_COMPONENT_META: DocsComponentMeta = {
   name: 'ProgressCircle',
   selector: 'lz-progress-circle',
-  description: 'Круговой прогресс с процентом (подпись на крупных размерах).',
+  description: 'Circular progress with percentage (label at larger sizes).',
   controls: [
     {
       name: 'progress',
       kind: 'number',
       default: 75,
-      description: 'Процент 0–100',
+      description: 'Percentage 0–100',
     },
     {
       name: 'size',
@@ -35,35 +35,35 @@ export const PROGRESS_CIRCLE_COMPONENT_META: DocsComponentMeta = {
       name: 'progress',
       type: 'number',
       default: '75',
-      description: 'Процент заполнения (кламп 0–100)',
+      description: 'Fill percentage (clamped 0–100)',
     },
     {
       name: 'size',
       type: `'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'`,
       default: `'md'`,
-      description: 'Диаметр; label на lg / xl / xxl',
+      description: 'Diameter; label on lg / xl / xxl',
     },
     {
       name: 'variant',
       type: `'red' | 'white'`,
       default: `'red'`,
-      description: 'Цвет дуги',
+      description: 'Arc color',
     },
   ],
   outputs: [],
   slots: [],
   examples: [
     {
-      title: 'Загрузка файла',
+      title: 'File upload',
       code: `<lz-progress-circle [progress]="uploadPercent" size="lg" variant="red" />`,
     },
     {
-      title: 'Компактный',
+      title: 'Compact',
       code: `<lz-progress-circle [progress]="40" size="xs" />`,
     },
   ],
   tokens: [
     { name: 'arc color (inline)', description: 'red → #ef4444, white → #121212' },
-    { name: 'size map', description: 'xs–xxl → px и strokeWidth' },
+    { name: 'size map', description: 'xs–xxl → px and strokeWidth' },
   ],
 };

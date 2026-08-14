@@ -4,17 +4,17 @@ import { LZ_SELECT_SIZES } from '@laziar/components';
 export const SELECT_COMPONENT_META: DocsComponentMeta = {
   name: 'SelectComponent',
   selector: 'lz-select',
-  description: 'Выпадающий список с label, размерами sm/md и helper-текстом.',
+  description: 'Dropdown list with label, sm/md sizes, and helper text.',
   controls: [
     {
       name: 'label',
       kind: 'string',
-      default: 'Выберите опцию',
+      default: 'Select an option',
     },
     {
       name: 'placeholder',
       kind: 'string',
-      default: 'Выберите…',
+      default: 'Select…',
     },
     {
       name: 'size',
@@ -28,6 +28,11 @@ export const SELECT_COMPONENT_META: DocsComponentMeta = {
       default: '',
     },
     {
+      name: 'error',
+      kind: 'boolean',
+      default: false,
+    },
+    {
       name: 'disabled',
       kind: 'boolean',
       default: false,
@@ -36,23 +41,32 @@ export const SELECT_COMPONENT_META: DocsComponentMeta = {
   variants: [
     {
       label: 'md · default',
-      props: { label: 'Выберите опцию', size: 'md', placeholder: 'Выберите…' },
+      props: { label: 'Select an option', size: 'md', placeholder: 'Select…' },
     },
     {
       label: 'sm',
-      props: { label: 'Размер sm', size: 'sm', placeholder: '…' },
+      props: { label: 'Size sm', size: 'sm', placeholder: '…' },
     },
     {
       label: 'with helper',
       props: {
-        label: 'Город',
+        label: 'City',
         size: 'md',
-        helperText: 'Можно изменить позже',
+        helperText: 'Can be changed later',
+      },
+    },
+    {
+      label: 'error',
+      props: {
+        label: 'City',
+        size: 'md',
+        helperText: 'Required field',
+        error: true,
       },
     },
     {
       label: 'disabled',
-      props: { label: 'Недоступно', size: 'md', disabled: true },
+      props: { label: 'Unavailable', size: 'md', disabled: true },
     },
   ],
   inputs: [
@@ -60,59 +74,67 @@ export const SELECT_COMPONENT_META: DocsComponentMeta = {
       name: 'label',
       type: 'string | undefined',
       default: 'undefined',
-      description: 'Подпись над полем',
+      description: 'Label above the field',
     },
     {
       name: 'placeholder',
       type: 'string',
       default: `'Select...'`,
-      description: 'Текст, когда ничего не выбрано',
+      description: 'Text when nothing is selected',
     },
     {
       name: 'options',
       type: 'LzSelectOptionType[]',
       default: '[]',
-      description: 'Список опций (string | { id, title, date })',
+      description: 'Options list (string | { id, title, date })',
     },
     {
       name: 'size',
       type: `'sm' | 'md'`,
       default: `'md'`,
-      description: 'Размер контрола',
+      description: 'Control size',
     },
     {
       name: 'helperText',
       type: 'string | undefined',
       default: 'undefined',
-      description: 'Подсказка под полем',
+      description: 'Hint below the field',
+    },
+    {
+      name: 'error',
+      type: 'boolean',
+      default: 'false',
+      description: 'Error state (border and helper)',
     },
     {
       name: 'disabled',
       type: 'boolean',
       default: 'false',
-      description: 'Отключает select',
+      description: 'Disables select',
     },
   ],
   outputs: [
     {
       name: 'opened',
       type: 'OutputEmitterRef<void>',
-      description: 'Срабатывает при открытии списка',
+      description: 'Fires when the list opens',
     },
   ],
   slots: [],
   examples: [
     {
-      title: 'С ngModel',
+      title: 'With ngModel',
       code: `<lz-select
-  label="Опция"
+  label="Option"
   [options]="['A', 'B', 'C']"
   [(ngModel)]="value"
 />`,
     },
   ],
   tokens: [
-    { name: '--lz-select-border', description: 'Цвет рамки' },
-    { name: '--lz-select-bg', description: 'Фон триггера' },
+    { name: '--lz-select-border', description: 'Trigger border (#121212 10%)' },
+    { name: '--lz-select-radius', description: 'Trigger radius (6px)' },
+    { name: '--lz-shadow-dropdown', description: 'Select Menu shadow (Figma Dropdown-Shadow)' },
+    { name: '--lz-z-dropdown', description: 'List layer (Floating UI overlay)' },
   ],
 };

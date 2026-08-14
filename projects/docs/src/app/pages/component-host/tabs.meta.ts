@@ -7,7 +7,7 @@ export const TABS_COMPONENT_META: DocsComponentMeta = {
   name: 'Tabs',
   selector: 'lz-tabs',
   description:
-    'Горизонтальный таб-лист: стили outline / underline / border, размеры и активный индекс. Поддерживает badges, icons и disabled-вкладки.',
+    'Horizontal tab list: outline / underline / border styles, sizes, and active index. Supports badges, icons, and disabled tabs.',
   controls: [
     {
       name: 'style',
@@ -25,7 +25,7 @@ export const TABS_COMPONENT_META: DocsComponentMeta = {
       name: 'activeTab',
       kind: 'number',
       default: 0,
-      description: 'Индекс активной вкладки (one-way в песочнице)',
+      description: 'Active tab index (one-way in the sandbox)',
     },
   ],
   variants: [
@@ -41,83 +41,83 @@ export const TABS_COMPONENT_META: DocsComponentMeta = {
       name: 'tabs',
       type: 'string[]',
       default: '[]',
-      description: 'Подписи вкладок',
+      description: 'Tab labels',
     },
     {
       name: 'style',
       type: `'outline' | 'underline' | 'border'`,
       default: `'outline'`,
-      description: 'Визуальный стиль таб-листа',
+      description: 'outline — pill; underline — line; border — bordered segment',
     },
     {
       name: 'size',
       type: `'sm' | 'md' | 'lg'`,
       default: `'md'`,
-      description: 'Размер (паддинги вкладок)',
+      description: 'Size (tab padding)',
     },
     {
       name: 'activeTab',
       type: 'number (model)',
       default: '0',
-      description: 'Двусторонний индекс активной вкладки',
+      description: 'Two-way active tab index',
     },
     {
       name: 'badges',
       type: '(LzTabBadge | null)[]',
       default: '[]',
-      description: 'Опциональные бейджи по индексу вкладки',
+      description: 'Optional badges by tab index',
     },
     {
       name: 'icons',
       type: 'string[]',
       default: '[]',
-      description: 'Имена иконок (lz-icon) по индексу',
+      description: 'Icon names (lz-icon) by index',
     },
     {
       name: 'disabledTabIndexes',
       type: 'number[]',
       default: '[]',
-      description: 'Индексы недоступных вкладок',
+      description: 'Indexes of unavailable tabs',
     },
     {
       name: 'disabledTabTooltips',
       type: 'Record<string, string>',
       default: '{}',
-      description: 'Тултипы для disabled-вкладок (ключ — индекс строкой)',
+      description: 'Tooltips for disabled tabs (key is the index as a string)',
     },
     {
       name: 'disabledTabTooltipTrigger',
       type: `'hover' | 'click'`,
       default: `'hover'`,
-      description: 'Триггер тултипа на disabled-вкладке',
+      description: 'Tooltip trigger on a disabled tab',
     },
     {
       name: 'class',
       type: 'string | undefined',
       default: 'undefined',
-      description: 'Доп. класс на корне',
+      description: 'Extra class on the root',
     },
   ],
   outputs: [
     {
       name: 'activeTab',
       type: 'ModelSignal<number>',
-      description: 'Изменение активного индекса (model)',
+      description: 'Active index change (model)',
     },
   ],
   slots: [],
   examples: [
     {
-      title: 'Базовый таб-лист',
+      title: 'Basic tab list',
       code: `<lz-tabs
-  [tabs]="['Обзор', 'Участники', 'Настройки']"
+  [tabs]="['Overview', 'Members', 'Settings']"
   style="underline"
   size="md"
   [(activeTab)]="active"
 />`,
     },
     {
-      title: 'С иконками и бейджами',
+      title: 'With icons and badges',
       code: `<lz-tabs
   [tabs]="labels"
   [icons]="['home', 'users', 'cog-6-tooth']"
@@ -127,8 +127,10 @@ export const TABS_COMPONENT_META: DocsComponentMeta = {
     },
   ],
   tokens: [
-    { name: '--lz-color-gray-*', description: 'Текст вкладок и разделители' },
-    { name: '--lz-duration-normal', description: 'Transition цвета / индикатора' },
-    { name: '--lz-radius-md', description: 'Скругление стиля border' },
+    { name: '--lz-color-neutral-900', description: 'Active pill fill (outline) and underline indicator' },
+    { name: '--lz-color-text-inverse', description: 'Text on the active pill' },
+    { name: '--lz-color-neutral-50', description: 'Hover background' },
+    { name: '--lz-color-neutral-500', description: 'Inactive tab text' },
+    { name: '--lz-radius-full', description: 'outline style pill' },
   ],
 };

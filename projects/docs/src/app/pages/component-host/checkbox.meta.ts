@@ -4,12 +4,12 @@ import { LZ_CHECKBOX_TYPES, LZ_CHECKBOX_VARIANTS } from '@laziar/components';
 export const CHECKBOX_COMPONENT_META: DocsComponentMeta = {
   name: 'Checkbox',
   selector: 'lz-checkbox',
-  description: 'Чекбокс и радиокнопка с заголовком, описанием и состояниями ошибки.',
+  description: 'Checkbox and radio button with title, description, and error states.',
   controls: [
     {
       name: 'title',
       kind: 'string',
-      default: 'Принять',
+      default: 'Accept',
     },
     {
       name: 'type',
@@ -52,25 +52,23 @@ export const CHECKBOX_COMPONENT_META: DocsComponentMeta = {
   variants: [
     {
       label: 'checkbox · default',
-      props: { type: 'checkbox', variant: 'default', checked: false, title: 'Принять' },
+      props: { type: 'checkbox', variant: 'default', checked: false, title: 'Accept' },
     },
     {
       label: 'checkbox · checked',
-      props: { type: 'checkbox', variant: 'default', checked: true, title: 'Принять' },
+      props: { type: 'checkbox', variant: 'default', checked: true, title: 'Accept' },
     },
     {
       label: 'checkbox · error',
-      props: { type: 'checkbox', variant: 'error', checked: false, title: 'Обязательно' },
+      props: { type: 'checkbox', variant: 'error', checked: false, title: 'Required' },
     },
     {
-      label: 'radio · rounded',
-      props: {
-        type: 'radio',
-        variant: 'default',
-        checked: true,
-        rounded: true,
-        title: 'Вариант A',
-      },
+      label: 'radio · default',
+      props: { type: 'radio', variant: 'default', checked: false, title: 'Option A' },
+    },
+    {
+      label: 'radio · checked',
+      props: { type: 'radio', variant: 'default', checked: true, title: 'Option A' },
     },
     {
       label: 'checkbox · indeterminate',
@@ -79,7 +77,7 @@ export const CHECKBOX_COMPONENT_META: DocsComponentMeta = {
         variant: 'default',
         checked: false,
         indeterminate: true,
-        title: 'Выбрать всё',
+        title: 'Select all',
       },
     },
     {
@@ -89,7 +87,7 @@ export const CHECKBOX_COMPONENT_META: DocsComponentMeta = {
         variant: 'default',
         checked: true,
         disabled: true,
-        title: 'Недоступно',
+        title: 'Unavailable',
       },
     },
   ],
@@ -98,78 +96,79 @@ export const CHECKBOX_COMPONENT_META: DocsComponentMeta = {
       name: 'type',
       type: `'checkbox' | 'radio'`,
       default: `'checkbox'`,
-      description: 'Нативный тип input',
+      description: 'Native input type',
     },
     {
       name: 'variant',
       type: `'default' | 'error'`,
       default: `'default'`,
-      description: 'Визуальное состояние валидации',
+      description: 'Visual validation state',
     },
     {
       name: 'checked',
       type: 'boolean',
       default: 'false',
-      description: 'Отмечен ли элемент',
+      description: 'Whether the item is checked',
     },
     {
       name: 'disabled',
       type: 'boolean',
       default: 'false',
-      description: 'Отключает взаимодействие',
+      description: 'Disables interaction',
     },
     {
       name: 'indeterminate',
       type: 'boolean',
       default: 'false',
-      description: 'Промежуточное состояние (только checkbox)',
+      description: 'Indeterminate state (checkbox only)',
     },
     {
       name: 'rounded',
       type: 'boolean',
       default: 'false',
-      description: 'Скруглённый вид (часто с radio)',
+      description: 'Rounded look (radio is always round)',
     },
     {
       name: 'title',
       type: 'string',
       default: "''",
-      description: 'Заголовок / label',
+      description: 'Title / label',
     },
     {
       name: 'description',
       type: 'string',
       default: "''",
-      description: 'Подпись под заголовком',
+      description: 'Caption under the title',
     },
   ],
   outputs: [
     {
       name: 'checkedChange',
       type: 'OutputEmitterRef<boolean>',
-      description: 'Изменение checked при клике',
+      description: 'checked change on click',
     },
   ],
   slots: [],
   examples: [
     {
-      title: 'Согласие',
+      title: 'Consent',
       code: `<lz-checkbox
-  title="Принимаю условия"
-  description="Можно отозвать в настройках"
+  title="I accept the terms"
+  description="Can be revoked in settings"
   [checked]="accepted"
   (checkedChange)="accepted = $event"
 />`,
     },
     {
-      title: 'Радиогруппа',
-      code: `<lz-checkbox type="radio" rounded title="Опция A" [checked]="value === 'a'" />
-<lz-checkbox type="radio" rounded title="Опция B" [checked]="value === 'b'" />`,
+      title: 'Radio group',
+      code: `<lz-checkbox type="radio" title="Option A" [checked]="value === 'a'" />
+<lz-checkbox type="radio" title="Option B" [checked]="value === 'b'" />`,
     },
   ],
   tokens: [
-    { name: '--lz-checkbox-border', description: 'Цвет рамки' },
-    { name: '--lz-checkbox-bg-checked', description: 'Фон в checked' },
-    { name: '--lz-checkbox-error', description: 'Акцент variant=error' },
+    { name: '--lz-color-neutral-900', description: 'Checked fill / radio dot' },
+    { name: '--lz-color-background', description: 'Unchecked background (#FFFFFA)' },
+    { name: '--lz-color-neutral-900 / 20%', description: 'Unchecked border' },
+    { name: '--lz-color-danger-500', description: 'variant=error border' },
   ],
 };

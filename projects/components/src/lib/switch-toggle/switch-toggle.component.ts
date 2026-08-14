@@ -4,7 +4,7 @@ import { LzSwitchToggleSize } from './switch-toggle.types';
 
 /**
  * Switch Toggle `@laziar/components`.
- * API/стили — эталон publikator + frontend (`app-switch-toggle`).
+ * Стили — эталон Laziar System (Figma Switch/Toggle).
  */
 @Component({
   selector: 'lz-switch-toggle',
@@ -34,10 +34,7 @@ export class SwitchToggle {
     'lz-switch-toggle__container--disabled': this.disabled(),
   }));
 
-  /**
-   * Track classes — publikator: disabled || !active → bg-gray-50, else bg-gray-900.
-   * Hover gray-100 only when !active && !disabled.
-   */
+  /** Track classes — on stays `#121212` even when disabled (row fades via opacity). */
   protected readonly toggleClasses = computed(() => {
     const active = this.active();
     const disabled = this.disabled();
@@ -45,24 +42,20 @@ export class SwitchToggle {
     return {
       'lz-switch-toggle__toggle': true,
       [`lz-switch-toggle__toggle--${this.size()}`]: true,
-      'lz-switch-toggle__toggle--inactive': disabled || !active,
-      'lz-switch-toggle__toggle--active': !disabled && active,
+      'lz-switch-toggle__toggle--inactive': !active,
+      'lz-switch-toggle__toggle--active': active,
       'lz-switch-toggle__toggle--hoverable': !active && !disabled,
     };
   });
 
-  /** Thumb classes — publikator circleBackground + translatePosition. */
+  /** Thumb classes — white knob; position follows `active`. */
   protected readonly circleClasses = computed(() => {
     const active = this.active();
-    const disabled = this.disabled();
     const size = this.size();
 
     return {
       'lz-switch-toggle__circle': true,
       [`lz-switch-toggle__circle--${size}`]: true,
-      'lz-switch-toggle__circle--disabled': disabled,
-      'lz-switch-toggle__circle--active': !disabled && active,
-      'lz-switch-toggle__circle--inactive': !disabled && !active,
       [`lz-switch-toggle__circle--${active ? 'right' : 'left'}`]: true,
     };
   });

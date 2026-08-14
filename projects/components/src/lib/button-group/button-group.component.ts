@@ -2,8 +2,8 @@ import { booleanAttribute, Component, computed, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 /**
- * Button group component for `@laziar/components`.
- * Simple wrapper — frontend / publikator `app-button-group`.
+ * Button group `@laziar/components`.
+ * Стили — эталон Laziar System (Figma Button Group / Playground).
  */
 @Component({
   selector: 'lz-button-group',

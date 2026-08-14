@@ -6,20 +6,20 @@ export const ICON_COMPONENT_META: DocsComponentMeta = {
   name: 'Icon',
   selector: 'lz-icon',
   description:
-    'SVG-иконка из спрайтов Heroicons / кастомных: outline, solid, mini, micro, custom. Имя — id символа в спрайте.',
+    'SVG icon from Heroicons / custom sprites: outline, solid, mini, micro, custom. Name is the symbol id in the sprite.',
   controls: [
     {
       name: 'name',
       kind: 'string',
       default: 'check',
-      description: 'Имя символа (например check, x-mark, plus)',
+      description: 'Symbol name (for example check, x-mark, plus)',
     },
     {
       name: 'type',
       kind: 'select',
       options: [...iconTypes],
       default: 'outline',
-      description: 'Спрайт: icons-{type}.svg',
+      description: 'Sprite: icons-{type}.svg',
     },
   ],
   variants: [
@@ -35,46 +35,46 @@ export const ICON_COMPONENT_META: DocsComponentMeta = {
       name: 'name',
       type: 'string',
       default: '— (required)',
-      description: 'Id символа в SVG-спрайте',
+      description: 'Symbol id in the SVG sprite',
     },
     {
       name: 'type',
       type: `'outline' | 'solid' | 'mini' | 'micro' | 'custom'`,
       default: `'outline'`,
-      description: 'Вариант спрайта',
+      description: 'Sprite variant',
     },
     {
       name: 'iconClass',
       type: 'string | undefined',
       default: 'undefined',
-      description: 'Доп. классы на SVG; w-* отключает дефолтный размер',
+      description: 'Extra SVG classes; w-* disables the default size',
     },
     {
       name: 'assetsPath',
       type: 'string',
       default: `'assets/icons'`,
-      description: 'Базовый путь к папке спрайтов',
+      description: 'Base path to the sprite folder',
     },
   ],
   outputs: [],
   slots: [],
   examples: [
     {
-      title: 'В кнопке',
+      title: 'In a button',
       code: `<lz-icon name="check" type="outline" />`,
     },
     {
-      title: 'Кастомный размер через iconClass',
+      title: 'Custom size via iconClass',
       code: `<lz-icon name="plus" type="mini" iconClass="w-4 h-4" />`,
     },
     {
-      title: 'Кастомный спрайт',
-      description: 'Символ должен быть в icons-custom.svg.',
+      title: 'Custom sprite',
+      description: 'The symbol must be in icons-custom.svg.',
       code: `<lz-icon name="brand-mark" type="custom" />`,
     },
   ],
   tokens: [
-    { name: '--lz-icon-size', description: 'Ширина/высота по умолчанию (1.5rem)' },
-    { name: 'currentColor', description: 'Цвет иконки наследует от родителя' },
+    { name: '--lz-icon-size', description: 'Default width/height (1.5rem)' },
+    { name: 'currentColor', description: 'Icon color inherits from the parent' },
   ],
 };

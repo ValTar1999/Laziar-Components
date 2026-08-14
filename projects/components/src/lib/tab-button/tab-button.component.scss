@@ -1,35 +1,53 @@
-:host {
+/**
+ * Эталон: Laziar System (Figma Tab Button).
+ * bg/solid — пилюля active #121212 / inverse.
+ * line — подчёркивание 2px.
+ */
+
+:host.lz-tab-button-host {
   display: inline-flex;
+  vertical-align: middle;
 }
 
 .lz-tab-button {
+  --lz-tab-btn-fg: var(--lz-color-neutral-500);
+  --lz-tab-btn-fg-hover: var(--lz-color-neutral-900);
+  --lz-tab-btn-pad-y: 0.375rem;
+  --lz-tab-btn-pad-x: 0.75rem;
+  --lz-tab-btn-font: var(--lz-font-size-sm);
+  --lz-tab-btn-line: 1.25rem;
+
   display: inline-grid;
+  font-family: var(--lz-font-sans);
 }
 
 .lz-tab-button__control {
-  display: inline-block;
   box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   margin: 0;
+  padding: var(--lz-tab-btn-pad-y) var(--lz-tab-btn-pad-x);
   border: 0;
-  border-radius: 0.5rem;
+  border-radius: var(--lz-radius-full);
   background: transparent;
-  color: var(--lz-color-neutral-500);
-  font-family: var(--lz-font-sans);
-  font-size: 0.875rem;
-  font-weight: 500;
-  line-height: 1.25rem;
+  color: var(--lz-tab-btn-fg);
+  font-family: inherit;
+  font-size: var(--lz-tab-btn-font);
+  font-weight: var(--lz-font-weight-semibold);
+  line-height: var(--lz-tab-btn-line);
+  letter-spacing: var(--lz-letter-spacing-sm);
   text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
   transition:
     color var(--lz-duration-normal) var(--lz-easing-standard),
     background-color var(--lz-duration-normal) var(--lz-easing-standard),
-    border-color var(--lz-duration-normal) var(--lz-easing-standard),
     box-shadow var(--lz-duration-normal) var(--lz-easing-standard);
 }
 
 .lz-tab-button__control:hover {
-  color: var(--lz-color-neutral-900);
+  color: var(--lz-tab-btn-fg-hover);
 }
 
 .lz-tab-button__control:focus {
@@ -41,23 +59,35 @@
   box-shadow: var(--lz-shadow-focus);
 }
 
-.lz-tab-button[data-size='sm'] .lz-tab-button__control {
-  padding: 0.25rem 0.5rem;
+.lz-tab-button[data-size='sm'] {
+  --lz-tab-btn-pad-y: 0.25rem;
+  --lz-tab-btn-pad-x: 0.5rem;
 }
 
-.lz-tab-button[data-size='md'] .lz-tab-button__control {
-  padding: 0.5rem 0.75rem;
+.lz-tab-button[data-size='md'] {
+  --lz-tab-btn-pad-y: 0.375rem;
+  --lz-tab-btn-pad-x: 0.75rem;
 }
 
-.lz-tab-button[data-size='lg'] .lz-tab-button__control {
-  padding: 1rem;
+.lz-tab-button[data-size='lg'] {
+  --lz-tab-btn-pad-y: 0.5rem;
+  --lz-tab-btn-pad-x: 1rem;
+  --lz-tab-btn-line: 1.5rem;
+}
+
+.lz-tab-button[data-variant='bg'] .lz-tab-button__control:hover,
+.lz-tab-button[data-variant='solid'] .lz-tab-button__control:hover {
+  background-color: var(--lz-color-neutral-50);
 }
 
 .lz-tab-button[data-variant='bg'][data-active='true'] .lz-tab-button__control,
 .lz-tab-button[data-variant='solid'][data-active='true'] .lz-tab-button__control {
-  background-color: var(--lz-color-neutral-50);
-  color: var(--lz-color-neutral-900);
-  font-weight: 600;
+  background-color: var(--lz-color-neutral-900);
+  color: var(--lz-color-text-inverse);
+}
+
+.lz-tab-button[data-variant='line'] .lz-tab-button__control {
+  border-radius: var(--lz-radius-md);
 }
 
 .lz-tab-button[data-variant='line'] .lz-tab-button__control:hover {
@@ -66,7 +96,7 @@
 
 .lz-tab-button[data-variant='line'][data-active='true'] .lz-tab-button__control {
   color: var(--lz-color-neutral-900);
-  font-weight: 600;
+  background-color: transparent;
 }
 
 .lz-tab-button__line {

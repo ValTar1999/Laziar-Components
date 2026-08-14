@@ -13,8 +13,8 @@ import {
 import { LzIconVariant } from '../icon/icon.types';
 
 /**
- * Alert component for `@laziar/components`.
- * Ported from publikator alert component with improvements.
+ * Alert `@laziar/components`.
+ * Эталон: Laziar System (Figma Alert / Alert Playground).
  */
 @Component({
   selector: 'lz-alert',

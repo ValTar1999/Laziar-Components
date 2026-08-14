@@ -1,5 +1,11 @@
 import { booleanAttribute, Component, computed, input, output } from '@angular/core';
-import { LzBadgeColor, LzBadgeIconPosition, LzBadgeIconVariant, LzBadgeSize } from './badge.types';
+import {
+  LzBadgeColor,
+  LzBadgeIconPosition,
+  LzBadgeIconVariant,
+  LzBadgeSize,
+  LzBadgeVariant,
+} from './badge.types';
 import { Icon } from '../icon/icon.component';
 
 /**
@@ -33,6 +39,8 @@ export class Badge {
   readonly color = input<LzBadgeColor>('gray');
   /** Badge size scale. */
   readonly size = input<LzBadgeSize>('sm');
+  /** Fill: subtle (pastel), solid (filled), outline. `border` still maps to outline. */
+  readonly variant = input<LzBadgeVariant>('subtle');
   /** Whether to show border ring. */
   readonly border = input(false, { transform: booleanAttribute });
   /** Whether badge should be pill-shaped (rounded-full). */
@@ -50,6 +58,15 @@ export class Badge {
   protected readonly resolvedColor = computed(() => {
     const color = this.color();
     return color === 'magrnta' ? 'magenta' : color;
+  });
+
+  /** `border` keeps outline without a breaking API change. */
+  protected readonly resolvedVariant = computed<LzBadgeVariant>(() => {
+    if (this.variant() === 'subtle' && this.border()) {
+      return 'outline';
+    }
+
+    return this.variant();
   });
 
   /** Handle icon click when clickable. */

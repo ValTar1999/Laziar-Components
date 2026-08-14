@@ -1,21 +1,135 @@
 <docs-component-page [meta]="meta">
   <ng-template docsPreview let-values>
-    <lz-button-group [line]="bool(values, 'line')">
-      <lz-button
-        [label]="'components.button-group.demo.left' | transloco"
-        variant="secondary"
-        color="gray"
-      />
-      <lz-button
-        [label]="'components.button-group.demo.center' | transloco"
-        variant="secondary"
-        color="gray"
-      />
-      <lz-button
-        [label]="'components.button-group.demo.right' | transloco"
-        variant="secondary"
-        color="gray"
-      />
-    </lz-button-group>
+    @switch (str(values, 'demo', 'segmented')) {
+      @case ('icons') {
+        <lz-button-group [line]="bool(values, 'line')">
+          <lz-button
+            variant="outline"
+            color="gray"
+            [size]="$any(str(values, 'size', 'md'))"
+            icon="italic"
+            iconVariant="outline"
+            [ariaLabel]="'components.button-group.demo.italic' | transloco"
+          />
+          <lz-button
+            variant="outline"
+            color="gray"
+            [size]="$any(str(values, 'size', 'md'))"
+            icon="bold"
+            iconVariant="outline"
+            [ariaLabel]="'components.button-group.demo.bold' | transloco"
+          />
+          <lz-button
+            variant="outline"
+            color="gray"
+            [size]="$any(str(values, 'size', 'md'))"
+            icon="underline"
+            iconVariant="outline"
+            [ariaLabel]="'components.button-group.demo.underline' | transloco"
+          />
+        </lz-button-group>
+      }
+      @case ('split') {
+        <lz-button-group [line]="bool(values, 'line')">
+          <lz-button
+            [label]="'components.button-group.demo.last7' | transloco"
+            variant="outline"
+            color="gray"
+            [size]="$any(str(values, 'size', 'md'))"
+          />
+          <lz-button
+            variant="outline"
+            color="gray"
+            [size]="$any(str(values, 'size', 'md'))"
+            icon="chevron-down"
+            iconVariant="outline"
+            [ariaLabel]="'components.button-group.demo.open' | transloco"
+          />
+        </lz-button-group>
+      }
+      @case ('stepper') {
+        <lz-button-group [line]="bool(values, 'line')">
+          <lz-button
+            variant="outline"
+            color="gray"
+            [size]="$any(str(values, 'size', 'md'))"
+            icon="minus"
+            iconVariant="outline"
+            [ariaLabel]="'components.button-group.demo.decrease' | transloco"
+          />
+          <lz-button
+            variant="outline"
+            color="gray"
+            [size]="$any(str(values, 'size', 'md'))"
+            icon="plus"
+            iconVariant="outline"
+            [ariaLabel]="'components.button-group.demo.increase' | transloco"
+          />
+        </lz-button-group>
+      }
+      @case ('download') {
+        <lz-button-group [line]="bool(values, 'line')">
+          <lz-button
+            [label]="'components.button-group.demo.download' | transloco"
+            variant="outline"
+            color="gray"
+            [size]="$any(str(values, 'size', 'md'))"
+          />
+          <lz-button
+            [label]="'components.button-group.demo.downloadsCount' | transloco"
+            variant="outline"
+            color="gray"
+            [size]="$any(str(values, 'size', 'md'))"
+          />
+        </lz-button-group>
+      }
+      @case ('dates') {
+        <lz-button-group [line]="bool(values, 'line')">
+          <lz-button
+            [label]="'components.button-group.demo.dateStart' | transloco"
+            variant="outline"
+            color="gray"
+            [size]="$any(str(values, 'size', 'md'))"
+            icon="calendar"
+            iconVariant="outline"
+            iconPosition="left"
+          />
+          <lz-button
+            [label]="'components.button-group.demo.dateEnd' | transloco"
+            variant="outline"
+            color="gray"
+            [size]="$any(str(values, 'size', 'md'))"
+            icon="calendar"
+            iconVariant="outline"
+            iconPosition="left"
+          />
+        </lz-button-group>
+      }
+      @default {
+        <lz-button-group [line]="bool(values, 'line')">
+          <lz-button
+            [label]="'components.button-group.demo.day' | transloco"
+            variant="outline"
+            color="gray"
+            [size]="$any(str(values, 'size', 'md'))"
+            pill
+          />
+          <lz-button
+            [label]="'components.button-group.demo.month' | transloco"
+            variant="outline"
+            color="gray"
+            [size]="$any(str(values, 'size', 'md'))"
+            pill
+          />
+          <lz-button
+            [label]="'components.button-group.demo.year' | transloco"
+            variant="outline"
+            color="gray"
+            [size]="$any(str(values, 'size', 'md'))"
+            pill
+          />
+        </lz-button-group>
+      }
+    }
   </ng-template>
 </docs-component-page>

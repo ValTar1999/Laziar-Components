@@ -35,6 +35,7 @@ export class ComponentPage {
   private readonly activeLang = toSignal(this.transloco.langChanges$, {
     initialValue: this.transloco.getActiveLang(),
   });
+  private readonly translation = toSignal(this.transloco.selectTranslation());
 
   readonly meta = input.required<DocsComponentMeta>();
 
@@ -44,9 +45,10 @@ export class ComponentPage {
 
   protected readonly docId = computed(() => docsComponentId(this.meta().selector));
 
-  /** Resets when `meta` or language changes; updated live by the sandbox. */
+  /** Resets when `meta`, language, or loaded translations change; updated live by the sandbox. */
   protected readonly values = linkedSignal<DocsSandboxValues>(() => {
     this.activeLang();
+    this.translation();
     return this.translatedDefaults();
   });
 
@@ -90,7 +92,10 @@ export class ComponentPage {
 
   private snippetFor(values: DocsSandboxValues): string {
     const meta = this.meta();
-    const skip = meta.contentFrom ? [meta.contentFrom] : [];
+    const skip = [
+      ...(meta.contentFrom ? [meta.contentFrom] : []),
+      ...(meta.snippetIgnore ?? []),
+    ];
     return generateTemplateCode(
       meta.selector,
       values,

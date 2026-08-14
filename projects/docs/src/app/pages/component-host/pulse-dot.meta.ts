@@ -3,7 +3,7 @@ import { DocsComponentMeta } from '../../core/component-doc.model';
 export const PULSE_DOT_COMPONENT_META: DocsComponentMeta = {
   name: 'PulseDot',
   selector: 'lz-pulse-dot',
-  description: 'Пульсирующая точка статуса (live / online). Без входных параметров.',
+  description: 'Pulsing status dot (live / online). No inputs.',
   controls: [],
   variants: [
     {
@@ -16,14 +16,14 @@ export const PULSE_DOT_COMPONENT_META: DocsComponentMeta = {
   slots: [],
   examples: [
     {
-      title: 'Рядом с заголовком',
+      title: 'Next to the title',
       code: `<h3>
-  Прямой эфир
+  Live stream
   <lz-pulse-dot />
 </h3>`,
     },
     {
-      title: 'В списке',
+      title: 'In a list',
       code: `<span class="status">
   <lz-pulse-dot />
   Online
@@ -31,7 +31,7 @@ export const PULSE_DOT_COMPONENT_META: DocsComponentMeta = {
     },
   ],
   tokens: [
-    { name: 'core #d50b0b', description: 'Цвет центральной точки' },
-    { name: 'ring #ec3131', description: 'Цвет пульсирующего кольца' },
+    { name: 'core #d50b0b', description: 'Center dot color' },
+    { name: 'ring #ec3131', description: 'Pulsing ring color' },
   ],
 };

@@ -6,13 +6,13 @@ export const AVATAR_GROUP_COMPONENT_META: DocsComponentMeta = {
   name: 'AvatarGroup',
   selector: 'lz-avatar-group',
   description:
-    'Группа аватаров с ограничением видимых элементов и счётчиком оставшихся. Подходит для списков участников.',
+    'Avatar group with a visible-item limit and remaining count. Suitable for participant lists.',
   controls: [
     {
       name: 'max',
       kind: 'number',
       default: 3,
-      description: 'Сколько аватаров показать до «+N»',
+      description: 'How many avatars to show before “+N”',
     },
     {
       name: 'size',
@@ -24,7 +24,7 @@ export const AVATAR_GROUP_COMPONENT_META: DocsComponentMeta = {
       name: 'reverse',
       kind: 'boolean',
       default: false,
-      description: 'Обратный порядок наложения (z-index)',
+      description: 'Reverse stacking order (z-index)',
     },
   ],
   variants: [
@@ -58,50 +58,52 @@ export const AVATAR_GROUP_COMPONENT_META: DocsComponentMeta = {
       name: 'avatars',
       type: 'LzAvatarGroupItem[]',
       default: '[]',
-      description: 'Список участников: firstName, lastName, опционально imgUrl',
+      description: 'Participant list: firstName, lastName, optional imgUrl',
     },
     {
       name: 'max',
       type: 'number',
       default: '4',
-      description: 'Максимум видимых аватаров; остальные — в «+N»',
+      description: 'Maximum visible avatars; the rest go into “+N”',
     },
     {
       name: 'size',
       type: `'xxs' | 'xs' | 'sm' | 'md' | 'lg'`,
       default: `'md'`,
-      description: 'Размер элементов группы',
+      description: 'Group item size',
     },
     {
       name: 'reverse',
       type: 'boolean',
       default: 'false',
-      description: 'Инвертирует z-index наложения',
+      description: 'Inverts stacking z-index',
     },
   ],
   outputs: [],
   slots: [],
   examples: [
     {
-      title: 'Участники чата',
+      title: 'Chat members',
       code: `<lz-avatar-group
   [avatars]="[
-    { firstName: 'Анна', lastName: 'Иванова' },
-    { firstName: 'Борис', lastName: 'Петров' },
-    { firstName: 'Вера', lastName: 'Сидорова' },
-    { firstName: 'Глеб', lastName: 'Козлов' }
+    { firstName: 'Anna', lastName: 'Ivanova' },
+    { firstName: 'Boris', lastName: 'Petrov' },
+    { firstName: 'Vera', lastName: 'Sidorova' },
+    { firstName: 'Gleb', lastName: 'Kozlov' }
   ]"
   [max]="3"
   size="md"
 />`,
     },
     {
-      title: 'Обратное наложение',
+      title: 'Reverse stacking',
       code: `<lz-avatar-group [avatars]="members" [max]="4" size="sm" [reverse]="true" />`,
     },
   ],
   tokens: [
-    { name: '--lz-color-gray-*', description: 'Фон fallback-инициалов и остатка «+N»' },
-    { name: '--lz-radius-full', description: 'Круглая форма элементов' },
+    { name: '--lz-color-neutral-50', description: 'Initials and “+N” remainder background' },
+    { name: '--lz-color-neutral-700', description: 'Initials and “+N” text' },
+    { name: '--lz-color-neutral-900', description: 'Fallback 10% outline (#121212)' },
+    { name: '--lz-color-background', description: 'Cream ring between overlapping avatars (#FFFFFA)' },
   ],
 };

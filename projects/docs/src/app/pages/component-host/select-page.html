@@ -1,13 +1,16 @@
 <docs-component-page [meta]="meta">
   <ng-template docsPreview let-values>
-    <lz-select
-      [(ngModel)]="value"
-      [options]="options()"
-      [label]="str(values, 'label')"
-      [placeholder]="str(values, 'placeholder')"
-      [size]="$any(str(values, 'size', 'md'))"
-      [helperText]="str(values, 'helperText')"
-      [disabled]="bool(values, 'disabled')"
-    />
+    <div class="docs-select-preview">
+      <lz-select
+        [(ngModel)]="value"
+        [options]="options()"
+        [label]="str(values, 'label')"
+        [placeholder]="str(values, 'placeholder')"
+        [size]="$any(str(values, 'size', 'md'))"
+        [helperText]="str(values, 'helperText')"
+        [error]="bool(values, 'error')"
+        [disabled]="bool(values, 'disabled')"
+      />
+    </div>
   </ng-template>
 </docs-component-page>

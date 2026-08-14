@@ -13,8 +13,6 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LzInputAppearance, LzInputSize, LzInputType, LzInputButtonPosition } from './input.types';
-import { LzButtonSize } from '../button/button.types';
-import { Button } from '../button/button.component';
 import { Icon } from '../icon/icon.component';
 import { Tooltip } from '../tooltip/tooltip.component';
 
@@ -24,7 +22,7 @@ let nextInputFieldId = 0;
 
 /**
  * Input field `@laziar/components`.
- * API/styles — union: frontend + publikator (`InputFieldComponent`).
+ * Стили — эталон Laziar System (Figma Text Input).
  */
 @Component({
   selector: 'lz-input',
@@ -32,7 +30,7 @@ let nextInputFieldId = 0;
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './input.component.html',
   styleUrl: './input.component.scss',
-  imports: [CommonModule, FormsModule, Button, Icon, Tooltip],
+  imports: [CommonModule, FormsModule, Icon, Tooltip],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -96,13 +94,11 @@ export class InputComponent implements ControlValueAccessor {
     this.currentType() === 'password' ? this.showPasswordLabel() : this.hidePasswordLabel(),
   );
 
-  protected readonly buttonSize = computed<LzButtonSize>(() => {
-    const size = this.size();
-    if (!this.iconButton()) {
-      return size === 'lg' ? 'lg' : size === 'md' ? 'md' : 'sm';
-    }
-    return size === 'lg' ? 'sm' : size === 'md' ? 'md' : 'xs';
-  });
+  protected readonly showAddon = computed(
+    () => !!this.withButton() && (!!this.buttonLabel() || !!this.iconButton()),
+  );
+
+  protected readonly addonIconOnly = computed(() => !!this.iconButton() && !this.buttonLabel());
 
   protected readonly autocompleteAttr = computed(() => {
     const explicit = this.autocomplete();

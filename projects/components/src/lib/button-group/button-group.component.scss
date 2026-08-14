@@ -1,39 +1,83 @@
+/**
+ * Эталон: Laziar System (Figma Button Group / Button Group Playground).
+ * Общая рамка #121212 10%, фон #FFFFFA, gap 0.
+ * Радиус 8px или pill; внутренние стыки 0.
+ * line — вертикальные разделители того же цвета.
+ */
+
 :host.lz-button-group-host {
   display: inline-flex;
+  max-width: 100%;
   vertical-align: middle;
 }
 
 .lz-button-group {
-  border-radius: 0.5rem;
-  border: 1px solid var(--lz-color-border-subtle, var(--lz-color-neutral-100));
+  --lz-btn-group-radius: 0.5rem;
+  --lz-btn-group-border: color-mix(in srgb, var(--lz-color-neutral-900) 10%, transparent);
+
+  box-sizing: border-box;
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  max-width: 100%;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 0;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid var(--lz-btn-group-border);
+  border-radius: var(--lz-btn-group-radius);
+  background-color: var(--lz-color-background);
 
-  &--divided {
-    ::ng-deep > * + * {
-      border-left: 1px solid var(--lz-color-border-subtle, var(--lz-color-neutral-100));
-    }
+  &:has(.lz-button-host--pill) {
+    --lz-btn-group-radius: 9999px;
   }
+}
 
-  ::ng-deep lz-button,
-  ::ng-deep button {
-    &:not(:first-child) {
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-    }
+:host ::ng-deep .lz-button-group--divided > * + * {
+  border-inline-start: 1px solid var(--lz-btn-group-border);
+}
 
-    &:not(:last-child) {
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
-    }
+:host ::ng-deep .lz-button-group > *,
+:host ::ng-deep .lz-button-group lz-button,
+:host ::ng-deep .lz-button-group .lz-button-host,
+:host ::ng-deep .lz-button-group > button {
+  min-width: 0;
+  display: flex;
+  align-self: stretch;
+}
 
-    border: none;
+:host ::ng-deep .lz-button-group .lz-button,
+:host ::ng-deep .lz-button-group > button {
+  border-radius: 0;
+  --lz-btn-border-w: 0;
+  box-shadow: none;
+  height: 100%;
+}
 
-    &:hover,
-    &:focus-visible {
-      z-index: 1;
-      position: relative;
-    }
-  }
+:host ::ng-deep .lz-button-group .lz-button-host:has(.lz-button[data-icon-only='true']) {
+  flex: 0 0 auto;
+}
+
+:host ::ng-deep .lz-button-group .lz-button[data-icon-only='true'] {
+  aspect-ratio: 1 / 1;
+  flex: 0 0 auto;
+  width: auto;
+}
+
+:host ::ng-deep .lz-button-group .lz-button:focus,
+:host ::ng-deep .lz-button-group > button:focus {
+  z-index: 1;
+  position: relative;
+  box-shadow: var(--lz-btn-ring, var(--lz-shadow-focus));
+}
+
+:host ::ng-deep .lz-button-group > :first-child .lz-button,
+:host ::ng-deep .lz-button-group > button:first-child {
+  border-start-start-radius: var(--lz-btn-group-radius);
+  border-end-start-radius: var(--lz-btn-group-radius);
+}
+
+:host ::ng-deep .lz-button-group > :last-child .lz-button,
+:host ::ng-deep .lz-button-group > button:last-child {
+  border-start-end-radius: var(--lz-btn-group-radius);
+  border-end-end-radius: var(--lz-btn-group-radius);
 }

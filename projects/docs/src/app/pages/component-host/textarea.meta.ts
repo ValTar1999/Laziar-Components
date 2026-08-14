@@ -4,17 +4,17 @@ import { LZ_TEXTAREA_RESIZE } from '@laziar/components';
 export const TEXTAREA_COMPONENT_META: DocsComponentMeta = {
   name: 'TextareaComponent',
   selector: 'lz-textarea',
-  description: 'Многострочное поле с label, helper и настройкой resize.',
+  description: 'Multiline field with label, helper, and resize setting.',
   controls: [
     {
       name: 'label',
       kind: 'string',
-      default: 'Комментарий',
+      default: 'Comment',
     },
     {
       name: 'placeholder',
       kind: 'string',
-      default: 'Введите текст…',
+      default: 'Enter text…',
     },
     {
       name: 'rows',
@@ -46,24 +46,24 @@ export const TEXTAREA_COMPONENT_META: DocsComponentMeta = {
   variants: [
     {
       label: 'default · vertical',
-      props: { label: 'Комментарий', rows: 4, resize: 'vertical' },
+      props: { label: 'Comment', rows: 4, resize: 'vertical' },
     },
     {
       label: 'error',
       props: {
-        label: 'Комментарий',
+        label: 'Comment',
         rows: 3,
         error: true,
-        helperText: 'Обязательное поле',
+        helperText: 'Required field',
       },
     },
     {
       label: 'resize none',
-      props: { label: 'Фиксированный', rows: 4, resize: 'none' },
+      props: { label: 'Fixed', rows: 4, resize: 'none' },
     },
     {
       label: 'disabled',
-      props: { label: 'Только чтение', rows: 3, disabled: true },
+      props: { label: 'Read only', rows: 3, disabled: true },
     },
   ],
   inputs: [
@@ -71,7 +71,7 @@ export const TEXTAREA_COMPONENT_META: DocsComponentMeta = {
       name: 'label',
       type: 'string | undefined',
       default: 'undefined',
-      description: 'Подпись над полем',
+      description: 'Label above the field',
     },
     {
       name: 'placeholder',
@@ -83,53 +83,54 @@ export const TEXTAREA_COMPONENT_META: DocsComponentMeta = {
       name: 'rows',
       type: 'number',
       default: '4',
-      description: 'Число видимых строк',
+      description: 'Number of visible rows',
     },
     {
       name: 'helperText',
       type: 'string | undefined',
       default: 'undefined',
-      description: 'Подсказка / ошибка',
+      description: 'Hint / error',
     },
     {
       name: 'error',
       type: 'boolean',
       default: 'false',
-      description: 'Состояние ошибки',
+      description: 'Error state',
     },
     {
       name: 'disabled',
       type: 'boolean',
       default: 'false',
-      description: 'Отключает поле',
+      description: 'Disables the field',
     },
     {
       name: 'resize',
       type: `'none' | 'vertical' | 'horizontal' | 'both'`,
       default: `'vertical'`,
-      description: 'Поведение resize',
+      description: 'Resize behavior',
     },
   ],
   outputs: [
     {
       name: 'valueChange',
       type: 'OutputEmitterRef<string>',
-      description: 'Изменение значения',
+      description: 'Value change',
     },
   ],
   slots: [],
   examples: [
     {
-      title: 'С ngModel',
+      title: 'With ngModel',
       code: `<lz-textarea
-  label="Описание"
+  label="Description"
   [rows]="5"
   [(ngModel)]="description"
 />`,
     },
   ],
   tokens: [
-    { name: '--lz-textarea-border', description: 'Цвет рамки' },
-    { name: '--lz-textarea-bg', description: 'Фон' },
+    { name: '--lz-color-neutral-900 / 10%', description: 'Default border' },
+    { name: '--lz-color-background', description: 'Field background (#FFFFFA)' },
+    { name: '--lz-color-danger-500', description: 'Border and helper on error' },
   ],
 };

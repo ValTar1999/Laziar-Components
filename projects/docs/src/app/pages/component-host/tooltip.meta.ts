@@ -15,17 +15,17 @@ export const TOOLTIP_COMPONENT_META: DocsComponentMeta = {
   name: 'Tooltip',
   selector: 'lz-tooltip',
   description:
-    'Обёртка над тегом/элементом: CDK Overlay панель по hover или click. Алиас: `lz-tooltip-hover`.',
+    'Wrapper around a tag/element: CDK Overlay panel on hover or click. Alias: `lz-tooltip-hover`.',
   controls: [
     {
       name: 'title',
       kind: 'string',
-      default: 'Заголовок',
+      default: 'Title',
     },
     {
       name: 'text',
       kind: 'string',
-      default: 'Текст подсказки',
+      default: 'Tooltip text',
     },
     {
       name: 'position',
@@ -60,8 +60,8 @@ export const TOOLTIP_COMPONENT_META: DocsComponentMeta = {
     {
       label: 'hover · top',
       props: {
-        title: 'Заголовок',
-        text: 'Текст подсказки',
+        title: 'Title',
+        text: 'Tooltip text',
         position: 'top',
         theme: 'dark',
         arrow: false,
@@ -72,8 +72,8 @@ export const TOOLTIP_COMPONENT_META: DocsComponentMeta = {
     {
       label: 'click · arrow',
       props: {
-        title: 'Клик',
-        text: 'Открывается по клику',
+        title: 'Click',
+        text: 'Opens on click',
         position: 'bottom',
         theme: 'dark',
         arrow: true,
@@ -84,8 +84,8 @@ export const TOOLTIP_COMPONENT_META: DocsComponentMeta = {
     {
       label: 'light · top-right',
       props: {
-        title: 'Светлая',
-        text: 'Тема light',
+        title: 'Light',
+        text: 'Light theme',
         position: 'top-right',
         theme: 'light',
         arrow: true,
@@ -99,88 +99,88 @@ export const TOOLTIP_COMPONENT_META: DocsComponentMeta = {
       name: 'title',
       type: 'string',
       default: "''",
-      description: 'Заголовок панели',
+      description: 'Panel title',
     },
     {
       name: 'text',
       type: 'string',
       default: "''",
-      description: 'Текст панели',
+      description: 'Panel text',
     },
     {
       name: 'img',
       type: 'string',
       default: "''",
-      description: 'URL изображения в панели',
+      description: 'Image URL in the panel',
     },
     {
       name: 'position',
       type: `'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'`,
       default: `'top'`,
-      description: 'Позиция CDK overlay',
+      description: 'CDK overlay position',
     },
     {
       name: 'theme',
       type: `'dark' | 'light'`,
       default: `'dark'`,
-      description: 'Тема панели',
+      description: 'Panel theme',
     },
     {
       name: 'arrow',
       type: 'boolean',
       default: 'false',
-      description: 'Показать стрелку',
+      description: 'Show arrow',
     },
     {
       name: 'disabled',
       type: 'boolean',
       default: 'false',
-      description: 'Отключает открытие',
+      description: 'Disables opening',
     },
     {
       name: 'trigger',
       type: `'hover' | 'click'`,
       default: `'hover'`,
-      description: 'Способ открытия',
+      description: 'Opening method',
     },
     {
       name: 'triggerClass',
       type: 'string',
       default: 'undefined',
-      description: 'Класс обёртки триггера',
+      description: 'Trigger wrapper class',
     },
   ],
   outputs: [],
   slots: [
     {
       name: '(default)',
-      description: 'Триггер — кнопка, иконка, ссылка и т.д.',
+      description: 'Trigger — button, icon, link, etc.',
     },
   ],
   examples: [
     {
       title: 'Hover',
-      code: `<lz-tooltip title="Профиль" text="Открыть настройки" position="top">
-  <button type="button">Наведи</button>
+      code: `<lz-tooltip title="Profile" text="Open settings" position="top">
+  <button type="button">Hover me</button>
 </lz-tooltip>`,
     },
     {
-      title: 'Click + стрелка',
+      title: 'Click + arrow',
       code: `<lz-tooltip
   trigger="click"
   [arrow]="true"
-  title="Меню"
-  text="Доп. действия"
+  title="Menu"
+  text="Extra actions"
 >
-  <button type="button">Открыть</button>
+  <button type="button">Open</button>
 </lz-tooltip>`,
     },
   ],
   tokens: [
-    { name: 'CDK Overlay pane', description: 'Класс lz-tooltip-cdk-pane' },
+    { name: 'CDK Overlay pane', description: 'lz-tooltip-cdk-pane class' },
     {
       name: 'data-panel-theme',
-      description: 'Тема панели dark / light (не путать с data-theme приложения)',
+      description: 'dark / light panel theme (do not confuse with app data-theme)',
     },
   ],
 };

@@ -74,6 +74,8 @@ export interface DocsComponentMeta {
   deprecated?: DocsApiDeprecated[];
   examples: DocsExample[];
   tokens: DocsTokenRef[];
+  /** Sandbox-only controls that are not real component inputs. */
+  snippetIgnore?: readonly string[];
 }
 
 export function defaultsFromControls(controls: DocsSandboxControl[]): DocsSandboxValues {

@@ -5,13 +5,16 @@ import { Badge } from '../badge/badge.component';
 import { Icon } from '../icon/icon.component';
 import { Tooltip } from '../tooltip/tooltip.component';
 
-/** Tabs — union: frontend + publikator (`app-tabs` / `lz-tabs`). */
+/** Tabs — Laziar System (Figma Tabs): outline pill / underline / border. */
 @Component({
   selector: 'lz-tabs',
   standalone: true,
   imports: [CommonModule, Badge, Icon, Tooltip],
   templateUrl: './tabs.component.html',
   styleUrl: './tabs.component.scss',
+  host: {
+    class: 'lz-tabs-host',
+  },
 })
 export class Tabs {
   readonly tabs = input<string[]>([]);

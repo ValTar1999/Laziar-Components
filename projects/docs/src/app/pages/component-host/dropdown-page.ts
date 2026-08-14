@@ -1,41 +1,44 @@
 import { Component, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { FormsModule } from '@angular/forms';
 import { TranslocoService } from '@jsverse/transloco';
-import { SelectComponent } from '@laziar/components';
+import { DropdownComponent, LzDropdownSection } from '@laziar/components';
 import { DocsSandboxValues } from '../../core/component-doc.model';
 import { ComponentPage } from '../../shared/component-page/component-page';
 import { DocsPreviewDirective } from '../../shared/component-page/docs-preview.directive';
 import { docsBool, docsStr } from './docs-page.helpers';
-import { SELECT_COMPONENT_META } from './select.meta';
+import { DROPDOWN_COMPONENT_META } from './dropdown.meta';
 
 @Component({
-  selector: 'docs-select-page',
+  selector: 'docs-dropdown-page',
   standalone: true,
-  imports: [ComponentPage, DocsPreviewDirective, FormsModule, SelectComponent],
-  templateUrl: './select-page.html',
-  styles: `
-    .docs-select-preview {
-      width: 100%;
-      max-width: 13.75rem;
-    }
-  `,
+  imports: [ComponentPage, DocsPreviewDirective, DropdownComponent],
+  templateUrl: './dropdown-page.html',
 })
-export class SelectPage {
+export class DropdownPage {
   private readonly transloco = inject(TranslocoService);
   private readonly activeLang = toSignal(this.transloco.langChanges$, {
     initialValue: this.transloco.getActiveLang(),
   });
 
-  protected readonly meta = SELECT_COMPONENT_META;
-  protected value = '';
+  protected readonly meta = DROPDOWN_COMPONENT_META;
 
-  protected readonly options = computed(() => {
+  protected readonly sections = computed((): LzDropdownSection[] => {
     this.activeLang();
     return [
-      this.transloco.translate('components.select.demo.optionA'),
-      this.transloco.translate('components.select.demo.optionB'),
-      this.transloco.translate('components.select.demo.optionC'),
+      {
+        heading: this.transloco.translate('components.dropdown.demo.account'),
+        items: [
+          this.transloco.translate('components.dropdown.demo.profile'),
+          this.transloco.translate('components.dropdown.demo.settings'),
+        ],
+      },
+      {
+        heading: this.transloco.translate('components.dropdown.demo.actions'),
+        items: [
+          this.transloco.translate('components.dropdown.demo.archive'),
+          this.transloco.translate('components.dropdown.demo.delete'),
+        ],
+      },
     ];
   });
 

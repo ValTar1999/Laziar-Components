@@ -17,7 +17,7 @@
       (click)="setActiveTab(i)"
     >
       @if (icons()[i]) {
-        <lz-icon [name]="icons()[i]" />
+        <lz-icon [name]="icons()[i]" type="mini" />
       }
       @if (isTabDisabled(i) && getDisabledTooltip(i)) {
         <lz-tooltip

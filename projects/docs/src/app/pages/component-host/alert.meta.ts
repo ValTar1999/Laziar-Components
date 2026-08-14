@@ -5,23 +5,23 @@ export const ALERT_COMPONENT_META: DocsComponentMeta = {
   name: 'Alert',
   selector: 'lz-alert',
   description:
-    'Баннер уведомления с иконкой, заголовком, текстом и опциональной кнопкой закрытия. Поддерживает семантические варианты и горизонтальную раскладку.',
+    'Notification banner with an icon, title, text, and optional close button. Supports semantic variants and horizontal layout.',
   controls: [
     {
       name: 'title',
       kind: 'string',
-      default: 'Успешно',
+      default: 'Success',
     },
     {
       name: 'text',
       kind: 'string',
-      default: 'Изменения сохранены.',
+      default: 'Changes saved.',
     },
     {
       name: 'iconName',
       kind: 'string',
       default: 'check-circle',
-      description: 'Имя символа lz-icon',
+      description: 'lz-icon symbol name',
     },
     {
       name: 'iconVariant',
@@ -68,7 +68,7 @@ export const ALERT_COMPONENT_META: DocsComponentMeta = {
     props: {
       variant,
       title: variant,
-      text: 'Краткое сообщение',
+      text: 'Short message',
       iconName: 'check-circle',
       iconVariant: 'outline',
       size: 'sm',
@@ -83,120 +83,124 @@ export const ALERT_COMPONENT_META: DocsComponentMeta = {
       name: 'title',
       type: 'string',
       default: `'Alert title'`,
-      description: 'Заголовок баннера',
+      description: 'Banner title',
     },
     {
       name: 'text',
       type: 'string',
       default: "''",
-      description: 'Основной текст',
+      description: 'Main text',
     },
     {
       name: 'iconName',
       type: 'string',
       default: `'check-circle'`,
-      description: 'Имя иконки lz-icon',
+      description: 'lz-icon icon name',
     },
     {
       name: 'iconVariant',
       type: `'outline' | 'solid' | 'mini' | 'micro' | 'custom'`,
       default: `'outline'`,
-      description: 'Вариант спрайта иконки',
+      description: 'Icon sprite variant',
     },
     {
       name: 'variant',
       type: `'default' | 'gray' | 'warning' | 'error' | 'success' | 'info' | 'purple' | 'dark' | 'red'`,
       default: `'default'`,
-      description: 'Семантический / цветовой вариант',
+      description: 'Semantic / color variant',
     },
     {
       name: 'size',
       type: `'base' | 'sm'`,
       default: `'sm'`,
-      description: 'Типографический размер',
+      description: 'Typography size',
     },
     {
       name: 'padding',
       type: `'p-3' | 'p-4'`,
       default: `'p-4'`,
-      description: 'Внутренние отступы',
+      description: 'Inner spacing',
     },
     {
       name: 'isRow',
       type: 'boolean',
       default: 'false',
-      description: 'Горизонтальная раскладка контента',
+      description: 'Horizontal content layout',
     },
     {
       name: 'isRowtext',
       type: 'boolean',
       default: 'false',
-      description: 'Заголовок и текст в одну строку',
+      description: 'Title and text on one line',
     },
     {
       name: 'showCloseButton',
       type: 'boolean',
       default: 'true',
-      description: 'Показать кнопку закрытия',
+      description: 'Show close button',
     },
     {
       name: 'closeColor',
       type: `'gray' | 'yellow' | 'red' | 'green' | 'blue' | 'purple'`,
       default: 'undefined',
-      description: 'Переопределение цвета кнопки закрытия',
+      description: 'Close button color override',
     },
     {
       name: 'buttonVariant',
       type: `'primary' | 'outline' | 'secondary' | 'tertiary' | 'link'`,
       default: 'undefined',
-      description: 'Переопределение варианта кнопки закрытия',
+      description: 'Close button variant override',
     },
   ],
   outputs: [
     {
       name: 'closed',
       type: 'OutputEmitterRef<void>',
-      description: 'Клик по кнопке закрытия',
+      description: 'Close button click',
     },
   ],
   slots: [
     {
       name: '(default)',
-      description: 'Доп. контент в теле алерта (рядом с текстом)',
+      description: 'Extra content in the alert body (next to the text)',
     },
   ],
   examples: [
     {
-      title: 'Успех',
+      title: 'Success',
       code: `<lz-alert
   variant="success"
-  title="Готово"
-  text="Профиль обновлён"
+  title="Done"
+  text="Profile updated"
   iconName="check-circle"
 />`,
     },
     {
-      title: 'Ошибка без закрытия',
+      title: 'Error without close',
       code: `<lz-alert
   variant="error"
-  title="Ошибка"
-  text="Не удалось сохранить"
+  title="Error"
+  text="Could not save"
   [showCloseButton]="false"
 />`,
     },
     {
-      title: 'Строка',
+      title: 'Row',
       code: `<lz-alert
   variant="info"
-  title="Подсказка"
-  text="Можно продолжить"
+  title="Hint"
+  text="You can continue"
   [isRow]="true"
 />`,
     },
   ],
   tokens: [
-    { name: '--lz-color-primary / secondary / …', description: 'Семантические палитры вариантов' },
-    { name: '--lz-radius-*', description: 'Скругление контейнера' },
-    { name: '--lz-font-size-*', description: 'Типографика title / text по size' },
+    { name: '--lz-color-background', description: 'Default background (#FFFFFA)' },
+    { name: '--lz-color-neutral-900', description: 'Default 10% outline, dark fill' },
+    { name: '--lz-color-success-50 / 500 / 700', description: 'success variant' },
+    { name: '--lz-color-danger-50 / 500 / 700', description: 'error and solid red variants' },
+    { name: '--lz-color-warning-50 / 500 / 700', description: 'warning variant' },
+    { name: '--lz-color-text-inverse', description: 'Text on dark / red' },
+    { name: '--lz-radius-lg', description: '8px rounding' },
   ],
 };

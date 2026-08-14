@@ -107,6 +107,14 @@ export const DOCS_NAV: DocsNavGroup[] = [
         keywords: 'select dropdown options',
       },
       {
+        id: 'dropdown',
+        label: 'nav.items.dropdown',
+        route: '/components/dropdown',
+        kind: 'component',
+        icon: 'chevron-down',
+        keywords: 'dropdown menu overlay sections',
+      },
+      {
         id: 'stub',
         label: 'nav.items.stub',
         route: '/components/stub',

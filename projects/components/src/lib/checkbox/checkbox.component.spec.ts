@@ -30,6 +30,17 @@ describe('Checkbox', () => {
     expect(component.description()).toBe('');
   });
 
+  it('should round radio even without rounded flag', () => {
+    fixture.componentRef.setInput('type', 'radio');
+    fixture.detectChanges();
+
+    const wrapper = fixture.nativeElement.querySelector('label');
+    const input = fixture.nativeElement.querySelector('input');
+
+    expect(wrapper.className).toContain('lz-checkbox__wrapper--rounded');
+    expect(input.className).toContain('lz-checkbox__input--rounded');
+  });
+
   it('should emit checkedChange when input changes', () => {
     spyOn(component.checkedChange, 'emit');
 

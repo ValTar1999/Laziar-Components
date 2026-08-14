@@ -54,6 +54,17 @@ describe('SwitchToggle', () => {
     expect(component.changed.emit).toHaveBeenCalledWith(false);
   });
 
+  it('should expose switch semantics', () => {
+    const toggle = fixture.nativeElement.querySelector('button');
+    expect(toggle.getAttribute('role')).toBe('switch');
+    expect(toggle.getAttribute('aria-checked')).toBe('false');
+
+    fixture.componentRef.setInput('active', true);
+    fixture.detectChanges();
+
+    expect(toggle.getAttribute('aria-checked')).toBe('true');
+  });
+
   it('should apply correct CSS classes', () => {
     fixture.componentRef.setInput('size', 'sm');
     fixture.componentRef.setInput('active', true);
@@ -67,8 +78,7 @@ describe('SwitchToggle', () => {
     expect(container.className).toContain('lz-switch-toggle__container--sm');
     expect(container.className).toContain('lz-switch-toggle__container--disabled');
     expect(toggle.className).toContain('lz-switch-toggle__toggle--sm');
-    // publikator: disabled → inactive track even if active
-    expect(toggle.className).toContain('lz-switch-toggle__toggle--inactive');
+    expect(toggle.className).toContain('lz-switch-toggle__toggle--active');
     expect(circle.className).toContain('lz-switch-toggle__circle--sm');
     expect(circle.className).toContain('lz-switch-toggle__circle--right');
   });

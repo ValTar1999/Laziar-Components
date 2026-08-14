@@ -1,138 +1,123 @@
-:host {
+/**
+ * Эталон: Laziar System (Figma Avatars, stacked group).
+ * Размеры как у lz-avatar (xxs–lg), overlap ~25%, кольцо bg/general/primary (#FFFFFA).
+ * Fallback / «+N»: bg/neutral-50, border #121212 10%, Onest 600.
+ */
+
+:host.lz-avatar-group-host {
   display: inline-flex;
   vertical-align: middle;
 }
 
 .lz-avatar-group {
+  --lz-avatar-group-size: 2.5rem;
+  --lz-avatar-group-font: var(--lz-font-size-sm);
+  --lz-avatar-group-line: 1.25rem;
+  --lz-avatar-group-ring: 2px;
+  --lz-avatar-group-overlap: calc(var(--lz-avatar-group-size) * 0.25);
+
+  box-sizing: border-box;
   display: flex;
   align-items: center;
-  position: relative;
+  isolation: isolate;
+  padding: var(--lz-avatar-group-ring);
   font-family: var(--lz-font-sans);
 
   &__item {
-    flex-shrink: 0;
-    border-radius: 50%;
-    overflow: hidden;
+    box-sizing: border-box;
     position: relative;
-    margin-left: -6px;
+    flex-shrink: 0;
+    width: var(--lz-avatar-group-size);
+    height: var(--lz-avatar-group-size);
+    margin-left: calc(var(--lz-avatar-group-overlap) * -1);
+    border-radius: 50%;
+    box-shadow: 0 0 0 var(--lz-avatar-group-ring) var(--lz-color-background);
 
     &:first-child {
       margin-left: 0;
     }
   }
 
+  &__face {
+    box-sizing: border-box;
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
+
   &__image {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
+  }
+
+  &__fallback,
+  &__face--placeholder {
+    border: 1px solid color-mix(in srgb, var(--lz-color-neutral-900) 10%, transparent);
+    background-color: var(--lz-color-neutral-50);
+    color: var(--lz-color-neutral-700);
   }
 
   &__fallback {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     border-radius: 50%;
-    border: 1px solid var(--lz-color-border-subtle, var(--lz-color-neutral-100));
-    background-color: var(--lz-color-neutral-surface, var(--lz-color-neutral-50));
-    color: var(--lz-color-neutral-600);
-    font-weight: 600;
-    position: absolute;
-    top: 0;
-    left: 0;
   }
 
-  &__remaining {
-    position: relative;
-    margin-left: -6px;
-    flex-shrink: 0;
-    overflow: hidden;
-    border-radius: 50%;
-    border: 1px solid var(--lz-color-border-subtle, var(--lz-color-neutral-100));
-    background-color: var(--lz-color-neutral-surface, var(--lz-color-neutral-50));
-    color: var(--lz-color-neutral-600);
-  }
-
-  &__remaining-content {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  &__fallback,
+  &__remaining-text {
+    font-size: var(--lz-avatar-group-font);
+    font-weight: var(--lz-font-weight-semibold);
+    line-height: var(--lz-avatar-group-line);
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    user-select: none;
   }
 
   &__remaining-text {
-    font-weight: 600;
-    line-height: 1;
-    color: var(--lz-color-neutral-600);
+    text-transform: none;
   }
 }
 
 .lz-avatar-group[data-size='xxs'] {
-  .lz-avatar-group__item,
-  .lz-avatar-group__remaining {
-    width: 1rem;
-    height: 1rem;
-  }
-
-  .lz-avatar-group__fallback,
-  .lz-avatar-group__remaining-text {
-    font-size: 0.75rem;
-  }
+  --lz-avatar-group-size: 1.25rem;
+  --lz-avatar-group-font: 9px;
+  --lz-avatar-group-line: 1rem;
+  --lz-avatar-group-ring: 1px;
 }
 
 .lz-avatar-group[data-size='xs'] {
-  .lz-avatar-group__item,
-  .lz-avatar-group__remaining {
-    width: 1.25rem;
-    height: 1.25rem;
-  }
-
-  .lz-avatar-group__fallback,
-  .lz-avatar-group__remaining-text {
-    font-size: 0.75rem;
-  }
+  --lz-avatar-group-size: 1.5rem;
+  --lz-avatar-group-font: 10px;
+  --lz-avatar-group-line: 1rem;
+  --lz-avatar-group-ring: 1px;
 }
 
 .lz-avatar-group[data-size='sm'] {
-  .lz-avatar-group__item,
-  .lz-avatar-group__remaining {
-    width: 1.5rem;
-    height: 1.5rem;
-  }
-
-  .lz-avatar-group__fallback,
-  .lz-avatar-group__remaining-text {
-    font-size: 0.75rem;
-  }
+  --lz-avatar-group-size: 2rem;
+  --lz-avatar-group-font: var(--lz-font-size-xs);
+  --lz-avatar-group-line: 1rem;
+  --lz-avatar-group-ring: 2px;
 }
 
 .lz-avatar-group[data-size='md'] {
-  .lz-avatar-group__item,
-  .lz-avatar-group__remaining {
-    width: 2rem;
-    height: 2rem;
-  }
-
-  .lz-avatar-group__fallback,
-  .lz-avatar-group__remaining-text {
-    font-size: 0.875rem;
-  }
+  --lz-avatar-group-size: 2.5rem;
+  --lz-avatar-group-font: var(--lz-font-size-sm);
+  --lz-avatar-group-line: 1.25rem;
+  --lz-avatar-group-ring: 2px;
 }
 
 .lz-avatar-group[data-size='lg'] {
-  .lz-avatar-group__item,
-  .lz-avatar-group__remaining {
-    width: 2.5rem;
-    height: 2.5rem;
-  }
-
-  .lz-avatar-group__fallback,
-  .lz-avatar-group__remaining-text {
-    font-size: 1rem;
-  }
+  --lz-avatar-group-size: 3rem;
+  --lz-avatar-group-font: var(--lz-font-size-sm);
+  --lz-avatar-group-line: 1.25rem;
+  --lz-avatar-group-ring: 2px;
 }

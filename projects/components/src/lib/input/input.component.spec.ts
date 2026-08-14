@@ -94,7 +94,17 @@ describe('InputComponent', () => {
     fixture.detectChanges();
 
     const helperElement = fixture.debugElement.nativeElement.querySelector('.lz-input-helper');
-    expect(helperElement.textContent.trim()).toBe(helperText);
+    expect(helperElement.textContent).toContain(helperText);
+  });
+
+  it('should show error icon with helper text', () => {
+    fixture.componentRef.setInput('error', true);
+    fixture.componentRef.setInput('helperText', 'Required');
+    fixture.detectChanges();
+
+    const helper = fixture.nativeElement.querySelector('.lz-input-helper');
+    expect(helper.getAttribute('data-error')).toBe('true');
+    expect(helper.querySelector('.lz-input-helper-icon')).toBeTruthy();
   });
 
   it('should display label', () => {
@@ -112,5 +122,40 @@ describe('InputComponent', () => {
 
     const inputElement = fixture.debugElement.nativeElement.querySelector('input');
     expect(inputElement.getAttribute('data-size')).toBe('sm');
+  });
+
+  it('should join a leading addon into the field', () => {
+    fixture.componentRef.setInput('withButton', 'left');
+    fixture.componentRef.setInput('buttonLabel', 'Button');
+    fixture.componentRef.setInput('size', 'md');
+    fixture.detectChanges();
+
+    const field = fixture.nativeElement.querySelector('input');
+    const addon = fixture.nativeElement.querySelector('.lz-input-addon');
+    expect(addon).toBeTruthy();
+    expect(addon.getAttribute('data-side')).toBe('left');
+    expect(addon.textContent.trim()).toBe('Button');
+    expect(field.getAttribute('data-has-button-left')).toBe('true');
+  });
+
+  it('should keep field and trailing addon as separate focus targets', () => {
+    fixture.componentRef.setInput('withButton', 'right');
+    fixture.componentRef.setInput('buttonLabel', 'Button');
+    fixture.componentRef.setInput('size', 'md');
+    fixture.detectChanges();
+
+    const field = fixture.nativeElement.querySelector('input');
+    const addon = fixture.nativeElement.querySelector('.lz-input-addon');
+    expect(addon.getAttribute('data-side')).toBe('right');
+    expect(field.getAttribute('data-has-button-right')).toBe('true');
+    expect(addon.tabIndex).not.toBe(-1);
+  });
+
+  it('should use mini icons for search', () => {
+    fixture.componentRef.setInput('type', 'search');
+    fixture.detectChanges();
+
+    const icon = fixture.nativeElement.querySelector('.lz-input-search-icon');
+    expect(icon.getAttribute('data-type')).toBe('mini');
   });
 });

@@ -1,65 +1,100 @@
 import {
-  AfterViewInit,
+  booleanAttribute,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
   HostListener,
   inject,
   input,
+  OnDestroy,
   output,
   signal,
+  TemplateRef,
   ViewChild,
+  ViewContainerRef,
 } from '@angular/core';
-import { NgStyle } from '@angular/common';
+import { Overlay, OverlayModule, OverlayRef, PositionStrategy } from '@angular/cdk/overlay';
+import { TemplatePortal } from '@angular/cdk/portal';
+import { autoUpdate, computePosition, flip, offset, shift, size } from '@floating-ui/dom';
 import { Icon } from '../icon/icon.component';
 import { LzDropdownSection, LzDropdownSize } from './dropdown.types';
 
+let nextDropdownId = 0;
+
+const DROPDOWN_OFFSET_PX = 8;
+const DROPDOWN_VIEWPORT_PADDING_PX = 8;
+const DROPDOWN_MAX_HEIGHT_PX = 280;
+
+/** CDK portal only — coordinates come from Floating UI. */
+function floatingUiPositionStrategy(): PositionStrategy {
+  return {
+    attach: () => undefined,
+    apply: () => undefined,
+    detach: () => undefined,
+    dispose: () => undefined,
+  };
+}
+
+/**
+ * Menu dropdown `@laziar/components`.
+ * Trigger + sectioned menu. Overlay via CDK + Floating UI.
+ * Styles — Laziar System (Figma Dropdown / Select Menu).
+ */
 @Component({
   selector: 'lz-dropdown',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgStyle, Icon],
+  imports: [OverlayModule, Icon],
   templateUrl: './dropdown.component.html',
   styleUrl: './dropdown.component.scss',
   host: {
     class: 'lz-dropdown-host',
   },
 })
-export class DropdownComponent implements AfterViewInit {
+export class DropdownComponent implements OnDestroy {
+  private readonly elementRef = inject(ElementRef<HTMLElement>);
+  private readonly overlay = inject(Overlay);
+  private readonly vcr = inject(ViewContainerRef);
+
   readonly title = input('Menu');
   readonly sections = input<LzDropdownSection[]>([]);
   readonly sizeVariant = input<LzDropdownSize>('xl');
+  readonly disabled = input(false, { transform: booleanAttribute });
 
   readonly itemSelected = output<string>();
+  readonly opened = output<void>();
   // Required source-compatible API name.
   // eslint-disable-next-line @angular-eslint/no-output-native
   readonly close = output<void>();
 
-  @ViewChild('dropdownMenu') private dropdownMenu?: ElementRef<HTMLElement>;
+  readonly dropdownId = `lz-dropdown-${nextDropdownId++}`;
+  readonly menuId = `${this.dropdownId}-menu`;
+  readonly paneClass = 'lz-dropdown-cdk-pane';
+
+  @ViewChild('trigger', { static: true })
+  private trigger?: ElementRef<HTMLButtonElement>;
+
+  @ViewChild('menuTpl', { static: true })
+  private menuTpl?: TemplateRef<unknown>;
 
   protected readonly isOpen = signal(false);
-  protected readonly positionStyle = signal<Record<string, string>>({
-    top: 'auto',
-    bottom: 'auto',
-    left: 'auto',
-    right: 'auto',
-  });
 
-  private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private overlayRef?: OverlayRef;
+  private floatingCleanup?: () => void;
 
-  ngAfterViewInit(): void {
-    this.calculatePosition();
+  ngOnDestroy(): void {
+    this.teardownOverlay();
   }
 
   protected toggleDropdown(): void {
-    const open = !this.isOpen();
-    this.isOpen.set(open);
+    if (this.disabled()) return;
 
-    if (open) {
-      setTimeout(() => this.calculatePosition());
-    } else {
+    if (this.isOpen()) {
       this.closeDropdown();
+      return;
     }
+
+    this.openDropdown();
   }
 
   protected selectItem(item: string): void {
@@ -67,53 +102,124 @@ export class DropdownComponent implements AfterViewInit {
     this.closeDropdown();
   }
 
-  @HostListener('window:resize')
-  protected onWindowResize(): void {
+  protected onItemKeydown(event: Event, item: string): void {
+    const key = (event as KeyboardEvent).key;
+    if (key !== 'Enter' && key !== ' ') return;
+    event.preventDefault();
+    this.selectItem(item);
+  }
+
+  @HostListener('document:keydown.escape')
+  protected onEscape(): void {
     if (this.isOpen()) {
-      this.calculatePosition();
+      this.closeDropdown();
     }
   }
 
   @HostListener('document:click', ['$event'])
-  protected onClickOutside(event: MouseEvent): void {
-    if (this.isOpen() && !this.elementRef.nativeElement.contains(event.target as Node)) {
-      this.closeDropdown();
-    }
+  protected onClickOutside(event: Event): void {
+    if (!this.isOpen()) return;
+
+    const target = event.target as Node | null;
+    if (!target) return;
+    if (this.elementRef.nativeElement.contains(target)) return;
+    if (this.overlayRef?.overlayElement.contains(target)) return;
+
+    this.closeDropdown();
+  }
+
+  private openDropdown(): void {
+    if (this.isOpen() || this.disabled()) return;
+
+    this.isOpen.set(true);
+    this.attachOverlay();
+    this.opened.emit();
   }
 
   private closeDropdown(): void {
     if (!this.isOpen()) return;
 
     this.isOpen.set(false);
+    this.detachOverlay();
     this.close.emit();
   }
 
-  private calculatePosition(): void {
-    const menu = this.dropdownMenu?.nativeElement;
-    const button =
-      this.elementRef.nativeElement.querySelector<HTMLButtonElement>('.lz-dropdown__trigger');
-    if (!menu || !button) return;
+  private attachOverlay(): void {
+    const tpl = this.menuTpl;
+    if (!tpl) return;
 
-    const buttonRect = button.getBoundingClientRect();
-    const menuRect = menu.getBoundingClientRect();
-    const parentRect = this.elementRef.nativeElement.getBoundingClientRect();
-    const spaceBelow = window.innerHeight - buttonRect.bottom;
-    const spaceAbove = buttonRect.top;
-
-    let top = 'auto';
-    let bottom = 'auto';
-
-    if (spaceBelow >= menuRect.height || spaceBelow >= spaceAbove) {
-      top = `${buttonRect.bottom - parentRect.top}px`;
-    } else {
-      bottom = `${parentRect.bottom - buttonRect.top}px`;
+    if (!this.overlayRef) {
+      this.overlayRef = this.overlay.create({
+        panelClass: this.paneClass,
+        positionStrategy: floatingUiPositionStrategy(),
+        scrollStrategy: this.overlay.scrollStrategies.noop(),
+      });
     }
 
-    this.positionStyle.set({
-      top,
-      bottom,
-      left: `${buttonRect.left - parentRect.left}px`,
-      right: 'auto',
+    if (!this.overlayRef.hasAttached()) {
+      this.overlayRef.attach(new TemplatePortal(tpl, this.vcr));
+    }
+
+    this.startFloating();
+    queueMicrotask(() => this.focusFirstItem());
+  }
+
+  private detachOverlay(): void {
+    this.stopFloating();
+    this.overlayRef?.detach();
+  }
+
+  private teardownOverlay(): void {
+    this.stopFloating();
+    this.overlayRef?.dispose();
+    this.overlayRef = undefined;
+  }
+
+  private focusFirstItem(): void {
+    this.overlayRef?.overlayElement.querySelector<HTMLElement>('[role="menuitem"]')?.focus();
+  }
+
+  private startFloating(): void {
+    this.stopFloating();
+
+    const reference = this.trigger?.nativeElement;
+    const floating = this.overlayRef?.overlayElement;
+    if (!reference || !floating) return;
+
+    this.floatingCleanup = autoUpdate(reference, floating, () => {
+      void this.positionMenu(reference, floating);
+    });
+  }
+
+  private stopFloating(): void {
+    this.floatingCleanup?.();
+    this.floatingCleanup = undefined;
+  }
+
+  private async positionMenu(reference: HTMLElement, floating: HTMLElement): Promise<void> {
+    const { x, y } = await computePosition(reference, floating, {
+      placement: 'bottom-start',
+      strategy: 'fixed',
+      middleware: [
+        offset(DROPDOWN_OFFSET_PX),
+        flip({ padding: DROPDOWN_VIEWPORT_PADDING_PX }),
+        shift({ padding: DROPDOWN_VIEWPORT_PADDING_PX }),
+        size({
+          padding: DROPDOWN_VIEWPORT_PADDING_PX,
+          apply({ rects, availableHeight, elements }) {
+            Object.assign(elements.floating.style, {
+              minWidth: `${rects.reference.width}px`,
+              maxHeight: `${Math.min(DROPDOWN_MAX_HEIGHT_PX, Math.max(0, availableHeight))}px`,
+            });
+          },
+        }),
+      ],
+    });
+
+    Object.assign(floating.style, {
+      position: 'fixed',
+      left: `${x}px`,
+      top: `${y}px`,
     });
   }
 }

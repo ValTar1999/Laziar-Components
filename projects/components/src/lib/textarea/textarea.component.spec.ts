@@ -65,7 +65,17 @@ describe('TextareaComponent', () => {
     fixture.detectChanges();
 
     const helperElement = fixture.debugElement.nativeElement.querySelector('.lz-textarea-helper');
-    expect(helperElement.textContent.trim()).toBe(helperText);
+    expect(helperElement.textContent).toContain(helperText);
+  });
+
+  it('should show error icon with helper text', () => {
+    fixture.componentRef.setInput('error', true);
+    fixture.componentRef.setInput('helperText', 'Required');
+    fixture.detectChanges();
+
+    const helper = fixture.nativeElement.querySelector('.lz-textarea-helper');
+    expect(helper.getAttribute('data-error')).toBe('true');
+    expect(helper.querySelector('.lz-textarea-helper-icon')).toBeTruthy();
   });
 
   it('should display label', () => {

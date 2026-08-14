@@ -24,6 +24,7 @@
       "input": "Input",
       "textarea": "Textarea",
       "select": "Select",
+      "dropdown": "Dropdown",
       "stub": "Stub",
       "alert": "Alert",
       "badge": "Badge",
@@ -190,9 +191,13 @@
         }
       },
       "tokens": {
-        "lz_color_primary_secondary": "Palete semantice de variante",
-        "lz_radius": "Rotunjirea containerului",
-        "lz_font_size": "Tipografie title / text după size"
+        "lz_color_background": "Fundal implicit (#FFFFFA)",
+        "lz_color_neutral_900": "Contur implicit 10%, umplere dark",
+        "lz_color_success_50_500_700": "Varianta success",
+        "lz_color_danger_50_500_700": "Variante error și solid red",
+        "lz_color_warning_50_500_700": "Varianta warning",
+        "lz_color_text_inverse": "Text pe dark / red",
+        "lz_radius_lg": "Rotunjire 8px"
       }
     },
     "avatar-group": {
@@ -220,8 +225,10 @@
         }
       },
       "tokens": {
-        "lz_color_gray": "Fundal pentru inițiale fallback și restul „+N”",
-        "lz_radius_full": "Formă rotundă a elementelor"
+        "lz_color_neutral_50": "Fundal inițiale și rest «+N»",
+        "lz_color_neutral_700": "Text inițiale și «+N»",
+        "lz_color_neutral_900": "Contur fallback 10% (#121212)",
+        "lz_color_background": "Inel crem între avatarurile suprapuse (#FFFFFA)"
       }
     },
     "avatar": {
@@ -262,11 +269,13 @@
         }
       },
       "tokens": {
-        "lz_color_gray": "Fundal / text pentru inițiale și placeholder",
-        "lz_color_success": "Indicator success",
-        "lz_color_danger": "Indicator error",
-        "lz_color_warning": "Indicator warning",
-        "lz_radius_full": "Formă rotundă a avatarului"
+        "lz_color_neutral_50": "Fundal inițiale și placeholder",
+        "lz_color_neutral_700": "Text inițiale",
+        "lz_color_success_400": "Indicator success",
+        "lz_color_danger_400": "Indicator error",
+        "lz_color_warning_400": "Indicator warning",
+        "lz_color_neutral_400": "Indicator info (offline / grey)",
+        "lz_color_background": "Inel alb în jurul punctului de status"
       }
     },
     "badge": {
@@ -290,7 +299,8 @@
         "iconvariant": "Varianta sprite-ului lz-icon",
         "img": "URL imagine în stânga",
         "iconclickable": "Pictograma este clicabilă și emite iconClick",
-        "iconarialabel": "aria-label pentru pictograma clicabilă"
+        "iconarialabel": "aria-label pentru pictograma clicabilă",
+        "variant": "Umplere: pastel, solid, contur"
       },
       "outputs": {
         "iconclick": "Clic pe pictogramă (dacă iconClickable)"
@@ -301,26 +311,38 @@
       },
       "examples": {
         "0": {
-          "title": "Stare"
+          "title": "Solid"
         },
         "1": {
-          "title": "Cu pictogramă"
+          "title": "Status"
         },
         "2": {
-          "title": "Cu chenar"
+          "title": "Cu pictogramă"
+        },
+        "3": {
+          "title": "Outline"
         }
       },
       "tokens": {
-        "lz_badge_50_100_200_500_600_900": "Scară neutră gray",
-        "lz_green_lz_red": "Palete de culori badge",
-        "lz_icon_size": "Dimensiunea pictogramei în badge"
+        "lz_badge_bg_lz_badge_fg": "Fundal și text pastel",
+        "lz_badge_solid_bg_lz_badge_solid_fg": "Umplere solid",
+        "lz_icon_size": "Dimensiunea pictogramei din badge"
       }
     },
     "button-group": {
-      "description": "Wrapper pentru un grup segmentat de butoane: chenar comun, rotunjirea marginilor și separatoare opționale (line).",
+      "description": "Wrapper pentru un grup segmentat de butoane: chenar comun, rotunjirea marginilor și separatoare opționale (line). Compozițiile urmează Figma Button Group (Playground).",
       "controls": {
+        "demo": {
+          "label": "Demo",
+          "hint": "Compoziție din Playground"
+        },
         "line": {
+          "label": "Line",
           "hint": "Separatoare între butoane"
+        },
+        "size": {
+          "label": "Dimensiune",
+          "hint": "Dimensiunea butoanelor"
         }
       },
       "inputs": {
@@ -341,17 +363,34 @@
           "title": "Comutator segmentat"
         },
         "1": {
-          "title": "Fără separatoare"
+          "title": "Doar iconițe"
+        },
+        "2": {
+          "title": "Split cu chevron"
         }
       },
       "tokens": {
-        "lz_color_gray": "Chenarul grupului și separatoare",
-        "lz_radius_md": "Rotunjirea containerului (0.5rem)"
+        "lz_color_neutral_900_10": "Chenar grup și separatoare",
+        "lz_color_background": "Fundal grup (#FFFFFA)"
       },
       "demo": {
         "left": "Stânga",
         "center": "Centru",
-        "right": "Dreapta"
+        "right": "Dreapta",
+        "day": "Zi",
+        "month": "Lună",
+        "year": "An",
+        "italic": "Italic",
+        "bold": "Bold",
+        "underline": "Subliniere",
+        "last7": "Ultimele 7 zile",
+        "open": "Deschide",
+        "decrease": "Micșorează",
+        "increase": "Mărește",
+        "download": "Descarcă gratuit",
+        "downloadsCount": "50k",
+        "dateStart": "01.01.2021",
+        "dateEnd": "05.01.2021"
       }
     },
     "button": {
@@ -455,9 +494,10 @@
         }
       },
       "tokens": {
-        "lz_checkbox_border": "Culoarea chenarului",
-        "lz_checkbox_bg_checked": "Fundal la checked",
-        "lz_checkbox_error": "Accent variant=error"
+        "lz_color_neutral_900": "Umplere checked / punct radio",
+        "lz_color_background": "Fundal unchecked (#FFFFFA)",
+        "lz_color_neutral_900_20": "Contur unchecked",
+        "lz_color_danger_500": "Contur variant=error"
       }
     },
     "icon": {
@@ -474,7 +514,8 @@
         "name": "Id-ul simbolului în sprite SVG",
         "type": "Varianta sprite-ului",
         "class": "Clase suplimentare pe SVG (alias iconClass); w-* dezactivează dimensiunea implicită",
-        "assetspath": "Calea de bază către folderul de sprite-uri"
+        "assetspath": "Calea de bază către folderul de sprite-uri",
+        "iconclass": "Clase SVG suplimentare; w-* dezactivează dimensiunea implicită"
       },
       "examples": {
         "0": {
@@ -527,9 +568,9 @@
         }
       },
       "tokens": {
-        "lz_input_border": "Culoarea chenarului",
-        "lz_input_bg": "Fundalul câmpului",
-        "lz_input_error": "Accent de eroare"
+        "lz_color_neutral_900_10": "Contur implicit",
+        "lz_color_background": "Fundal câmp (#FFFFFA)",
+        "lz_color_danger_500": "Contur și helper la error"
       }
     },
     "loading": {
@@ -607,7 +648,9 @@
         "placeholder": "Text când nu este selectat nimic",
         "size": "Dimensiune control",
         "helpertext": "Indiciu sub câmp",
-        "disabled": "Dezactivează select"
+        "error": "Stare de eroare (chenar și helper)",
+        "disabled": "Dezactivează select",
+        "options": "Lista de opțiuni (string | { id, title, date })"
       },
       "outputs": {
         "opened": "Se declanșează la deschiderea listei"
@@ -618,13 +661,53 @@
         }
       },
       "tokens": {
-        "lz_select_border": "Culoarea chenarului",
-        "lz_select_bg": "Fundalul trigger-ului"
+        "lz_select_border": "Conturul triggerului (#121212 10%)",
+        "lz_select_radius": "Raza triggerului (6px)",
+        "lz_shadow_dropdown": "Umbra Select Menu (Figma Dropdown-Shadow)",
+        "lz_z_dropdown": "Strat listă (Floating UI overlay)"
       },
       "demo": {
         "optionA": "Opțiunea A",
         "optionB": "Opțiunea B",
         "optionC": "Opțiunea C"
+      }
+    },
+    "dropdown": {
+      "description": "Meniu dropdown cu buton trigger și elemente pe secțiuni. Overlay prin CDK + Floating UI.",
+      "controls": {
+        "title": {
+          "default": "Meniu"
+        }
+      },
+      "inputs": {
+        "title": "Eticheta triggerului",
+        "sections": "Grupuri de meniu: heading + items",
+        "sizevariant": "Dimensiunea triggerului",
+        "disabled": "Dezactivează triggerul"
+      },
+      "outputs": {
+        "itemselected": "Se declanșează cu eticheta elementului selectat",
+        "opened": "Se declanșează la deschiderea meniului",
+        "close": "Se declanșează la închiderea meniului"
+      },
+      "examples": {
+        "0": {
+          "title": "Meniu pe secțiuni"
+        }
+      },
+      "tokens": {
+        "lz_dropdown_border": "Conturul triggerului (#121212 10%)",
+        "lz_dropdown_radius": "Raza triggerului (6px)",
+        "lz_shadow_dropdown": "Umbra meniului (Figma Dropdown-Shadow)",
+        "lz_z_dropdown": "Strat overlay (Floating UI)"
+      },
+      "demo": {
+        "account": "Cont",
+        "profile": "Profil",
+        "settings": "Setări",
+        "actions": "Acțiuni",
+        "archive": "Arhivă",
+        "delete": "Șterge"
       }
     },
     "stub": {
@@ -696,8 +779,9 @@
         }
       },
       "tokens": {
-        "lz_switch_toggle_track_active": "Fundal track când este pornit",
-        "lz_switch_toggle_thumb": "Culoarea thumb-ului"
+        "lz_color_neutral_900": "Pistă în starea pornit",
+        "lz_color_neutral_100": "Pistă în starea oprit",
+        "lz_color_text_inverse": "Culoarea cursorului (#FFFFFA)"
       }
     },
     "tab-button": {
@@ -726,9 +810,10 @@
         }
       },
       "tokens": {
-        "lz_color_gray": "Text și fundal pentru bg/solid activ",
-        "lz_duration_normal": "Tranziție hover / active",
-        "lz_radius_md": "Rotunjirea controlului"
+        "lz_color_neutral_900": "Umplere activă bg/solid și indicator variant=line",
+        "lz_color_text_inverse": "Text pe pastila activă",
+        "lz_color_neutral_50": "Fundal hover",
+        "lz_radius_full": "Pastilă variantă bg/solid"
       },
       "demo": {
         "overview": "Prezentare"
@@ -765,9 +850,11 @@
         }
       },
       "tokens": {
-        "lz_color_gray": "Text tab-uri și separatoare",
-        "lz_duration_normal": "Tranziție culoare / indicator",
-        "lz_radius_md": "Rotunjirea stilului border"
+        "lz_color_neutral_900": "Umplere pastilă activă (outline) și indicator underline",
+        "lz_color_text_inverse": "Text pe pastila activă",
+        "lz_color_neutral_50": "Fundal hover",
+        "lz_color_neutral_500": "Text filă inactivă",
+        "lz_radius_full": "Pastilă stil outline"
       },
       "demo": {
         "overview": "Prezentare",
@@ -803,8 +890,9 @@
         }
       },
       "tokens": {
-        "lz_textarea_border": "Culoarea chenarului",
-        "lz_textarea_bg": "Fundal"
+        "lz_color_neutral_900_10": "Contur implicit",
+        "lz_color_background": "Fundal câmp (#FFFFFA)",
+        "lz_color_danger_500": "Contur și helper la error"
       }
     },
     "tooltip": {

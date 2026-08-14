@@ -68,11 +68,21 @@ export class Avatar {
   });
 
   protected readonly topNotificationClass = computed<string>(() => {
-    return `lz-avatar__notification lz-avatar__notification--${this.topNotificationStatus()}`;
+    return [
+      'lz-avatar__notification-wrapper',
+      'lz-avatar__notification-wrapper--top',
+      'lz-avatar__notification',
+      `lz-avatar__notification--${this.topNotificationStatus()}`,
+    ].join(' ');
   });
 
   protected readonly bottomNotificationClass = computed<string>(() => {
-    return `lz-avatar__notification lz-avatar__notification--${this.bottomNotificationStatus()}`;
+    return [
+      'lz-avatar__notification-wrapper',
+      'lz-avatar__notification-wrapper--bottom',
+      'lz-avatar__notification',
+      `lz-avatar__notification--${this.bottomNotificationStatus()}`,
+    ].join(' ');
   });
 
   protected readonly imgNotificationClass = computed<string>(() => {

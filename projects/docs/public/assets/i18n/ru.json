@@ -24,6 +24,7 @@
       "input": "Input",
       "textarea": "Textarea",
       "select": "Select",
+      "dropdown": "Dropdown",
       "stub": "Stub",
       "alert": "Alert",
       "badge": "Badge",
@@ -190,9 +191,13 @@
         }
       },
       "tokens": {
-        "lz_color_primary_secondary": "Семантические палитры вариантов",
-        "lz_radius": "Скругление контейнера",
-        "lz_font_size": "Типографика title / text по size"
+        "lz_color_background": "Фон default (#FFFFFA)",
+        "lz_color_neutral_900": "Обводка default 10%, заливка dark",
+        "lz_color_success_50_500_700": "Вариант success",
+        "lz_color_danger_50_500_700": "Варианты error и solid red",
+        "lz_color_warning_50_500_700": "Вариант warning",
+        "lz_color_text_inverse": "Текст на dark / red",
+        "lz_radius_lg": "Скругление 8px"
       }
     },
     "avatar-group": {
@@ -220,8 +225,10 @@
         }
       },
       "tokens": {
-        "lz_color_gray": "Фон fallback-инициалов и остатка «+N»",
-        "lz_radius_full": "Круглая форма элементов"
+        "lz_color_neutral_50": "Фон инициалов и остатка «+N»",
+        "lz_color_neutral_700": "Текст инициалов и «+N»",
+        "lz_color_neutral_900": "Обводка fallback 10% (#121212)",
+        "lz_color_background": "Кремовое кольцо между перекрытиями (#FFFFFA)"
       }
     },
     "avatar": {
@@ -262,11 +269,13 @@
         }
       },
       "tokens": {
-        "lz_color_gray": "Фон / текст инициалов и плейсхолдера",
-        "lz_color_success": "Индикатор success",
-        "lz_color_danger": "Индикатор error",
-        "lz_color_warning": "Индикатор warning",
-        "lz_radius_full": "Круглая форма аватара"
+        "lz_color_neutral_50": "Фон инициалов и плейсхолдера",
+        "lz_color_neutral_700": "Текст инициалов",
+        "lz_color_success_400": "Индикатор success",
+        "lz_color_danger_400": "Индикатор error",
+        "lz_color_warning_400": "Индикатор warning",
+        "lz_color_neutral_400": "Индикатор info (offline / grey)",
+        "lz_color_background": "Белое кольцо вокруг статус-точки"
       }
     },
     "badge": {
@@ -290,7 +299,8 @@
         "iconvariant": "Вариант спрайта lz-icon",
         "img": "URL изображения слева",
         "iconclickable": "Иконка кликабельна и эмитит iconClick",
-        "iconarialabel": "aria-label для кликабельной иконки"
+        "iconarialabel": "aria-label для кликабельной иконки",
+        "variant": "Заливка: пастель, сплошная, контур"
       },
       "outputs": {
         "iconclick": "Клик по иконке (если iconClickable)"
@@ -301,26 +311,38 @@
       },
       "examples": {
         "0": {
-          "title": "Статус"
+          "title": "Solid"
         },
         "1": {
-          "title": "С иконкой"
+          "title": "Статус"
         },
         "2": {
-          "title": "С рамкой"
+          "title": "С иконкой"
+        },
+        "3": {
+          "title": "Outline"
         }
       },
       "tokens": {
-        "lz_badge_50_100_200_500_600_900": "Нейтральная шкала gray",
-        "lz_green_lz_red": "Палитры цветов бейджа",
+        "lz_badge_bg_lz_badge_fg": "Пастельный фон и текст",
+        "lz_badge_solid_bg_lz_badge_solid_fg": "Solid-заливка",
         "lz_icon_size": "Размер иконки внутри бейджа"
       }
     },
     "button-group": {
-      "description": "Обёртка для сегментированной группы кнопок: общая рамка, скругление краёв и опциональные разделители (line).",
+      "description": "Обёртка для сегментированной группы кнопок: общая рамка, скругление краёв и опциональные разделители (line). Композиции — как в Figma Button Group (Playground).",
       "controls": {
+        "demo": {
+          "label": "Демо",
+          "hint": "Композиция из Playground"
+        },
         "line": {
+          "label": "Line",
           "hint": "Разделители между кнопками"
+        },
+        "size": {
+          "label": "Размер",
+          "hint": "Размер дочерних кнопок"
         }
       },
       "inputs": {
@@ -341,17 +363,34 @@
           "title": "Сегментированный переключатель"
         },
         "1": {
-          "title": "Без разделителей"
+          "title": "Только иконки"
+        },
+        "2": {
+          "title": "Split с шевроном"
         }
       },
       "tokens": {
-        "lz_color_gray": "Рамка группы и разделители",
-        "lz_radius_md": "Скругление контейнера (0.5rem)"
+        "lz_color_neutral_900_10": "Рамка группы и разделители",
+        "lz_color_background": "Фон группы (#FFFFFA)"
       },
       "demo": {
         "left": "Слева",
         "center": "Центр",
-        "right": "Справа"
+        "right": "Справа",
+        "day": "День",
+        "month": "Месяц",
+        "year": "Год",
+        "italic": "Курсив",
+        "bold": "Жирный",
+        "underline": "Подчёркивание",
+        "last7": "Последние 7 дней",
+        "open": "Открыть",
+        "decrease": "Уменьшить",
+        "increase": "Увеличить",
+        "download": "Скачать бесплатно",
+        "downloadsCount": "50k",
+        "dateStart": "01.01.2021",
+        "dateEnd": "05.01.2021"
       }
     },
     "button": {
@@ -455,9 +494,10 @@
         }
       },
       "tokens": {
-        "lz_checkbox_border": "Цвет рамки",
-        "lz_checkbox_bg_checked": "Фон в checked",
-        "lz_checkbox_error": "Акцент variant=error"
+        "lz_color_neutral_900": "Заливка checked / точка radio",
+        "lz_color_background": "Фон unchecked (#FFFFFA)",
+        "lz_color_neutral_900_20": "Бордер unchecked",
+        "lz_color_danger_500": "Бордер variant=error"
       }
     },
     "icon": {
@@ -474,7 +514,8 @@
         "name": "Id символа в SVG-спрайте",
         "type": "Вариант спрайта",
         "class": "Доп. классы на SVG (alias iconClass); w-* отключает дефолтный размер",
-        "assetspath": "Базовый путь к папке спрайтов"
+        "assetspath": "Базовый путь к папке спрайтов",
+        "iconclass": "Доп. классы на SVG; w-* отключает дефолтный размер"
       },
       "examples": {
         "0": {
@@ -527,9 +568,9 @@
         }
       },
       "tokens": {
-        "lz_input_border": "Цвет рамки",
-        "lz_input_bg": "Фон поля",
-        "lz_input_error": "Акцент ошибки"
+        "lz_color_neutral_900_10": "Бордер по умолчанию",
+        "lz_color_background": "Фон поля (#FFFFFA)",
+        "lz_color_danger_500": "Бордер и helper при error"
       }
     },
     "loading": {
@@ -607,7 +648,9 @@
         "placeholder": "Текст, когда ничего не выбрано",
         "size": "Размер контрола",
         "helpertext": "Подсказка под полем",
-        "disabled": "Отключает select"
+        "error": "Состояние ошибки (рамка и helper)",
+        "disabled": "Отключает select",
+        "options": "Список опций (string | { id, title, date })"
       },
       "outputs": {
         "opened": "Срабатывает при открытии списка"
@@ -618,13 +661,53 @@
         }
       },
       "tokens": {
-        "lz_select_border": "Цвет рамки",
-        "lz_select_bg": "Фон триггера"
+        "lz_select_border": "Рамка триггера (#121212 10%)",
+        "lz_select_radius": "Радиус триггера (6px)",
+        "lz_shadow_dropdown": "Тень Select Menu (Figma Dropdown-Shadow)",
+        "lz_z_dropdown": "Слой списка (Floating UI overlay)"
       },
       "demo": {
         "optionA": "Опция A",
         "optionB": "Опция B",
         "optionC": "Опция C"
+      }
+    },
+    "dropdown": {
+      "description": "Меню-дропдаун с кнопкой-триггером и пунктами по секциям. Оверлей через CDK + Floating UI.",
+      "controls": {
+        "title": {
+          "default": "Меню"
+        }
+      },
+      "inputs": {
+        "title": "Подпись триггера",
+        "sections": "Группы меню: heading + items",
+        "sizevariant": "Размер триггера",
+        "disabled": "Отключает триггер"
+      },
+      "outputs": {
+        "itemselected": "Срабатывает с подписью выбранного пункта",
+        "opened": "Срабатывает при открытии меню",
+        "close": "Срабатывает при закрытии меню"
+      },
+      "examples": {
+        "0": {
+          "title": "Меню с секциями"
+        }
+      },
+      "tokens": {
+        "lz_dropdown_border": "Рамка триггера (#121212 10%)",
+        "lz_dropdown_radius": "Радиус триггера (6px)",
+        "lz_shadow_dropdown": "Тень меню (Figma Dropdown-Shadow)",
+        "lz_z_dropdown": "Слой оверлея (Floating UI)"
+      },
+      "demo": {
+        "account": "Аккаунт",
+        "profile": "Профиль",
+        "settings": "Настройки",
+        "actions": "Действия",
+        "archive": "Архив",
+        "delete": "Удалить"
       }
     },
     "stub": {
@@ -696,8 +779,9 @@
         }
       },
       "tokens": {
-        "lz_switch_toggle_track_active": "Фон трека во вкл",
-        "lz_switch_toggle_thumb": "Цвет ползунка"
+        "lz_color_neutral_900": "Трек во включённом состоянии",
+        "lz_color_neutral_100": "Трек в выключенном состоянии",
+        "lz_color_text_inverse": "Цвет ползунка (#FFFFFA)"
       }
     },
     "tab-button": {
@@ -726,9 +810,10 @@
         }
       },
       "tokens": {
-        "lz_color_gray": "Текст и фон активного bg/solid",
-        "lz_duration_normal": "Transition hover / active",
-        "lz_radius_md": "Скругление control"
+        "lz_color_neutral_900": "Заливка активного bg/solid и линия variant=line",
+        "lz_color_text_inverse": "Текст на активной пилюле",
+        "lz_color_neutral_50": "Фон hover",
+        "lz_radius_full": "Пилюля варианта bg/solid"
       },
       "demo": {
         "overview": "Обзор"
@@ -765,9 +850,11 @@
         }
       },
       "tokens": {
-        "lz_color_gray": "Текст вкладок и разделители",
-        "lz_duration_normal": "Transition цвета / индикатора",
-        "lz_radius_md": "Скругление стиля border"
+        "lz_color_neutral_900": "Заливка активной пилюли (outline) и линия underline",
+        "lz_color_text_inverse": "Текст на активной пилюле",
+        "lz_color_neutral_50": "Фон hover",
+        "lz_color_neutral_500": "Текст неактивной вкладки",
+        "lz_radius_full": "Пилюля стиля outline"
       },
       "demo": {
         "overview": "Обзор",
@@ -803,8 +890,9 @@
         }
       },
       "tokens": {
-        "lz_textarea_border": "Цвет рамки",
-        "lz_textarea_bg": "Фон"
+        "lz_color_neutral_900_10": "Бордер по умолчанию",
+        "lz_color_background": "Фон поля (#FFFFFA)",
+        "lz_color_danger_500": "Бордер и helper при error"
       }
     },
     "tooltip": {

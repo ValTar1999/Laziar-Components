@@ -3,7 +3,7 @@ import { DocsComponentMeta } from '../../core/component-doc.model';
 export const LOADING_COMPONENT_META: DocsComponentMeta = {
   name: 'Loading',
   selector: 'lz-loading',
-  description: 'Индикатор загрузки: круговой spinner или кольцо из точек.',
+  description: 'Loading indicator: circular spinner or a ring of dots.',
   controls: [
     {
       name: 'color',
@@ -47,37 +47,37 @@ export const LOADING_COMPONENT_META: DocsComponentMeta = {
       name: 'color',
       type: `'black' | 'red'`,
       default: `'black'`,
-      description: 'Цвет индикатора',
+      description: 'Indicator color',
     },
     {
       name: 'size',
       type: `'sm' | 'md' | 'lg' | 'xl'`,
       default: `'xl'`,
-      description: 'Размер',
+      description: 'Size',
     },
     {
       name: 'variant',
       type: `'spinner' | 'dot'`,
       default: `'spinner'`,
-      description: 'Тип анимации',
+      description: 'Animation type',
     },
   ],
   outputs: [],
   slots: [],
   examples: [
     {
-      title: 'В блоке контента',
+      title: 'In a content block',
       code: `<div class="loading-wrap" aria-busy="true">
   <lz-loading color="red" size="md" variant="spinner" />
 </div>`,
     },
     {
-      title: 'Точки',
+      title: 'Dots',
       code: `<lz-loading variant="dot" color="black" size="lg" />`,
     },
   ],
   tokens: [
-    { name: '--lz-loading-size', description: 'Ширина / высота по size' },
-    { name: '--lz-loading-tone', description: 'Цвет stroke / точек' },
+    { name: '--lz-loading-size', description: 'Width / height by size' },
+    { name: '--lz-loading-tone', description: 'Stroke / dot color' },
   ],
 };

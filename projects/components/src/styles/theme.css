@@ -157,6 +157,10 @@
   --lz-shadow-lg:
     0 10px 15px color-mix(in srgb, var(--lz-color-neutral-900) 10%, transparent),
     0 4px 6px color-mix(in srgb, var(--lz-color-neutral-900) 5%, transparent);
+  --lz-shadow-dropdown:
+    0 0 0 1px color-mix(in srgb, var(--lz-color-neutral-900) 10%, transparent),
+    0 4px 6px -2px color-mix(in srgb, var(--lz-color-neutral-900) 5%, transparent),
+    0 10px 15px -3px color-mix(in srgb, var(--lz-color-neutral-900) 10%, transparent);
   --lz-shadow-focus: 0 0 0 2px var(--lz-color-background), 0 0 0 4px var(--lz-color-focus-ring);
   --lz-shadow-sticky: -4px 0 20px -2px
     color-mix(in srgb, var(--lz-color-neutral-900) 10%, transparent);
@@ -451,6 +455,10 @@
   --lz-shadow-sm: 0 1px 3px rgb(0 0 0 / 0.45), 0 1px 2px rgb(0 0 0 / 0.3);
   --lz-shadow-md: 0 4px 6px rgb(0 0 0 / 0.45), 0 2px 4px rgb(0 0 0 / 0.3);
   --lz-shadow-lg: 0 10px 15px rgb(0 0 0 / 0.5), 0 4px 6px rgb(0 0 0 / 0.35);
+  --lz-shadow-dropdown:
+    0 0 0 1px rgb(255 255 250 / 0.12),
+    0 4px 6px -2px rgb(0 0 0 / 0.45),
+    0 10px 15px -3px rgb(0 0 0 / 0.5);
   --lz-shadow-focus: 0 0 0 2px var(--lz-color-background), 0 0 0 4px var(--lz-color-focus-ring);
   --lz-shadow-sticky: -4px 0 20px -2px rgb(0 0 0 / 0.45);
 }
@@ -567,6 +575,10 @@
     --lz-shadow-sm: 0 1px 3px rgb(0 0 0 / 0.45), 0 1px 2px rgb(0 0 0 / 0.3);
     --lz-shadow-md: 0 4px 6px rgb(0 0 0 / 0.45), 0 2px 4px rgb(0 0 0 / 0.3);
     --lz-shadow-lg: 0 10px 15px rgb(0 0 0 / 0.5), 0 4px 6px rgb(0 0 0 / 0.35);
+    --lz-shadow-dropdown:
+      0 0 0 1px rgb(255 255 250 / 0.12),
+      0 4px 6px -2px rgb(0 0 0 / 0.45),
+      0 10px 15px -3px rgb(0 0 0 / 0.5);
     --lz-shadow-focus: 0 0 0 2px var(--lz-color-background), 0 0 0 4px var(--lz-color-focus-ring);
     --lz-shadow-sticky: -4px 0 20px -2px rgb(0 0 0 / 0.45);
   }
@@ -576,4 +588,12 @@
 .cdk-overlay-container,
 .lz-tooltip-cdk-pane {
   z-index: var(--lz-z-tooltip, 1500);
+}
+
+.lz-select-cdk-pane.cdk-overlay-pane,
+.lz-dropdown-cdk-pane.cdk-overlay-pane {
+  position: fixed;
+  margin: 0;
+  overflow: visible;
+  z-index: var(--lz-z-dropdown, 1000);
 }

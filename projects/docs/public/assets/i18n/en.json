@@ -24,6 +24,7 @@
       "input": "Input",
       "textarea": "Textarea",
       "select": "Select",
+      "dropdown": "Dropdown",
       "stub": "Stub",
       "alert": "Alert",
       "badge": "Badge",
@@ -190,9 +191,13 @@
         }
       },
       "tokens": {
-        "lz_color_primary_secondary": "Semantic variant palettes",
-        "lz_radius": "Container rounding",
-        "lz_font_size": "title / text typography by size"
+        "lz_color_background": "Default background (#FFFFFA)",
+        "lz_color_neutral_900": "Default 10% outline, dark fill",
+        "lz_color_success_50_500_700": "success variant",
+        "lz_color_danger_50_500_700": "error and solid red variants",
+        "lz_color_warning_50_500_700": "warning variant",
+        "lz_color_text_inverse": "Text on dark / red",
+        "lz_radius_lg": "8px rounding"
       }
     },
     "avatar-group": {
@@ -220,8 +225,10 @@
         }
       },
       "tokens": {
-        "lz_color_gray": "Fallback-initials and remaining “+N” background",
-        "lz_radius_full": "Round item shape"
+        "lz_color_neutral_50": "Initials and “+N” remainder background",
+        "lz_color_neutral_700": "Initials and “+N” text",
+        "lz_color_neutral_900": "Fallback 10% outline (#121212)",
+        "lz_color_background": "Cream ring between overlapping avatars (#FFFFFA)"
       }
     },
     "avatar": {
@@ -262,11 +269,13 @@
         }
       },
       "tokens": {
-        "lz_color_gray": "Initials and placeholder background / text",
-        "lz_color_success": "success indicator",
-        "lz_color_danger": "error indicator",
-        "lz_color_warning": "warning indicator",
-        "lz_radius_full": "Round avatar shape"
+        "lz_color_neutral_50": "Initials and placeholder background",
+        "lz_color_neutral_700": "Initials text",
+        "lz_color_success_400": "success indicator",
+        "lz_color_danger_400": "error indicator",
+        "lz_color_warning_400": "warning indicator",
+        "lz_color_neutral_400": "info indicator (offline / grey)",
+        "lz_color_background": "White ring around the status dot"
       }
     },
     "badge": {
@@ -290,7 +299,8 @@
         "iconvariant": "lz-icon sprite variant",
         "img": "Image URL on the left",
         "iconclickable": "Icon is clickable and emits iconClick",
-        "iconarialabel": "aria-label for the clickable icon"
+        "iconarialabel": "aria-label for the clickable icon",
+        "variant": "Fill: pastel, solid, outline"
       },
       "outputs": {
         "iconclick": "Icon click (if iconClickable)"
@@ -301,26 +311,38 @@
       },
       "examples": {
         "0": {
-          "title": "Status"
+          "title": "Solid"
         },
         "1": {
-          "title": "With icon"
+          "title": "Status"
         },
         "2": {
-          "title": "With border"
+          "title": "With icon"
+        },
+        "3": {
+          "title": "Outline"
         }
       },
       "tokens": {
-        "lz_badge_50_100_200_500_600_900": "Neutral gray scale",
-        "lz_green_lz_red": "Badge color palettes",
+        "lz_badge_bg_lz_badge_fg": "Pastel background and text",
+        "lz_badge_solid_bg_lz_badge_solid_fg": "Solid fill",
         "lz_icon_size": "Icon size inside the badge"
       }
     },
     "button-group": {
-      "description": "Wrapper for a segmented button group: shared border, edge rounding, and optional dividers (line).",
+      "description": "Wrapper for a segmented button group: shared border, edge rounding, and optional dividers (line). Compositions match Figma Button Group (Playground).",
       "controls": {
+        "demo": {
+          "label": "Demo",
+          "hint": "Playground composition"
+        },
         "line": {
+          "label": "Line",
           "hint": "Dividers between buttons"
+        },
+        "size": {
+          "label": "Size",
+          "hint": "Child button size"
         }
       },
       "inputs": {
@@ -341,17 +363,34 @@
           "title": "Segmented switch"
         },
         "1": {
-          "title": "Without dividers"
+          "title": "Icon only"
+        },
+        "2": {
+          "title": "Split with chevron"
         }
       },
       "tokens": {
-        "lz_color_gray": "Group border and dividers",
-        "lz_radius_md": "Container rounding (0.5rem)"
+        "lz_color_neutral_900_10": "Group border and dividers",
+        "lz_color_background": "Group background (#FFFFFA)"
       },
       "demo": {
         "left": "Left",
         "center": "Center",
-        "right": "Right"
+        "right": "Right",
+        "day": "Day",
+        "month": "Month",
+        "year": "Year",
+        "italic": "Italic",
+        "bold": "Bold",
+        "underline": "Underline",
+        "last7": "Last 7 days",
+        "open": "Open",
+        "decrease": "Decrease",
+        "increase": "Increase",
+        "download": "Download for free",
+        "downloadsCount": "50k",
+        "dateStart": "01/01/2021",
+        "dateEnd": "05/01/2021"
       }
     },
     "button": {
@@ -455,9 +494,10 @@
         }
       },
       "tokens": {
-        "lz_checkbox_border": "Border color",
-        "lz_checkbox_bg_checked": "Background when checked",
-        "lz_checkbox_error": "variant=error accent"
+        "lz_color_neutral_900": "Checked fill / radio dot",
+        "lz_color_background": "Unchecked background (#FFFFFA)",
+        "lz_color_neutral_900_20": "Unchecked border",
+        "lz_color_danger_500": "variant=error border"
       }
     },
     "icon": {
@@ -474,7 +514,8 @@
         "name": "Symbol id in SVG sprite",
         "type": "Sprite variant",
         "class": "Additional SVG classes (alias iconClass); w-* disables default size",
-        "assetspath": "Base path to sprite folder"
+        "assetspath": "Base path to sprite folder",
+        "iconclass": "Extra SVG classes; w-* disables the default size"
       },
       "examples": {
         "0": {
@@ -527,9 +568,9 @@
         }
       },
       "tokens": {
-        "lz_input_border": "Border color",
-        "lz_input_bg": "Field background",
-        "lz_input_error": "Error accent"
+        "lz_color_neutral_900_10": "Default border",
+        "lz_color_background": "Field background (#FFFFFA)",
+        "lz_color_danger_500": "Border and helper on error"
       }
     },
     "loading": {
@@ -607,7 +648,9 @@
         "placeholder": "Text when nothing is selected",
         "size": "Control size",
         "helpertext": "Hint below field",
-        "disabled": "Disables select"
+        "error": "Error state (border and helper)",
+        "disabled": "Disables select",
+        "options": "Options list (string | { id, title, date })"
       },
       "outputs": {
         "opened": "Fires when the list opens"
@@ -618,13 +661,53 @@
         }
       },
       "tokens": {
-        "lz_select_border": "Border color",
-        "lz_select_bg": "Trigger background"
+        "lz_select_border": "Trigger border (#121212 10%)",
+        "lz_select_radius": "Trigger radius (6px)",
+        "lz_shadow_dropdown": "Select Menu shadow (Figma Dropdown-Shadow)",
+        "lz_z_dropdown": "List layer (Floating UI overlay)"
       },
       "demo": {
         "optionA": "Option A",
         "optionB": "Option B",
         "optionC": "Option C"
+      }
+    },
+    "dropdown": {
+      "description": "Menu dropdown with a trigger button and sectioned items. Overlay via CDK + Floating UI.",
+      "controls": {
+        "title": {
+          "default": "Menu"
+        }
+      },
+      "inputs": {
+        "title": "Trigger label",
+        "sections": "Menu groups: heading + items",
+        "sizevariant": "Trigger size",
+        "disabled": "Disables the trigger"
+      },
+      "outputs": {
+        "itemselected": "Fires with the clicked item label",
+        "opened": "Fires when the menu opens",
+        "close": "Fires when the menu closes"
+      },
+      "examples": {
+        "0": {
+          "title": "Sectioned menu"
+        }
+      },
+      "tokens": {
+        "lz_dropdown_border": "Trigger border (#121212 10%)",
+        "lz_dropdown_radius": "Trigger radius (6px)",
+        "lz_shadow_dropdown": "Menu shadow (Figma Dropdown-Shadow)",
+        "lz_z_dropdown": "Overlay layer (Floating UI)"
+      },
+      "demo": {
+        "account": "Account",
+        "profile": "Profile",
+        "settings": "Settings",
+        "actions": "Actions",
+        "archive": "Archive",
+        "delete": "Delete"
       }
     },
     "stub": {
@@ -696,8 +779,9 @@
         }
       },
       "tokens": {
-        "lz_switch_toggle_track_active": "Track background when on",
-        "lz_switch_toggle_thumb": "Thumb color"
+        "lz_color_neutral_900": "Track in the on state",
+        "lz_color_neutral_100": "Track in the off state",
+        "lz_color_text_inverse": "Thumb color (#FFFFFA)"
       }
     },
     "tab-button": {
@@ -726,9 +810,10 @@
         }
       },
       "tokens": {
-        "lz_color_gray": "Text and background of active bg/solid",
-        "lz_duration_normal": "hover / active transition",
-        "lz_radius_md": "Control rounding"
+        "lz_color_neutral_900": "Active bg/solid fill and variant=line indicator",
+        "lz_color_text_inverse": "Text on the active pill",
+        "lz_color_neutral_50": "Hover background",
+        "lz_radius_full": "bg/solid variant pill"
       },
       "demo": {
         "overview": "Overview"
@@ -765,9 +850,11 @@
         }
       },
       "tokens": {
-        "lz_color_gray": "Tab text and dividers",
-        "lz_duration_normal": "Color / indicator transition",
-        "lz_radius_md": "border style rounding"
+        "lz_color_neutral_900": "Active pill fill (outline) and underline indicator",
+        "lz_color_text_inverse": "Text on the active pill",
+        "lz_color_neutral_50": "Hover background",
+        "lz_color_neutral_500": "Inactive tab text",
+        "lz_radius_full": "outline style pill"
       },
       "demo": {
         "overview": "Overview",
@@ -803,8 +890,9 @@
         }
       },
       "tokens": {
-        "lz_textarea_border": "Border color",
-        "lz_textarea_bg": "Background"
+        "lz_color_neutral_900_10": "Default border",
+        "lz_color_background": "Field background (#FFFFFA)",
+        "lz_color_danger_500": "Border and helper on error"
       }
     },
     "tooltip": {

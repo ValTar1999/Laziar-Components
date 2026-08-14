@@ -7,12 +7,12 @@ export const TAB_BUTTON_COMPONENT_META: DocsComponentMeta = {
   name: 'TabButton',
   selector: 'lz-tab-button',
   description:
-    'Одиночная вкладка-кнопка: варианты solid/bg (заливка) и line (подчёркивание). solid — алиас bg.',
+    'Single tab button: solid/bg (fill) and line (underline) variants. solid is an alias for bg.',
   controls: [
     {
       name: 'label',
       kind: 'string',
-      default: 'Обзор',
+      default: 'Overview',
     },
     {
       name: 'active',
@@ -30,74 +30,78 @@ export const TAB_BUTTON_COMPONENT_META: DocsComponentMeta = {
       kind: 'select',
       options: [...variants],
       default: 'bg',
-      description: 'solid и bg эквивалентны',
+      description: 'solid and bg are equivalent',
     },
   ],
   variants: [
-    { label: 'bg · active', props: { label: 'Обзор', active: true, size: 'md', variant: 'bg' } },
-    { label: 'bg · idle', props: { label: 'Участники', active: false, size: 'md', variant: 'bg' } },
+    { label: 'bg · active', props: { label: 'Overview', active: true, size: 'md', variant: 'bg' } },
+    { label: 'bg · idle', props: { label: 'Members', active: false, size: 'md', variant: 'bg' } },
     {
       label: 'line · active',
-      props: { label: 'Обзор', active: true, size: 'md', variant: 'line' },
+      props: { label: 'Overview', active: true, size: 'md', variant: 'line' },
     },
     {
       label: 'solid · active',
-      props: { label: 'Обзор', active: true, size: 'md', variant: 'solid' },
+      props: { label: 'Overview', active: true, size: 'md', variant: 'solid' },
     },
-    { label: 'bg · sm', props: { label: 'Малый', active: true, size: 'sm', variant: 'bg' } },
-    { label: 'line · lg', props: { label: 'Крупный', active: true, size: 'lg', variant: 'line' } },
+    { label: 'bg · sm', props: { label: 'Small', active: true, size: 'sm', variant: 'bg' } },
+    { label: 'line · lg', props: { label: 'Large', active: true, size: 'lg', variant: 'line' } },
   ],
   inputs: [
     {
       name: 'label',
       type: 'string',
       default: `'Tab'`,
-      description: 'Текст кнопки',
+      description: 'Button text',
     },
     {
       name: 'active',
       type: 'boolean',
       default: 'false',
-      description: 'Активное состояние',
+      description: 'Active state',
     },
     {
       name: 'size',
       type: `'sm' | 'md' | 'lg'`,
       default: `'md'`,
-      description: 'Размер',
+      description: 'Size',
     },
     {
       name: 'variant',
       type: `'solid' | 'bg' | 'line'`,
       default: `'bg'`,
-      description: 'solid → bg; line — underline-индикатор',
+      description: 'solid → bg; line — underline indicator',
     },
     {
       name: 'link',
       type: 'string | undefined',
       default: 'undefined',
-      description: 'Если задан — рендерит routerLink вместо button',
+      description: 'If set, renders routerLink instead of a button',
     },
   ],
   outputs: [],
   slots: [],
   examples: [
     {
-      title: 'Группа вкладок',
+      title: 'Tab group',
       code: `<nav class="tabs">
-  <lz-tab-button label="Обзор" [active]="true" variant="bg" />
-  <lz-tab-button label="Участники" variant="bg" />
-  <lz-tab-button label="Настройки" variant="bg" />
+  <lz-tab-button label="Overview" [active]="true" variant="bg" />
+  <lz-tab-button label="Members" variant="bg" />
+  <lz-tab-button label="Settings" variant="bg" />
 </nav>`,
     },
     {
-      title: 'С routerLink',
-      code: `<lz-tab-button label="Профиль" link="/profile" [active]="true" variant="line" />`,
+      title: 'With routerLink',
+      code: `<lz-tab-button label="Profile" link="/profile" [active]="true" variant="line" />`,
     },
   ],
   tokens: [
-    { name: '--lz-color-gray-*', description: 'Текст и фон активного bg/solid' },
-    { name: '--lz-duration-normal', description: 'Transition hover / active' },
-    { name: '--lz-radius-md', description: 'Скругление control' },
+    {
+      name: '--lz-color-neutral-900',
+      description: 'Active bg/solid fill and variant=line indicator',
+    },
+    { name: '--lz-color-text-inverse', description: 'Text on the active pill' },
+    { name: '--lz-color-neutral-50', description: 'Hover background' },
+    { name: '--lz-radius-full', description: 'bg/solid variant pill' },
   ],
 };

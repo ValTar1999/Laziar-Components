@@ -1,5 +1,5 @@
 import { DocsComponentMeta } from '../../core/component-doc.model';
-import { LZ_BADGE_COLORS, LZ_BADGE_SIZES } from '@laziar/components';
+import { LZ_BADGE_COLORS, LZ_BADGE_SIZES, LZ_BADGE_VARIANTS } from '@laziar/components';
 
 const BADGE_COLORS = LZ_BADGE_COLORS.filter((c) => c !== 'magrnta');
 
@@ -7,14 +7,14 @@ export const BADGE_COMPONENT_META: DocsComponentMeta = {
   name: 'Badge',
   selector: 'lz-badge',
   description:
-    'Компактный чип/метка со цветовой палитрой, размерами, pill-формой и опциональной иконкой.',
+    'Compact chip/label with a color palette, sizes, pill shape, and optional icon.',
   contentFrom: 'label',
   controls: [
     {
       name: 'label',
       kind: 'string',
       default: 'Badge',
-      description: 'Projected-контент (ng-content)',
+      description: 'Projected content (ng-content)',
     },
     {
       name: 'color',
@@ -27,6 +27,12 @@ export const BADGE_COMPONENT_META: DocsComponentMeta = {
       kind: 'select',
       options: [...LZ_BADGE_SIZES],
       default: 'sm',
+    },
+    {
+      name: 'variant',
+      kind: 'select',
+      options: [...LZ_BADGE_VARIANTS],
+      default: 'subtle',
     },
     {
       name: 'border',
@@ -47,7 +53,7 @@ export const BADGE_COMPONENT_META: DocsComponentMeta = {
       name: 'icon',
       kind: 'string',
       default: '',
-      description: 'Имя lz-icon; пусто — без иконки',
+      description: 'lz-icon name; empty — no icon',
     },
     {
       name: 'iconPosition',
@@ -69,6 +75,7 @@ export const BADGE_COMPONENT_META: DocsComponentMeta = {
         label: color,
         color,
         size: 'sm',
+        variant: 'subtle',
         border: false,
         pill: false,
         disabled: false,
@@ -78,12 +85,28 @@ export const BADGE_COMPONENT_META: DocsComponentMeta = {
       },
     })),
     {
-      label: 'pill · border · icon',
+      label: 'solid · gray',
+      props: {
+        label: 'Badge',
+        color: 'gray',
+        size: 'sm',
+        variant: 'solid',
+        border: false,
+        pill: false,
+        disabled: false,
+        icon: '',
+        iconPosition: 'left',
+        iconVariant: 'solid',
+      },
+    },
+    {
+      label: 'pill · outline · icon',
       props: {
         label: 'New',
         color: 'green',
         size: 'md',
-        border: true,
+        variant: 'outline',
+        border: false,
         pill: true,
         disabled: false,
         icon: 'check',
@@ -97,6 +120,7 @@ export const BADGE_COMPONENT_META: DocsComponentMeta = {
         label: 'Off',
         color: 'gray',
         size: 'sm',
+        variant: 'subtle',
         border: false,
         pill: false,
         disabled: true,
@@ -111,103 +135,113 @@ export const BADGE_COMPONENT_META: DocsComponentMeta = {
       name: 'color',
       type: `'green' | 'red' | 'purple' | 'yellow' | 'blue' | 'orange' | 'magenta' | 'teal' | 'gray' | 'violet'`,
       default: `'gray'`,
-      description: 'Цветовая тема (есть alias magrnta → magenta)',
+      description: 'Color theme (alias magrnta → magenta)',
     },
     {
       name: 'size',
       type: `'lg' | 'md' | 'sm'`,
       default: `'sm'`,
-      description: 'Размер бейджа',
+      description: 'Badge size',
+    },
+    {
+      name: 'variant',
+      type: `'subtle' | 'solid' | 'outline'`,
+      default: `'subtle'`,
+      description: 'Fill: pastel, solid, outline',
     },
     {
       name: 'border',
       type: 'boolean',
       default: 'false',
-      description: 'Рамка (border ring)',
+      description: 'Border (same as variant=outline when variant=subtle)',
     },
     {
       name: 'pill',
       type: 'boolean',
       default: 'false',
-      description: 'Полностью скруглённая форма',
+      description: 'Fully rounded shape',
     },
     {
       name: 'disabled',
       type: 'boolean',
       default: 'false',
-      description: 'Неактивное состояние',
+      description: 'Disabled state',
     },
     {
       name: 'icon',
       type: 'string',
       default: 'undefined',
-      description: 'Имя иконки; кастом — слот [lzBadgeIcon]',
+      description: 'Icon name; custom — [lzBadgeIcon] slot',
     },
     {
       name: 'iconPosition',
       type: `'left' | 'right'`,
       default: `'left'`,
-      description: 'Позиция иконки',
+      description: 'Icon position',
     },
     {
       name: 'iconVariant',
       type: `'outline' | 'solid' | 'mini' | 'micro'`,
       default: `'solid'`,
-      description: 'Вариант спрайта lz-icon',
+      description: 'lz-icon sprite variant',
     },
     {
       name: 'img',
       type: 'string',
       default: 'undefined',
-      description: 'URL изображения слева',
+      description: 'Image URL on the left',
     },
     {
       name: 'iconClickable',
       type: 'boolean',
       default: 'false',
-      description: 'Иконка кликабельна и эмитит iconClick',
+      description: 'Icon is clickable and emits iconClick',
     },
     {
       name: 'iconAriaLabel',
       type: 'string',
       default: "''",
-      description: 'aria-label для кликабельной иконки',
+      description: 'aria-label for the clickable icon',
     },
   ],
   outputs: [
     {
       name: 'iconClick',
       type: 'OutputEmitterRef<void>',
-      description: 'Клик по иконке (если iconClickable)',
+      description: 'Icon click (if iconClickable)',
     },
   ],
   slots: [
     {
       name: '(default)',
-      description: 'Текст / контент бейджа',
+      description: 'Badge text / content',
     },
     {
       name: '[lzBadgeIcon]',
-      description: 'Кастомная иконка вместо lz-icon по имени',
+      description: 'Custom icon instead of a named lz-icon',
     },
   ],
   examples: [
     {
-      title: 'Статус',
+      title: 'Solid',
+      code: `<lz-badge color="gray" variant="solid">Badge</lz-badge>`,
+    },
+    {
+      title: 'Status',
       code: `<lz-badge color="green" pill>Active</lz-badge>`,
     },
     {
-      title: 'С иконкой',
+      title: 'With icon',
       code: `<lz-badge color="blue" icon="check" iconPosition="left">Verified</lz-badge>`,
     },
     {
-      title: 'С рамкой',
-      code: `<lz-badge color="purple" [border]="true" size="md">Pro</lz-badge>`,
+      title: 'Outline',
+      code: `<lz-badge color="purple" variant="outline" size="md">Pro</lz-badge>`,
     },
   ],
   tokens: [
-    { name: '--lz-badge-50 / 100 / 200 / 500 / 600 / 900', description: 'Нейтральная шкала gray' },
-    { name: '--lz-green-* / --lz-red-* / …', description: 'Палитры цветов бейджа' },
-    { name: '--lz-icon-size', description: 'Размер иконки внутри бейджа' },
+    { name: '--lz-badge-bg / --lz-badge-fg', description: 'Pastel background and text' },
+    { name: '--lz-badge-solid-bg / --lz-badge-solid-fg', description: 'Solid fill' },
+    { name: '--lz-icon-size', description: 'Icon size inside the badge' },
   ],
 };

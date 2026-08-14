@@ -12,12 +12,13 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { LzTextareaResize } from './textarea.types';
+import { Icon } from '../icon/icon.component';
 
 let nextTextareaFieldId = 0;
 
 /**
  * Textarea field `@laziar/components`.
- * API/стили — эталон publikator (`TextareaComponent`).
+ * Стили — эталон Laziar System (Figma Text Input / Textarea).
  */
 @Component({
   selector: 'lz-textarea',
@@ -25,7 +26,7 @@ let nextTextareaFieldId = 0;
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './textarea.component.html',
   styleUrl: './textarea.component.scss',
-  imports: [CommonModule],
+  imports: [CommonModule, Icon],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

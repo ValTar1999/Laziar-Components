@@ -4,7 +4,7 @@ import { LZ_INPUT_APPEARANCES, LZ_INPUT_SIZES, LZ_INPUT_TYPES } from '@laziar/co
 export const INPUT_COMPONENT_META: DocsComponentMeta = {
   name: 'InputComponent',
   selector: 'lz-input',
-  description: 'Текстовое поле с label, helper, кнопкой и вариантами appearance.',
+  description: 'Text field with label, helper, button, and appearance variants.',
   controls: [
     {
       name: 'label',
@@ -69,7 +69,7 @@ export const INPUT_COMPONENT_META: DocsComponentMeta = {
       kind: 'select',
       options: ['', 'left', 'right'],
       default: '',
-      description: 'Пустая строка → null (без кнопки)',
+      description: 'Empty string → null (no button)',
     },
     {
       name: 'iconButton',
@@ -84,7 +84,7 @@ export const INPUT_COMPONENT_META: DocsComponentMeta = {
     },
     {
       label: 'search · pill',
-      props: { label: '', type: 'search', size: 'md', placeholder: 'Поиск', pill: true },
+      props: { label: '', type: 'search', size: 'md', placeholder: 'Search', pill: true },
     },
     {
       label: 'error',
@@ -93,17 +93,49 @@ export const INPUT_COMPONENT_META: DocsComponentMeta = {
         type: 'email',
         size: 'lg',
         error: true,
-        helperText: 'Некорректный email',
+        helperText: 'Invalid email',
       },
     },
     {
-      label: 'with button',
+      label: 'addon · left',
       props: {
-        label: 'Код',
-        type: 'text',
+        label: 'Email',
         size: 'md',
+        placeholder: 'you@example.com',
+        withButton: 'left',
+        buttonLabel: 'Button',
+        helperText: 'Helper text',
+      },
+    },
+    {
+      label: 'addon · icon mini',
+      props: {
+        label: 'Email',
+        size: 'md',
+        placeholder: 'you@example.com',
+        withButton: 'left',
+        iconButton: 'envelope',
+      },
+    },
+    {
+      label: 'addon · right',
+      props: {
+        label: 'Label',
+        size: 'md',
+        placeholder: '',
         withButton: 'right',
-        buttonLabel: 'Отправить',
+        buttonLabel: 'Button',
+        helperText: 'Helper text',
+      },
+    },
+    {
+      label: 'disabled',
+      props: {
+        label: 'Email',
+        type: 'email',
+        size: 'lg',
+        disabled: true,
+        placeholder: 'you@example.com',
       },
     },
     {
@@ -113,7 +145,7 @@ export const INPUT_COMPONENT_META: DocsComponentMeta = {
         type: 'search',
         size: 'md',
         appearance: 'laziarPanel',
-        placeholder: 'Найти…',
+        placeholder: 'Find…',
       },
     },
   ],
@@ -122,7 +154,7 @@ export const INPUT_COMPONENT_META: DocsComponentMeta = {
       name: 'label',
       type: 'string',
       default: "''",
-      description: 'Подпись над полем',
+      description: 'Label above the field',
     },
     {
       name: 'placeholder',
@@ -134,95 +166,95 @@ export const INPUT_COMPONENT_META: DocsComponentMeta = {
       name: 'type',
       type: `'text' | 'email' | 'password' | 'search'`,
       default: `'text'`,
-      description: 'Тип input',
+      description: 'Input type',
     },
     {
       name: 'size',
       type: `'sm' | 'md' | 'lg'`,
       default: `'lg'`,
-      description: 'Размер поля',
+      description: 'Field size',
     },
     {
       name: 'helperText',
       type: 'string',
       default: "''",
-      description: 'Подсказка / ошибка под полем',
+      description: 'Hint / error below the field',
     },
     {
       name: 'error',
       type: 'boolean',
       default: 'false',
-      description: 'Состояние ошибки',
+      description: 'Error state',
     },
     {
       name: 'disabled',
       type: 'boolean',
       default: 'false',
-      description: 'Отключает поле',
+      description: 'Disables the field',
     },
     {
       name: 'pill',
       type: 'boolean',
       default: 'false',
-      description: 'Полное скругление',
+      description: 'Fully rounded',
     },
     {
       name: 'appearance',
       type: `'default' | 'laziarPanel'`,
       default: `'default'`,
-      description: 'Визуальный стиль',
+      description: 'Visual style',
     },
     {
       name: 'prefix',
       type: 'string',
       default: "''",
-      description: 'Префикс слева в поле',
+      description: 'Prefix on the left in the field',
     },
     {
       name: 'withButton',
       type: `'left' | 'right' | null`,
       default: 'null',
-      description: 'Позиция встроенной кнопки',
+      description: 'Embedded button position',
     },
     {
       name: 'buttonLabel',
       type: 'string',
       default: "''",
-      description: 'Текст кнопки',
+      description: 'Button text',
     },
     {
       name: 'iconButton',
       type: 'string',
       default: 'undefined',
-      description: 'Иконка вместо текста кнопки',
+      description: 'Icon instead of button text',
     },
   ],
   outputs: [
     {
       name: 'valueChange',
       type: 'OutputEmitterRef<string>',
-      description: 'Изменение значения',
+      description: 'Value change',
     },
   ],
   slots: [],
   examples: [
     {
-      title: 'С ngModel',
+      title: 'With ngModel',
       code: `<lz-input
   label="Email"
   type="email"
   [(ngModel)]="email"
-  helperText="Мы не передаём адрес третьим лицам"
+  helperText="We do not share the address with third parties"
 />`,
     },
     {
-      title: 'Поиск',
-      code: `<lz-input type="search" pill placeholder="Поиск" [(ngModel)]="q" />`,
+      title: 'Search',
+      code: `<lz-input type="search" pill placeholder="Search" [(ngModel)]="q" />`,
     },
   ],
   tokens: [
-    { name: '--lz-input-border', description: 'Цвет рамки' },
-    { name: '--lz-input-bg', description: 'Фон поля' },
-    { name: '--lz-input-error', description: 'Акцент ошибки' },
+    { name: '--lz-color-neutral-900 / 10%', description: 'Default border' },
+    { name: '--lz-color-background', description: 'Field background (#FFFFFA)' },
+    { name: '--lz-color-danger-500', description: 'Border and helper on error' },
   ],
 };

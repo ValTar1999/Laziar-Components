@@ -7,17 +7,17 @@ export const AVATAR_COMPONENT_META: DocsComponentMeta = {
   name: 'Avatar',
   selector: 'lz-avatar',
   description:
-    'Аватар пользователя: инициалы, изображение, размеры и статусные индикаторы (онлайн / уведомление).',
+    'User avatar: initials, image, sizes, and status indicators (online / notification).',
   controls: [
     {
       name: 'firstName',
       kind: 'string',
-      default: 'Анна',
+      default: 'Anna',
     },
     {
       name: 'lastName',
       kind: 'string',
-      default: 'Иванова',
+      default: 'Ivanova',
     },
     {
       name: 'size',
@@ -57,23 +57,23 @@ export const AVATAR_COMPONENT_META: DocsComponentMeta = {
       name: 'imgUrl',
       kind: 'string',
       default: '',
-      description: 'URL изображения; пустая строка — инициалы / плейсхолдер',
+      description: 'Image URL; empty string — initials / placeholder',
     },
   ],
   variants: [
     {
       label: 'default · md',
-      props: { firstName: 'Анна', lastName: 'Иванова', size: 'md', variant: 'default' },
+      props: { firstName: 'Anna', lastName: 'Ivanova', size: 'md', variant: 'default' },
     },
     {
       label: 'plain · lg',
-      props: { firstName: 'Борис', lastName: 'Петров', size: 'lg', variant: 'plain' },
+      props: { firstName: 'Boris', lastName: 'Petrov', size: 'lg', variant: 'plain' },
     },
     {
       label: 'sm · top status',
       props: {
-        firstName: 'Вера',
-        lastName: 'Сидорова',
+        firstName: 'Vera',
+        lastName: 'Sidorova',
         size: 'sm',
         variant: 'default',
         topNotification: true,
@@ -83,8 +83,8 @@ export const AVATAR_COMPONENT_META: DocsComponentMeta = {
     {
       label: 'xl · bottom status',
       props: {
-        firstName: 'Глеб',
-        lastName: 'Козлов',
+        firstName: 'Gleb',
+        lastName: 'Kozlov',
         size: 'xl',
         variant: 'default',
         bottomNotification: true,
@@ -93,13 +93,13 @@ export const AVATAR_COMPONENT_META: DocsComponentMeta = {
     },
     {
       label: 'xxs · initials',
-      props: { firstName: 'Дарья', lastName: 'Новикова', size: 'xxs', variant: 'default' },
+      props: { firstName: 'Daria', lastName: 'Novikova', size: 'xxs', variant: 'default' },
     },
     {
       label: '2xl · both',
       props: {
-        firstName: 'Егор',
-        lastName: 'Смирнов',
+        firstName: 'Egor',
+        lastName: 'Smirnov',
         size: '2xl',
         variant: 'default',
         topNotification: true,
@@ -114,97 +114,99 @@ export const AVATAR_COMPONENT_META: DocsComponentMeta = {
       name: 'firstName',
       type: 'string',
       default: "''",
-      description: 'Имя (для инициалов и alt)',
+      description: 'First name (for initials and alt)',
     },
     {
       name: 'lastName',
       type: 'string',
       default: "''",
-      description: 'Фамилия (для инициалов и alt)',
+      description: 'Last name (for initials and alt)',
     },
     {
       name: 'imgUrl',
       type: 'string | SafeUrl | undefined',
       default: 'undefined',
-      description: 'URL фото; без него — инициалы или плейсхолдер',
+      description: 'Photo URL; without it — initials or placeholder',
     },
     {
       name: 'size',
       type: `'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'`,
       default: `'sm'`,
-      description: 'Размер аватара',
+      description: 'Avatar size',
     },
     {
       name: 'variant',
       type: `'default' | 'plain'`,
       default: `'default'`,
-      description: 'default — рамка/фон плейсхолдера; plain — без них',
+      description: 'default — placeholder border/background; plain — without them',
     },
     {
       name: 'topNotification',
       type: 'boolean',
       default: 'false',
-      description: 'Показать индикатор сверху справа',
+      description: 'Show indicator at the top right',
     },
     {
       name: 'bottomNotification',
       type: 'boolean',
       default: 'false',
-      description: 'Показать индикатор снизу справа',
+      description: 'Show indicator at the bottom right',
     },
     {
       name: 'topNotificationStatus',
       type: `'success' | 'error' | 'warning' | 'info'`,
       default: `'error'`,
-      description: 'Цвет верхнего индикатора',
+      description: 'Top indicator color',
     },
     {
       name: 'bottomNotificationStatus',
       type: `'success' | 'error' | 'warning' | 'info'`,
       default: `'info'`,
-      description: 'Цвет нижнего индикатора',
+      description: 'Bottom indicator color',
     },
     {
       name: 'imgNotification',
       type: 'string',
       default: "''",
-      description: 'Доп. изображение-бейдж поверх аватара',
+      description: 'Extra badge image over the avatar',
     },
     {
       name: 'containerClass',
       type: 'string',
       default: "''",
-      description: 'Доп. класс на контейнере аватара',
+      description: 'Extra class on the avatar container',
     },
   ],
   outputs: [],
   slots: [],
   examples: [
     {
-      title: 'Инициалы',
-      code: `<lz-avatar firstName="Анна" lastName="Иванова" size="md" />`,
+      title: 'Initials',
+      code: `<lz-avatar firstName="Anna" lastName="Ivanova" size="md" />`,
     },
     {
-      title: 'С фото и статусом',
+      title: 'With photo and status',
       code: `<lz-avatar
-  firstName="Анна"
-  lastName="Иванова"
+  firstName="Anna"
+  lastName="Ivanova"
   imgUrl="assets/demo/avatar.jpg"
   size="lg"
-  [topNotification]="true"
-  topNotificationStatus="success"
+  [bottomNotification]="true"
+  bottomNotificationStatus="success"
 />`,
     },
     {
-      title: 'Plain без рамки',
-      code: `<lz-avatar firstName="Борис" lastName="Петров" variant="plain" size="sm" />`,
+      title: 'Plain without border',
+      code: `<lz-avatar firstName="Boris" lastName="Petrov" variant="plain" size="sm" />`,
     },
   ],
   tokens: [
-    { name: '--lz-color-gray-*', description: 'Фон / текст инициалов и плейсхолдера' },
-    { name: '--lz-color-success', description: 'Индикатор success' },
-    { name: '--lz-color-danger', description: 'Индикатор error' },
-    { name: '--lz-color-warning', description: 'Индикатор warning' },
-    { name: '--lz-radius-full', description: 'Круглая форма аватара' },
+    { name: '--lz-color-neutral-50', description: 'Initials and placeholder background' },
+    { name: '--lz-color-neutral-700', description: 'Initials text' },
+    { name: '--lz-color-success-400', description: 'success indicator' },
+    { name: '--lz-color-danger-400', description: 'error indicator' },
+    { name: '--lz-color-warning-400', description: 'warning indicator' },
+    { name: '--lz-color-neutral-400', description: 'info indicator (offline / grey)' },
+    { name: '--lz-color-background', description: 'White ring around the status dot' },
   ],
 };

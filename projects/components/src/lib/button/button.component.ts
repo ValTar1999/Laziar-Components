@@ -32,6 +32,7 @@ import { Icon } from '../icon/icon.component';
   host: {
     class: 'lz-button-host',
     '[class.lz-button-host--full]': 'fullWidth()',
+    '[class.lz-button-host--pill]': 'resolvedPill()',
   },
 })
 export class Button {

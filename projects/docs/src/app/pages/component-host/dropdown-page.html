@@ -1,0 +1,10 @@
+<docs-component-page [meta]="meta">
+  <ng-template docsPreview let-values>
+    <lz-dropdown
+      [title]="str(values, 'title', 'Menu')"
+      [sizeVariant]="$any(str(values, 'sizeVariant', 'xl'))"
+      [disabled]="bool(values, 'disabled')"
+      [sections]="sections()"
+    />
+  </ng-template>
+</docs-component-page>
