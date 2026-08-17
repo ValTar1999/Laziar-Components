@@ -79,6 +79,8 @@
     "newsletterHint": "O dată pe săptămână",
     "agreeTerms": "Sunt de acord cu termenii",
     "install": "Instalare",
+    "installLead": "Pachetul este publicat în GitLab Package Registry. Adaugă în <code>.npmrc</code> din aplicația ta (token GitLab cu <code>read_registry</code>):",
+    "installNpmrc": "@laziar:registry=https://gitlab.agora.md/api/v4/projects/laziar%2Ffrontend-components/packages/npm/\n//gitlab.agora.md/api/v4/projects/laziar%2Ffrontend-components/packages/npm/:_authToken=<your-gitlab-token>",
     "quickStart": "Start rapid",
     "stepTheme": "Include <code>@laziar/components/styles/theme.css</code>.",
     "stepInject": "Injectează <code>ThemeService</code> pentru light / dark / auto.",

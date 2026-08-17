@@ -10,6 +10,7 @@
     "build:docs": "ng build docs",
     "build:gh-pages": "ng build docs --configuration production --base-href /Laziar-Components/",
     "build:lib": "ng build components",
+    "publish:lib": "node scripts/publish-lib.mjs",
     "watch": "ng build docs --watch --configuration development",
     "test": "ng test",
     "test:ci": "ng test components --watch=false --browsers=ChromeHeadlessCI && ng test docs --watch=false --browsers=ChromeHeadlessCI",

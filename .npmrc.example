@@ -1,0 +1,10 @@
+# Copy to .npmrc in your app (or set globally) before:
+#   npm install @laziar/components
+#
+# Token: GitLab → Preferences → Access Tokens
+# Scopes: read_api + read_registry (or api)
+#
+# Or use a Deploy Token with read_package_registry.
+
+@laziar:registry=https://gitlab.agora.md/api/v4/projects/laziar%2Ffrontend-components/packages/npm/
+//gitlab.agora.md/api/v4/projects/laziar%2Ffrontend-components/packages/npm/:_authToken=<your-gitlab-token>

@@ -101,6 +101,8 @@
 
   <section class="page__section">
     <h2>{{ 'gettingStarted.install' | transloco }}</h2>
+    <p [innerHTML]="'gettingStarted.installLead' | transloco"></p>
+    <pre class="page__code"><code>{{ 'gettingStarted.installNpmrc' | transloco }}</code></pre>
     <pre class="page__code"><code>npm install &#64;laziar/components</code></pre>
   </section>
 

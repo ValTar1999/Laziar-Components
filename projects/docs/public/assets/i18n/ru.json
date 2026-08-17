@@ -79,6 +79,8 @@
     "newsletterHint": "Раз в неделю",
     "agreeTerms": "Согласен с условиями",
     "install": "Установка",
+    "installLead": "Пакет публикуется в GitLab Package Registry. Добавь в <code>.npmrc</code> в своём приложении (токен GitLab с <code>read_registry</code>):",
+    "installNpmrc": "@laziar:registry=https://gitlab.agora.md/api/v4/projects/laziar%2Ffrontend-components/packages/npm/\n//gitlab.agora.md/api/v4/projects/laziar%2Ffrontend-components/packages/npm/:_authToken=<your-gitlab-token>",
     "quickStart": "Быстрый старт",
     "stepTheme": "Подключи <code>@laziar/components/styles/theme.css</code>.",
     "stepInject": "Инжектни <code>ThemeService</code> для light / dark / auto.",

@@ -1,63 +1,54 @@
-# Components
+# @laziar/components
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.0.
+Shared Angular UI library for Laziar (publikator & frontend).
 
-## Code scaffolding
+## Install
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+The package is **not** on [npmjs.org](https://www.npmjs.com). It is published to the **GitLab Package Registry** of [laziar/frontend-components](https://gitlab.agora.md/laziar/frontend-components).
 
-```bash
-ng generate component component-name
+### 1. Configure npm registry
+
+Copy [`.npmrc.example`](../../.npmrc.example) to `.npmrc` in your app (or add the same lines to your user `~/.npmrc`):
+
+```ini
+@laziar:registry=https://gitlab.agora.md/api/v4/projects/laziar%2Ffrontend-components/packages/npm/
+//gitlab.agora.md/api/v4/projects/laziar%2Ffrontend-components/packages/npm/:_authToken=<your-gitlab-token>
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Create a GitLab **Personal Access Token** (Preferences → Access Tokens) with scopes `read_api` and `read_registry`, or use a **Deploy Token** with `read_package_registry`.
+
+You must have access to the `laziar/frontend-components` project on GitLab.
+
+### 2. Install the package
 
 ```bash
-ng generate --help
+npm install @laziar/components
 ```
 
-## Building
+### 3. Include theme styles
 
-To build the library, run:
+```css
+@import '@laziar/components/styles/theme.css';
+```
+
+See [docs/THEMING.md](../../docs/THEMING.md) for tokens and `ThemeService`.
+
+## Development (this monorepo)
 
 ```bash
-ng build components
+npm ci
+npm run build:lib    # output: dist/components
+npm test             # Karma
 ```
 
-This command will compile your project, and the build artifacts will be placed in the `dist/` directory.
+## Publish (maintainers)
 
-### Publishing the Library
+On every push to `main`, GitLab CI builds and publishes `@laziar/components` as `0.1.<pipeline-id>`.
 
-Once the project is built, you can publish your library by following these steps:
-
-1. Navigate to the `dist` directory:
-   ```bash
-   cd dist/components
-   ```
-
-2. Run the `npm publish` command to publish your library to the npm registry:
-   ```bash
-   npm publish
-   ```
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+Manual publish (requires `write_registry` token):
 
 ```bash
-ng test
+set GITLAB_NPM_TOKEN=<token>   # Windows
+export GITLAB_NPM_TOKEN=<token> # Linux/macOS
+npm run publish:lib
 ```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

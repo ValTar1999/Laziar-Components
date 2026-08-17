@@ -2,6 +2,15 @@
   "name": "@laziar/components",
   "version": "0.0.1",
   "description": "Shared UI components for Laziar (publikator & frontend)",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.agora.md/laziar/frontend-components.git"
+  },
+  "publishConfig": {
+    "registry": "https://gitlab.agora.md/api/v4/projects/laziar%2Ffrontend-components/packages/npm/",
+    "access": "restricted"
+  },
   "peerDependencies": {
     "@angular/animations": "^20.0.0",
     "@angular/cdk": "^20.0.0",
