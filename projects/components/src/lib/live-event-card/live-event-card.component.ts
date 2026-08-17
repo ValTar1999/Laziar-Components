@@ -6,6 +6,7 @@ import {
   input,
   output,
 } from '@angular/core';
+import { LzInputFlush } from '../internal/lz-input-flush.directive';
 
 import { Avatar } from '../avatar/avatar.component';
 import { Icon } from '../icon/icon.component';
@@ -19,6 +20,7 @@ import { LzLiveEventCardEntry, LzLiveEventCardSize } from './live-event-card.typ
 @Component({
   selector: 'lz-live-event-card',
   standalone: true,
+  hostDirectives: [LzInputFlush],
   imports: [Avatar, Icon, Tooltip],
   templateUrl: './live-event-card.component.html',
   styleUrl: './live-event-card.component.scss',

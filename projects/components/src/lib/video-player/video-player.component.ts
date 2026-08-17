@@ -11,6 +11,7 @@ import {
   signal,
   ViewChild,
 } from '@angular/core';
+import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { LzVideoNuevoOptions, LzVideoPlaylistItem } from './video-player.types';
 
 declare global {
@@ -36,6 +37,7 @@ type VideoJsFactory = (el: HTMLVideoElement, options: Record<string, unknown>) =
 @Component({
   selector: 'lz-video-player',
   standalone: true,
+  hostDirectives: [LzInputFlush],
   templateUrl: './video-player.component.html',
   styleUrl: './video-player.component.scss',
   host: {

@@ -8,6 +8,7 @@ import {
   output,
   signal,
 } from '@angular/core';
+import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import {
   LzButtonColor,
   LzButtonIconPosition,
@@ -25,6 +26,7 @@ import { Icon } from '../icon/icon.component';
 @Component({
   selector: 'lz-button',
   standalone: true,
+  hostDirectives: [LzInputFlush],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './button.component.html',
   styleUrl: './button.component.scss',

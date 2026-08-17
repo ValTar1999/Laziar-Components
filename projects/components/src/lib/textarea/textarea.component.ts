@@ -9,6 +9,7 @@ import {
   output,
   signal,
 } from '@angular/core';
+import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { LzTextareaResize } from './textarea.types';
@@ -23,6 +24,7 @@ let nextTextareaFieldId = 0;
 @Component({
   selector: 'lz-textarea',
   standalone: true,
+  hostDirectives: [LzInputFlush],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './textarea.component.html',
   styleUrl: './textarea.component.scss',

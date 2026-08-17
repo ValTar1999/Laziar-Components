@@ -8,6 +8,7 @@ import {
   output,
   viewChild,
 } from '@angular/core';
+import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { NgClass } from '@angular/common';
 import { LzCheckboxType, LzCheckboxVariant } from './checkbox.types';
 
@@ -18,6 +19,7 @@ import { LzCheckboxType, LzCheckboxVariant } from './checkbox.types';
 @Component({
   selector: 'lz-checkbox',
   standalone: true,
+  hostDirectives: [LzInputFlush],
   imports: [NgClass],
   templateUrl: './checkbox.component.html',
   styleUrl: './checkbox.component.scss',

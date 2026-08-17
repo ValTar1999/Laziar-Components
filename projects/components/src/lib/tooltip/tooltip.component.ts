@@ -15,6 +15,7 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
+import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { Overlay, OverlayModule, OverlayRef, ConnectedPosition } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { LzTooltipPosition, LzTooltipTheme, LzTooltipTrigger } from './tooltip.types';
@@ -28,6 +29,7 @@ import { LzTooltipPosition, LzTooltipTheme, LzTooltipTrigger } from './tooltip.t
 @Component({
   selector: 'lz-tooltip, lz-tooltip-hover',
   standalone: true,
+  hostDirectives: [LzInputFlush],
   imports: [OverlayModule],
   templateUrl: './tooltip.component.html',
   styleUrl: './tooltip.component.scss',

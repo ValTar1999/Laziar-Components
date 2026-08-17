@@ -15,6 +15,7 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
+import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Overlay, OverlayModule, OverlayRef, PositionStrategy } from '@angular/cdk/overlay';
@@ -52,6 +53,7 @@ function floatingUiPositionStrategy(): PositionStrategy {
 @Component({
   selector: 'lz-select',
   standalone: true,
+  hostDirectives: [LzInputFlush],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './select.component.html',
   styleUrl: './select.component.scss',

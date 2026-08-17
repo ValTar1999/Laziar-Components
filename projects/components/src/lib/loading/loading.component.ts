@@ -1,10 +1,12 @@
 import { Component, input } from '@angular/core';
+import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { LzLoadingColor, LzLoadingSize, LzLoadingVariant } from './loading.types';
 
 /** Spinner / dots loader (publikator `app-loading`). */
 @Component({
   selector: 'lz-loading',
   standalone: true,
+  hostDirectives: [LzInputFlush],
   templateUrl: './loading.component.html',
   styleUrl: './loading.component.scss',
 })

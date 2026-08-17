@@ -1,4 +1,5 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
 import { Alert } from './alert.component';
 
@@ -43,4 +44,25 @@ describe('Alert', () => {
     const alertClass = component['alertClass']();
     expect(alertClass).toContain('lz-alert--row');
   });
+});
+
+@Component({
+  standalone: true,
+  imports: [Alert],
+  template: `<lz-alert title="Saved" />`,
+})
+class AlertFirstPaintHost {}
+
+describe('Alert first paint (template-bound inputs)', () => {
+  it('renders the title after a macrotask without a click', fakeAsync(async () => {
+    await TestBed.configureTestingModule({
+      imports: [AlertFirstPaintHost],
+    }).compileComponents();
+
+    const fixture = TestBed.createComponent(AlertFirstPaintHost);
+    fixture.detectChanges();
+    tick();
+
+    expect(fixture.nativeElement.querySelector('.lz-alert__title')?.textContent).toContain('Saved');
+  }));
 });

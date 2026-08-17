@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { ToastNotification } from './toast-notification.component';
 import { ToastService } from './toast.service';
 
@@ -6,6 +7,7 @@ import { ToastService } from './toast.service';
 @Component({
   selector: 'lz-toast-container',
   standalone: true,
+  hostDirectives: [LzInputFlush],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ToastNotification],
   templateUrl: './toast-container.component.html',

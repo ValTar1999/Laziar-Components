@@ -1,4 +1,5 @@
 import { booleanAttribute, Component, computed, input, output } from '@angular/core';
+import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { Icon } from '../icon/icon.component';
 import { Tooltip } from '../tooltip/tooltip.component';
 import { LzMoreActionsMenuLayout } from './more-actions-menu.types';
@@ -10,6 +11,7 @@ import { LzMoreActionsMenuLayout } from './more-actions-menu.types';
 @Component({
   selector: 'lz-more-actions-menu',
   standalone: true,
+  hostDirectives: [LzInputFlush],
   imports: [Icon, Tooltip],
   templateUrl: './more-actions-menu.component.html',
   styleUrl: './more-actions-menu.component.scss',

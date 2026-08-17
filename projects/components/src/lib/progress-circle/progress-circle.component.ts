@@ -1,4 +1,5 @@
 import { Component, computed, input, numberAttribute } from '@angular/core';
+import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { LzProgressCircleSize, LzProgressCircleVariant } from './progress-circle.types';
 
 const SIZE_PX: Record<LzProgressCircleSize, number> = {
@@ -23,6 +24,7 @@ const STROKE_PX: Record<LzProgressCircleSize, number> = {
 @Component({
   selector: 'lz-progress-circle',
   standalone: true,
+  hostDirectives: [LzInputFlush],
   templateUrl: './progress-circle.component.html',
   styleUrl: './progress-circle.component.scss',
 })

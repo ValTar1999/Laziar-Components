@@ -1,9 +1,11 @@
 import { booleanAttribute, Component, input, signal } from '@angular/core';
+import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { LzCardSize, LzCardVariant } from './card.types';
 
 @Component({
   selector: 'lz-card',
   standalone: true,
+  hostDirectives: [LzInputFlush],
   templateUrl: './card.component.html',
   styleUrl: './card.component.scss',
   host: {

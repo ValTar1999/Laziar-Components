@@ -13,6 +13,7 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
+import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { Overlay, OverlayModule, OverlayRef, PositionStrategy } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { autoUpdate, computePosition, flip, offset, shift, size } from '@floating-ui/dom';
@@ -43,6 +44,7 @@ function floatingUiPositionStrategy(): PositionStrategy {
 @Component({
   selector: 'lz-dropdown',
   standalone: true,
+  hostDirectives: [LzInputFlush],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [OverlayModule, Icon],
   templateUrl: './dropdown.component.html',

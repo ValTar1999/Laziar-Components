@@ -9,6 +9,7 @@ import {
   output,
   signal,
 } from '@angular/core';
+import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -27,6 +28,7 @@ let nextInputFieldId = 0;
 @Component({
   selector: 'lz-input',
   standalone: true,
+  hostDirectives: [LzInputFlush],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './input.component.html',
   styleUrl: './input.component.scss',

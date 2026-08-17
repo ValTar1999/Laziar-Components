@@ -1,4 +1,5 @@
 import { Component, computed, input, model } from '@angular/core';
+import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { CommonModule } from '@angular/common';
 import { LzTabBadge, LzTabsSize, LzTabsStyle, LzDisabledTabTooltipTrigger } from './tabs.types';
 import { Badge } from '../badge/badge.component';
@@ -9,6 +10,7 @@ import { Tooltip } from '../tooltip/tooltip.component';
 @Component({
   selector: 'lz-tabs',
   standalone: true,
+  hostDirectives: [LzInputFlush],
   imports: [CommonModule, Badge, Icon, Tooltip],
   templateUrl: './tabs.component.html',
   styleUrl: './tabs.component.scss',

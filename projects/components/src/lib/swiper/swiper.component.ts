@@ -7,6 +7,7 @@ import {
   signal,
   ViewChild,
 } from '@angular/core';
+import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { register } from 'swiper/element/bundle';
 import type SwiperType from 'swiper';
 import 'swiper/css';
@@ -21,6 +22,7 @@ register();
 @Component({
   selector: 'lz-swiper',
   standalone: true,
+  hostDirectives: [LzInputFlush],
   templateUrl: './swiper.component.html',
   styleUrl: './swiper.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

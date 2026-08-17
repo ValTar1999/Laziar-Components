@@ -17,6 +17,7 @@ import {
   TemplateRef,
   viewChild,
 } from '@angular/core';
+import { LzInputFlush } from '../internal/lz-input-flush.directive';
 
 import { Button } from '../button/button.component';
 import { Icon } from '../icon/icon.component';
@@ -25,6 +26,7 @@ import { TableColumn, TablePaginationItem, TableRow } from './table.types';
 @Component({
   selector: 'lz-table',
   standalone: true,
+  hostDirectives: [LzInputFlush],
   imports: [Button, NgTemplateOutlet, Icon],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',

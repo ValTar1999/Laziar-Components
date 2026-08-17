@@ -1,4 +1,5 @@
 import { booleanAttribute, Component, computed, input } from '@angular/core';
+import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { RouterLink } from '@angular/router';
 import { LzTabButtonSize, LzTabButtonVariant } from './tab-button.types';
 
@@ -9,6 +10,7 @@ import { LzTabButtonSize, LzTabButtonVariant } from './tab-button.types';
 @Component({
   selector: 'lz-tab-button',
   standalone: true,
+  hostDirectives: [LzInputFlush],
   imports: [RouterLink],
   templateUrl: './tab-button.component.html',
   styleUrl: './tab-button.component.scss',

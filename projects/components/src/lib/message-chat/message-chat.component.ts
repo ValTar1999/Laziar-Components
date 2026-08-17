@@ -11,6 +11,7 @@ import {
   PLATFORM_ID,
   viewChild,
 } from '@angular/core';
+import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 import { MessageChatTheme } from './message-chat.types';
@@ -18,6 +19,7 @@ import { MessageChatTheme } from './message-chat.types';
 @Component({
   selector: 'lz-message-chat',
   standalone: true,
+  hostDirectives: [LzInputFlush],
   templateUrl: './message-chat.component.html',
   styleUrl: './message-chat.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

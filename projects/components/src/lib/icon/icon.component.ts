@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { LzIconName, LzIconVariant } from './icon.types';
 
 /**
@@ -8,6 +9,7 @@ import { LzIconName, LzIconVariant } from './icon.types';
 @Component({
   selector: 'lz-icon',
   standalone: true,
+  hostDirectives: [LzInputFlush],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './icon.component.html',
   styleUrl: './icon.component.scss',

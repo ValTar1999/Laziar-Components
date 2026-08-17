@@ -1,4 +1,5 @@
 import { booleanAttribute, Component, computed, input, output } from '@angular/core';
+import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { NgClass } from '@angular/common';
 import { LzSwitchToggleSize } from './switch-toggle.types';
 
@@ -9,6 +10,7 @@ import { LzSwitchToggleSize } from './switch-toggle.types';
 @Component({
   selector: 'lz-switch-toggle',
   standalone: true,
+  hostDirectives: [LzInputFlush],
   imports: [NgClass],
   templateUrl: './switch-toggle.component.html',
   styleUrl: './switch-toggle.component.scss',

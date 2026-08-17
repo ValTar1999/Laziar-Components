@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { LzInputFlush } from '../internal/lz-input-flush.directive';
 
 /**
  * Stacked reaction emojis with optional +N more badge.
@@ -7,6 +8,7 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
 @Component({
   selector: 'lz-articlecard-reactions',
   standalone: true,
+  hostDirectives: [LzInputFlush],
   templateUrl: './articlecard-reactions.component.html',
   styleUrl: './articlecard-reactions.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

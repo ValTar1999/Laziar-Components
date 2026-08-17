@@ -1,4 +1,5 @@
 import { booleanAttribute, Component, computed, input } from '@angular/core';
+import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { CommonModule } from '@angular/common';
 
 /**
@@ -10,6 +11,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './button-group.component.html',
   styleUrl: './button-group.component.scss',
   standalone: true,
+  hostDirectives: [LzInputFlush],
   imports: [CommonModule],
   host: {
     class: 'lz-button-group-host',

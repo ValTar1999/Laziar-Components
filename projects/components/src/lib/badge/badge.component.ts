@@ -1,4 +1,5 @@
 import { booleanAttribute, Component, computed, input, output } from '@angular/core';
+import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import {
   LzBadgeColor,
   LzBadgeIconPosition,
@@ -15,6 +16,7 @@ import { Icon } from '../icon/icon.component';
 @Component({
   selector: 'lz-badge',
   standalone: true,
+  hostDirectives: [LzInputFlush],
   imports: [Icon],
   templateUrl: './badge.component.html',
   styleUrl: './badge.component.scss',

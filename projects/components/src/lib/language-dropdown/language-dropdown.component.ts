@@ -12,6 +12,7 @@ import {
   PLATFORM_ID,
   signal,
 } from '@angular/core';
+import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { Icon } from '../icon/icon.component';
 import { LzLanguageOption } from './language-dropdown.types';
 
@@ -31,6 +32,7 @@ const DEFAULT_LANGUAGES: LzLanguageOption[] = [
 @Component({
   selector: 'lz-language-dropdown',
   standalone: true,
+  hostDirectives: [LzInputFlush],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Icon],
   templateUrl: './language-dropdown.component.html',

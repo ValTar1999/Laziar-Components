@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
+import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { Button } from '../button/button.component';
 import { Icon } from '../icon/icon.component';
 import { ToastType } from './toast.types';
@@ -7,6 +8,7 @@ import { ToastType } from './toast.types';
 @Component({
   selector: 'lz-toast-notification',
   standalone: true,
+  hostDirectives: [LzInputFlush],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Button, Icon],
   templateUrl: './toast-notification.component.html',

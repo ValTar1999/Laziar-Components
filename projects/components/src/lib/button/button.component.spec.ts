@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Component } from '@angular/core';
 import { Button } from './button.component';
@@ -185,6 +185,29 @@ describe('Button', () => {
   template: `<lz-button label="Projected"><span class="extra">!</span></lz-button>`,
 })
 class ButtonProjectionHost {}
+
+describe('Button first paint (template-bound inputs)', () => {
+  @Component({
+    standalone: true,
+    imports: [Button],
+    template: `<lz-button label="Light" />`,
+  })
+  class FirstPaintHost {}
+
+  it('renders the label after a macrotask without a click', fakeAsync(async () => {
+    await TestBed.configureTestingModule({
+      imports: [FirstPaintHost],
+    }).compileComponents();
+
+    const fixture = TestBed.createComponent(FirstPaintHost);
+    fixture.detectChanges();
+    tick();
+
+    expect(fixture.nativeElement.querySelector('.lz-button__label')?.textContent).toContain(
+      'Light',
+    );
+  }));
+});
 
 describe('Button content projection', () => {
   it('should project default ng-content', async () => {

@@ -1,4 +1,5 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { InputComponent } from './input.component';
 
@@ -158,4 +159,27 @@ describe('InputComponent', () => {
     const icon = fixture.nativeElement.querySelector('.lz-input-search-icon');
     expect(icon.getAttribute('data-type')).toBe('mini');
   });
+});
+
+@Component({
+  standalone: true,
+  imports: [InputComponent],
+  template: `<lz-input label="Email" />`,
+})
+class InputFirstPaintHost {}
+
+describe('InputComponent first paint (template-bound inputs)', () => {
+  it('renders the label after a macrotask without a click', fakeAsync(async () => {
+    await TestBed.configureTestingModule({
+      imports: [InputFirstPaintHost],
+    }).compileComponents();
+
+    const fixture = TestBed.createComponent(InputFirstPaintHost);
+    fixture.detectChanges();
+    tick();
+
+    expect(fixture.nativeElement.querySelector('.lz-input-label')?.textContent.trim()).toBe(
+      'Email',
+    );
+  }));
 });

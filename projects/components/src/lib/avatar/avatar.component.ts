@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { SafeUrl } from '@angular/platform-browser';
 
 import {
@@ -18,6 +19,7 @@ import {
   templateUrl: './avatar.component.html',
   styleUrl: './avatar.component.scss',
   standalone: true,
+  hostDirectives: [LzInputFlush],
   imports: [CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
