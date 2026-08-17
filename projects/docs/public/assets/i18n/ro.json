@@ -83,6 +83,8 @@
     "installNpmrc": "@laziar:registry=https://gitlab.agora.md/api/v4/projects/laziar%2Ffrontend-components/packages/npm/\n//gitlab.agora.md/api/v4/projects/laziar%2Ffrontend-components/packages/npm/:_authToken=<your-gitlab-token>",
     "quickStart": "Start rapid",
     "stepTheme": "Include <code>@laziar/components/styles/theme.css</code>.",
+    "installAssetsLead": "Copiază sprite-urile de icoane în <code>angular.json</code> <code>assets</code> (necesar pentru <code>lz-icon</code>, icoanele butoanelor și chevron-urile dropdown):",
+    "installAssets": "{\n  \"glob\": \"**/*\",\n  \"input\": \"node_modules/@laziar/components/assets/icons\",\n  \"output\": \"assets/icons\"\n}",
     "stepInject": "Injectează <code>ThemeService</code> pentru light / dark / auto.",
     "stepImport": "Importă componente: <code>Button</code>, <code>Input</code>, <code>Logo</code>, <code>Icon</code>…",
     "toastMessage": "Site construit din @laziar/components",

@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { LzIconName, LzIconVariant } from './icon.types';
 
 /**
@@ -8,6 +8,7 @@ import { LzIconName, LzIconVariant } from './icon.types';
 @Component({
   selector: 'lz-icon',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './icon.component.html',
   styleUrl: './icon.component.scss',
   host: {

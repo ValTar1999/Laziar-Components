@@ -31,6 +31,16 @@ npm install @laziar/components
 @import '@laziar/components/styles/theme.css';
 ```
 
+Icons (`lz-icon`, button/dropdown chevrons, etc.) need the SVG sprites in the app. Add this to `angular.json` `architect.build.options.assets`:
+
+```json
+{
+  "glob": "**/*",
+  "input": "node_modules/@laziar/components/assets/icons",
+  "output": "assets/icons"
+}
+```
+
 See [docs/THEMING.md](../../docs/THEMING.md) for tokens and `ThemeService`.
 
 ## Development (this monorepo)

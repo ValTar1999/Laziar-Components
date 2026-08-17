@@ -6,7 +6,7 @@ export const ICON_COMPONENT_META: DocsComponentMeta = {
   name: 'Icon',
   selector: 'lz-icon',
   description:
-    'SVG icon from Heroicons / custom sprites: outline, solid, mini, micro, custom. Name is the symbol id in the sprite.',
+    'SVG icon from Heroicons / custom sprites: outline, solid, mini, micro, custom. Built-in sprites are bundled with the package.',
   controls: [
     {
       name: 'name',

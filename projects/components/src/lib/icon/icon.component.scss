@@ -22,16 +22,15 @@
   transition: color 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Outline / thin sets: stroke icons — do not force fill */
-:host([data-type='outline']) .lz-icon,
-:host([data-type='mini']) .lz-icon,
-:host([data-type='micro']) .lz-icon {
+/* Outline: stroked Heroicons. Mini/micro/solid/custom are filled. */
+:host([data-type='outline']) .lz-icon {
   fill: none;
   stroke: currentColor;
 }
 
-/* Solid / custom: filled paths */
 :host([data-type='solid']) .lz-icon,
+:host([data-type='mini']) .lz-icon,
+:host([data-type='micro']) .lz-icon,
 :host([data-type='custom']) .lz-icon {
   fill: currentColor;
   stroke: none;

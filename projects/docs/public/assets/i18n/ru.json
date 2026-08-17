@@ -83,6 +83,8 @@
     "installNpmrc": "@laziar:registry=https://gitlab.agora.md/api/v4/projects/laziar%2Ffrontend-components/packages/npm/\n//gitlab.agora.md/api/v4/projects/laziar%2Ffrontend-components/packages/npm/:_authToken=<your-gitlab-token>",
     "quickStart": "Быстрый старт",
     "stepTheme": "Подключи <code>@laziar/components/styles/theme.css</code>.",
+    "installAssetsLead": "Скопируй спрайты иконок в <code>angular.json</code> <code>assets</code> (нужно для <code>lz-icon</code>, иконок кнопок и шевронов dropdown):",
+    "installAssets": "{\n  \"glob\": \"**/*\",\n  \"input\": \"node_modules/@laziar/components/assets/icons\",\n  \"output\": \"assets/icons\"\n}",
     "stepInject": "Инжектни <code>ThemeService</code> для light / dark / auto.",
     "stepImport": "Импортируй компоненты: <code>Button</code>, <code>Input</code>, <code>Logo</code>, <code>Icon</code>…",
     "toastMessage": "Сайт собран из компонентов @laziar/components",
