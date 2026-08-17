@@ -61,6 +61,16 @@ export class ThemeService {
   }
 
   private bindSystemPreference(): void {
+    // Feature-detected, not platform-detected. `isPlatformBrowser` is true under
+    // jsdom — the default for Vitest, and where Angular is heading — but jsdom
+    // does not implement matchMedia, so assuming it exists crashes a consumer's
+    // entire test suite the moment anything injects this service. Degrading here
+    // is correct: without a media query the service just cannot follow the OS,
+    // and an explicit light/dark mode still works.
+    if (typeof window.matchMedia !== 'function') {
+      return;
+    }
+
     this.mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     this.systemDarkSignal.set(this.mediaQuery.matches);
 
