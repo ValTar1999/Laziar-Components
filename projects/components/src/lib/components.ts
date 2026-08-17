@@ -84,6 +84,12 @@ export * from './dropdown/dropdown.types';
 export * from './card/card.component';
 export * from './card/card.types';
 
+export * from './modal/modal.component';
+export * from './modal/modal.types';
+
+export * from './pagination/pagination.component';
+export * from './pagination/pagination.types';
+
 export * from './more-actions-menu/more-actions-menu.component';
 export * from './more-actions-menu/more-actions-menu.types';
 

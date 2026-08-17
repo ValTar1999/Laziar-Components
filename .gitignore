@@ -45,3 +45,6 @@ Thumbs.db
 # Husky
 .husky/_
 
+
+# npm auth — .npmrc holds a live registry token (see .npmrc.example)
+.npmrc

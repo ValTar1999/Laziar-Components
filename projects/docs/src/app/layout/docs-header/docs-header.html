@@ -9,7 +9,7 @@
           [icon]="menuIcon()"
           iconVariant="outline"
           [ariaLabel]="menuLabelKey() | transloco"
-          (buttonClick)="menuToggle.emit()"
+          (clicked)="menuToggle.emit()"
         />
       </div>
 
@@ -48,7 +48,7 @@
         pill
         color="gray"
         [variant]="themeVariant('light')"
-        (buttonClick)="setTheme('light')"
+        (clicked)="setTheme('light')"
       />
       <lz-button
         [label]="'header.themeDark' | transloco"
@@ -56,7 +56,7 @@
         pill
         color="gray"
         [variant]="themeVariant('dark')"
-        (buttonClick)="setTheme('dark')"
+        (clicked)="setTheme('dark')"
       />
       <lz-button
         [label]="'header.themeAuto' | transloco"
@@ -64,7 +64,7 @@
         pill
         color="gray"
         [variant]="themeVariant('auto')"
-        (buttonClick)="setTheme('auto')"
+        (clicked)="setTheme('auto')"
       />
     </lz-button-group>
 
