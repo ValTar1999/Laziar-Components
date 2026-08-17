@@ -2,10 +2,11 @@
   <button
     type="button"
     role="switch"
-    [attr.aria-checked]="active()"
-    [disabled]="disabled()"
+    [attr.aria-checked]="activeState()"
+    [disabled]="effectiveDisabled()"
     [ngClass]="toggleClasses()"
     (click)="toggle()"
+    (blur)="onTouched()"
   >
     <span [ngClass]="circleClasses()"></span>
   </button>

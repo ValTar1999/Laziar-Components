@@ -3,8 +3,8 @@
     <input
       #inputElement
       [type]="type()"
-      [checked]="checked()"
-      [disabled]="disabled()"
+      [checked]="checkedState()"
+      [disabled]="effectiveDisabled()"
       [ngClass]="inputClasses()"
       [attr.title]="title() || null"
       (change)="onInputChange($event)"
