@@ -23,10 +23,17 @@ if (!process.argv.includes('--skip-build')) {
 }
 
 const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+pkg.scripts = {
+  ...pkg.scripts,
+  postinstall: 'node ./scripts/copy-icon-assets.cjs',
+};
 
 if (process.env.CI_PIPELINE_IID) {
   pkg.version = `0.1.${process.env.CI_PIPELINE_IID}`;
-  fs.writeFileSync(pkgPath, `${JSON.stringify(pkg, null, 2)}\n`);
+}
+
+fs.writeFileSync(pkgPath, `${JSON.stringify(pkg, null, 2)}\n`);
+if (process.env.CI_PIPELINE_IID) {
   console.log(`Publishing version ${pkg.version}`);
 }
 

@@ -7,14 +7,12 @@ export const LZ_BADGE_COLORS = [
   'blue',
   'orange',
   'magenta',
-  /** Alias for `magenta` (publikator / frontend typo). */
-  'magrnta',
   'teal',
   'gray',
   'violet',
 ] as const;
 
-export type LzBadgeColor = (typeof LZ_BADGE_COLORS)[number];
+export type LzBadgeColor = (typeof LZ_BADGE_COLORS)[number] | 'magrnta';
 
 /** Size scale for badge components. */
 export const LZ_BADGE_SIZES = ['lg', 'md', 'sm'] as const;

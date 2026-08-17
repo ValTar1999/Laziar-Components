@@ -1,6 +1,7 @@
 {
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
   "dest": "../../dist/components",
+  "keepLifecycleScripts": true,
   "lib": {
     "entryFile": "src/public-api.ts"
   },
@@ -14,6 +15,11 @@
       "glob": "**/*",
       "input": "src/assets/icons",
       "output": "assets/icons"
+    },
+    {
+      "glob": "copy-icon-assets.cjs",
+      "input": "scripts",
+      "output": "scripts"
     }
   ]
 }

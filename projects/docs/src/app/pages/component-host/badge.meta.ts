@@ -1,13 +1,12 @@
 import { DocsComponentMeta } from '../../core/component-doc.model';
 import { LZ_BADGE_COLORS, LZ_BADGE_SIZES, LZ_BADGE_VARIANTS } from '@laziar/components';
 
-const BADGE_COLORS = LZ_BADGE_COLORS.filter((c) => c !== 'magrnta');
+const BADGE_COLORS = LZ_BADGE_COLORS;
 
 export const BADGE_COMPONENT_META: DocsComponentMeta = {
   name: 'Badge',
   selector: 'lz-badge',
-  description:
-    'Compact chip/label with a color palette, sizes, pill shape, and optional icon.',
+  description: 'Compact chip/label with a color palette, sizes, pill shape, and optional icon.',
   contentFrom: 'label',
   controls: [
     {

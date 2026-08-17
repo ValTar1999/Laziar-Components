@@ -3,12 +3,23 @@
  */
 
 :host.lz-video-player-host {
-  display: contents;
+  display: block;
   position: relative;
   overflow: hidden;
   border-radius: 8px;
   width: 100%;
   height: 100%;
+}
+
+.lz-video-player__fallback {
+  margin: 0;
+  padding: 1rem 1.25rem;
+  border-radius: 8px;
+  background: var(--lz-color-neutral-50, #f4f5f5);
+  color: var(--lz-color-text-secondary, #6b6f73);
+  font-family: var(--lz-font-sans, system-ui, sans-serif);
+  font-size: 0.875rem;
+  line-height: 1.4;
 }
 
 .lz-video-player,

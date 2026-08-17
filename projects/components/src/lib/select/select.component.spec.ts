@@ -203,4 +203,21 @@ describe('SelectComponent', () => {
     const triggerButton = fixture.nativeElement.querySelector('.lz-select-trigger');
     expect(triggerButton.getAttribute('data-size')).toBe('sm');
   });
+
+  it('should render generic label/value options', () => {
+    fixture.componentRef.setInput('options', [
+      { value: 'ro', label: 'Română' },
+      { value: 'en', label: 'English' },
+    ]);
+    fixture.detectChanges();
+
+    const triggerButton = fixture.nativeElement.querySelector('.lz-select-trigger');
+    triggerButton.click();
+    fixture.detectChanges();
+
+    const options = optionEls();
+    expect(options.length).toBe(2);
+    expect(options[0].textContent).toContain('Română');
+    expect(options[1].textContent).toContain('English');
+  });
 });

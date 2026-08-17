@@ -8,3 +8,7 @@
 
 @laziar:registry=https://gitlab.agora.md/api/v4/projects/laziar%2Ffrontend-components/packages/npm/
 //gitlab.agora.md/api/v4/projects/laziar%2Ffrontend-components/packages/npm/:_authToken=<your-gitlab-token>
+
+# Only for a local `file:../path/to/dist/components` install. npm otherwise
+# symlinks the folder, and TypeScript follows it into a second @angular/core.
+# install-links=true

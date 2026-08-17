@@ -83,7 +83,7 @@
     "installNpmrc": "@laziar:registry=https://gitlab.agora.md/api/v4/projects/laziar%2Ffrontend-components/packages/npm/\n//gitlab.agora.md/api/v4/projects/laziar%2Ffrontend-components/packages/npm/:_authToken=<your-gitlab-token>",
     "quickStart": "Quick start",
     "stepTheme": "Include <code>@laziar/components/styles/theme.css</code>.",
-    "installAssetsLead": "Copy icon sprites in <code>angular.json</code> <code>assets</code> (needed for <code>lz-icon</code>, button icons, dropdown chevrons):",
+    "installAssetsLead": "<code>npm install</code> copies icon sprites to <code>public/assets/icons</code> (or <code>src/assets/icons</code>). If they are missing, add this to <code>angular.json</code> <code>assets</code>:",
     "installAssets": "{\n  \"glob\": \"**/*\",\n  \"input\": \"node_modules/@laziar/components/assets/icons\",\n  \"output\": \"assets/icons\"\n}",
     "stepInject": "Inject <code>ThemeService</code> for light / dark / auto.",
     "stepImport": "Import components: <code>Button</code>, <code>Input</code>, <code>Logo</code>, <code>Icon</code>…",

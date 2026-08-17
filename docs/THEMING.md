@@ -246,6 +246,8 @@ Defaults below: **Light** / **Dark** (dark = `[data-theme="dark"]` and system-au
 | `--lz-shadow-focus` | Ring + offset | uses background + focus-ring | same |
 | `--lz-shadow-sticky` | Table sticky edge | pub table shadow | darker |
 
+`theme.css` loads **Onest** and **Lora** from Google Fonts and sets `html, body { font-family: var(--lz-font-sans); }`. Override the tokens or the body rule in the host app if you use a different stack.
+
 ### Typography
 
 | Token | Description | Value |

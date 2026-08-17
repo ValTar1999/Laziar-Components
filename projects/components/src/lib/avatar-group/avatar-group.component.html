@@ -6,7 +6,7 @@
       [style.z-index]="reverse() ? displayedAvatars().length - i : i + 1"
     >
       <div class="lz-avatar-group__face">
-        @if (avatar.imgUrl) {
+        @if (avatar.imgUrl?.trim()) {
           <img
             [src]="avatar.imgUrl"
             [alt]="avatar.firstName + ' ' + avatar.lastName"

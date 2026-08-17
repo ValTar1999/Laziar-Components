@@ -37,6 +37,17 @@ describe('Avatar', () => {
     expect(component['showPlaceholder']()).toBe(true);
   });
 
+  it('should treat an empty image URL as no image', () => {
+    fixture.componentRef.setInput('firstName', 'Ada');
+    fixture.componentRef.setInput('lastName', 'Lovelace');
+    fixture.componentRef.setInput('imgUrl', '');
+    fixture.detectChanges();
+
+    expect(component['hasImage']()).toBe(false);
+    expect(fixture.nativeElement.querySelector('img')).toBeNull();
+    expect(fixture.nativeElement.textContent).toContain('AL');
+  });
+
   it('should not show placeholder when image is provided', () => {
     fixture.componentRef.setInput('imgUrl', 'test.jpg');
     fixture.detectChanges();

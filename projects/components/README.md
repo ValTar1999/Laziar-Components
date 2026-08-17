@@ -31,7 +31,7 @@ npm install @laziar/components
 @import '@laziar/components/styles/theme.css';
 ```
 
-Icons (`lz-icon`, button/dropdown chevrons, etc.) need the SVG sprites in the app. Add this to `angular.json` `architect.build.options.assets`:
+`npm install` copies icon sprites into `public/assets/icons` (Angular 17+) or `src/assets/icons`. If that did not run (pnpm without scripts, CI cache, etc.), add this to `angular.json` `architect.build.options.assets`:
 
 ```json
 {
@@ -49,7 +49,7 @@ The app must use **Angular 20.3** (`@angular/core`, `common`, `compiler`, `compi
 
 `TS2551: Property '__@ɵINPUT_SIGNAL_BRAND_WRITE_TYPE@…' does not exist`
 
-That means TypeScript sees two copies of `@angular/core`. Install from the GitLab registry (a real copy in `node_modules`), or for a local `dist/` path use `install-links=true` in `.npmrc` so npm copies the package instead of linking it.
+That means TypeScript sees two copies of `@angular/core`. Install from the GitLab registry (a real copy in `node_modules`), or for a local `dist/` path add `install-links=true` to `.npmrc` so npm copies the package instead of linking it.
 
 ## Development (this monorepo)
 

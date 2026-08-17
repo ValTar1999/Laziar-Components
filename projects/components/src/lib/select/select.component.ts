@@ -20,7 +20,12 @@ import { CommonModule } from '@angular/common';
 import { Overlay, OverlayModule, OverlayRef, PositionStrategy } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { autoUpdate, computePosition, flip, offset, shift, size } from '@floating-ui/dom';
-import { LzSelectSize, LzSelectOptionType } from './select.types';
+import {
+  LzSelectSize,
+  LzSelectOptionType,
+  lzSelectOptionDate,
+  lzSelectOptionLabel,
+} from './select.types';
 import { Icon } from '../icon/icon.component';
 
 let nextSelectFieldId = 0;
@@ -102,7 +107,7 @@ export class SelectComponent implements ControlValueAccessor, OnDestroy {
   protected readonly displayValue = computed(() => {
     const selectedValue = this.selected();
     if (!selectedValue) return '';
-    return typeof selectedValue === 'string' ? selectedValue : selectedValue.title;
+    return lzSelectOptionLabel(selectedValue);
   });
 
   ngOnDestroy(): void {
@@ -154,11 +159,11 @@ export class SelectComponent implements ControlValueAccessor, OnDestroy {
   }
 
   protected getOptionTitle(option: LzSelectOptionType): string {
-    return typeof option === 'string' ? option : option.title;
+    return lzSelectOptionLabel(option);
   }
 
   protected getOptionDate(option: LzSelectOptionType): string | null {
-    return typeof option === 'string' ? null : option.date;
+    return lzSelectOptionDate(option);
   }
 
   protected formatOptionDate(option: LzSelectOptionType): string | null {
@@ -186,7 +191,13 @@ export class SelectComponent implements ControlValueAccessor, OnDestroy {
     }
 
     if (typeof option !== 'string' && typeof selectedValue !== 'string') {
-      return option.title === selectedValue.title;
+      if (option.id != null && selectedValue.id != null) {
+        return option.id === selectedValue.id;
+      }
+      if (option.value != null && selectedValue.value != null) {
+        return option.value === selectedValue.value;
+      }
+      return lzSelectOptionLabel(option) === lzSelectOptionLabel(selectedValue);
     }
 
     return false;

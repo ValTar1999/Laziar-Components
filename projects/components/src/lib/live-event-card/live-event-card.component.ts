@@ -31,7 +31,7 @@ export class LiveEventCard {
   readonly publisher = input('');
   readonly avatarFirstName = input('');
   readonly avatarLastName = input('');
-  readonly avatarImgUrl = input('');
+  readonly avatarImgUrl = input<string | undefined>(undefined);
   readonly eventTitle = input('');
   readonly entries = input<LzLiveEventCardEntry[]>([]);
   readonly link = input('#');

@@ -16,42 +16,12 @@ import { Icon } from '../icon/icon.component';
 import { LzLanguageOption } from './language-dropdown.types';
 
 const DEFAULT_LANGUAGES: LzLanguageOption[] = [
-  {
-    code: 'ro',
-    name: 'Română',
-    flag: '../../assets/images/flags/romania.svg',
-    initials: 'RO',
-  },
-  {
-    code: 'ru',
-    name: 'Русский',
-    flag: '../../assets/images/flags/russia.svg',
-    initials: 'РУ',
-  },
-  {
-    code: 'en',
-    name: 'English',
-    flag: '../../assets/images/flags/united-states.svg',
-    initials: 'EN',
-  },
-  {
-    code: 'de',
-    name: 'Deutsch',
-    flag: '../../assets/images/flags/germany.svg',
-    initials: 'DE',
-  },
-  {
-    code: 'fr',
-    name: 'Français',
-    flag: '../../assets/images/flags/france.svg',
-    initials: 'FR',
-  },
-  {
-    code: 'it',
-    name: 'Italiano',
-    flag: '../../assets/images/flags/italy.svg',
-    initials: 'IT',
-  },
+  { code: 'ro', name: 'Română', flag: '', initials: 'RO' },
+  { code: 'ru', name: 'Русский', flag: '', initials: 'РУ' },
+  { code: 'en', name: 'English', flag: '', initials: 'EN' },
+  { code: 'de', name: 'Deutsch', flag: '', initials: 'DE' },
+  { code: 'fr', name: 'Français', flag: '', initials: 'FR' },
+  { code: 'it', name: 'Italiano', flag: '', initials: 'IT' },
 ];
 
 /**

@@ -50,7 +50,11 @@ export class Avatar {
   });
 
   protected readonly hasImage = computed<boolean>(() => {
-    return this.imgUrl() != null;
+    const url = this.imgUrl();
+    if (url == null) {
+      return false;
+    }
+    return typeof url === 'string' ? url.trim().length > 0 : true;
   });
 
   protected readonly avatarContainerClass = computed<string>(() => {

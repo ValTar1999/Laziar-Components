@@ -6,7 +6,9 @@ import {
   inject,
   input,
   OnDestroy,
+  OnInit,
   PLATFORM_ID,
+  signal,
   ViewChild,
 } from '@angular/core';
 import { LzVideoNuevoOptions, LzVideoPlaylistItem } from './video-player.types';
@@ -40,12 +42,12 @@ type VideoJsFactory = (el: HTMLVideoElement, options: Record<string, unknown>) =
     class: 'lz-video-player-host',
   },
 })
-export class VideoPlayer implements AfterViewInit, OnDestroy {
+export class VideoPlayer implements OnInit, AfterViewInit, OnDestroy {
   private readonly platformId = inject(PLATFORM_ID);
 
-  @ViewChild('videoPlayer', { static: true }) private videoElement!: ElementRef<HTMLVideoElement>;
+  @ViewChild('videoPlayer') private videoElement?: ElementRef<HTMLVideoElement>;
 
-  readonly videoSrc = input('/assets/video/IntroF1.mp4');
+  readonly videoSrc = input('');
   /** Host logo overlay; frontend default is `/assets/site-logo/laziar.svg`. */
   readonly logoPath = input('/assets/site-logo/laziar.svg');
   /** Base path to Video.js assets (CSS/JS), as in publikator `/assets/videojs`. */
@@ -53,45 +55,34 @@ export class VideoPlayer implements AfterViewInit, OnDestroy {
   readonly language = input('ro');
   readonly muted = input(true);
   readonly autoplay = input(false);
-  readonly playlist = input<LzVideoPlaylistItem[]>([
-    {
-      sources: [
-        {
-          src: '../../../../../assets/video/IntroF12015.mp4',
-          type: 'video/mp4',
-        },
-      ],
-      title: 'Video 1 Title',
-      duration: '00:11',
-    },
-    {
-      sources: [
-        {
-          src: '../../../../../assets/video/F1-Intro2006.mp4',
-          type: 'video/mp4',
-        },
-      ],
-      title: 'Video 2 Title',
-      duration: '00:32',
-    },
-  ]);
+  readonly playlist = input<LzVideoPlaylistItem[]>([]);
   readonly playlistId = input('unique_playlist_id');
   readonly nuevoLicense = input('05005e4105495c57');
   readonly nuevoOptions = input<LzVideoNuevoOptions>({});
 
+  protected readonly unavailable = signal(false);
+
   private player: VideoJsPlayer | null = null;
 
+  ngOnInit(): void {
+    if (!this.hasPlayableSource()) {
+      this.unavailable.set(true);
+    }
+  }
+
   ngAfterViewInit(): void {
-    if (!isPlatformBrowser(this.platformId)) {
+    if (!isPlatformBrowser(this.platformId) || this.unavailable()) {
       return;
     }
 
     this.loadVideoJsAssets().then(() => {
-      if (typeof window.videojs !== 'function') {
+      const videoEl = this.videoElement?.nativeElement;
+      if (typeof window.videojs !== 'function' || !videoEl) {
+        this.unavailable.set(true);
         return;
       }
 
-      this.player = window.videojs(this.videoElement.nativeElement, {
+      this.player = window.videojs(videoEl, {
         controls: true,
         autoplay: this.autoplay(),
         preload: 'auto',
@@ -138,6 +129,13 @@ export class VideoPlayer implements AfterViewInit, OnDestroy {
       this.player.dispose();
       this.player = null;
     }
+  }
+
+  private hasPlayableSource(): boolean {
+    if (this.videoSrc().trim()) {
+      return true;
+    }
+    return this.playlist().some((item) => item.sources?.some((source) => source.src));
   }
 
   private loadVideoJsAssets(): Promise<void> {

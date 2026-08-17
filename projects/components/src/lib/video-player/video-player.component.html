@@ -1,3 +1,12 @@
-<video #videoPlayer class="video-js vjs-default-skin vjs-fluid lz-video-player" playsinline>
-  <source [src]="videoSrc()" type="video/mp4" />
-</video>
+@if (unavailable()) {
+  <p class="lz-video-player__fallback">
+    Video.js assets are not available. Serve them from
+    <code>assetsPath</code> (default <code>/assets/videojs</code>) to enable the player.
+  </p>
+} @else {
+  <video #videoPlayer class="video-js vjs-default-skin vjs-fluid lz-video-player" playsinline>
+    @if (videoSrc()) {
+      <source [src]="videoSrc()" type="video/mp4" />
+    }
+  </video>
+}
