@@ -43,6 +43,14 @@ Icons (`lz-icon`, button/dropdown chevrons, etc.) need the SVG sprites in the ap
 
 See [docs/THEMING.md](../../docs/THEMING.md) for tokens and `ThemeService`.
 
+### Angular version
+
+The app must use **Angular 20.3** (`@angular/core`, `common`, `compiler`, `compiler-cli`, `forms`, … all the same minor). Mixing 20.0/20.1 with 20.3, or installing this library via a `file:` **symlink** into another repo, causes:
+
+`TS2551: Property '__@ɵINPUT_SIGNAL_BRAND_WRITE_TYPE@…' does not exist`
+
+That means TypeScript sees two copies of `@angular/core`. Install from the GitLab registry (a real copy in `node_modules`), or for a local `dist/` path use `install-links=true` in `.npmrc` so npm copies the package instead of linking it.
+
 ## Development (this monorepo)
 
 ```bash
