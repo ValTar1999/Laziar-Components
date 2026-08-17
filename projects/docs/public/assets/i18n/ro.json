@@ -398,7 +398,7 @@
       }
     },
     "button": {
-      "description": "Componentă de referință a bibliotecii. API unificat publikator + agora-frontend: variante, dimensiuni, paletă, a11y și buttonClick explicit.",
+      "description": "Componentă de referință a bibliotecii. API unificat publikator + agora-frontend: variante, dimensiuni, paletă, a11y și clicked explicit.",
       "controls": {
         "label": {
           "default": "Salvează"
@@ -419,7 +419,7 @@
         "iconvariant": "Varianta sprite pentru lz-icon (type)",
         "iconposition": "Poziția pictogramei față de text",
         "iconclass": "Clasă suplimentară pe wrapper-ul pictogramei",
-        "disabled": "Dezactivează butonul și blochează buttonClick",
+        "disabled": "Dezactivează butonul și blochează clicked",
         "pill": "Complet rotunjit (rounded-full)",
         "color": "Paletă → token-uri semantice",
         "fullwidth": "Întinde la 100% din lățimea hostului",

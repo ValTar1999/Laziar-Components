@@ -42,7 +42,7 @@
             size="sm"
             color="red"
             pill
-            (buttonClick)="showToast()"
+            (clicked)="showToast()"
           />
           <lz-tooltip [text]="'gettingStarted.shareTooltip' | transloco" position="top">
             <lz-button
@@ -94,7 +94,7 @@
         pill
         fullWidth
         [disabled]="!agreed()"
-        (buttonClick)="showToast()"
+        (clicked)="showToast()"
       />
     </div>
   </section>

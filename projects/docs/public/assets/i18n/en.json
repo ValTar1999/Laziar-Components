@@ -398,7 +398,7 @@
       }
     },
     "button": {
-      "description": "Reference library component. Unified publikator + agora-frontend API: variants, sizes, palette, a11y, and explicit buttonClick.",
+      "description": "Reference library component. Unified publikator + agora-frontend API: variants, sizes, palette, a11y, and explicit clicked.",
       "controls": {
         "label": {
           "default": "Save"
@@ -419,7 +419,7 @@
         "iconvariant": "Sprite variant for lz-icon (type)",
         "iconposition": "Icon position relative to text",
         "iconclass": "Additional class on icon wrapper",
-        "disabled": "Disables button and blocks buttonClick",
+        "disabled": "Disables button and blocks clicked",
         "pill": "Fully rounded (rounded-full)",
         "color": "Palette → semantic tokens",
         "fullwidth": "Stretch to 100% host width",

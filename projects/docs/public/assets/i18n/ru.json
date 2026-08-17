@@ -398,7 +398,7 @@
       }
     },
     "button": {
-      "description": "Эталонный компонент библиотеки. Объединённый API publikator + agora-frontend: варианты, размеры, палитра, a11y и явный buttonClick.",
+      "description": "Эталонный компонент библиотеки. Объединённый API publikator + agora-frontend: варианты, размеры, палитра, a11y и явный clicked.",
       "controls": {
         "label": {
           "default": "Сохранить"
@@ -419,7 +419,7 @@
         "iconvariant": "Вариант спрайта для lz-icon (type)",
         "iconposition": "Позиция иконки относительно текста",
         "iconclass": "Доп. класс на обёртке иконки",
-        "disabled": "Отключает кнопку и блокирует buttonClick",
+        "disabled": "Отключает кнопку и блокирует clicked",
         "pill": "Полностью скруглённая (rounded-full)",
         "color": "Палитра → семантические токены",
         "fullwidth": "Растянуть на 100% ширины хоста",

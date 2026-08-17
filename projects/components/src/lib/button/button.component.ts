@@ -54,7 +54,7 @@ export class Button {
   readonly fullWidth = input(false, { transform: booleanAttribute });
   readonly ariaLabel = input<string | undefined>(undefined);
   readonly ariaCurrentPage = input(false, { transform: booleanAttribute });
-  readonly buttonClick = output<void>();
+  readonly clicked = output<void>();
 
   /** @deprecated Используй `iconPosition`. */
   private readonly iconPositionAlias = signal<LzButtonIconPosition | undefined>(undefined);
@@ -89,7 +89,7 @@ export class Button {
 
   protected onClick(): void {
     if (!this.disabled()) {
-      this.buttonClick.emit();
+      this.clicked.emit();
     }
   }
 }

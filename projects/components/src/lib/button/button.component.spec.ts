@@ -127,10 +127,10 @@ describe('Button', () => {
     expect(fixture.nativeElement.classList.contains('lz-button-host--full')).toBeTrue();
   });
 
-  describe('buttonClick', () => {
+  describe('clicked', () => {
     it('should emit when clicked', () => {
-      const spy = jasmine.createSpy('buttonClick');
-      component.buttonClick.subscribe(spy);
+      const spy = jasmine.createSpy('clicked');
+      component.clicked.subscribe(spy);
       nativeButton().click();
       expect(spy).toHaveBeenCalledTimes(1);
     });
@@ -138,8 +138,8 @@ describe('Button', () => {
     it('should not emit when disabled', () => {
       fixture.componentRef.setInput('disabled', true);
       fixture.detectChanges();
-      const spy = jasmine.createSpy('buttonClick');
-      component.buttonClick.subscribe(spy);
+      const spy = jasmine.createSpy('clicked');
+      component.clicked.subscribe(spy);
       nativeButton().click();
       expect(spy).not.toHaveBeenCalled();
     });
@@ -147,8 +147,8 @@ describe('Button', () => {
 
   describe('keyboard', () => {
     it('should be focusable and activate with Enter via native button', () => {
-      const spy = jasmine.createSpy('buttonClick');
-      component.buttonClick.subscribe(spy);
+      const spy = jasmine.createSpy('clicked');
+      component.clicked.subscribe(spy);
       const btn = nativeButton();
       btn.focus();
       expect(document.activeElement).toBe(btn);

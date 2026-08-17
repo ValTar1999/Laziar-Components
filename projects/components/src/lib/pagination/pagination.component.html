@@ -1,0 +1,47 @@
+@if (visible()) {
+  <nav
+    class="lz-pagination"
+    [class]="'lz-pagination lz-pagination--' + size()"
+    [attr.aria-label]="ariaLabel()"
+  >
+    <button
+      type="button"
+      class="lz-pagination__step"
+      [disabled]="!hasPrevious() || disabled()"
+      (click)="previous()"
+    >
+      {{ previousLabel() }}
+    </button>
+
+    <ul class="lz-pagination__pages">
+      @for (item of items(); track $index) {
+        <li>
+          @if (item === 'ellipsis') {
+            <span class="lz-pagination__ellipsis" aria-hidden="true">&hellip;</span>
+          } @else {
+            <button
+              type="button"
+              class="lz-pagination__page"
+              [class.lz-pagination__page--current]="item === currentPage()"
+              [attr.aria-current]="item === currentPage() ? 'page' : null"
+              [attr.aria-label]="pageAriaLabel(item)"
+              [disabled]="disabled()"
+              (click)="goTo(item)"
+            >
+              {{ item }}
+            </button>
+          }
+        </li>
+      }
+    </ul>
+
+    <button
+      type="button"
+      class="lz-pagination__step"
+      [disabled]="!hasNext() || disabled()"
+      (click)="next()"
+    >
+      {{ nextLabel() }}
+    </button>
+  </nav>
+}

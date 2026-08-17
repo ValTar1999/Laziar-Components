@@ -24,7 +24,7 @@ export const BUTTON_COMPONENT_META: DocsComponentMeta = {
   name: 'Button',
   selector: 'lz-button',
   description:
-    'Reference library component. Unified publikator + agora-frontend API: variants, sizes, palette, a11y, and explicit buttonClick.',
+    'Reference library component. Unified publikator + agora-frontend API: variants, sizes, palette, a11y, and explicit clicked.',
   contentFrom: 'label',
   controls: [
     {
@@ -146,7 +146,7 @@ export const BUTTON_COMPONENT_META: DocsComponentMeta = {
       name: 'disabled',
       type: 'boolean',
       default: 'false',
-      description: 'Disables the button and blocks buttonClick',
+      description: 'Disables the button and blocks clicked',
     },
     {
       name: 'pill',
@@ -181,7 +181,7 @@ export const BUTTON_COMPONENT_META: DocsComponentMeta = {
   ],
   outputs: [
     {
-      name: 'buttonClick',
+      name: 'clicked',
       type: 'OutputEmitterRef<void>',
       description: 'Click / activation, only when not disabled',
     },
@@ -223,8 +223,8 @@ export const BUTTON_COMPONENT_META: DocsComponentMeta = {
       title: 'In a modal',
       description: 'Dialog footer.',
       code: `<footer class="dialog-actions">
-  <lz-button variant="tertiary" color="gray" label="Cancel" (buttonClick)="close()" />
-  <lz-button variant="primary" color="red" label="Delete" (buttonClick)="confirm()" />
+  <lz-button variant="tertiary" color="gray" label="Cancel" (clicked)="close()" />
+  <lz-button variant="primary" color="red" label="Delete" (clicked)="confirm()" />
 </footer>`,
     },
     {
@@ -233,7 +233,7 @@ export const BUTTON_COMPONENT_META: DocsComponentMeta = {
   variant="iconOnly"
   icon="x-mark"
   ariaLabel="Close"
-  (buttonClick)="close()"
+  (clicked)="close()"
 />`,
     },
     {

@@ -5,11 +5,7 @@
   [attr.data-padding]="padding()"
 >
   <div class="lz-alert__content">
-    <lz-icon
-      [name]="iconName()"
-      [type]="iconVariant()"
-      class="lz-alert__icon"
-    />
+    <lz-icon [name]="iconName()" [type]="iconVariant()" class="lz-alert__icon" />
 
     <div class="lz-alert__body">
       <div class="lz-alert__text-content">
@@ -33,7 +29,7 @@
     [pill]="true"
     icon="x-mark"
     class="lz-alert__close-button"
-    (buttonClick)="onCloseClick()"
+    (clicked)="onCloseClick()"
     ariaLabel="Close alert"
   >
   </lz-button>

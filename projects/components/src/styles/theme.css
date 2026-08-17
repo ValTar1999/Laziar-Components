@@ -113,6 +113,7 @@
   --lz-color-background: #fffffa;
   --lz-color-surface: #fafafa;
   --lz-color-surface-elevated: #ffffff;
+  --lz-color-scrim: rgb(18 18 18 / 45%);
   --lz-color-border: #c4c6c8;
   --lz-color-border-subtle: #e4e6e7;
   --lz-color-text-primary: #121212;
@@ -444,6 +445,7 @@
   --lz-color-background: #121212;
   --lz-color-surface: #1a1b1c;
   --lz-color-surface-elevated: #242628;
+  --lz-color-scrim: rgb(0 0 0 / 65%);
   --lz-color-border: #37393b;
   --lz-color-border-subtle: #242628;
   --lz-color-text-primary: #fffffa;
@@ -563,6 +565,7 @@
     --lz-color-background: #121212;
     --lz-color-surface: #1a1b1c;
     --lz-color-surface-elevated: #242628;
+    --lz-color-scrim: rgb(0 0 0 / 65%);
     --lz-color-border: #37393b;
     --lz-color-border-subtle: #242628;
     --lz-color-text-primary: #fffffa;
@@ -601,4 +604,10 @@
 html,
 body {
   font-family: var(--lz-font-sans);
+}
+
+/* Applied to <body> by lz-modal while a dialog is open. Global on purpose —
+   component styles are scoped and cannot reach the document body. */
+.lz-modal-scroll-lock {
+  overflow: hidden;
 }

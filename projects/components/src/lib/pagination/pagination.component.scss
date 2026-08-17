@@ -1,0 +1,87 @@
+:host.lz-pagination-host {
+  display: block;
+}
+
+.lz-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--lz-space-2);
+  font-family: var(--lz-font-sans);
+
+  &--sm {
+    --lz-pagination-min-size: 2rem;
+    --lz-pagination-font-size: var(--lz-font-size-xs);
+    --lz-pagination-padding-x: var(--lz-space-2);
+  }
+
+  &--md {
+    --lz-pagination-min-size: 2.25rem;
+    --lz-pagination-font-size: var(--lz-font-size-sm);
+    --lz-pagination-padding-x: var(--lz-space-3);
+  }
+}
+
+.lz-pagination__pages {
+  display: flex;
+  align-items: center;
+  gap: var(--lz-space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lz-pagination__step,
+.lz-pagination__page {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--lz-pagination-min-size);
+  height: var(--lz-pagination-min-size);
+  padding: 0 var(--lz-pagination-padding-x);
+  font-family: inherit;
+  font-size: var(--lz-pagination-font-size);
+  color: var(--lz-color-text-primary);
+  background-color: var(--lz-color-background);
+  border: 1px solid var(--lz-color-border);
+  border-radius: var(--lz-radius-md);
+  cursor: pointer;
+  transition:
+    color var(--lz-duration-normal) var(--lz-easing-standard),
+    background-color var(--lz-duration-normal) var(--lz-easing-standard);
+
+  &:hover:not(:disabled) {
+    background-color: var(--lz-color-surface);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: var(--lz-shadow-focus);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.lz-pagination__page--current {
+  color: var(--lz-color-text-inverse);
+  background-color: var(--lz-color-primary);
+  border-color: var(--lz-color-primary);
+
+  &:hover:not(:disabled) {
+    background-color: var(--lz-color-primary);
+  }
+}
+
+.lz-pagination__ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--lz-pagination-min-size);
+  height: var(--lz-pagination-min-size);
+  font-size: var(--lz-pagination-font-size);
+  color: var(--lz-color-text-muted);
+  user-select: none;
+}
