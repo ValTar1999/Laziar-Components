@@ -1,4 +1,6 @@
-import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
+import { isPlatformBrowser, NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
+import { Overlay, OverlayModule, OverlayRef, PositionStrategy } from '@angular/cdk/overlay';
+import { TemplatePortal } from '@angular/cdk/portal';
 import {
   afterNextRender,
   booleanAttribute,
@@ -16,18 +18,32 @@ import {
   signal,
   TemplateRef,
   viewChild,
+  ViewContainerRef,
 } from '@angular/core';
+import { autoUpdate, computePosition, flip, offset, shift } from '@floating-ui/dom';
 import { LzInputFlush } from '../internal/lz-input-flush.directive';
 
 import { Button } from '../button/button.component';
 import { Icon } from '../icon/icon.component';
-import { TableColumn, TablePaginationItem, TableRow } from './table.types';
+import { lzTableUtilityToCss, TableColumn, TablePaginationItem, TableRow } from './table.types';
+
+const MENU_OFFSET_PX = 8;
+const MENU_VIEWPORT_PADDING_PX = 8;
+
+function floatingUiPositionStrategy(): PositionStrategy {
+  return {
+    attach: () => undefined,
+    apply: () => undefined,
+    detach: () => undefined,
+    dispose: () => undefined,
+  };
+}
 
 @Component({
   selector: 'lz-table',
   standalone: true,
   hostDirectives: [LzInputFlush],
-  imports: [Button, NgTemplateOutlet, Icon],
+  imports: [Button, NgTemplateOutlet, NgClass, NgStyle, Icon, OverlayModule],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -48,6 +64,7 @@ export class Table implements OnDestroy {
   readonly scrollMaxHeight = input<string | undefined>(undefined);
   readonly showScrollbar = input(false, { transform: booleanAttribute });
   readonly tableLabelledBy = input<string | undefined>(undefined);
+  readonly isRowDetailExpanded = input<((row: TableRow) => boolean) | undefined>(undefined);
 
   readonly showResultsCount = input(false, { transform: booleanAttribute });
   readonly resultsCount = input<number | undefined>(undefined);
@@ -60,11 +77,8 @@ export class Table implements OnDestroy {
   readonly totalItems = input(0);
   readonly pageSizeOptions = input<readonly number[]>([10, 25, 50, 100]);
   readonly paginationBusy = input(false, { transform: booleanAttribute });
-  /** e.g. "Showing" — wraps rangeStart–rangeEnd */
   readonly paginationShowingLabel = input('Afișare');
-  /** e.g. "of" — between rangeEnd and total */
   readonly paginationOfLabel = input('din');
-  /** e.g. "results" — after total count */
   readonly paginationResultsLabel = input('rezultate');
   readonly pageSizeAriaLabel = input('Rezultate pe pagină');
 
@@ -72,8 +86,11 @@ export class Table implements OnDestroy {
   readonly pageSizeChange = output<number>();
   readonly rowClick = output<TableRow>();
 
+  readonly paneClass = 'lz-table-cdk-pane';
+
   protected readonly scrollContainer = viewChild<ElementRef<HTMLDivElement>>('scrollContainer');
-  private readonly pageSizeMenuRoot = viewChild<ElementRef<HTMLElement>>('pageSizeMenuRoot');
+  protected readonly pageSizeTrigger = viewChild<ElementRef<HTMLElement>>('pageSizeTrigger');
+  protected readonly pageSizeMenuTpl = viewChild<TemplateRef<unknown>>('pageSizeMenuTpl');
   protected readonly cellTemplate = contentChild<TemplateRef<unknown>>('cellTemplate');
   protected readonly headerTemplate = contentChild<TemplateRef<unknown>>('headerTemplate');
   protected readonly rowDetailTemplate = contentChild<TemplateRef<unknown>>('rowDetailTemplate');
@@ -82,6 +99,10 @@ export class Table implements OnDestroy {
   protected readonly pageSizeDropdownOpen = signal(false);
 
   private readonly platformId = inject(PLATFORM_ID);
+  private readonly overlay = inject(Overlay);
+  private readonly vcr = inject(ViewContainerRef);
+  private overlayRef?: OverlayRef;
+  private floatingCleanup?: () => void;
   private scrollHandler?: () => void;
 
   protected readonly displayedResultsCount = computed(
@@ -142,32 +163,40 @@ export class Table implements OnDestroy {
   @HostListener('document:click', ['$event'])
   protected onDocumentClick(event: MouseEvent): void {
     if (!this.pageSizeDropdownOpen()) return;
-    const root = this.pageSizeMenuRoot()?.nativeElement;
-    if (root?.contains(event.target as Node | null)) return;
-    this.pageSizeDropdownOpen.set(false);
+    const target = event.target;
+    if (!(target instanceof Node)) return;
+    if (this.pageSizeTrigger()?.nativeElement.contains(target)) return;
+    if (this.overlayRef?.overlayElement.contains(target)) return;
+    this.closePageSizeMenu();
   }
 
   ngOnDestroy(): void {
     const container = this.scrollContainer()?.nativeElement;
-    if (container && this.scrollHandler)
+    if (container && this.scrollHandler) {
       container.removeEventListener('scroll', this.scrollHandler);
+    }
+    this.teardownOverlay();
   }
 
   protected getValue(row: TableRow, column: TableColumn): unknown {
     return row[column.key];
   }
 
-  /** Publikators treat `minWidth` / `width` as Tailwind (or other) class strings. */
-  protected widthClasses(column: TableColumn): string {
-    return [column.minWidth, column.width].filter(Boolean).join(' ');
+  protected columnStyle(column: TableColumn): Record<string, string> {
+    const style: Record<string, string> = {};
+    const minWidth = lzTableUtilityToCss(column.minWidth);
+    const width = lzTableUtilityToCss(column.width);
+    if (minWidth) style['min-width'] = minWidth;
+    if (width) style['width'] = width;
+    return style;
   }
 
-  protected headerCellClass(column: TableColumn): string {
-    return [column.headerClass, this.widthClasses(column)].filter(Boolean).join(' ');
-  }
-
-  protected bodyCellClass(column: TableColumn): string {
-    return [column.cellClass, this.widthClasses(column)].filter(Boolean).join(' ');
+  protected extraCellClass(column: TableColumn, kind: 'header' | 'cell'): string {
+    const named = kind === 'header' ? column.headerClass : column.cellClass;
+    const leftover = [column.minWidth, column.width].filter(
+      (value) => value && !lzTableUtilityToCss(value),
+    );
+    return [named, ...leftover].filter(Boolean).join(' ');
   }
 
   protected isElevatedStickyCell(row: TableRow, column: TableColumn): boolean {
@@ -183,7 +212,7 @@ export class Table implements OnDestroy {
   }
 
   protected resolveRowClass(row: TableRow): string {
-    return this.getRowClass() ? this.getRowClass()!(row) : '';
+    return this.getRowClass()?.(row) ?? '';
   }
 
   protected resolveRowRole(row: TableRow): string | null {
@@ -202,8 +231,6 @@ export class Table implements OnDestroy {
     return !!this.rowDetailTemplate() && !!this.isRowDetailExpanded()?.(row);
   }
 
-  readonly isRowDetailExpanded = input<((row: TableRow) => boolean) | undefined>(undefined);
-
   protected onRowClick(row: TableRow): void {
     if (this.canInteractWithRow(row)) this.rowClick.emit(row);
   }
@@ -219,18 +246,25 @@ export class Table implements OnDestroy {
   }
 
   protected togglePageSizeDropdown(): void {
-    if (!this.paginationBusy()) this.pageSizeDropdownOpen.update((open) => !open);
+    if (this.paginationBusy()) return;
+    if (this.pageSizeDropdownOpen()) {
+      this.closePageSizeMenu();
+      return;
+    }
+    this.pageSizeDropdownOpen.set(true);
+    this.attachPageSizeOverlay();
   }
 
   protected selectPageSize(option: number): void {
-    this.pageSizeDropdownOpen.set(false);
+    this.closePageSizeMenu();
     if (
       this.paginationBusy() ||
       !Number.isFinite(option) ||
       option <= 0 ||
       option === this.pageSize()
-    )
+    ) {
       return;
+    }
     this.pageSizeChange.emit(option);
   }
 
@@ -240,8 +274,9 @@ export class Table implements OnDestroy {
       page === this.clampedPage() ||
       page < 1 ||
       page > this.paginationTotalPages()
-    )
+    ) {
       return;
+    }
     this.pageChange.emit(page);
   }
 
@@ -251,6 +286,75 @@ export class Table implements OnDestroy {
 
   protected goNext(): void {
     this.goPage(this.clampedPage() + 1);
+  }
+
+  private closePageSizeMenu(): void {
+    this.pageSizeDropdownOpen.set(false);
+    this.detachOverlay();
+  }
+
+  private attachPageSizeOverlay(): void {
+    const tpl = this.pageSizeMenuTpl();
+    if (!tpl) return;
+
+    if (!this.overlayRef) {
+      this.overlayRef = this.overlay.create({
+        panelClass: this.paneClass,
+        positionStrategy: floatingUiPositionStrategy(),
+        scrollStrategy: this.overlay.scrollStrategies.reposition(),
+      });
+    }
+
+    if (!this.overlayRef.hasAttached()) {
+      this.overlayRef.attach(new TemplatePortal(tpl, this.vcr));
+    }
+
+    this.startFloating();
+  }
+
+  private detachOverlay(): void {
+    this.stopFloating();
+    this.overlayRef?.detach();
+  }
+
+  private teardownOverlay(): void {
+    this.stopFloating();
+    this.overlayRef?.dispose();
+    this.overlayRef = undefined;
+  }
+
+  private startFloating(): void {
+    this.stopFloating();
+    const reference = this.pageSizeTrigger()?.nativeElement;
+    const floating = this.overlayRef?.overlayElement;
+    if (!reference || !floating) return;
+
+    this.floatingCleanup = autoUpdate(reference, floating, () => {
+      void this.positionMenu(reference, floating);
+    });
+  }
+
+  private stopFloating(): void {
+    this.floatingCleanup?.();
+    this.floatingCleanup = undefined;
+  }
+
+  private async positionMenu(reference: HTMLElement, floating: HTMLElement): Promise<void> {
+    const { x, y } = await computePosition(reference, floating, {
+      placement: 'bottom-start',
+      strategy: 'fixed',
+      middleware: [
+        offset(MENU_OFFSET_PX),
+        flip({ padding: MENU_VIEWPORT_PADDING_PX }),
+        shift({ padding: MENU_VIEWPORT_PADDING_PX }),
+      ],
+    });
+
+    Object.assign(floating.style, {
+      position: 'fixed',
+      left: `${Math.round(x)}px`,
+      top: `${Math.round(y)}px`,
+    });
   }
 
   private attachScrollListener(): void {

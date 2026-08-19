@@ -1,0 +1,14 @@
+<docs-component-page [meta]="meta">
+  <ng-template docsPreview let-values>
+    <lz-live-event-card
+      [publisher]="str(values, 'publisher', 'Laziar Sport')"
+      avatarFirstName="Live"
+      avatarLastName="Desk"
+      [eventTitle]="str(values, 'eventTitle', 'Cupa Moldovei')"
+      [entries]="entries"
+      [size]="size(values)"
+      [showActions]="bool(values, 'showActions')"
+      [showBottomBorder]="bool(values, 'showBottomBorder')"
+    />
+  </ng-template>
+</docs-component-page>

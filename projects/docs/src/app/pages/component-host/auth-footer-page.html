@@ -1,0 +1,10 @@
+<docs-component-page [meta]="meta">
+  <ng-template docsPreview let-values>
+    <lz-auth-footer
+      [companyName]="str(values, 'companyName', 'Laziar SRL')"
+      [aboutLabel]="str(values, 'aboutLabel', 'About us')"
+      [termsLabel]="str(values, 'termsLabel', 'Terms and conditions')"
+      [contactsLabel]="str(values, 'contactsLabel', 'Contacts')"
+    />
+  </ng-template>
+</docs-component-page>

@@ -4,56 +4,20 @@
     class="lz-table__scroll"
     [attr.data-scrollbar]="showScrollbar() ? 'true' : null"
     [style.max-height]="scrollMaxHeight() ?? null"
+    [style.overflow-y]="scrollMaxHeight() ? 'auto' : null"
   >
-    <table class="lz-table__native" [attr.aria-labelledby]="tableLabelledBy() ?? null">
-      <thead class="lz-table__head">
-        <tr class="lz-table__header-row">
-          @for (column of columns(); track column.key; let last = $last) {
-            <th
-              class="lz-table__header-cell"
-              [class]="headerCellClass(column)"
-              [attr.data-align]="column.align ?? 'left'"
-              [attr.data-sticky]="column.sticky ? (column.stickyPosition ?? 'left') : null"
-            >
-              @if (last && column.sticky) {
-                <span
-                  class="lz-table__sticky-shadow"
-                  [attr.data-visible]="!isScrolledToEnd()"
-                ></span>
-              }
-              @if (headerTemplate(); as template) {
-                <ng-container
-                  [ngTemplateOutlet]="template"
-                  [ngTemplateOutletContext]="{ $implicit: column }"
-                />
-              } @else {
-                {{ column.header }}
-              }
-            </th>
-          }
-        </tr>
-      </thead>
-      <tbody class="lz-table__body">
-        @for (row of data(); track $index) {
-          <tr
-            class="lz-table__row"
-            [class]="resolveRowClass(row)"
-            [class.lz-table__row--interactive]="canInteractWithRow(row)"
-            [attr.tabindex]="canInteractWithRow(row) ? 0 : null"
-            [attr.role]="resolveRowRole(row)"
-            [attr.aria-label]="resolveRowAriaLabel(row)"
-            (click)="onRowClick(row)"
-            (keydown)="onRowKeydown($event, row)"
-          >
+    <div class="lz-table__inner">
+      <table class="lz-table__native" [attr.aria-labelledby]="tableLabelledBy() ?? null">
+        <thead class="lz-table__head">
+          <tr class="lz-table__header-row">
             @for (column of columns(); track column.key; let last = $last) {
-              <td
-                class="lz-table__cell"
-                [class]="bodyCellClass(column)"
+              <th
+                class="lz-table__header-cell"
+                [ngClass]="extraCellClass(column, 'header')"
+                [class.lz-table__header-cell--last]="last"
+                [ngStyle]="columnStyle(column)"
                 [attr.data-align]="column.align ?? 'left'"
                 [attr.data-sticky]="column.sticky ? (column.stickyPosition ?? 'left') : null"
-                [attr.data-elevated]="
-                  column.sticky && isElevatedStickyCell(row, column) ? 'true' : null
-                "
               >
                 @if (last && column.sticky) {
                   <span
@@ -61,77 +25,109 @@
                     [attr.data-visible]="!isScrolledToEnd()"
                   ></span>
                 }
-                @if (cellTemplate(); as template) {
+                @if (headerTemplate(); as template) {
                   <ng-container
                     [ngTemplateOutlet]="template"
-                    [ngTemplateOutletContext]="{
-                      $implicit: row,
-                      column: column,
-                      value: getValue(row, column),
-                    }"
+                    [ngTemplateOutletContext]="{ $implicit: column }"
                   />
                 } @else {
-                  {{ getValue(row, column) }}
+                  {{ column.header }}
                 }
-              </td>
+              </th>
             }
           </tr>
-          @if (shouldShowRowDetail(row) && rowDetailTemplate(); as template) {
-            <tr class="lz-table__detail-row">
-              <td class="lz-table__detail-cell" [attr.colspan]="columns().length">
-                <ng-container
-                  [ngTemplateOutlet]="template"
-                  [ngTemplateOutletContext]="{ $implicit: row }"
-                />
-              </td>
+        </thead>
+        <tbody class="lz-table__body">
+          @for (row of data(); track $index) {
+            <tr
+              class="lz-table__row"
+              [ngClass]="resolveRowClass(row)"
+              [class.lz-table__row--interactive]="canInteractWithRow(row)"
+              [attr.tabindex]="canInteractWithRow(row) ? 0 : null"
+              [attr.role]="resolveRowRole(row)"
+              [attr.aria-label]="resolveRowAriaLabel(row)"
+              (click)="onRowClick(row)"
+              (keydown)="onRowKeydown($event, row)"
+            >
+              @for (column of columns(); track column.key; let last = $last) {
+                <td
+                  class="lz-table__cell"
+                  [ngClass]="extraCellClass(column, 'cell')"
+                  [class.lz-table__cell--last]="last"
+                  [ngStyle]="columnStyle(column)"
+                  [attr.data-align]="column.align ?? 'left'"
+                  [attr.data-sticky]="column.sticky ? (column.stickyPosition ?? 'left') : null"
+                  [attr.data-elevated]="
+                    column.sticky && isElevatedStickyCell(row, column) ? 'true' : null
+                  "
+                >
+                  @if (last && column.sticky) {
+                    <span
+                      class="lz-table__sticky-shadow"
+                      [attr.data-visible]="!isScrolledToEnd()"
+                    ></span>
+                  }
+                  @if (cellTemplate(); as template) {
+                    <ng-container
+                      [ngTemplateOutlet]="template"
+                      [ngTemplateOutletContext]="{
+                        $implicit: row,
+                        column: column,
+                        value: getValue(row, column),
+                      }"
+                    />
+                  } @else {
+                    {{ getValue(row, column) }}
+                  }
+                </td>
+              }
             </tr>
+            @if (shouldShowRowDetail(row) && rowDetailTemplate(); as template) {
+              <tr class="lz-table__detail-row">
+                <td class="lz-table__detail-cell" [attr.colspan]="columns().length">
+                  <ng-container
+                    [ngTemplateOutlet]="template"
+                    [ngTemplateOutletContext]="{ $implicit: row }"
+                  />
+                </td>
+              </tr>
+            }
           }
-        }
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   @if (showPagination() && paginationItemCount() > 0) {
     <div class="lz-table__pagination">
       <div class="lz-table__pagination-info">
         <p class="lz-table__range">
-          {{ paginationShowingLabel() }} <strong>{{ rangeStart() }}</strong> –
-          <strong>{{ rangeEnd() }}</strong> {{ paginationOfLabel() }}
-          <strong>{{ paginationItemCount() }}</strong> {{ paginationResultsLabel() }}
+          {{ paginationShowingLabel() }}
+          <strong>{{ rangeStart() }}</strong>
+          –
+          <strong>{{ rangeEnd() }}</strong>
+          {{ paginationOfLabel() }}
+          <strong>{{ paginationItemCount() }}</strong>
+          {{ paginationResultsLabel() }}
         </p>
         <span class="lz-table__divider" aria-hidden="true"></span>
-        <div #pageSizeMenuRoot class="lz-table__page-size">
+        <span #pageSizeTrigger class="lz-table__page-size">
           <lz-button
-            class="lz-table__page-size-trigger"
             variant="outline"
             size="xs"
             [pill]="true"
             [label]="'' + pageSize()"
+            icon="chevron-down"
+            iconVariant="mini"
+            iconPosition="right"
+            iconClass="lz-table__page-size-icon"
             [disabled]="paginationBusy()"
             [attr.aria-expanded]="pageSizeDropdownOpen()"
             aria-haspopup="listbox"
             [attr.aria-label]="pageSizeAriaLabel()"
             (clicked)="togglePageSizeDropdown()"
-          >
-            <lz-icon lzButtonIcon name="chevron-down" type="mini" />
-          </lz-button>
-          @if (pageSizeDropdownOpen()) {
-            <div class="lz-table__page-size-menu" role="listbox">
-              @for (option of pageSizeOptions(); track option) {
-                <button
-                  type="button"
-                  class="lz-table__page-size-option"
-                  [attr.aria-selected]="option === pageSize()"
-                  [attr.data-selected]="option === pageSize() ? 'true' : null"
-                  role="option"
-                  (click)="selectPageSize(option)"
-                >
-                  {{ option }}
-                </button>
-              }
-            </div>
-          }
-        </div>
+          />
+        </span>
       </div>
       <nav class="lz-table__pages" aria-label="Paginare">
         <button
@@ -149,7 +145,7 @@
           } @else {
             <button
               type="button"
-              class="lz-table__page-button"
+              class="lz-table__page-button lz-table__page-button--num"
               [attr.data-current]="item === clampedPage() ? 'true' : null"
               [attr.aria-current]="item === clampedPage() ? 'page' : null"
               [disabled]="paginationBusy()"
@@ -179,7 +175,33 @@
 
 @if (data().length === 0 && emptyMessage()) {
   <div class="lz-table__empty">
-    <div class="lz-table__empty-icon" aria-hidden="true">⌑</div>
+    <div class="lz-table__empty-icon" aria-hidden="true">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
+        />
+      </svg>
+    </div>
     <h3>{{ emptyMessage() }}</h3>
   </div>
 }
+
+<ng-template #pageSizeMenuTpl>
+  <div class="lz-table__page-size-menu" role="listbox">
+    @for (option of pageSizeOptions(); track option) {
+      <button
+        type="button"
+        class="lz-table__page-size-option"
+        [attr.aria-selected]="option === pageSize()"
+        [attr.data-selected]="option === pageSize() ? 'true' : null"
+        role="option"
+        (click)="selectPageSize(option)"
+      >
+        {{ option }}
+      </button>
+    }
+  </div>
+</ng-template>

@@ -92,10 +92,10 @@ export class ComponentPage {
 
   private snippetFor(values: DocsSandboxValues): string {
     const meta = this.meta();
-    const skip = [
-      ...(meta.contentFrom ? [meta.contentFrom] : []),
-      ...(meta.snippetIgnore ?? []),
-    ];
+    if (meta.buildSnippet) {
+      return meta.buildSnippet(values);
+    }
+    const skip = [...(meta.contentFrom ? [meta.contentFrom] : []), ...(meta.snippetIgnore ?? [])];
     return generateTemplateCode(
       meta.selector,
       values,

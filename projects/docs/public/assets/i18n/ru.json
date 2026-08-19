@@ -13,6 +13,7 @@
       "feedback": "Обратная связь",
       "dataDisplay": "Отображение данных",
       "navigation": "Навигация",
+      "media": "Медиа",
       "services": "Сервисы"
     },
     "items": {
@@ -38,6 +39,17 @@
       "tabs": "Tabs",
       "tabButton": "Tab Button",
       "buttonGroup": "Button Group",
+      "languageDropdown": "Language Dropdown",
+      "toast": "Toast",
+      "card": "Card",
+      "table": "Table",
+      "liveEventCard": "Live Event Card",
+      "articlecardReactions": "Article Reactions",
+      "loginPromptBanner": "Login Prompt Banner",
+      "authFooter": "Auth Footer",
+      "moreActionsMenu": "More Actions Menu",
+      "swiper": "Swiper",
+      "videoPlayer": "Video Player",
       "themeService": "ThemeService"
     }
   },
@@ -67,7 +79,7 @@
   "gettingStarted": {
     "eyebrow": "Начало работы",
     "title": "Собери интерфейс из компонентов",
-    "lead": "Docs-сайт уже использует <code>lz-logo</code>, <code>lz-button</code>, <code>lz-input</code>, <code>lz-icon</code>, <code>lz-tooltip</code> и <code>lz-toast-container</code>. Ниже — живой фрагмент UI из тех же примитивов.",
+    "lead": "Docs-сайт уже использует <code>lz-button</code>, <code>lz-input</code>, <code>lz-icon</code>, <code>lz-tooltip</code> и <code>lz-toast-container</code>. Ниже — живой фрагмент UI из тех же примитивов.",
     "alertTitle": "Библиотека подключена",
     "alertText": "Импортируй компоненты из @laziar/components и собирай экраны без кастомного CSS-хрома.",
     "profile": "Профиль",
@@ -941,6 +953,58 @@
       "demo": {
         "trigger": "Наведи"
       }
+    },
+    "login-prompt-banner": {
+      "description": "Баннер, который ведёт на страницу входа.",
+      "controls": {
+        "text": { "default": "Войдите, чтобы сохранять статьи" }
+      }
+    },
+    "auth-footer": {
+      "description": "Футер страницы авторизации: компания, год и юридические ссылки."
+    },
+    "card": {
+      "description": "Карточка статьи из frontend: col/row, размеры, row-опции картинки/автора/меты и меню действий.",
+      "controls": {
+        "title": { "default": "Правительство объявляет новый пакет мер" },
+        "subtitle": {
+          "default": "Министры представили календарь внедрения и влияние на бюджет на ближайшие два года."
+        }
+      }
+    },
+    "language-dropdown": {
+      "description": "Выбор языка с инициалами (или флагами хоста). Overlay через CDK + Floating UI. Выбор пишется в localStorage."
+    },
+    "articlecard-reactions": {
+      "description": "Стопка эмодзи-реакций с бейджем +N, если сумма ≥ 4."
+    },
+    "live-event-card": {
+      "description": "Карточка прямой трансляции: аватар издателя, заголовок и таймлайн."
+    },
+    "more-actions-menu": {
+      "description": "Меню «ещё»: шаринг, копирование ссылки, watch later, подписка и жалоба."
+    },
+    "table": {
+      "description": "Таблица из publikator: sticky-колонки, hover по строке, пагинация, page-size через Floating UI, пустое состояние.",
+      "controls": {
+        "emptyMessage": { "default": "Нет статей" }
+      }
+    },
+    "toast-container": {
+      "description": "Хост уведомлений ToastService. Один раз в оболочке приложения, дальше ToastService.show().",
+      "controls": {
+        "message": { "default": "Сайт собран из @laziar/components" },
+        "messageBold": { "default": "Готово" }
+      },
+      "examples": {
+        "0": { "title": "Оболочка + сервис" }
+      }
+    },
+    "swiper": {
+      "description": "Карусель с prev/next. Слайды — дочерние swiper-slide (CUSTOM_ELEMENTS_SCHEMA)."
+    },
+    "video-player": {
+      "description": "Плеер Video.js из /assets/videojs хоста. Без источника или Video.js показывается fallback."
     }
   }
 }

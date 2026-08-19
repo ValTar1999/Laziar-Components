@@ -1,57 +1,196 @@
 @if (!isLoading()) {
-  <article class="lz-card" [attr.data-variant]="variant()" [attr.data-size]="size()">
-    @if (image() && size() !== 'xxs') {
-      <a class="lz-card__image-link" [href]="link()" target="_blank" rel="noopener noreferrer">
-        <img class="lz-card__image" [src]="image()" alt="Card image" />
-      </a>
+  <article
+    class="lz-card"
+    [class.lz-card--border]="showBottomBorder()"
+    [attr.data-variant]="effectiveVariant()"
+    [attr.data-size]="articleSize()"
+    [attr.data-host-size]="size()"
+    [attr.data-row-height]="rowImageHeightMode()"
+    [attr.data-aspect]="rowImageAspect()"
+    [attr.data-aspect-md]="rowImageAspectMd() || null"
+    [attr.data-subtitle]="rowSubtitleLayout()"
+    [attr.data-subtitle-md]="rowSubtitleLayoutMd()"
+  >
+    @if (showRowIdentityOnTop() && (publisher() || author())) {
+      <ng-container *ngTemplateOutlet="identityTpl; context: { $implicit: 'top' }" />
     }
 
-    <div class="lz-card__content">
-      <a class="lz-card__title-link" [href]="link()" target="_blank" rel="noopener noreferrer">
-        @if (title()) {
-          <h2 class="lz-card__title">{{ title() }}</h2>
-        }
-        @if (image() && size() === 'xxs') {
-          <img class="lz-card__image lz-card__image--inline" [src]="image()" alt="Card image" />
-        }
-      </a>
-
-      @if (subtitle()) {
-        <p class="lz-card__subtitle">{{ subtitle() }}</p>
-      }
-
-      <div class="lz-card__metadata">
-        <button
-          type="button"
-          class="lz-card__bookmark"
-          [attr.aria-pressed]="isChecked()"
-          aria-label="Toggle bookmark"
-          (click)="toggleChecked()"
-        >
-          <svg class="lz-card__bookmark-icon" viewBox="0 0 16 16" aria-hidden="true">
-            <path
-              [attr.data-checked]="isChecked()"
-              d="M11.7289 2.21494C12.4626 2.30009 13 2.93267 13 3.67132V14L8 11.5L3 14V3.67132C3 2.93267 3.53739 2.30009 4.27112 2.21494C5.49437 2.07298 6.73866 2 8 2C9.26134 2 10.5056 2.07298 11.7289 2.21494Z"
+    @if (effectiveVariant() === 'col') {
+      <div class="lz-card__col">
+        @if (hasRenderableImage() && size() !== 'xxs') {
+          <a class="lz-card__image-link" href="#" (click)="onTitleClick($event)">
+            <img
+              class="lz-card__image"
+              [src]="displayImage()"
+              alt=""
+              loading="lazy"
+              decoding="async"
+              (load)="onImageLoad($event)"
+              (error)="onImageError()"
             />
-          </svg>
-        </button>
-        @if (date()) {
-          <time class="lz-card__date">{{ date() }}</time>
+          </a>
+        }
+
+        <div class="lz-card__body">
+          <a class="lz-card__title-link" href="#" (click)="onTitleClick($event)">
+            @if (title()) {
+              <h2 class="lz-card__title">{{ title() }}</h2>
+            }
+            @if (hasRenderableImage() && size() === 'xxs') {
+              <img
+                class="lz-card__image lz-card__image--inline"
+                [src]="displayImage()"
+                alt=""
+                loading="lazy"
+                decoding="async"
+                (load)="onImageLoad($event)"
+                (error)="onImageError()"
+              />
+            }
+          </a>
+
+          @if (subtitle()) {
+            <p class="lz-card__subtitle lz-card__subtitle--col">{{ subtitle() }}</p>
+          }
+
+          <div class="lz-card__meta">
+            <div class="lz-card__meta-start">
+              @if (publisher() || author()) {
+                <ng-container *ngTemplateOutlet="identityTpl; context: { $implicit: 'col' }" />
+              }
+              @if (date()) {
+                <div class="lz-card__date lz-card__date--muted">
+                  @if (publisher() || author()) {
+                    <span class="lz-card__dot"></span>
+                  }
+                  {{ date() }}
+                </div>
+              }
+              @if (showReactions()) {
+                <div class="lz-card__reactions">
+                  <span class="lz-card__dot"></span>
+                  <lz-articlecard-reactions [articleMetrics]="articleMetrics()" />
+                </div>
+              }
+            </div>
+            <ng-container *ngTemplateOutlet="actionsTpl" />
+          </div>
+        </div>
+      </div>
+    } @else {
+      <div class="lz-card__row">
+        <div class="lz-card__row-main" [class.lz-card__row-main--image]="hasRenderableImage()">
+          <div class="lz-card__row-copy">
+            <a class="lz-card__title-link" href="#" (click)="onTitleClick($event)">
+              @if (title()) {
+                <h2 class="lz-card__title">{{ title() }}</h2>
+              }
+            </a>
+
+            @if (subtitle()) {
+              <p class="lz-card__subtitle lz-card__subtitle--row lz-card__subtitle--beside">
+                {{ subtitle() }}
+              </p>
+            }
+          </div>
+
+          @if (hasRenderableImage()) {
+            <a
+              class="lz-card__image-link lz-card__image-link--row"
+              href="#"
+              (click)="onTitleClick($event)"
+            >
+              <img
+                class="lz-card__image lz-card__image--row"
+                [src]="displayImage()"
+                alt=""
+                loading="lazy"
+                decoding="async"
+                (load)="onImageLoad($event)"
+                (error)="onImageError()"
+              />
+            </a>
+          }
+        </div>
+
+        @if (subtitle()) {
+          <p class="lz-card__subtitle lz-card__subtitle--row lz-card__subtitle--below">
+            {{ subtitle() }}
+          </p>
+        }
+
+        @if (rowMetaLayout() === 'split' || !hasRenderableImage()) {
+          <div class="lz-card__meta lz-card__meta--split">
+            <div class="lz-card__meta-start">
+              @if (showRowIdentityOnBottom() && (publisher() || author())) {
+                <ng-container *ngTemplateOutlet="identityTpl; context: { $implicit: 'bottom' }" />
+              }
+              @if (date()) {
+                <div class="lz-card__date">
+                  @if (showRowIdentityOnBottom() && (publisher() || author())) {
+                    <span class="lz-card__dot lz-card__dot--inline"></span>
+                  }
+                  {{ date() }}
+                </div>
+              }
+              @if (showReactions()) {
+                <div class="lz-card__reactions">
+                  @if (date()) {
+                    <span class="lz-card__dot"></span>
+                  }
+                  <lz-articlecard-reactions [articleMetrics]="articleMetrics()" />
+                </div>
+              }
+            </div>
+            <ng-container *ngTemplateOutlet="actionsTpl" />
+          </div>
+        }
+
+        @if (rowMetaLayout() === 'inline' && hasRenderableImage()) {
+          <div class="lz-card__meta">
+            <div class="lz-card__meta-start">
+              @if (showRowIdentityOnBottom() && (publisher() || author())) {
+                <ng-container *ngTemplateOutlet="identityTpl; context: { $implicit: 'bottom' }" />
+              }
+              @if (date()) {
+                <div class="lz-card__date">
+                  @if (showRowIdentityOnBottom() && (publisher() || author())) {
+                    <span class="lz-card__dot lz-card__dot--inline"></span>
+                  }
+                  {{ date() }}
+                </div>
+              }
+              @if (showReactions()) {
+                <div class="lz-card__reactions">
+                  @if (date()) {
+                    <span class="lz-card__dot"></span>
+                  }
+                  <lz-articlecard-reactions [articleMetrics]="articleMetrics()" />
+                </div>
+              }
+            </div>
+            <ng-container *ngTemplateOutlet="actionsTpl" />
+          </div>
         }
       </div>
-    </div>
+    }
   </article>
 } @else {
   <article
     class="lz-card lz-card--loading"
-    [attr.data-variant]="variant()"
-    [attr.data-size]="size()"
+    [attr.data-variant]="effectiveVariant()"
+    [attr.data-size]="articleSize()"
+    [attr.data-host-size]="size()"
+    [attr.data-row-height]="rowImageHeightMode()"
     aria-busy="true"
   >
-    @if (image()) {
-      <div class="lz-card__skeleton lz-card__skeleton--image"></div>
+    @if (image() && effectiveVariant() !== 'col') {
+      <div class="lz-card__skeleton lz-card__skeleton--image lz-card__skeleton--image-row"></div>
     }
     <div class="lz-card__skeleton-content">
+      @if (image() && effectiveVariant() === 'col') {
+        <div class="lz-card__skeleton lz-card__skeleton--image"></div>
+      }
       @if (title()) {
         <div class="lz-card__skeleton lz-card__skeleton--title"></div>
         <div class="lz-card__skeleton lz-card__skeleton--title-short"></div>
@@ -67,3 +206,178 @@
     </div>
   </article>
 }
+
+<ng-template #identityTpl let-placement>
+  <div class="lz-card__identity" [attr.data-placement]="placement">
+    @if (publisher() && placement !== 'bottom') {
+      <div class="lz-card__identity-publisher">
+        <button
+          type="button"
+          class="lz-card__identity-avatar"
+          [attr.aria-label]="'Deschide pagina publisherului ' + publisher()"
+          (click)="onPublisherClick($event)"
+        >
+          <lz-avatar size="xxs" [imgUrl]="publisherLogoUrl()" [firstName]="publisher()" />
+        </button>
+        <button type="button" class="lz-card__identity-name" (click)="onPublisherClick($event)">
+          {{ publisher() }}
+        </button>
+      </div>
+    }
+    @if (placement === 'bottom' && publisher()) {
+      <button
+        type="button"
+        class="lz-card__identity-avatar"
+        [attr.aria-label]="'Deschide pagina publisherului ' + publisher()"
+        (click)="onPublisherClick($event)"
+      >
+        <lz-avatar size="xxs" [imgUrl]="publisherLogoUrl()" [firstName]="publisher()" />
+      </button>
+    }
+    @if (placement !== 'bottom' && publisher() && author()) {
+      <span class="lz-card__identity-de">de</span>
+    }
+    @if (author() && authorAvatarUrl()) {
+      <button
+        type="button"
+        class="lz-card__identity-avatar"
+        [attr.aria-label]="'Deschide pagina autorului ' + author()"
+        (click)="onAuthorClick($event)"
+      >
+        <lz-avatar size="xxs" [imgUrl]="authorAvatarUrl()" [firstName]="author()" />
+      </button>
+    }
+    @if (author()) {
+      <button
+        type="button"
+        class="lz-card__identity-name"
+        [class.lz-card__identity-name--muted]="placement !== 'bottom' && !!publisher()"
+        [class.lz-card__identity-name--truncate]="placement === 'bottom'"
+        (click)="onAuthorClick($event)"
+      >
+        {{ author() }}
+      </button>
+    }
+    @if (authorBadgeCount() > 0) {
+      <span class="lz-card__identity-badge">+{{ authorBadgeCount() }}</span>
+    }
+  </div>
+</ng-template>
+
+<ng-template #actionsTpl>
+  @if (showActions()) {
+    <div class="lz-card__actions">
+      <lz-tooltip class="lz-card__action-tooltip" position="top" [text]="saveToListTooltip()">
+        <button
+          type="button"
+          class="lz-card__icon-btn"
+          [attr.aria-pressed]="isSavedToList()"
+          [attr.aria-label]="saveToListTooltip()"
+          (click)="toggleSaveToList($event)"
+        >
+          <lz-icon
+            class="lz-card__icon"
+            [class.lz-card__icon--active]="isSavedToList()"
+            name="bookmark"
+            [type]="isSavedToList() ? 'solid' : 'outline'"
+          />
+        </button>
+      </lz-tooltip>
+
+      <lz-tooltip
+        class="lz-card__action-tooltip"
+        position="top"
+        [text]="watchLaterTooltip()"
+        [disabled]="disableActionTooltips()"
+      >
+        <button
+          type="button"
+          class="lz-card__icon-btn"
+          [attr.aria-pressed]="isWatchLater()"
+          [attr.aria-label]="watchLaterTooltip()"
+          (click)="toggleWatchLater($event)"
+        >
+          <lz-icon
+            class="lz-card__icon"
+            [class.lz-card__icon--active]="isWatchLater()"
+            [name]="isWatchLater() ? 'clock-check' : 'clock'"
+            [type]="isWatchLater() ? 'custom' : 'outline'"
+          />
+        </button>
+      </lz-tooltip>
+
+      <lz-tooltip
+        class="lz-card__action-tooltip"
+        position="top"
+        text="Mai mult"
+        [disabled]="disableActionTooltips()"
+      >
+        <button
+          type="button"
+          class="lz-card__icon-btn"
+          [class.lz-card__icon-btn--open]="isMoreMenuOpen()"
+          [attr.aria-expanded]="isMoreMenuOpen()"
+          aria-haspopup="menu"
+          aria-label="Mai mult"
+          (click)="toggleMoreMenu($event)"
+        >
+          <lz-icon class="lz-card__icon" name="ellipsis-horizontal" type="outline" />
+        </button>
+      </lz-tooltip>
+
+      @if (mobileMoreSheetMounted()) {
+        <div class="lz-card__sheet" [class.lz-card__sheet--open]="mobileMoreSheetActive()">
+          <button
+            type="button"
+            class="lz-card__sheet-dismiss"
+            aria-label="Închide"
+            (click)="closeMoreMenu()"
+          ></button>
+          <div class="lz-card__sheet-panel" role="menu">
+            <lz-more-actions-menu
+              layout="mobile"
+              [showSavedActions]="showSavedActions()"
+              [isWatchLater]="isWatchLater()"
+              [isSavedToList]="isSavedToList()"
+              [isPublisherFollowed]="isPublisherFollowed()"
+              [isAuthorFollowed]="isAuthorFollowed()"
+              [disablePublisherFollow]="true"
+              [disableAuthorFollow]="true"
+              [disableReport]="true"
+              (watchLater)="onMenuAction('watchLater')"
+              (saveToList)="onMenuAction('saveToList')"
+              (share)="onMenuAction('share')"
+              (copyLink)="onMenuAction('copyLink')"
+              (report)="onMenuAction('report')"
+              (publisherFollow)="onMenuAction('publisherFollow')"
+              (authorFollow)="onMenuAction('authorFollow')"
+            />
+          </div>
+        </div>
+      }
+    </div>
+  }
+</ng-template>
+
+<ng-template #moreMenuTpl>
+  <div class="lz-card__menu" role="menu">
+    <lz-more-actions-menu
+      layout="desktop"
+      [showSavedActions]="showSavedActions()"
+      [isWatchLater]="isWatchLater()"
+      [isSavedToList]="isSavedToList()"
+      [isPublisherFollowed]="isPublisherFollowed()"
+      [isAuthorFollowed]="isAuthorFollowed()"
+      [disablePublisherFollow]="true"
+      [disableAuthorFollow]="true"
+      [disableReport]="true"
+      (watchLater)="onMenuAction('watchLater')"
+      (saveToList)="onMenuAction('saveToList')"
+      (share)="onMenuAction('share')"
+      (copyLink)="onMenuAction('copyLink')"
+      (report)="onMenuAction('report')"
+      (publisherFollow)="onMenuAction('publisherFollow')"
+      (authorFollow)="onMenuAction('authorFollow')"
+    />
+  </div>
+</ng-template>

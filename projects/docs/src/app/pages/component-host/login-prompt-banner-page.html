@@ -1,0 +1,8 @@
+<docs-component-page [meta]="meta">
+  <ng-template docsPreview let-values>
+    <lz-login-prompt-banner
+      [text]="str(values, 'text', 'Sign in to save articles')"
+      [route]="str(values, 'route', '/auth')"
+    />
+  </ng-template>
+</docs-component-page>

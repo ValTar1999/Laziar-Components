@@ -13,6 +13,7 @@
       "feedback": "Feedback",
       "dataDisplay": "Data Display",
       "navigation": "Navigation",
+      "media": "Media",
       "services": "Services"
     },
     "items": {
@@ -38,6 +39,17 @@
       "tabs": "Tabs",
       "tabButton": "Tab Button",
       "buttonGroup": "Button Group",
+      "languageDropdown": "Language Dropdown",
+      "toast": "Toast",
+      "card": "Card",
+      "table": "Table",
+      "liveEventCard": "Live Event Card",
+      "articlecardReactions": "Article Reactions",
+      "loginPromptBanner": "Login Prompt Banner",
+      "authFooter": "Auth Footer",
+      "moreActionsMenu": "More Actions Menu",
+      "swiper": "Swiper",
+      "videoPlayer": "Video Player",
       "themeService": "ThemeService"
     }
   },
@@ -67,7 +79,7 @@
   "gettingStarted": {
     "eyebrow": "Getting Started",
     "title": "Build interfaces from components",
-    "lead": "The docs site already uses <code>lz-logo</code>, <code>lz-button</code>, <code>lz-input</code>, <code>lz-icon</code>, <code>lz-tooltip</code>, and <code>lz-toast-container</code>. Below is a live UI fragment built from the same primitives.",
+    "lead": "The docs site already uses <code>lz-button</code>, <code>lz-input</code>, <code>lz-icon</code>, <code>lz-tooltip</code>, and <code>lz-toast-container</code>. Below is a live UI fragment built from the same primitives.",
     "alertTitle": "Library connected",
     "alertText": "Import components from @laziar/components and build screens without custom CSS chrome.",
     "profile": "Profile",
@@ -941,6 +953,58 @@
       "demo": {
         "trigger": "Hover me"
       }
+    },
+    "login-prompt-banner": {
+      "description": "Inline banner that sends the reader to an auth route.",
+      "controls": {
+        "text": { "default": "Sign in to save articles" }
+      }
+    },
+    "auth-footer": {
+      "description": "Auth-page footer with company name, year, and legal links."
+    },
+    "card": {
+      "description": "Article card from frontend: col/row layouts, size scale, row image/identity/meta options, and more-actions.",
+      "controls": {
+        "title": { "default": "Government announces a new package of measures" },
+        "subtitle": {
+          "default": "Ministers presented the implementation calendar and the budget impact for the next two years."
+        }
+      }
+    },
+    "language-dropdown": {
+      "description": "Language picker with initials (or host-provided flags). Overlay via CDK + Floating UI. Selection is stored in localStorage."
+    },
+    "articlecard-reactions": {
+      "description": "Stacked reaction emojis with an optional +N badge when the total is 4 or more."
+    },
+    "live-event-card": {
+      "description": "Live coverage card with publisher avatar, title, and timed entries."
+    },
+    "more-actions-menu": {
+      "description": "Kebab menu for share, copy link, watch later, follow, and report."
+    },
+    "table": {
+      "description": "Table from publikator: sticky columns, hover rows, pagination, Floating UI page-size, empty state.",
+      "controls": {
+        "emptyMessage": { "default": "No articles" }
+      }
+    },
+    "toast-container": {
+      "description": "Viewport host for ToastService notifications. Place once in the app shell, then call ToastService.show().",
+      "controls": {
+        "message": { "default": "Site built from @laziar/components" },
+        "messageBold": { "default": "Done" }
+      },
+      "examples": {
+        "0": { "title": "App shell + service" }
+      }
+    },
+    "swiper": {
+      "description": "Carousel with prev/next controls. Project slides as swiper-slide children (CUSTOM_ELEMENTS_SCHEMA)."
+    },
+    "video-player": {
+      "description": "Video.js player loaded from host /assets/videojs. Without a source or Video.js assets, a fallback message is shown."
     }
   }
 }

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Onest:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Onest:wght@400;500;600;700&display=swap');
 
 /**
  * Laziar design tokens (light defaults).
@@ -594,11 +594,26 @@
 }
 
 .lz-select-cdk-pane.cdk-overlay-pane,
-.lz-dropdown-cdk-pane.cdk-overlay-pane {
+.lz-dropdown-cdk-pane.cdk-overlay-pane,
+.lz-language-dropdown-cdk-pane.cdk-overlay-pane,
+.lz-card-cdk-pane.cdk-overlay-pane,
+.lz-table-cdk-pane.cdk-overlay-pane {
   position: fixed;
   margin: 0;
   overflow: visible;
-  z-index: var(--lz-z-dropdown, 1000);
+  z-index: 200;
+  width: auto !important;
+  height: auto !important;
+  max-width: none;
+  background: transparent;
+}
+
+.lz-card-cdk-pane.cdk-overlay-pane {
+  z-index: 2400;
+  width: auto !important;
+  height: auto !important;
+  max-width: none;
+  background: transparent;
 }
 
 html,

@@ -1,0 +1,9 @@
+:host ::ng-deep .cmp__stage {
+  align-items: stretch;
+  justify-content: flex-start;
+  overflow: visible;
+}
+
+:host ::ng-deep lz-card {
+  width: 100%;
+}

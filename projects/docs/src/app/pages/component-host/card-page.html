@@ -1,0 +1,36 @@
+<docs-component-page [meta]="meta">
+  <ng-template docsPreview let-values>
+    <lz-card
+      [title]="str(values, 'title', 'Guvernul anunță un nou pachet de măsuri')"
+      [subtitle]="
+        str(
+          values,
+          'subtitle',
+          'Miniștrii au prezentat calendarul implementării și impactul asupra bugetului public pe următorii doi ani.'
+        )
+      "
+      [date]="str(values, 'date', '19 aug., 14:46')"
+      [publisher]="str(values, 'publisher', 'AGORA')"
+      [author]="str(values, 'author', 'Redacția AGORA')"
+      [publisherLogoUrl]="str(values, 'publisherLogoUrl', '/assets/demo/publisher-agora.svg')"
+      [image]="str(values, 'image', 'https://picsum.photos/id/1015/800/520')"
+      [variant]="variant(values)"
+      [size]="size(values)"
+      [rowImageHeightMode]="rowImageHeightMode(values)"
+      [rowIdentityPosition]="rowIdentityPosition(values)"
+      [rowMetaLayout]="rowMetaLayout(values)"
+      [rowImageAspect]="rowImageAspect(values)"
+      [rowImageAspectMd]="rowImageAspectMd(values)"
+      [rowSubtitleLayout]="rowSubtitleLayout(values)"
+      [showBottomBorder]="bool(values, 'showBottomBorder', true)"
+      [showActions]="bool(values, 'showActions', true)"
+      [metricsType]="bool(values, 'metricsType')"
+      [articleMetrics]="metrics(values)"
+      [isLoading]="bool(values, 'isLoading')"
+      [isWatchLater]="isWatchLater()"
+      [isSavedToList]="isSavedToList()"
+      (watchLater)="onWatchLater()"
+      (saveToList)="onSaveToList()"
+    />
+  </ng-template>
+</docs-component-page>

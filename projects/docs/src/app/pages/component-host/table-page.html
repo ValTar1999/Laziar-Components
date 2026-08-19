@@ -1,0 +1,84 @@
+<docs-component-page [meta]="meta">
+  <ng-template docsPreview let-values>
+    <lz-table
+      [columns]="columns"
+      [data]="rows(values)"
+      [rowClickable]="true"
+      [showPagination]="bool(values, 'showPagination', true)"
+      [showShadow]="bool(values, 'showShadow', true)"
+      [currentPage]="page()"
+      [pageSize]="pageSize()"
+      [totalItems]="total(values)"
+      [emptyMessage]="str(values, 'emptyMessage', 'Nu există articole')"
+      (pageChange)="onPageChange($event)"
+      (pageSizeChange)="onPageSizeChange($event)"
+    >
+      <ng-template #cellTemplate let-row let-column="column">
+        @switch (column.key) {
+          @case ('cover') {
+            <div class="docs-table-cover">
+              <img [src]="asNews(row).cover" [alt]="asNews(row).title" />
+            </div>
+          }
+          @case ('title') {
+            <lz-tooltip
+              class="docs-table-tooltip"
+              [text]="asNews(row).title"
+              position="top"
+              theme="dark"
+            >
+              <span class="docs-table-title">{{ asNews(row).title }}</span>
+            </lz-tooltip>
+          }
+          @case ('articleId') {
+            <button type="button" class="docs-table-id" (click)="stopRowClick($event)">
+              {{ asNews(row).articleId }}
+            </button>
+          }
+          @case ('authorProfileName') {
+            <span class="docs-table-author">
+              <span class="docs-table-truncate">{{ asNews(row).authorProfileName }}</span>
+              @if (asNews(row).authorExtra > 0) {
+                <lz-badge size="sm" color="gray" [pill]="true" [border]="true">
+                  +{{ asNews(row).authorExtra }}
+                </lz-badge>
+              }
+            </span>
+          }
+          @case ('categories') {
+            <lz-tooltip
+              class="docs-table-tooltip"
+              [text]="asNews(row).categories"
+              position="top"
+              theme="dark"
+            >
+              <span class="docs-table-muted docs-table-truncate">{{ asNews(row).categories }}</span>
+            </lz-tooltip>
+          }
+          @case ('publishedAt') {
+            <span class="docs-table-date">{{ asNews(row).publishedAt }}</span>
+          }
+          @case ('statusBadge') {
+            <lz-badge size="sm" [color]="asNews(row).statusColor" [pill]="true" [border]="true">
+              {{ asNews(row).statusBadge }}
+            </lz-badge>
+          }
+          @case ('actions') {
+            <div class="docs-table-actions">
+              <lz-button
+                icon="trash"
+                variant="tertiary"
+                [pill]="true"
+                size="xs"
+                iconVariant="solid"
+                iconClass="docs-table-trash-icon"
+                ariaLabel="Șterge"
+                (click)="stopRowClick($event)"
+              />
+            </div>
+          }
+        }
+      </ng-template>
+    </lz-table>
+  </ng-template>
+</docs-component-page>

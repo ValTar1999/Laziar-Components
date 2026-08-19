@@ -1,74 +1,61 @@
 <div class="lz-language-dropdown">
-  <button
-    type="button"
-    class="lz-language-dropdown__trigger"
-    [attr.aria-expanded]="isOpen()"
-    aria-haspopup="listbox"
-    (click)="toggleDropdown($event)"
-  >
-    @if (selectedLanguage(); as lang) {
-      @if (lang.flag) {
-        <img
-          class="lz-language-dropdown__flag lz-language-dropdown__flag--sm"
-          [src]="lang.flag"
-          alt="Selected Language"
-        />
+  <div class="lz-language-dropdown__wrapper">
+    <button
+      #trigger
+      type="button"
+      class="lz-language-dropdown__trigger"
+      [id]="dropdownId"
+      [attr.aria-expanded]="isOpen()"
+      [attr.aria-controls]="menuId"
+      aria-haspopup="listbox"
+      (click)="toggleDropdown($event)"
+    >
+      @if (selectedLanguage(); as lang) {
+        @if (lang.flag) {
+          <img
+            class="lz-language-dropdown__flag lz-language-dropdown__flag--sm"
+            [src]="lang.flag"
+            alt=""
+          />
+        }
+        <span class="lz-language-dropdown__value">{{ getInitials(lang) }}</span>
       }
-      <span class="lz-language-dropdown__initials">{{ getInitials(lang) }}</span>
-    }
-    <lz-icon
-      name="chevron-down"
-      type="mini"
-      [iconClass]="
-        'lz-language-dropdown__chevron' + (isOpen() ? ' lz-language-dropdown__chevron--open' : '')
-      "
-    />
-  </button>
+    </button>
+    <lz-icon name="chevron-up-down" type="mini" class="lz-language-dropdown__chevron" />
+  </div>
+</div>
 
-  @if (isOpen()) {
-    <div class="lz-language-dropdown__menu">
-      <ul class="lz-language-dropdown__list" role="listbox">
-        @for (lang of languages(); track lang.code) {
-          <li
-            class="lz-language-dropdown__item"
-            role="option"
-            tabindex="0"
-            [attr.aria-selected]="isCurrentLanguage(lang.code)"
-            [class.lz-language-dropdown__item--active]="isCurrentLanguage(lang.code)"
-            (click)="selectLanguage(lang)"
-            (keydown)="onLanguageKeydown($event, lang)"
-          >
+<ng-template #menuTpl>
+  <div class="lz-language-dropdown__menu">
+    <ul class="lz-language-dropdown__list" role="listbox" [id]="menuId">
+      @for (lang of languages(); track lang.code) {
+        <li
+          class="lz-language-dropdown__item"
+          role="option"
+          tabindex="0"
+          [attr.aria-selected]="isCurrentLanguage(lang.code)"
+          [attr.data-selected]="isCurrentLanguage(lang.code)"
+          (click)="selectLanguage(lang)"
+          (keydown)="onLanguageKeydown($event, lang)"
+        >
+          <div class="lz-language-dropdown__item-content">
             @if (lang.flag) {
               <img class="lz-language-dropdown__flag" [src]="lang.flag" [alt]="lang.name" />
             }
             <span
               class="lz-language-dropdown__name"
-              [class.lz-language-dropdown__name--active]="isCurrentLanguage(lang.code)"
+              [attr.data-selected]="isCurrentLanguage(lang.code)"
             >
               {{ lang.name }}
             </span>
-
             @if (isCurrentLanguage(lang.code)) {
-              <svg
-                class="lz-language-dropdown__check"
-                width="12"
-                height="12"
-                viewBox="0 0 12 12"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-              >
-                <path
-                  class="lz-language-dropdown__check-path"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M5.99995 10.8002C8.65092 10.8002 10.8 8.65116 10.8 6.0002C10.8 3.34923 8.65092 1.2002 5.99995 1.2002C3.34898 1.2002 1.19995 3.34923 1.19995 6.0002C1.19995 8.65116 3.34898 10.8002 5.99995 10.8002ZM8.31388 4.91487C8.46006 4.71388 8.41562 4.43244 8.21463 4.28626C8.01364 4.14009 7.7322 4.18452 7.58602 4.38552L5.49577 7.25962L4.36815 6.132C4.19241 5.95626 3.90749 5.95626 3.73175 6.132C3.55602 6.30773 3.55602 6.59266 3.73175 6.76839L5.23175 8.26839C5.32481 8.36145 5.45395 8.40911 5.58515 8.39882C5.71635 8.38852 5.83648 8.32131 5.91388 8.21487L8.31388 4.91487Z"
-                />
-              </svg>
+              <span class="lz-language-dropdown__check-badge" aria-hidden="true">
+                <lz-icon name="check" type="mini" class="lz-language-dropdown__check-icon" />
+              </span>
             }
-          </li>
-        }
-      </ul>
-    </div>
-  }
-</div>
+          </div>
+        </li>
+      }
+    </ul>
+  </div>
+</ng-template>

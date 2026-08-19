@@ -70,9 +70,6 @@ export * from './video-player/video-player.types';
 export * from './table/table.component';
 export * from './table/table.types';
 
-export * from './message-chat/message-chat.component';
-export * from './message-chat/message-chat.types';
-
 export * from './toast/toast-notification.component';
 export * from './toast/toast-container.component';
 export * from './toast/toast.service';
@@ -92,8 +89,6 @@ export * from './pagination/pagination.types';
 
 export * from './more-actions-menu/more-actions-menu.component';
 export * from './more-actions-menu/more-actions-menu.types';
-
-export * from './logo/logo.component';
 
 export * from './login-prompt-banner/login-prompt-banner.component';
 

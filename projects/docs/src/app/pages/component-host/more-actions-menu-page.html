@@ -1,0 +1,10 @@
+<docs-component-page [meta]="meta">
+  <ng-template docsPreview let-values>
+    <lz-more-actions-menu
+      [layout]="layout(values)"
+      [showSavedActions]="bool(values, 'showSavedActions')"
+      [disableSaveToList]="bool(values, 'disableSaveToList')"
+      [disableReport]="bool(values, 'disableReport')"
+    />
+  </ng-template>
+</docs-component-page>

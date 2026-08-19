@@ -13,6 +13,7 @@
       "feedback": "Feedback",
       "dataDisplay": "Afișare date",
       "navigation": "Navigare",
+      "media": "Media",
       "services": "Servicii"
     },
     "items": {
@@ -38,6 +39,17 @@
       "tabs": "Tabs",
       "tabButton": "Tab Button",
       "buttonGroup": "Button Group",
+      "languageDropdown": "Language Dropdown",
+      "toast": "Toast",
+      "card": "Card",
+      "table": "Table",
+      "liveEventCard": "Live Event Card",
+      "articlecardReactions": "Article Reactions",
+      "loginPromptBanner": "Login Prompt Banner",
+      "authFooter": "Auth Footer",
+      "moreActionsMenu": "More Actions Menu",
+      "swiper": "Swiper",
+      "videoPlayer": "Video Player",
       "themeService": "ThemeService"
     }
   },
@@ -67,7 +79,7 @@
   "gettingStarted": {
     "eyebrow": "Începe aici",
     "title": "Construiește interfețe din componente",
-    "lead": "Site-ul de docs folosește deja <code>lz-logo</code>, <code>lz-button</code>, <code>lz-input</code>, <code>lz-icon</code>, <code>lz-tooltip</code> și <code>lz-toast-container</code>. Mai jos — un fragment UI live din aceleași primitive.",
+    "lead": "Site-ul de docs folosește deja <code>lz-button</code>, <code>lz-input</code>, <code>lz-icon</code>, <code>lz-tooltip</code> și <code>lz-toast-container</code>. Mai jos — un fragment UI live din aceleași primitive.",
     "alertTitle": "Biblioteca este conectată",
     "alertText": "Importă componente din @laziar/components și construiește ecrane fără CSS custom.",
     "profile": "Profil",
@@ -941,6 +953,58 @@
       "demo": {
         "trigger": "Treci cu mouse-ul"
       }
+    },
+    "login-prompt-banner": {
+      "description": "Banner care duce cititorul pe ruta de autentificare.",
+      "controls": {
+        "text": { "default": "Autentifică-te ca să salvezi articole" }
+      }
+    },
+    "auth-footer": {
+      "description": "Footer pentru pagina de auth: companie, an și linkuri legale."
+    },
+    "card": {
+      "description": "Card de articol din frontend: layout col/row, scale de size, opțiuni row (imagine, identitate, meta) și more-actions.",
+      "controls": {
+        "title": { "default": "Guvernul anunță un nou pachet de măsuri" },
+        "subtitle": {
+          "default": "Miniștrii au prezentat calendarul implementării și impactul asupra bugetului public pe următorii doi ani."
+        }
+      }
+    },
+    "language-dropdown": {
+      "description": "Selector de limbă cu inițiale (sau steaguri din aplicație). Overlay prin CDK + Floating UI. Selecția se salvează în localStorage."
+    },
+    "articlecard-reactions": {
+      "description": "Emoji-uri de reacție stivuite, cu badge +N dacă totalul este ≥ 4."
+    },
+    "live-event-card": {
+      "description": "Card de eveniment live: avatarul publisherului, titlu și intrări cu oră."
+    },
+    "more-actions-menu": {
+      "description": "Meniu kebab: share, copiere link, watch later, follow și report."
+    },
+    "table": {
+      "description": "Tabel din publikator: coloane sticky, hover pe rând, paginare, meniu page-size (Floating UI) și stare goală.",
+      "controls": {
+        "emptyMessage": { "default": "Nu există articole" }
+      }
+    },
+    "toast-container": {
+      "description": "Host pentru notificări ToastService. Pune-l o dată în shell, apoi apelează ToastService.show().",
+      "controls": {
+        "message": { "default": "Site construit din @laziar/components" },
+        "messageBold": { "default": "Gata" }
+      },
+      "examples": {
+        "0": { "title": "Shell + serviciu" }
+      }
+    },
+    "swiper": {
+      "description": "Carusel cu prev/next. Slide-urile sunt copii swiper-slide (CUSTOM_ELEMENTS_SCHEMA)."
+    },
+    "video-player": {
+      "description": "Player Video.js din /assets/videojs al hostului. Fără sursă sau Video.js apare fallback."
     }
   }
 }

@@ -76,6 +76,8 @@ export interface DocsComponentMeta {
   tokens: DocsTokenRef[];
   /** Sandbox-only controls that are not real component inputs. */
   snippetIgnore?: readonly string[];
+  /** Custom live snippet for the sandbox (e.g. service APIs). */
+  buildSnippet?: (values: DocsSandboxValues) => string;
 }
 
 export function defaultsFromControls(controls: DocsSandboxControl[]): DocsSandboxValues {
