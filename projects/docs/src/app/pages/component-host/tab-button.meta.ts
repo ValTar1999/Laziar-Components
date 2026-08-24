@@ -98,7 +98,15 @@ export const TAB_BUTTON_COMPONENT_META: DocsComponentMeta = {
   tokens: [
     {
       name: '--lz-color-neutral-900',
-      description: 'Active bg/solid fill and variant=line indicator',
+      description: 'Active bg/solid pill fill',
+    },
+    {
+      name: '--lz-color-text-primary',
+      description: 'Active variant=line label and underline; hover label',
+    },
+    {
+      name: '--lz-color-text-secondary',
+      description: 'Idle label, all variants',
     },
     { name: '--lz-color-text-inverse', description: 'Text on the active pill' },
     { name: '--lz-color-neutral-50', description: 'Hover background' },
