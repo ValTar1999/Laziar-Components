@@ -1,7 +1,7 @@
 /**
- * Эталон: Laziar System (Figma Tab Button).
- * bg/solid — пилюля active #121212 / inverse.
- * line — подчёркивание 2px.
+ * Reference: Laziar System (Figma Tab Button).
+ * bg/solid — active renders as a filled pill, inverse text on the fill.
+ * line — active renders as a 2px underline.
  */
 
 :host.lz-tab-button-host {
@@ -10,8 +10,15 @@
 }
 
 .lz-tab-button {
-  --lz-tab-btn-fg: var(--lz-color-neutral-500);
-  --lz-tab-btn-fg-hover: var(--lz-color-neutral-900);
+  // Semantic text tokens, not palette steps. --lz-color-neutral-500 is #6b6f73 in
+  // *both* themes, so an inactive tab kept a mid grey on a near-black page and
+  // measured 3.70:1 — under AA. --lz-color-text-secondary inverts (#4f5255 light,
+  // #c4c6c8 dark), which is what a text role is for. The hover and active colours
+  // below move for the same reason: --lz-color-neutral-900 does invert, so they
+  // were not broken, but they said "the darkest grey" where they meant "primary
+  // text", and that is the assumption that failed here once already.
+  --lz-tab-btn-fg: var(--lz-color-text-secondary);
+  --lz-tab-btn-fg-hover: var(--lz-color-text-primary);
   --lz-tab-btn-pad-y: 0.375rem;
   --lz-tab-btn-pad-x: 0.75rem;
   --lz-tab-btn-font: var(--lz-font-size-sm);
@@ -95,7 +102,7 @@
 }
 
 .lz-tab-button[data-variant='line'][data-active='true'] .lz-tab-button__control {
-  color: var(--lz-color-neutral-900);
+  color: var(--lz-color-text-primary);
   background-color: transparent;
 }
 
@@ -107,5 +114,5 @@
 }
 
 .lz-tab-button[data-variant='line'][data-active='true'] .lz-tab-button__line {
-  border-bottom-color: var(--lz-color-neutral-900);
+  border-bottom-color: var(--lz-color-text-primary);
 }
