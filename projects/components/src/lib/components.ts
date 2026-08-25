@@ -90,6 +90,8 @@ export * from './pagination/pagination.types';
 export * from './more-actions-menu/more-actions-menu.component';
 export * from './more-actions-menu/more-actions-menu.types';
 
+export * from './logo/logo.component';
+
 export * from './login-prompt-banner/login-prompt-banner.component';
 
 export * from './auth-footer/auth-footer.component';

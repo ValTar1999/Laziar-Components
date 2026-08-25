@@ -69,9 +69,19 @@ build:
 publish:
   extends: .job
   stage: publish
+  # A job that declares `needs` leaves the stage-ordering DAG, so with only build listed
+  # publish did not wait on lint or test and would ship on a red verify stage. That is not
+  # how 0.1.21 shipped: no check in this repo could have failed on the Logo removal - no
+  # library code references what a consumer imports - so there was nothing for publish to
+  # bypass. It matters from now on, because public-api.spec.ts makes that class of removal
+  # fail the test job, and a failing test only prevents a bad publish if publish waits.
   needs:
     - job: build
       artifacts: true
+    - job: lint
+      artifacts: false
+    - job: test
+      artifacts: false
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
   script:
