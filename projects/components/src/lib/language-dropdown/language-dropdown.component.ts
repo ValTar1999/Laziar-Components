@@ -18,7 +18,7 @@ import {
 } from '@angular/core';
 import { Overlay, OverlayModule, OverlayRef, PositionStrategy } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { autoUpdate, computePosition, flip, offset, shift, size } from '@floating-ui/dom';
+import { attachLzFloating } from '../floating/floating';
 import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { Icon } from '../icon/icon.component';
 import { LzLanguageOption } from './language-dropdown.types';
@@ -243,41 +243,22 @@ export class LanguageDropdown implements OnInit, OnDestroy {
       return;
     }
 
-    this.floatingCleanup = autoUpdate(reference, floating, () => {
-      void this.positionMenu(reference, floating);
+    this.floatingCleanup = attachLzFloating(reference, floating, {
+      placement: 'bottom-start',
+      offset: MENU_OFFSET_PX,
+      shiftPadding: MENU_VIEWPORT_PADDING_PX,
+      flipPadding: MENU_VIEWPORT_PADDING_PX,
+      strategy: 'fixed',
+      round: false,
+      minWidth: MENU_WIDTH_PX,
+      maxHeight: MENU_MAX_HEIGHT_PX,
+      sizePadding: MENU_VIEWPORT_PADDING_PX,
     });
   }
 
   private stopFloating(): void {
     this.floatingCleanup?.();
     this.floatingCleanup = undefined;
-  }
-
-  private async positionMenu(reference: HTMLElement, floating: HTMLElement): Promise<void> {
-    const { x, y } = await computePosition(reference, floating, {
-      placement: 'bottom-start',
-      strategy: 'fixed',
-      middleware: [
-        offset(MENU_OFFSET_PX),
-        flip({ padding: MENU_VIEWPORT_PADDING_PX }),
-        shift({ padding: MENU_VIEWPORT_PADDING_PX }),
-        size({
-          padding: MENU_VIEWPORT_PADDING_PX,
-          apply({ rects, availableHeight, elements }) {
-            Object.assign(elements.floating.style, {
-              minWidth: `${Math.max(MENU_WIDTH_PX, rects.reference.width)}px`,
-              maxHeight: `${Math.min(MENU_MAX_HEIGHT_PX, Math.max(0, availableHeight))}px`,
-            });
-          },
-        }),
-      ],
-    });
-
-    Object.assign(floating.style, {
-      position: 'fixed',
-      left: `${x}px`,
-      top: `${y}px`,
-    });
   }
 
   private readStoredCode(): string | null {

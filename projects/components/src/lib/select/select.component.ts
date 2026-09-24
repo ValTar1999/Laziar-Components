@@ -20,7 +20,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Overlay, OverlayModule, OverlayRef, PositionStrategy } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { autoUpdate, computePosition, flip, offset, shift, size } from '@floating-ui/dom';
+import { attachLzFloating } from '../floating/floating';
 import {
   LzSelectSize,
   LzSelectOptionType,
@@ -275,40 +275,21 @@ export class SelectComponent implements ControlValueAccessor, OnDestroy {
     const floating = this.overlayRef?.overlayElement;
     if (!reference || !floating) return;
 
-    this.floatingCleanup = autoUpdate(reference, floating, () => {
-      void this.positionDropdown(reference, floating);
+    this.floatingCleanup = attachLzFloating(reference, floating, {
+      placement: 'bottom-start',
+      offset: DROPDOWN_OFFSET_PX,
+      shiftPadding: DROPDOWN_VIEWPORT_PADDING_PX,
+      flipPadding: DROPDOWN_VIEWPORT_PADDING_PX,
+      strategy: 'fixed',
+      round: false,
+      matchWidth: true,
+      maxHeight: DROPDOWN_MAX_HEIGHT_PX,
+      sizePadding: DROPDOWN_VIEWPORT_PADDING_PX,
     });
   }
 
   private stopFloating(): void {
     this.floatingCleanup?.();
     this.floatingCleanup = undefined;
-  }
-
-  private async positionDropdown(reference: HTMLElement, floating: HTMLElement): Promise<void> {
-    const { x, y } = await computePosition(reference, floating, {
-      placement: 'bottom-start',
-      strategy: 'fixed',
-      middleware: [
-        offset(DROPDOWN_OFFSET_PX),
-        flip({ padding: DROPDOWN_VIEWPORT_PADDING_PX }),
-        shift({ padding: DROPDOWN_VIEWPORT_PADDING_PX }),
-        size({
-          padding: DROPDOWN_VIEWPORT_PADDING_PX,
-          apply({ rects, availableHeight, elements }) {
-            Object.assign(elements.floating.style, {
-              width: `${rects.reference.width}px`,
-              maxHeight: `${Math.min(DROPDOWN_MAX_HEIGHT_PX, Math.max(0, availableHeight))}px`,
-            });
-          },
-        }),
-      ],
-    });
-
-    Object.assign(floating.style, {
-      position: 'fixed',
-      left: `${x}px`,
-      top: `${y}px`,
-    });
   }
 }

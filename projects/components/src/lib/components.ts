@@ -78,6 +78,10 @@ export * from './toast/toast.types';
 export * from './dropdown/dropdown.component';
 export * from './dropdown/dropdown.types';
 
+export * from './floating/floating.directive';
+export * from './floating/floating';
+export * from './floating/floating.types';
+
 export * from './card/card.component';
 export * from './card/card.types';
 
@@ -98,3 +102,10 @@ export * from './articlecard-reactions/articlecard-reactions.component';
 
 export * from './live-event-card/live-event-card.component';
 export * from './live-event-card/live-event-card.types';
+
+export * from './quote/quote.component';
+export * from './quote/quote.types';
+
+export * from './note-panel/note-panel.component';
+
+export * from './expand/expand.component';

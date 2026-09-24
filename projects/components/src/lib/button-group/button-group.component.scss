@@ -3,16 +3,22 @@
  * Общая рамка #121212 10%, фон #FFFFFA, gap 0.
  * Радиус 8px или pill; внутренние стыки 0.
  * line — вертикальные разделители того же цвета.
+ * Focus — на каждом сегменте, как у `lz-input` (`--lz-shadow-focus`).
  */
 
 :host.lz-button-group-host {
+  --lz-btn-group-radius: 0.5rem;
+
   display: inline-flex;
   max-width: 100%;
   vertical-align: middle;
+
+  &:has(.lz-button-host--pill) {
+    --lz-btn-group-radius: 9999px;
+  }
 }
 
 .lz-button-group {
-  --lz-btn-group-radius: 0.5rem;
   --lz-btn-group-border: color-mix(in srgb, var(--lz-color-neutral-900) 10%, transparent);
 
   box-sizing: border-box;
@@ -22,13 +28,16 @@
   justify-content: flex-start;
   gap: 0;
   isolation: isolate;
-  overflow: hidden;
+  /* Visible so per-segment `--lz-shadow-focus` is not clipped.
+   * Corner shape comes from first/last segment radii below. */
+  overflow: visible;
   border: 1px solid var(--lz-btn-group-border);
   border-radius: var(--lz-btn-group-radius);
   background-color: var(--lz-color-background);
+  transition: border-color var(--lz-duration-normal) var(--lz-easing-standard);
 
-  &:has(.lz-button-host--pill) {
-    --lz-btn-group-radius: 9999px;
+  &:hover:not(:focus-within) {
+    border-color: color-mix(in srgb, var(--lz-color-neutral-900) 20%, transparent);
   }
 }
 
@@ -49,6 +58,7 @@
 :host ::ng-deep .lz-button-group > button {
   border-radius: 0;
   --lz-btn-border-w: 0;
+  --lz-btn-ring: none;
   box-shadow: none;
   height: 100%;
 }
@@ -63,11 +73,13 @@
   width: auto;
 }
 
+/* Per-segment focus — same ring as `lz-input-field:focus`. */
 :host ::ng-deep .lz-button-group .lz-button:focus,
 :host ::ng-deep .lz-button-group > button:focus {
   z-index: 1;
   position: relative;
-  box-shadow: var(--lz-btn-ring, var(--lz-shadow-focus));
+  outline: none;
+  box-shadow: var(--lz-shadow-focus);
 }
 
 :host ::ng-deep .lz-button-group > :first-child .lz-button,

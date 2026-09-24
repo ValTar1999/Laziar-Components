@@ -1,0 +1,29 @@
+<section class="lz-expand">
+  <button
+    type="button"
+    class="lz-expand__trigger"
+    [attr.aria-expanded]="opened()"
+    (click)="toggle()"
+  >
+    <lz-icon
+      class="lz-expand__chevron"
+      [class.lz-expand__chevron--open]="opened()"
+      [name]="opened() ? 'chevron-down' : 'chevron-right'"
+      type="mini"
+      aria-hidden="true"
+    />
+    <div class="lz-expand__title" [innerHTML]="title()"></div>
+  </button>
+
+  <div
+    #panel
+    class="lz-expand__content"
+    [class.lz-expand__content--open]="opened()"
+    [class.lz-expand__content--anim]="animating()"
+    (transitionend)="onTransitionEnd($event)"
+  >
+    <div class="lz-expand__clip">
+      <div class="lz-expand__body" [innerHTML]="content()"></div>
+    </div>
+  </div>
+</section>

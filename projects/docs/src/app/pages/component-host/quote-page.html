@@ -1,0 +1,9 @@
+<docs-component-page [meta]="meta">
+  <ng-template docsPreview let-values>
+    <lz-quote
+      [content]="str(values, 'content', 'To be or not to be, that is the question.')"
+      [author]="author(values)"
+      [subtext]="str(values, 'subtext')"
+    />
+  </ng-template>
+</docs-component-page>
