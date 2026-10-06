@@ -28,22 +28,32 @@ describe('MoreActionsMenu', () => {
     expect(component['isDesktop']()).toBe(false);
   });
 
-  it('toggles Romanian labels with followed/saved state', () => {
-    expect(component['watchLaterLabel']()).toBe('Vizioneaza mai tarziu');
+  it('toggles default English labels with followed/saved state', () => {
+    expect(component['watchLaterDisplayLabel']()).toBe('Watch later');
     fixture.componentRef.setInput('isWatchLater', true);
-    expect(component['watchLaterLabel']()).toBe('Elimina din Vizioneaza mai tarziu');
+    expect(component['watchLaterDisplayLabel']()).toBe('Remove from Watch later');
 
-    expect(component['saveToListLabel']()).toBe('Salveaza in lista');
+    expect(component['saveToListDisplayLabel']()).toBe('Save to list');
     fixture.componentRef.setInput('isSavedToList', true);
-    expect(component['saveToListLabel']()).toBe('Elimina din lista');
+    expect(component['saveToListDisplayLabel']()).toBe('Remove from list');
 
-    expect(component['publisherFollowLabel']()).toBe('Urmareste Publisherul');
+    expect(component['publisherFollowDisplayLabel']()).toBe('Follow publisher');
     fixture.componentRef.setInput('isPublisherFollowed', true);
-    expect(component['publisherFollowLabel']()).toBe('Nu mai urmaresti Publisherul');
+    expect(component['publisherFollowDisplayLabel']()).toBe('Unfollow publisher');
 
-    expect(component['authorFollowLabel']()).toBe('Urmareste Autorul');
+    expect(component['authorFollowDisplayLabel']()).toBe('Follow author');
     fixture.componentRef.setInput('isAuthorFollowed', true);
-    expect(component['authorFollowLabel']()).toBe('Nu mai urmaresti Autorul');
+    expect(component['authorFollowDisplayLabel']()).toBe('Unfollow author');
+  });
+
+  it('accepts locale-specific label overrides from the consumer', () => {
+    fixture.componentRef.setInput('watchLaterLabel', 'Vizioneaza mai tarziu');
+    fixture.componentRef.setInput('removeWatchLaterLabel', 'Elimina din Vizioneaza mai tarziu');
+    fixture.detectChanges();
+
+    expect(component['watchLaterDisplayLabel']()).toBe('Vizioneaza mai tarziu');
+    fixture.componentRef.setInput('isWatchLater', true);
+    expect(component['watchLaterDisplayLabel']()).toBe('Elimina din Vizioneaza mai tarziu');
   });
 
   it('emits watchLater, share and copyLink from enabled rows', () => {
@@ -52,9 +62,9 @@ describe('MoreActionsMenu', () => {
     const copy = spyOn(component.copyLink, 'emit');
     fixture.detectChanges();
 
-    clickRow('Vizioneaza mai tarziu');
-    clickRow('Distribuie');
-    clickRow('Copiază link');
+    clickRow('Watch later');
+    clickRow('Share');
+    clickRow('Copy link');
 
     expect(watch).toHaveBeenCalled();
     expect(share).toHaveBeenCalled();
@@ -65,7 +75,7 @@ describe('MoreActionsMenu', () => {
     const saved = spyOn(component.saveToList, 'emit');
     fixture.detectChanges();
 
-    clickRow('Salveaza in lista');
+    clickRow('Save to list');
 
     expect(saved).not.toHaveBeenCalled();
   });
@@ -82,10 +92,10 @@ describe('MoreActionsMenu', () => {
     const report = spyOn(component.report, 'emit');
     fixture.detectChanges();
 
-    clickRow('Salveaza in lista');
-    clickRow('Urmareste Publisherul');
-    clickRow('Urmareste Autorul');
-    clickRow('Raporteaza');
+    clickRow('Save to list');
+    clickRow('Follow publisher');
+    clickRow('Follow author');
+    clickRow('Report');
 
     expect(save).toHaveBeenCalled();
     expect(publisher).toHaveBeenCalled();

@@ -47,17 +47,26 @@ export class LiveEventCard {
   /** When true, shows watch-later / save action buttons. Replaces Principal `isLoggedIn`. */
   readonly showActions = input(false, { transform: booleanAttribute });
 
+  /** Label shown when watch-later is off; pass a locale-specific string to override the default. */
+  readonly watchLaterLabel = input<string>('Watch later');
+  /** Label shown when watch-later is already on. */
+  readonly removeWatchLaterLabel = input<string>('Remove from Watch later');
+  /** Label shown when save-to-list is off. */
+  readonly saveToListLabel = input<string>('Save to list');
+  /** Label shown when save-to-list is already on. */
+  readonly removeFromListLabel = input<string>('Remove from list');
+
   readonly open = output<string>();
   readonly publisherClick = output<string>();
   readonly watchLaterToggle = output<void>();
   readonly saveToListToggle = output<void>();
 
   protected readonly watchLaterTooltip = computed(() =>
-    this.watchLater() ? 'Elimină din Vizionează mai târziu' : 'Vizionează mai târziu',
+    this.watchLater() ? this.removeWatchLaterLabel() : this.watchLaterLabel(),
   );
 
-  protected readonly saveTooltip = computed(() =>
-    this.isSaved() ? 'Elimină din listă' : 'Salvează în listă',
+  protected readonly saveToListTooltip = computed(() =>
+    this.isSaved() ? this.removeFromListLabel() : this.saveToListLabel(),
   );
 
   protected onTitleClick(event: MouseEvent): void {
