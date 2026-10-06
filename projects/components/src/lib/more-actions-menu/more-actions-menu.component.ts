@@ -34,6 +34,28 @@ export class MoreActionsMenu {
   readonly disableAuthorFollow = input(true, { transform: booleanAttribute });
   readonly disableReport = input(true, { transform: booleanAttribute });
 
+  /** Label shown when watch-later is off; pass a locale-specific string to override the default. */
+  readonly watchLaterLabel = input<string>('Watch later');
+  /** Label shown when watch-later is already on. */
+  readonly removeWatchLaterLabel = input<string>('Remove from Watch later');
+  /** Label shown when save-to-list is off. */
+  readonly saveToListLabel = input<string>('Save to list');
+  /** Label shown when save-to-list is already on. */
+  readonly removeFromListLabel = input<string>('Remove from list');
+  /** Label shown when the publisher is not yet followed. */
+  readonly publisherFollowLabel = input<string>('Follow publisher');
+  /** Label shown when the publisher is already followed. */
+  readonly unfollowPublisherLabel = input<string>('Unfollow publisher');
+  /** Label shown when the author is not yet followed. */
+  readonly authorFollowLabel = input<string>('Follow author');
+  /** Label shown when the author is already followed. */
+  readonly unfollowAuthorLabel = input<string>('Unfollow author');
+  readonly shareLabel = input<string>('Share');
+  readonly copyLinkLabel = input<string>('Copy link...');
+  readonly reportLabel = input<string>('Report');
+  /** Tooltip shown over rows disabled pending launch. */
+  readonly comingSoonLabel = input<string>('Coming soon');
+
   readonly publisherFollow = output<void>();
   readonly authorFollow = output<void>();
   readonly watchLater = output<void>();
@@ -44,19 +66,19 @@ export class MoreActionsMenu {
 
   protected readonly isDesktop = computed(() => this.layout() === 'desktop');
 
-  protected readonly watchLaterLabel = computed(() =>
-    this.isWatchLater() ? 'Elimina din Vizioneaza mai tarziu' : 'Vizioneaza mai tarziu',
+  protected readonly watchLaterDisplayLabel = computed(() =>
+    this.isWatchLater() ? this.removeWatchLaterLabel() : this.watchLaterLabel(),
   );
 
-  protected readonly saveToListLabel = computed(() =>
-    this.isSavedToList() ? 'Elimina din lista' : 'Salveaza in lista',
+  protected readonly saveToListDisplayLabel = computed(() =>
+    this.isSavedToList() ? this.removeFromListLabel() : this.saveToListLabel(),
   );
 
-  protected readonly publisherFollowLabel = computed(() =>
-    this.isPublisherFollowed() ? 'Nu mai urmaresti Publisherul' : 'Urmareste Publisherul',
+  protected readonly publisherFollowDisplayLabel = computed(() =>
+    this.isPublisherFollowed() ? this.unfollowPublisherLabel() : this.publisherFollowLabel(),
   );
 
-  protected readonly authorFollowLabel = computed(() =>
-    this.isAuthorFollowed() ? 'Nu mai urmaresti Autorul' : 'Urmareste Autorul',
+  protected readonly authorFollowDisplayLabel = computed(() =>
+    this.isAuthorFollowed() ? this.unfollowAuthorLabel() : this.authorFollowLabel(),
   );
 }

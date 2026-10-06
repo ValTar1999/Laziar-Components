@@ -17,10 +17,10 @@
           [type]="isWatchLater() ? 'custom' : 'outline'"
         ></lz-icon>
       </span>
-      <div>{{ watchLaterLabel() }}</div>
+      <div>{{ watchLaterDisplayLabel() }}</div>
     </button>
     <lz-tooltip
-      [text]="disableSaveToList() ? 'In curand' : ''"
+      [text]="disableSaveToList() ? comingSoonLabel() : ''"
       position="top"
       [disabled]="!disableSaveToList()"
     >
@@ -36,7 +36,7 @@
         <span class="lz-more-actions-menu__icon" [attr.data-layout]="layout()">
           <lz-icon name="bookmark" [type]="isSavedToList() ? 'solid' : 'outline'"></lz-icon>
         </span>
-        <div>{{ saveToListLabel() }}</div>
+        <div>{{ saveToListDisplayLabel() }}</div>
       </button>
     </lz-tooltip>
   </div>
@@ -54,7 +54,7 @@
     <span class="lz-more-actions-menu__icon" [attr.data-layout]="layout()">
       <lz-icon name="arrow-up-tray" type="outline"></lz-icon>
     </span>
-    <div>Distribuie</div>
+    <div>{{ shareLabel() }}</div>
   </button>
   <button
     type="button"
@@ -66,7 +66,7 @@
     <span class="lz-more-actions-menu__icon" [attr.data-layout]="layout()">
       <lz-icon name="link" type="outline"></lz-icon>
     </span>
-    <div>Copiază link...</div>
+    <div>{{ copyLinkLabel() }}</div>
   </button>
 </div>
 
@@ -74,7 +74,7 @@
 
 <div class="lz-more-actions-menu__group">
   <lz-tooltip
-    [text]="disablePublisherFollow() ? 'In curand' : ''"
+    [text]="disablePublisherFollow() ? comingSoonLabel() : ''"
     position="top"
     [disabled]="!disablePublisherFollow()"
   >
@@ -90,12 +90,12 @@
       <span class="lz-more-actions-menu__icon" [attr.data-layout]="layout()">
         <lz-icon name="note-panel" type="custom"></lz-icon>
       </span>
-      <div>{{ publisherFollowLabel() }}</div>
+      <div>{{ publisherFollowDisplayLabel() }}</div>
     </button>
   </lz-tooltip>
 
   <lz-tooltip
-    [text]="disableAuthorFollow() ? 'In curand' : ''"
+    [text]="disableAuthorFollow() ? comingSoonLabel() : ''"
     position="top"
     [disabled]="!disableAuthorFollow()"
   >
@@ -111,12 +111,12 @@
       <span class="lz-more-actions-menu__icon" [attr.data-layout]="layout()">
         <lz-icon name="user-plus" type="outline"></lz-icon>
       </span>
-      <div>{{ authorFollowLabel() }}</div>
+      <div>{{ authorFollowDisplayLabel() }}</div>
     </button>
   </lz-tooltip>
 
   <lz-tooltip
-    [text]="disableReport() ? 'In curand' : ''"
+    [text]="disableReport() ? comingSoonLabel() : ''"
     position="top"
     [disabled]="!disableReport()"
   >
@@ -133,7 +133,7 @@
       <span class="lz-more-actions-menu__icon" [attr.data-layout]="layout()">
         <lz-icon name="flag" type="outline"></lz-icon>
       </span>
-      <div>Raporteaza</div>
+      <div>{{ reportLabel() }}</div>
     </button>
   </lz-tooltip>
 </div>

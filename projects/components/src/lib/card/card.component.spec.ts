@@ -58,6 +58,17 @@ describe('CardComponent', () => {
 
     expect(fixture.nativeElement.textContent).toContain('AGORA');
     expect(fixture.nativeElement.textContent).toContain('Ion');
+    expect(fixture.nativeElement.textContent).toContain('by');
+  });
+
+  it('accepts a locale-specific byline separator override', () => {
+    fixture.componentRef.setInput('variant', 'row');
+    fixture.componentRef.setInput('size', 'md');
+    fixture.componentRef.setInput('publisher', 'AGORA');
+    fixture.componentRef.setInput('author', 'Ion');
+    fixture.componentRef.setInput('bylineSeparatorLabel', 'de');
+    fixture.detectChanges();
+
     expect(fixture.nativeElement.textContent).toContain('de');
   });
 
@@ -67,10 +78,22 @@ describe('CardComponent', () => {
     fixture.componentRef.setInput('title', 'Headline');
     fixture.detectChanges();
 
-    fixture.debugElement.query(By.css('[aria-label="Mai mult"]')).nativeElement.click();
+    fixture.debugElement.query(By.css('[aria-label="More"]')).nativeElement.click();
     fixture.detectChanges();
 
     expect(component['isMoreMenuOpen']()).toBeTrue();
     expect(document.querySelector('.lz-card-cdk-pane .lz-card__menu')).not.toBeNull();
+  });
+
+  it('exposes English defaults for watch-later and save-to-list tooltips', () => {
+    expect(component['watchLaterTooltip']()).toBe('Watch later');
+    expect(component['saveToListTooltip']()).toBe('Save to list');
+
+    fixture.componentRef.setInput('isWatchLater', true);
+    fixture.componentRef.setInput('isSavedToList', true);
+    fixture.detectChanges();
+
+    expect(component['watchLaterTooltip']()).toBe('Remove from Watch later');
+    expect(component['saveToListTooltip']()).toBe('Remove from list');
   });
 });
