@@ -34,13 +34,16 @@ export class Avatar {
   readonly imgNotification = input<string>('');
   readonly topNotification = input<boolean>(false);
   readonly bottomNotification = input<boolean>(false);
-  readonly topNotificationStatus = input<LzAvatarNotificationStatus>('error');
-  readonly bottomNotificationStatus = input<LzAvatarNotificationStatus>('info');
+  readonly topNotificationStatus = input<LzAvatarNotificationStatus>('neutral');
+  readonly bottomNotificationStatus = input<LzAvatarNotificationStatus>('success');
   readonly containerClass = input<string>('');
   readonly variant = input<LzAvatarVariant>('default');
 
+  /** Figma: xxs / xs fit one letter, larger sizes — two. */
   protected readonly initials = computed<string>(() => {
-    return buildAvatarInitials(this.firstName(), this.lastName());
+    const initials = buildAvatarInitials(this.firstName(), this.lastName());
+    const size = this.size();
+    return size === 'xxs' || size === 'xs' ? initials.slice(0, 1) : initials;
   });
 
   protected readonly showPlaceholder = computed<boolean>(() => {
@@ -92,7 +95,8 @@ export class Avatar {
   });
 
   protected readonly imgNotificationClass = computed<string>(() => {
-    return 'lz-avatar__img-notification';
+    // Keep the wrapper class — bare `[class]` replaces the whole class attr.
+    return 'lz-avatar__img-notification-wrapper lz-avatar__img-notification';
   });
 
   protected readonly imageAlt = computed<string>(() => {

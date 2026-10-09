@@ -1,8 +1,9 @@
 /**
- * Эталон: Laziar System (Figma Button Group / Button Group Playground).
- * Общая рамка #121212 10%, фон #FFFFFA, gap 0.
- * Радиус 8px или pill; внутренние стыки 0.
- * line — вертикальные разделители того же цвета.
+ * Эталон: Laziar System (Figma Button Group 12556:5317 / Playground 10817:38298).
+ * Сегменты — Ghost-кнопки. Общая рамка border/button/outline-gray (#C4C6C8),
+ * фон #FFFFFA, gap 0. Рамка внутренняя (как inside-stroke в Figma): высота
+ * группы = высоте кнопки. Радиус 8px для всех размеров или pill; стыки 0.
+ * line — вертикальные разделители 1px того же цвета.
  * Focus — на каждом сегменте, как у `lz-input` (`--lz-shadow-focus`).
  */
 
@@ -19,8 +20,9 @@
 }
 
 .lz-button-group {
-  --lz-btn-group-border: color-mix(in srgb, var(--lz-color-neutral-900) 10%, transparent);
+  --lz-btn-group-border: var(--lz-color-neutral-200);
 
+  position: relative;
   box-sizing: border-box;
   display: inline-flex;
   max-width: 100%;
@@ -31,13 +33,18 @@
   /* Visible so per-segment `--lz-shadow-focus` is not clipped.
    * Corner shape comes from first/last segment radii below. */
   overflow: visible;
-  border: 1px solid var(--lz-btn-group-border);
   border-radius: var(--lz-btn-group-radius);
   background-color: var(--lz-color-background);
-  transition: border-color var(--lz-duration-normal) var(--lz-easing-standard);
 
-  &:hover:not(:focus-within) {
-    border-color: color-mix(in srgb, var(--lz-color-neutral-900) 20%, transparent);
+  /* Inside stroke поверх сегментов — не добавляет размер группе */
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border: 1px solid var(--lz-btn-group-border);
+    border-radius: inherit;
+    pointer-events: none;
   }
 }
 

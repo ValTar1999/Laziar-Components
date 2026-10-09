@@ -41,9 +41,9 @@ export class Badge {
   readonly color = input<LzBadgeColor>('gray');
   /** Badge size scale. */
   readonly size = input<LzBadgeSize>('sm');
-  /** Fill: subtle (pastel), solid (filled), outline. `border` still maps to outline. */
+  /** Fill: subtle (pastel), solid (filled), outline. */
   readonly variant = input<LzBadgeVariant>('subtle');
-  /** Whether to show border ring. */
+  /** Figma "Stroke": 1px border in the color's 200 shade on top of the fill. */
   readonly border = input(false, { transform: booleanAttribute });
   /** Whether badge should be pill-shaped (rounded-full). */
   readonly pill = input(false, { transform: booleanAttribute });
@@ -62,13 +62,10 @@ export class Badge {
     return color === 'magrnta' ? 'magenta' : color;
   });
 
-  /** `border` keeps outline without a breaking API change. */
-  protected readonly resolvedVariant = computed<LzBadgeVariant>(() => {
-    if (this.variant() === 'subtle' && this.border()) {
-      return 'outline';
-    }
-
-    return this.variant();
+  /** Deprecated `lg` / `md` map onto Figma `sm`. */
+  protected readonly resolvedSize = computed<LzBadgeSize>(() => {
+    const size = this.size();
+    return size === 'lg' || size === 'md' ? 'sm' : size;
   });
 
   /** Handle icon click when clickable. */

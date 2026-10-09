@@ -1,7 +1,8 @@
 /**
  * Эталон: Laziar System (Figma Tabs).
  * outline — пилюля: active fill #121212 / inverse text.
- * underline — линия 2px под активной.
+ * underline — линия 2px под активной (ширина вкладки).
+ * underline-text — то же, но линия по ширине текста активной вкладки.
  * border — сегмент с обводкой #121212 10%.
  * Onest 600, hover bg/neutral-50.
  */
@@ -130,7 +131,8 @@
   border-radius: var(--lz-radius-full);
 }
 
-.lz-tabs[data-style='outline'] .lz-tabs__tab:hover:not([data-disabled='true']):not([data-active='true']) {
+.lz-tabs[data-style='outline']
+  .lz-tabs__tab:hover:not([data-disabled='true']):not([data-active='true']) {
   background-color: var(--lz-tabs-bg-hover);
 }
 
@@ -139,17 +141,19 @@
   color: var(--lz-tabs-fg-on-active);
 }
 
-/* ── underline ── */
-.lz-tabs[data-style='underline'] {
+/* ── underline / underline-text ── */
+.lz-tabs:is([data-style='underline'], [data-style='underline-text']) {
   border-bottom: 1px solid var(--lz-tabs-border);
 }
 
-.lz-tabs[data-style='underline'] .lz-tabs__tab:hover:not([data-disabled='true']):not([data-active='true']) {
+.lz-tabs:is([data-style='underline'], [data-style='underline-text'])
+  .lz-tabs__tab:hover:not([data-disabled='true']):not([data-active='true']) {
   background-color: var(--lz-tabs-bg-hover);
   border-radius: var(--lz-radius-md);
 }
 
-.lz-tabs[data-style='underline'] .lz-tabs__tab[data-active='true'] {
+.lz-tabs:is([data-style='underline'], [data-style='underline-text'])
+  .lz-tabs__tab[data-active='true'] {
   color: var(--lz-tabs-fg-active);
 }
 
@@ -177,7 +181,8 @@
   border-left: 1px solid var(--lz-tabs-border);
 }
 
-.lz-tabs[data-style='border'] .lz-tabs__tab:hover:not([data-disabled='true']):not([data-active='true']) {
+.lz-tabs[data-style='border']
+  .lz-tabs__tab:hover:not([data-disabled='true']):not([data-active='true']) {
   background-color: var(--lz-tabs-bg-hover);
 }
 

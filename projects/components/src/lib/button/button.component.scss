@@ -1,6 +1,9 @@
 /**
- * Эталон: Laziar System (Figma Buttons) + publikator button.ts.
+ * Эталон: Laziar System (Figma Buttons, node 10811:11880) + publikator button.ts.
  * Цвета задаются CSS-переменными на [data-color], варианты читают их.
+ *
+ * Figma → code: Primary → primary, Outline → outline, Tonal → secondary,
+ * Ghost → tertiary, No Padding → link, No Padding (only icon) → iconOnly.
  */
 
 :host.lz-button-host {
@@ -20,7 +23,11 @@
   width: 100%;
 }
 
-/* common: gap-1 (4px text ↔ icon), font-semibold, transition-colors duration-300, ring-2 ring-transparent */
+/*
+ * common: items gap 0, label wrapped in 4px side padding (Figma "Wrap"),
+ * font-semibold, transition-colors duration-300.
+ * Disabled = обычное состояние с opacity 30% (как в Figma для всех вариантов).
+ */
 .lz-button {
   --lz-btn-fg: inherit;
   --lz-btn-fg-hover: var(--lz-btn-fg);
@@ -32,16 +39,16 @@
   --lz-btn-border: transparent;
   --lz-btn-border-hover: var(--lz-btn-border);
   --lz-btn-border-focus: var(--lz-btn-border);
-  --lz-btn-ring: 0 0 0 2px transparent;
-  --lz-btn-disabled-fg: var(--lz-btn-200);
-  --lz-btn-disabled-bg: transparent;
-  --lz-btn-disabled-border: transparent;
+  --lz-btn-ring: 0 0 0 1px var(--lz-color-background), 0 0 0 3px var(--lz-btn-ring-color);
+  --lz-btn-disabled-fg: var(--lz-btn-fg);
+  --lz-btn-disabled-bg: var(--lz-btn-bg);
+  --lz-btn-disabled-border: var(--lz-btn-border);
 
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.25rem;
+  gap: 0;
   margin: 0;
   padding: 0;
   border-style: solid;
@@ -85,7 +92,7 @@
   border-color: var(--lz-btn-disabled-border);
   cursor: not-allowed;
   pointer-events: none;
-  opacity: 0.6;
+  opacity: 0.3;
 }
 
 .lz-button:disabled:hover {
@@ -99,13 +106,15 @@
 
 .lz-button__label {
   order: 1;
+  padding: 0 0.25rem;
 }
 
 .lz-button__projected {
   order: 2;
   display: inline-flex;
   align-items: center;
-  gap: inherit;
+  gap: 0.25rem;
+  padding: 0 0.25rem;
 }
 
 .lz-button__projected:empty {
@@ -143,7 +152,7 @@
   }
 }
 
-/* ─── sizes (Figma Button/Primary: xs 24 / sm 28 / md 32 / lg 40 / xl 48) ─── */
+/* ─── sizes (Figma Button/Primary: xl 48 / lg 40 / md 32 / sm 28 / xs 24) ─── */
 
 .lz-button[data-size='xl'] {
   --lz-btn-icon: 1.25rem;
@@ -166,7 +175,7 @@
 }
 
 .lz-button[data-size='md'] {
-  --lz-btn-icon: 1.25rem;
+  --lz-btn-icon: 1rem;
   min-height: 2rem;
   padding: 0.375rem 0.75rem;
   border-radius: 0.5rem;
@@ -176,7 +185,7 @@
 }
 
 .lz-button[data-size='sm'] {
-  --lz-btn-icon: 1.25rem;
+  --lz-btn-icon: 1rem;
   min-height: 1.75rem;
   padding: 0.25rem 0.5rem;
   border-radius: 0.5rem;
@@ -195,6 +204,7 @@
   letter-spacing: -0.01125rem;
 }
 
+/* only icon: xl 14+20 / lg 10+20 / md 8+16 / sm 6+16 / xs 4+16 */
 .lz-button[data-icon-only='true'][data-size='xl'] {
   padding: 0.875rem;
 }
@@ -204,21 +214,45 @@
 }
 
 .lz-button[data-icon-only='true'][data-size='md'] {
+  padding: 0.5rem;
+}
+
+.lz-button[data-icon-only='true'][data-size='sm'] {
   padding: 0.375rem;
 }
 
-.lz-button[data-icon-only='true'][data-size='sm'],
 .lz-button[data-icon-only='true'][data-size='xs'] {
   padding: 0.25rem;
 }
 
-.lz-button[data-variant='link'] {
-  padding: 0;
-  border-radius: 0;
-}
-
 .lz-button[data-pill='true'] {
   border-radius: 9999px;
+}
+
+/* ─── No Padding (link / iconOnly): высота = line-height, фокус — rounded-full ─── */
+
+.lz-button[data-variant='link'][data-size],
+.lz-button[data-variant='iconOnly'][data-size] {
+  min-height: 0;
+  padding: 0;
+  border-radius: 9999px;
+}
+
+.lz-button[data-variant='link'][data-size='xs'],
+.lz-button[data-variant='iconOnly'][data-size='xs'] {
+  --lz-btn-icon: 0.875rem;
+}
+
+/* only icon: lg 2+20 = 24 / md 2+16 = 20 / xs 1+14 = 16 */
+.lz-button:is([data-variant='iconOnly'], [data-variant='link'][data-icon-only='true'])[data-size] {
+  padding: 0.125rem;
+}
+
+.lz-button:is(
+    [data-variant='iconOnly'],
+    [data-variant='link'][data-icon-only='true']
+  )[data-size='xs'] {
+  padding: 0.0625rem;
 }
 
 /* ─── color tones (map to theme tokens) ─── */
@@ -226,232 +260,73 @@
 .lz-button[data-color='gray'] {
   --lz-btn-50: var(--lz-color-neutral-50);
   --lz-btn-100: var(--lz-color-neutral-100);
-  --lz-btn-200: var(--lz-color-neutral-200);
-  --lz-btn-300: var(--lz-color-neutral-300);
-  --lz-btn-400: var(--lz-color-neutral-400);
   --lz-btn-500: var(--lz-color-neutral-900);
   --lz-btn-600: var(--lz-color-neutral-700);
-  --lz-btn-700: var(--lz-color-neutral-700);
-  --lz-btn-900: var(--lz-color-neutral-900);
-  --lz-btn-surface: var(--lz-color-neutral-surface);
   --lz-btn-ring-color: color-mix(in srgb, var(--lz-color-neutral-900) 10%, transparent);
-  --lz-btn-ring-color-900: color-mix(in srgb, var(--lz-color-neutral-900) 10%, transparent);
   --lz-btn-outline-border: var(--lz-color-neutral-200);
-  --lz-btn-outline-hover-bg: color-mix(in srgb, var(--lz-color-neutral-900) 5%, transparent);
-  --lz-btn-disabled-primary-fg: var(--lz-color-background);
-  --lz-btn-disabled-primary-bg: var(--lz-color-disabled);
-  --lz-btn-disabled-secondary-bg: var(--lz-color-neutral-surface);
-  --lz-btn-disabled-muted: var(--lz-color-neutral-300);
-  --lz-btn-tertiary-hover-fg: var(--lz-color-neutral-700);
-  --lz-btn-icon-only-fg: var(--lz-color-neutral-900);
-  --lz-btn-icon-only-hover: var(--lz-color-neutral-700);
+  --lz-btn-tint: color-mix(in srgb, var(--lz-color-neutral-900) 5%, transparent);
+  --lz-btn-disabled-tonal-bg: var(--lz-color-neutral-surface);
 }
 
-.lz-button[data-color='red'] {
-  --lz-btn-50: var(--lz-color-primary-50);
-  --lz-btn-100: var(--lz-color-primary-100);
-  --lz-btn-200: var(--lz-color-primary-200);
-  --lz-btn-400: var(--lz-color-primary-400);
-  --lz-btn-500: var(--lz-color-primary-500);
-  --lz-btn-600: var(--lz-color-primary-600);
-  --lz-btn-700: var(--lz-color-primary-700);
-  --lz-btn-900: var(--lz-color-primary-900);
-  --lz-btn-surface: var(--lz-color-primary-surface);
-  --lz-btn-ring-color: color-mix(in srgb, var(--lz-color-primary-500) 10%, transparent);
-  --lz-btn-ring-color-900: color-mix(in srgb, var(--lz-color-primary-900) 10%, transparent);
-  --lz-btn-outline-border: var(--lz-color-primary-500);
-  --lz-btn-outline-hover-bg: var(--lz-color-primary-surface);
-  --lz-btn-disabled-primary-fg: var(--lz-color-primary-200);
-  --lz-btn-disabled-primary-bg: var(--lz-color-primary-100);
-  --lz-btn-disabled-secondary-bg: var(--lz-color-primary-surface);
-  --lz-btn-disabled-muted: var(--lz-color-primary-200);
-  --lz-btn-tertiary-hover-fg: var(--lz-color-primary-400);
-  --lz-btn-icon-only-fg: var(--lz-color-primary-500);
-  --lz-btn-icon-only-hover: var(--lz-color-primary-400);
-}
+$lz-btn-tones: (
+  'red': primary,
+  'yellow': warning,
+  'green': success,
+  'blue': secondary,
+  'purple': purple,
+);
 
-.lz-button[data-color='yellow'] {
-  --lz-btn-50: var(--lz-color-warning-50);
-  --lz-btn-100: var(--lz-color-warning-100);
-  --lz-btn-200: var(--lz-color-warning-200);
-  --lz-btn-400: var(--lz-color-warning-400);
-  --lz-btn-500: var(--lz-color-warning-500);
-  --lz-btn-600: var(--lz-color-warning-600);
-  --lz-btn-700: var(--lz-color-warning-700);
-  --lz-btn-900: var(--lz-color-warning-900);
-  --lz-btn-surface: var(--lz-color-warning-surface);
-  --lz-btn-ring-color: color-mix(in srgb, var(--lz-color-warning-500) 10%, transparent);
-  --lz-btn-ring-color-900: color-mix(in srgb, var(--lz-color-warning-900) 10%, transparent);
-  --lz-btn-outline-border: var(--lz-color-warning-500);
-  --lz-btn-outline-hover-bg: var(--lz-color-warning-surface);
-  --lz-btn-disabled-primary-fg: var(--lz-color-warning-200);
-  --lz-btn-disabled-primary-bg: var(--lz-color-warning-50);
-  --lz-btn-disabled-secondary-bg: var(--lz-color-warning-50);
-  --lz-btn-disabled-muted: var(--lz-color-warning-200);
-  --lz-btn-tertiary-hover-fg: var(--lz-color-warning-400);
-  --lz-btn-icon-only-fg: var(--lz-color-warning-500);
-  --lz-btn-icon-only-hover: var(--lz-color-warning-400);
-}
-
-.lz-button[data-color='green'] {
-  --lz-btn-50: var(--lz-color-success-50);
-  --lz-btn-100: var(--lz-color-success-100);
-  --lz-btn-200: var(--lz-color-success-200);
-  --lz-btn-400: var(--lz-color-success-400);
-  --lz-btn-500: var(--lz-color-success-500);
-  --lz-btn-600: var(--lz-color-success-600);
-  --lz-btn-700: var(--lz-color-success-700);
-  --lz-btn-900: var(--lz-color-success-900);
-  --lz-btn-surface: var(--lz-color-success-surface);
-  --lz-btn-ring-color: color-mix(in srgb, var(--lz-color-success-500) 10%, transparent);
-  --lz-btn-ring-color-900: color-mix(in srgb, var(--lz-color-success-900) 10%, transparent);
-  --lz-btn-outline-border: var(--lz-color-success-500);
-  --lz-btn-outline-hover-bg: var(--lz-color-success-surface);
-  --lz-btn-disabled-primary-fg: var(--lz-color-success-200);
-  --lz-btn-disabled-primary-bg: var(--lz-color-success-50);
-  --lz-btn-disabled-secondary-bg: var(--lz-color-success-50);
-  --lz-btn-disabled-muted: var(--lz-color-success-200);
-  --lz-btn-tertiary-hover-fg: var(--lz-color-success-400);
-  --lz-btn-icon-only-fg: var(--lz-color-success-500);
-  --lz-btn-icon-only-hover: var(--lz-color-success-400);
-}
-
-.lz-button[data-color='blue'] {
-  --lz-btn-50: var(--lz-color-secondary-50);
-  --lz-btn-100: var(--lz-color-secondary-100);
-  --lz-btn-200: var(--lz-color-secondary-200);
-  --lz-btn-400: var(--lz-color-secondary-400);
-  --lz-btn-500: var(--lz-color-secondary-500);
-  --lz-btn-600: var(--lz-color-secondary-600);
-  --lz-btn-700: var(--lz-color-secondary-700);
-  --lz-btn-900: var(--lz-color-secondary-900);
-  --lz-btn-surface: var(--lz-color-secondary-surface);
-  --lz-btn-ring-color: color-mix(in srgb, var(--lz-color-secondary-500) 10%, transparent);
-  --lz-btn-ring-color-900: color-mix(in srgb, var(--lz-color-secondary-900) 10%, transparent);
-  --lz-btn-outline-border: var(--lz-color-secondary-500);
-  --lz-btn-outline-hover-bg: var(--lz-color-secondary-surface);
-  --lz-btn-disabled-primary-fg: var(--lz-color-secondary-200);
-  --lz-btn-disabled-primary-bg: var(--lz-color-secondary-50);
-  --lz-btn-disabled-secondary-bg: var(--lz-color-secondary-50);
-  --lz-btn-disabled-muted: var(--lz-color-secondary-200);
-  --lz-btn-tertiary-hover-fg: var(--lz-color-secondary-400);
-  --lz-btn-icon-only-fg: var(--lz-color-secondary-500);
-  --lz-btn-icon-only-hover: var(--lz-color-secondary-400);
-}
-
-.lz-button[data-color='purple'] {
-  --lz-btn-50: var(--lz-color-purple-50);
-  --lz-btn-100: var(--lz-color-purple-100);
-  --lz-btn-200: var(--lz-color-purple-200);
-  --lz-btn-400: var(--lz-color-purple-400);
-  --lz-btn-500: var(--lz-color-purple-500);
-  --lz-btn-600: var(--lz-color-purple-600);
-  --lz-btn-700: var(--lz-color-purple-700);
-  --lz-btn-900: var(--lz-color-purple-900);
-  --lz-btn-surface: var(--lz-color-purple-surface);
-  --lz-btn-ring-color: color-mix(in srgb, var(--lz-color-purple-500) 10%, transparent);
-  --lz-btn-ring-color-900: color-mix(in srgb, var(--lz-color-purple-900) 10%, transparent);
-  --lz-btn-outline-border: var(--lz-color-purple-500);
-  --lz-btn-outline-hover-bg: var(--lz-color-purple-surface);
-  --lz-btn-disabled-primary-fg: var(--lz-color-purple-200);
-  --lz-btn-disabled-primary-bg: var(--lz-color-purple-50);
-  --lz-btn-disabled-secondary-bg: var(--lz-color-purple-50);
-  --lz-btn-disabled-muted: var(--lz-color-purple-200);
-  --lz-btn-tertiary-hover-fg: var(--lz-color-purple-400);
-  --lz-btn-icon-only-fg: var(--lz-color-purple-500);
-  --lz-btn-icon-only-hover: var(--lz-color-purple-400);
+@each $color, $token in $lz-btn-tones {
+  .lz-button[data-color='#{$color}'] {
+    --lz-btn-50: var(--lz-color-#{$token}-50);
+    --lz-btn-100: var(--lz-color-#{$token}-100);
+    --lz-btn-500: var(--lz-color-#{$token}-500);
+    --lz-btn-600: var(--lz-color-#{$token}-600);
+    --lz-btn-ring-color: color-mix(in srgb, var(--lz-color-#{$token}-500) 10%, transparent);
+    --lz-btn-outline-border: var(--lz-color-#{$token}-500);
+    --lz-btn-tint: var(--lz-color-#{$token}-surface);
+    --lz-btn-disabled-tonal-bg: var(--lz-color-#{$token}-50);
+  }
 }
 
 /* ─── variants (общие для всех цветов) ─── */
 
+/* Figma Primary */
 .lz-button[data-variant='primary'] {
   --lz-btn-fg: var(--lz-color-text-inverse);
-  --lz-btn-fg-hover: var(--lz-color-text-inverse);
-  --lz-btn-fg-focus: var(--lz-color-text-inverse);
   --lz-btn-bg: var(--lz-btn-500);
   --lz-btn-bg-hover: var(--lz-btn-600);
-  --lz-btn-bg-focus: var(--lz-btn-500);
-  --lz-btn-ring: 0 0 0 1px #fffffa, 0 0 0 3px var(--lz-btn-ring-color);
-  --lz-btn-disabled-fg: var(--lz-btn-disabled-primary-fg);
-  --lz-btn-disabled-bg: var(--lz-btn-disabled-primary-bg);
 }
 
+/* Figma Outline: hover и focus — tint */
 .lz-button[data-variant='outline'] {
   --lz-btn-fg: var(--lz-btn-500);
-  --lz-btn-fg-hover: var(--lz-btn-500);
-  --lz-btn-fg-focus: var(--lz-btn-500);
-  --lz-btn-bg: #fffffa;
-  --lz-btn-bg-hover: var(--lz-btn-outline-hover-bg);
-  --lz-btn-bg-focus: var(--lz-btn-outline-hover-bg);
+  --lz-btn-bg: var(--lz-color-background);
+  --lz-btn-bg-hover: var(--lz-btn-tint);
+  --lz-btn-bg-focus: var(--lz-btn-tint);
   --lz-btn-border-w: 1px;
   --lz-btn-border: var(--lz-btn-outline-border);
-  --lz-btn-border-hover: var(--lz-btn-outline-border);
-  --lz-btn-border-focus: var(--lz-btn-outline-border);
-  --lz-btn-ring: 0 0 0 1px #fffffa, 0 0 0 3px var(--lz-btn-ring-color);
-  --lz-btn-disabled-fg: var(--lz-btn-disabled-muted);
-  --lz-btn-disabled-bg: #fffffa;
-  --lz-btn-disabled-border: var(--lz-btn-200);
 }
 
-/* gray outline focus bg = hover; colored outline focus keeps bg #fffffa (publikator) */
-.lz-button[data-color='red'][data-variant='outline'],
-.lz-button[data-color='yellow'][data-variant='outline'],
-.lz-button[data-color='green'][data-variant='outline'],
-.lz-button[data-color='blue'][data-variant='outline'],
-.lz-button[data-color='purple'][data-variant='outline'] {
-  --lz-btn-bg-focus: #fffffa;
-}
-
+/* Figma Tonal */
 .lz-button[data-variant='secondary'] {
   --lz-btn-fg: var(--lz-btn-500);
-  --lz-btn-fg-hover: var(--lz-btn-500);
-  --lz-btn-fg-focus: var(--lz-btn-500);
   --lz-btn-bg: var(--lz-btn-50);
   --lz-btn-bg-hover: var(--lz-btn-100);
-  --lz-btn-bg-focus: var(--lz-btn-50);
-  --lz-btn-ring: 0 0 0 1px #fffffa, 0 0 0 3px var(--lz-btn-ring-color);
-  --lz-btn-disabled-fg: var(--lz-btn-disabled-muted);
-  --lz-btn-disabled-bg: var(--lz-btn-disabled-secondary-bg);
+  --lz-btn-disabled-bg: var(--lz-btn-disabled-tonal-bg);
 }
 
+/* Figma Ghost: hover и focus — tint, цвет текста не меняется */
 .lz-button[data-variant='tertiary'] {
   --lz-btn-fg: var(--lz-btn-500);
-  --lz-btn-fg-hover: var(--lz-btn-tertiary-hover-fg);
-  --lz-btn-fg-focus: var(--lz-btn-500);
-  --lz-btn-bg: transparent;
-  --lz-btn-bg-hover: color-mix(in srgb, var(--lz-btn-900) 5%, transparent);
-  --lz-btn-bg-focus: color-mix(in srgb, var(--lz-btn-900) 5%, transparent);
-  --lz-btn-ring: 0 0 0 1px #fffffa, 0 0 0 3px var(--lz-btn-ring-color);
-  --lz-btn-disabled-fg: var(--lz-btn-disabled-muted);
-  --lz-btn-disabled-bg: transparent;
+  --lz-btn-bg-hover: var(--lz-btn-tint);
+  --lz-btn-bg-focus: var(--lz-btn-tint);
 }
 
-.lz-button[data-variant='link'] {
-  --lz-btn-fg: var(--lz-btn-500);
-  --lz-btn-fg-hover: var(--lz-btn-700);
-  --lz-btn-fg-focus: var(--lz-btn-500);
-  --lz-btn-bg: transparent;
-  --lz-btn-bg-hover: transparent;
-  --lz-btn-bg-focus: transparent;
-  --lz-btn-ring: 0 0 0 2px var(--lz-btn-ring-color);
-  --lz-btn-disabled-fg: var(--lz-btn-disabled-muted);
-  --lz-btn-disabled-bg: transparent;
-}
-
-/* gray link: hover:bg-gray-50, текст без смены */
-.lz-button[data-color='gray'][data-variant='link'] {
-  --lz-btn-fg-hover: #121212;
-  --lz-btn-bg-hover: #f4f5f5;
-}
-
+/* Figma No Padding: hover — 600, focus — фон страницы + ring */
+.lz-button[data-variant='link'],
 .lz-button[data-variant='iconOnly'] {
-  --lz-btn-fg: var(--lz-btn-icon-only-fg);
-  --lz-btn-fg-hover: var(--lz-btn-icon-only-hover);
-  --lz-btn-fg-focus: var(--lz-btn-icon-only-fg);
-  --lz-btn-bg: transparent;
-  --lz-btn-bg-hover: transparent;
-  --lz-btn-bg-focus: transparent;
-  --lz-btn-ring: 0 0 0 2px var(--lz-btn-ring-color-900);
-  --lz-btn-disabled-fg: var(--lz-btn-disabled-muted);
-  --lz-btn-disabled-bg: transparent;
+  --lz-btn-fg: var(--lz-btn-500);
+  --lz-btn-fg-hover: var(--lz-btn-600);
+  --lz-btn-bg-focus: var(--lz-color-background);
 }

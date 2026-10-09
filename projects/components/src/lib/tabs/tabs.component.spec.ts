@@ -60,6 +60,22 @@ describe('Tabs', () => {
     expect(underline).toBeTruthy();
   });
 
+  it('should size underline-text indicator to the active label text', async () => {
+    fixture.componentRef.setInput('style', 'underline-text');
+    fixture.componentRef.setInput('tabs', ['Short', 'A much longer label']);
+    fixture.componentRef.setInput('activeTab', 1);
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const host: HTMLElement = fixture.nativeElement;
+    const list = host.querySelector('.lz-tabs')!.getBoundingClientRect();
+    const label = host.querySelectorAll('.lz-tabs__label')[1].getBoundingClientRect();
+    const underline = host.querySelector('.lz-tabs__underline')!.getBoundingClientRect();
+
+    expect(underline.width).toBeCloseTo(label.width, 0);
+    expect(underline.left - list.left).toBeCloseTo(label.left - list.left, 0);
+  });
+
   it('should not emit when disabled tab is clicked', () => {
     fixture.componentRef.setInput('tabs', ['Tab 1', 'Tab 2']);
     fixture.componentRef.setInput('disabledTabIndexes', [1]);

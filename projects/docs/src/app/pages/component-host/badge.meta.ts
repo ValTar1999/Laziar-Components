@@ -103,7 +103,7 @@ export const BADGE_COMPONENT_META: DocsComponentMeta = {
       props: {
         label: 'New',
         color: 'green',
-        size: 'md',
+        size: 'sm',
         variant: 'outline',
         border: false,
         pill: true,
@@ -138,9 +138,10 @@ export const BADGE_COMPONENT_META: DocsComponentMeta = {
     },
     {
       name: 'size',
-      type: `'lg' | 'md' | 'sm'`,
+      type: `'sm' | 'xs'`,
       default: `'sm'`,
-      description: 'Badge size',
+      description:
+        'Badge size: sm — 28px (pill 24px), xs — 20px; lg / md are deprecated aliases of sm',
     },
     {
       name: 'variant',
@@ -152,7 +153,7 @@ export const BADGE_COMPONENT_META: DocsComponentMeta = {
       name: 'border',
       type: 'boolean',
       default: 'false',
-      description: 'Border (same as variant=outline when variant=subtle)',
+      description: 'Figma Stroke: 1px border (shade 200) on top of the fill',
     },
     {
       name: 'pill',
@@ -235,7 +236,7 @@ export const BADGE_COMPONENT_META: DocsComponentMeta = {
     },
     {
       title: 'Outline',
-      code: `<lz-badge color="purple" variant="outline" size="md">Pro</lz-badge>`,
+      code: `<lz-badge color="purple" variant="outline" size="sm">Pro</lz-badge>`,
     },
   ],
   tokens: [

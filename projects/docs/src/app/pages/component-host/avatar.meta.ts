@@ -1,7 +1,7 @@
 import { DocsComponentMeta } from '../../core/component-doc.model';
 
-const notificationStatuses = ['success', 'error', 'warning', 'info'] as const;
-const sizes = ['xxs', 'xs', 'sm', 'md', 'lg', 'xl', '2xl'] as const;
+const notificationStatuses = ['neutral', 'success', 'error', 'warning', 'info'] as const;
+const sizes = ['xxs', 'xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl', 'xxl'] as const;
 
 export const AVATAR_COMPONENT_META: DocsComponentMeta = {
   name: 'Avatar',
@@ -130,7 +130,7 @@ export const AVATAR_COMPONENT_META: DocsComponentMeta = {
     },
     {
       name: 'size',
-      type: `'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'`,
+      type: `'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'xxl'`,
       default: `'sm'`,
       description: 'Avatar size',
     },
@@ -154,14 +154,14 @@ export const AVATAR_COMPONENT_META: DocsComponentMeta = {
     },
     {
       name: 'topNotificationStatus',
-      type: `'success' | 'error' | 'warning' | 'info'`,
-      default: `'error'`,
+      type: `'neutral' | 'success' | 'error' | 'warning' | 'info'`,
+      default: `'neutral'`,
       description: 'Top indicator color',
     },
     {
       name: 'bottomNotificationStatus',
-      type: `'success' | 'error' | 'warning' | 'info'`,
-      default: `'info'`,
+      type: `'neutral' | 'success' | 'error' | 'warning' | 'info'`,
+      default: `'success'`,
       description: 'Bottom indicator color',
     },
     {
