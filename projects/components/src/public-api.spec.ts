@@ -4,7 +4,7 @@ import * as publicApi from './public-api';
  * Snapshot of the runtime export surface of `@laziar/components`.
  *
  * Why this exists: `Logo` was deleted as "unused" in ef1b3fc and published as 0.1.21, but
- * `../business-frontend` imports it, so the portal's build broke with NG1010. Lint, tests
+ * `../ads-frontend` imports it, so the portal's build broke with NG1010. Lint, tests
  * and both builds stayed green here, because no library code references what a consumer
  * imports. This list is the only thing that turns such a removal into a failure in this
  * repo instead of in someone else's.
