@@ -45,7 +45,7 @@ describe('Logo', () => {
 });
 
 /**
- * `../business-frontend` binds `<lz-logo link="…" ariaLabel="…" />` on its home shell and
+ * `../ads-frontend` binds `<lz-logo link="…" ariaLabel="…" />` on its home shell and
  * its login screen. Driving the component through that template rather than through
  * `setInput` is what pins the selector and the input *names*: rename any of the three and
  * the tag matches nothing, no anchor renders, and this fails here instead of in the portal.
@@ -57,7 +57,7 @@ describe('Logo', () => {
 class LogoConsumerHost {}
 
 describe('Logo template contract', () => {
-  it('keeps the selector and input names ../business-frontend binds to', async () => {
+  it('keeps the selector and input names ../ads-frontend binds to', async () => {
     await TestBed.configureTestingModule({
       imports: [LogoConsumerHost],
       providers: [provideRouter([])],
