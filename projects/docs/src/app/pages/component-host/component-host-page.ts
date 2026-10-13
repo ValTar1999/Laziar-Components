@@ -21,6 +21,7 @@ import { LanguageDropdownPage } from './language-dropdown-page';
 import { LiveEventCardPage } from './live-event-card-page';
 import { LoadingPage } from './loading-page';
 import { LoginPromptBannerPage } from './login-prompt-banner-page';
+import { ModalPage } from './modal-page';
 import { MoreActionsMenuPage } from './more-actions-menu-page';
 import { NotePanelPage } from './note-panel-page';
 import { ProgressCirclePage } from './progress-circle-page';
@@ -64,6 +65,7 @@ import { VideoPlayerPage } from './video-player-page';
     LiveEventCardPage,
     LoadingPage,
     LoginPromptBannerPage,
+    ModalPage,
     MoreActionsMenuPage,
     NotePanelPage,
     ProgressCirclePage,
@@ -112,6 +114,9 @@ import { VideoPlayerPage } from './video-player-page';
       }
       @case ('checkbox') {
         <docs-checkbox-page />
+      }
+      @case ('modal') {
+        <docs-modal-page />
       }
       @case ('dropdown') {
         <docs-dropdown-page />

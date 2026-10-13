@@ -115,6 +115,14 @@ export const DOCS_NAV: DocsNavGroup[] = [
         keywords: 'dropdown menu overlay sections',
       },
       {
+        id: 'modal',
+        label: 'nav.items.modal',
+        route: '/components/modal',
+        kind: 'component',
+        icon: 'window',
+        keywords: 'modal dialog confirm sheet popup overlay',
+      },
+      {
         id: 'stub',
         label: 'nav.items.stub',
         route: '/components/stub',

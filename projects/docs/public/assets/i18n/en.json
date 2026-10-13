@@ -25,6 +25,7 @@
       "input": "Input",
       "textarea": "Textarea",
       "select": "Select",
+      "modal": "Modal",
       "dropdown": "Dropdown",
       "stub": "Stub",
       "alert": "Alert",

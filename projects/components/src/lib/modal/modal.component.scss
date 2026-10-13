@@ -1,3 +1,12 @@
+/*
+ * Эталон: publikator app-modal-layout / app-confirm-dialog and the frontend
+ * membership modals (bottom sheet below 768px).
+ *
+ * Overridable per instance: --lz-modal-width (any custom max-width),
+ * --lz-modal-height (fixed height, e.g. min(720px, 90dvh) for pickers),
+ * --lz-modal-scrim (backdrop colour).
+ */
+
 :host.lz-modal-host {
   display: contents;
 }
@@ -9,64 +18,86 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--lz-space-4);
-  background-color: var(--lz-color-scrim);
+  padding: var(--lz-space-5);
+  /* publikator bg-gray-900/70 */
+  background-color: var(--lz-modal-scrim, rgb(18 18 18 / 70%));
   overflow-y: auto;
+  overscroll-behavior: contain;
+  animation: lz-modal-fade-in var(--lz-duration-normal) var(--lz-easing-standard);
+
+  // Same length as the panel's leave, which is what unmounts both.
+  &--leaving {
+    animation: lz-modal-fade-out var(--lz-duration-fast) var(--lz-easing-standard) forwards;
+  }
 }
 
 .lz-modal {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-height: calc(100vh - var(--lz-space-8));
-  background-color: var(--lz-color-surface-elevated, var(--lz-color-surface));
+  max-width: var(--lz-modal-width, var(--lz-modal-preset-width));
+  height: var(--lz-modal-height, var(--lz-modal-preset-height, auto));
+  /* dvh: on mobile, vh ignores the browser bars and cuts the footer off. */
+  max-height: calc(100dvh - var(--lz-space-10));
+  background-color: var(--lz-color-background);
   color: var(--lz-color-text-primary);
-  border: 1px solid var(--lz-color-border-subtle);
-  border-radius: var(--lz-radius-lg);
+  border-radius: var(--lz-radius-2xl);
   box-shadow: var(--lz-shadow-lg);
   font-family: var(--lz-font-sans);
+  animation: lz-modal-zoom-in var(--lz-duration-fast) var(--lz-easing-emphasized);
 
   &:focus {
     outline: none;
   }
 
-  &:focus-visible {
-    box-shadow: var(--lz-shadow-focus);
+  &--leaving {
+    animation: lz-modal-zoom-out var(--lz-duration-fast) var(--lz-easing-standard) forwards;
   }
 
   &--sm {
-    max-width: 24rem;
+    --lz-modal-preset-width: 28rem;
   }
 
   &--md {
-    max-width: 32rem;
+    --lz-modal-preset-width: 32rem;
   }
 
   &--lg {
-    max-width: 48rem;
+    --lz-modal-preset-width: 50rem;
   }
 
   &--xl {
-    max-width: 64rem;
+    --lz-modal-preset-width: 61rem;
   }
 
   &--full {
-    max-width: none;
-    height: calc(100vh - var(--lz-space-8));
+    --lz-modal-preset-width: none;
+    --lz-modal-preset-height: calc(100dvh - var(--lz-space-10));
   }
 }
 
+/* ─── Header ─── */
+
 .lz-modal__header {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
-  gap: var(--lz-space-4);
-  padding: var(--lz-space-5) var(--lz-space-6);
-  border-bottom: 1px solid var(--lz-color-border-subtle);
+  gap: var(--lz-space-3);
+  flex-shrink: 0;
+  padding: var(--lz-space-6);
 
   // Collapse the header entirely when nothing is projected and no title is set.
   &:empty {
     display: none;
+  }
+
+  // A confirm header holds only the close button, so it never takes a divider.
+  .lz-modal--default.lz-modal--dividers & {
+    border-bottom: 1px solid var(--lz-color-border-subtle);
+  }
+
+  .lz-modal--confirm & {
+    padding: var(--lz-space-5) var(--lz-space-6) 0;
   }
 }
 
@@ -74,6 +105,8 @@
   margin: 0;
   font-size: var(--lz-font-size-lg);
   font-weight: 600;
+  line-height: 1.5rem;
+  letter-spacing: -0.028125rem; /* -0.45px */
   color: var(--lz-color-text-primary);
 }
 
@@ -82,11 +115,13 @@
   align-items: center;
   justify-content: center;
   flex: none;
+  // Stays on the right even when it is the header's only child.
+  margin-left: auto;
   padding: var(--lz-space-1);
-  color: var(--lz-color-text-muted);
+  color: var(--lz-color-neutral-500);
   background: none;
   border: none;
-  border-radius: var(--lz-radius-sm);
+  border-radius: var(--lz-radius-full);
   cursor: pointer;
   transition: color var(--lz-duration-normal) var(--lz-easing-standard);
 
@@ -95,7 +130,7 @@
   // `w-5` would simply not exist and the icon would render at full size.
   --lz-icon-size: 1.25rem;
 
-  &:hover {
+  &:hover:not(:disabled) {
     color: var(--lz-color-text-primary);
   }
 
@@ -103,24 +138,219 @@
     outline: none;
     box-shadow: var(--lz-shadow-focus);
   }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.3;
+  }
 }
+
+/* ─── Body ─── */
 
 .lz-modal__body {
   flex: 1 1 auto;
+  min-height: 0;
   padding: var(--lz-space-6);
   overflow-y: auto;
   font-size: var(--lz-font-size-base);
+
+  .lz-modal--confirm & {
+    display: flex;
+    flex-direction: column;
+    gap: var(--lz-space-4);
+    padding: var(--lz-space-1) var(--lz-space-6) 0;
+  }
 }
 
+.lz-modal__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lz-space-1);
+
+  .lz-modal--default & {
+    margin-bottom: var(--lz-space-4);
+  }
+}
+
+.lz-modal__description {
+  margin: 0;
+  font-size: var(--lz-font-size-sm);
+  line-height: 1.25rem;
+  color: var(--lz-color-text-secondary);
+}
+
+.lz-modal__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--lz-color-border-subtle);
+  border-radius: 0.875rem; /* frontend rounded-[14px] */
+  --lz-icon-size: 1.25rem;
+
+  &[data-tone='danger'] {
+    color: var(--lz-color-danger);
+  }
+
+  &[data-tone='warning'] {
+    color: var(--lz-color-warning);
+  }
+
+  &[data-tone='success'] {
+    color: var(--lz-color-success);
+  }
+
+  &[data-tone='neutral'] {
+    color: var(--lz-color-text-primary);
+  }
+}
+
+/* ─── Footer ─── */
+
 .lz-modal__footer {
+  --lz-modal-footer-gap: var(--lz-space-4);
+
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  gap: var(--lz-space-3);
+  flex-shrink: 0;
+  gap: var(--lz-modal-footer-gap);
   padding: var(--lz-space-4) var(--lz-space-6);
-  border-top: 1px solid var(--lz-color-border-subtle);
+
+  // Both groups are always in the DOM, so emptiness is checked on them.
+  &:has(> .lz-modal__footer-start:empty):has(> .lz-modal__footer-end:empty) {
+    display: none;
+  }
+
+  .lz-modal--dividers & {
+    border-top: 1px solid var(--lz-color-border-subtle);
+  }
+
+  .lz-modal--confirm & {
+    --lz-modal-footer-gap: var(--lz-space-3);
+  }
+}
+
+// Start: secondary actions on the left (publikator "Schimbă Layout").
+// End: cancel/confirm, always pushed to the right.
+.lz-modal__footer-start,
+.lz-modal__footer-end {
+  display: flex;
+  align-items: center;
+  gap: var(--lz-modal-footer-gap);
 
   &:empty {
     display: none;
+  }
+}
+
+.lz-modal__footer-end {
+  margin-left: auto;
+}
+
+/* ─── Mobile bottom sheet (frontend membership modals) ─── */
+
+@media (max-width: 767px) {
+  .lz-modal-backdrop--sheet {
+    align-items: flex-end;
+    padding: var(--lz-space-10) 0 0;
+
+    &.lz-modal-backdrop--leaving {
+      animation-duration: var(--lz-duration-normal);
+    }
+
+    .lz-modal {
+      max-width: none;
+      border-radius: 1.125rem 1.125rem 0 0; /* rounded-t-[18px] */
+      box-shadow: none;
+      animation: lz-modal-slide-up var(--lz-duration-normal) var(--lz-easing-standard);
+
+      &--leaving {
+        animation: lz-modal-slide-down var(--lz-duration-normal) var(--lz-easing-standard) forwards;
+      }
+    }
+
+    .lz-modal--confirm .lz-modal__header {
+      padding: var(--lz-space-4) var(--lz-space-4) 0;
+    }
+
+    .lz-modal--confirm .lz-modal__body {
+      padding: var(--lz-space-3) var(--lz-space-5) var(--lz-space-5);
+    }
+
+    // On a sheet the actions always sit under a divider and share the width;
+    // start actions get their own row above them.
+    .lz-modal__footer {
+      --lz-modal-footer-gap: var(--lz-space-3);
+
+      flex-wrap: wrap;
+      padding: var(--lz-space-5);
+      padding-bottom: calc(var(--lz-space-5) + env(safe-area-inset-bottom, 0px));
+      border-top: 1px solid var(--lz-color-border-subtle);
+    }
+
+    .lz-modal__footer-start,
+    .lz-modal__footer-end {
+      flex: 1 0 100%;
+      margin-left: 0;
+    }
+
+    .lz-modal__footer-end ::ng-deep > * {
+      flex: 1 1 0;
+      min-width: 0;
+    }
+
+    .lz-modal__footer-end ::ng-deep > .lz-button-host .lz-button {
+      width: 100%;
+    }
+  }
+}
+
+/* ─── Motion ─── */
+
+@keyframes lz-modal-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes lz-modal-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes lz-modal-zoom-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+@keyframes lz-modal-zoom-out {
+  to {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+@keyframes lz-modal-slide-up {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes lz-modal-slide-down {
+  to {
+    transform: translateY(100%);
+  }
+}
+
+/* Near-zero rather than `none` so animationend still fires and unmounts the panel. */
+@media (prefers-reduced-motion: reduce) {
+  .lz-modal-backdrop,
+  .lz-modal-backdrop .lz-modal {
+    animation-duration: 1ms !important;
   }
 }
