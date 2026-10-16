@@ -1,20 +1,28 @@
 /**
- * Эталон: Laziar System (Figma Button Group / Button Group Playground).
- * Общая рамка #121212 10%, фон #FFFFFA, gap 0.
- * Радиус 8px или pill; внутренние стыки 0.
- * line — вертикальные разделители того же цвета.
+ * Эталон: Laziar System (Figma Button Group 12556:5317 / Playground 10817:38298).
+ * Сегменты — Ghost-кнопки. Общая рамка border/button/outline-gray (#C4C6C8),
+ * фон #FFFFFA, gap 0. Рамка внутренняя (как inside-stroke в Figma): высота
+ * группы = высоте кнопки. Радиус 8px для всех размеров или pill; стыки 0.
+ * line — вертикальные разделители 1px того же цвета.
+ * Focus — на каждом сегменте, как у `lz-input` (`--lz-shadow-focus`).
  */
 
 :host.lz-button-group-host {
+  --lz-btn-group-radius: 0.5rem;
+
   display: inline-flex;
   max-width: 100%;
   vertical-align: middle;
+
+  &:has(.lz-button-host--pill) {
+    --lz-btn-group-radius: 9999px;
+  }
 }
 
 .lz-button-group {
-  --lz-btn-group-radius: 0.5rem;
-  --lz-btn-group-border: color-mix(in srgb, var(--lz-color-neutral-900) 10%, transparent);
+  --lz-btn-group-border: var(--lz-color-neutral-200);
 
+  position: relative;
   box-sizing: border-box;
   display: inline-flex;
   max-width: 100%;
@@ -22,13 +30,21 @@
   justify-content: flex-start;
   gap: 0;
   isolation: isolate;
-  overflow: hidden;
-  border: 1px solid var(--lz-btn-group-border);
+  /* Visible so per-segment `--lz-shadow-focus` is not clipped.
+   * Corner shape comes from first/last segment radii below. */
+  overflow: visible;
   border-radius: var(--lz-btn-group-radius);
   background-color: var(--lz-color-background);
 
-  &:has(.lz-button-host--pill) {
-    --lz-btn-group-radius: 9999px;
+  /* Inside stroke поверх сегментов — не добавляет размер группе */
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border: 1px solid var(--lz-btn-group-border);
+    border-radius: inherit;
+    pointer-events: none;
   }
 }
 
@@ -49,6 +65,7 @@
 :host ::ng-deep .lz-button-group > button {
   border-radius: 0;
   --lz-btn-border-w: 0;
+  --lz-btn-ring: none;
   box-shadow: none;
   height: 100%;
 }
@@ -63,11 +80,13 @@
   width: auto;
 }
 
+/* Per-segment focus — same ring as `lz-input-field:focus`. */
 :host ::ng-deep .lz-button-group .lz-button:focus,
 :host ::ng-deep .lz-button-group > button:focus {
   z-index: 1;
   position: relative;
-  box-shadow: var(--lz-btn-ring, var(--lz-shadow-focus));
+  outline: none;
+  box-shadow: var(--lz-shadow-focus);
 }
 
 :host ::ng-deep .lz-button-group > :first-child .lz-button,

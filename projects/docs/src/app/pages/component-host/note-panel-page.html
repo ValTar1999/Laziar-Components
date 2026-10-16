@@ -1,0 +1,13 @@
+<docs-component-page [meta]="meta">
+  <ng-template docsPreview let-values>
+    <lz-note-panel
+      [content]="
+        str(
+          values,
+          'content',
+          '<p>The quick brown fox jumps over the lazy dog.</p><p>The quick brown fox jumps over the lazy dog.</p>'
+        )
+      "
+    />
+  </ng-template>
+</docs-component-page>

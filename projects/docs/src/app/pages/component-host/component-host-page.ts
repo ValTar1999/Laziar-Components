@@ -14,15 +14,19 @@ import { ButtonPage } from './button-page';
 import { CardPage } from './card-page';
 import { CheckboxPage } from './checkbox-page';
 import { DropdownPage } from './dropdown-page';
+import { ExpandPage } from './expand-page';
 import { IconPage } from './icon-page';
 import { InputPage } from './input-page';
 import { LanguageDropdownPage } from './language-dropdown-page';
 import { LiveEventCardPage } from './live-event-card-page';
 import { LoadingPage } from './loading-page';
 import { LoginPromptBannerPage } from './login-prompt-banner-page';
+import { ModalPage } from './modal-page';
 import { MoreActionsMenuPage } from './more-actions-menu-page';
+import { NotePanelPage } from './note-panel-page';
 import { ProgressCirclePage } from './progress-circle-page';
 import { PulseDotPage } from './pulse-dot-page';
+import { QuotePage } from './quote-page';
 import { SelectPage } from './select-page';
 import { StubPage } from './stub-page';
 import { SwitchTogglePage } from './switch-toggle-page';
@@ -54,15 +58,19 @@ import { VideoPlayerPage } from './video-player-page';
     CardPage,
     CheckboxPage,
     DropdownPage,
+    ExpandPage,
     IconPage,
     InputPage,
     LanguageDropdownPage,
     LiveEventCardPage,
     LoadingPage,
     LoginPromptBannerPage,
+    ModalPage,
     MoreActionsMenuPage,
+    NotePanelPage,
     ProgressCirclePage,
     PulseDotPage,
+    QuotePage,
     SelectPage,
     StubPage,
     SwitchTogglePage,
@@ -107,8 +115,14 @@ import { VideoPlayerPage } from './video-player-page';
       @case ('checkbox') {
         <docs-checkbox-page />
       }
+      @case ('modal') {
+        <docs-modal-page />
+      }
       @case ('dropdown') {
         <docs-dropdown-page />
+      }
+      @case ('expand') {
+        <docs-expand-page />
       }
       @case ('icon') {
         <docs-icon-page />
@@ -128,6 +142,9 @@ import { VideoPlayerPage } from './video-player-page';
       @case ('login-prompt-banner') {
         <docs-login-prompt-banner-page />
       }
+      @case ('note-panel') {
+        <docs-note-panel-page />
+      }
       @case ('more-actions-menu') {
         <docs-more-actions-menu-page />
       }
@@ -136,6 +153,9 @@ import { VideoPlayerPage } from './video-player-page';
       }
       @case ('pulse-dot') {
         <docs-pulse-dot-page />
+      }
+      @case ('quote') {
+        <docs-quote-page />
       }
       @case ('select') {
         <docs-select-page />

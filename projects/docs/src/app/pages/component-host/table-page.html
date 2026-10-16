@@ -39,7 +39,7 @@
             <span class="docs-table-author">
               <span class="docs-table-truncate">{{ asNews(row).authorProfileName }}</span>
               @if (asNews(row).authorExtra > 0) {
-                <lz-badge size="sm" color="gray" [pill]="true" [border]="true">
+                <lz-badge size="xs" color="gray" [pill]="true" [border]="true">
                   +{{ asNews(row).authorExtra }}
                 </lz-badge>
               }
@@ -59,7 +59,7 @@
             <span class="docs-table-date">{{ asNews(row).publishedAt }}</span>
           }
           @case ('statusBadge') {
-            <lz-badge size="sm" [color]="asNews(row).statusColor" [pill]="true" [border]="true">
+            <lz-badge size="xs" [color]="asNews(row).statusColor" [pill]="true" [border]="true">
               {{ asNews(row).statusBadge }}
             </lz-badge>
           }

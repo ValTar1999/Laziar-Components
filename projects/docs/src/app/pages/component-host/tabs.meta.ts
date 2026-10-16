@@ -1,13 +1,13 @@
 import { DocsComponentMeta } from '../../core/component-doc.model';
 
-const styles = ['outline', 'underline', 'border'] as const;
+const styles = ['outline', 'underline', 'underline-text', 'border'] as const;
 const sizes = ['sm', 'md', 'lg'] as const;
 
 export const TABS_COMPONENT_META: DocsComponentMeta = {
   name: 'Tabs',
   selector: 'lz-tabs',
   description:
-    'Horizontal tab list: outline / underline / border styles, sizes, and active index. Supports badges, icons, and disabled tabs.',
+    'Horizontal tab list: outline / underline / underline-text / border styles, sizes, and active index. Supports badges, icons, and disabled tabs.',
   controls: [
     {
       name: 'style',
@@ -31,6 +31,7 @@ export const TABS_COMPONENT_META: DocsComponentMeta = {
   variants: [
     { label: 'outline · md', props: { style: 'outline', size: 'md', activeTab: 0 } },
     { label: 'underline · md', props: { style: 'underline', size: 'md', activeTab: 1 } },
+    { label: 'underline-text · md', props: { style: 'underline-text', size: 'md', activeTab: 1 } },
     { label: 'border · md', props: { style: 'border', size: 'md', activeTab: 0 } },
     { label: 'outline · sm', props: { style: 'outline', size: 'sm', activeTab: 0 } },
     { label: 'underline · lg', props: { style: 'underline', size: 'lg', activeTab: 2 } },
@@ -45,9 +46,10 @@ export const TABS_COMPONENT_META: DocsComponentMeta = {
     },
     {
       name: 'style',
-      type: `'outline' | 'underline' | 'border'`,
+      type: `'outline' | 'underline' | 'underline-text' | 'border'`,
       default: `'outline'`,
-      description: 'outline — pill; underline — line; border — bordered segment',
+      description:
+        'outline — pill; underline — line under the whole tab; underline-text — line sized to the active label text; border — bordered segment',
     },
     {
       name: 'size',
@@ -127,7 +129,10 @@ export const TABS_COMPONENT_META: DocsComponentMeta = {
     },
   ],
   tokens: [
-    { name: '--lz-color-neutral-900', description: 'Active pill fill (outline) and underline indicator' },
+    {
+      name: '--lz-color-neutral-900',
+      description: 'Active pill fill (outline) and underline indicator',
+    },
     { name: '--lz-color-text-inverse', description: 'Text on the active pill' },
     { name: '--lz-color-neutral-50', description: 'Hover background' },
     { name: '--lz-color-neutral-500', description: 'Inactive tab text' },

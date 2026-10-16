@@ -1,0 +1,44 @@
+<docs-component-page [meta]="meta">
+  <ng-template docsPreview let-values>
+    <lz-button label="Open modal" (clicked)="openFor.set(values)" />
+
+    <lz-modal
+      [open]="openFor() === values"
+      [variant]="variant(values)"
+      [size]="size(values)"
+      [title]="optStr(values, 'title')"
+      [description]="optStr(values, 'description')"
+      [icon]="optStr(values, 'icon')"
+      [tone]="tone(values)"
+      [sheetOnMobile]="bool(values, 'sheetOnMobile')"
+      [busy]="bool(values, 'busy')"
+      [dismissible]="bool(values, 'dismissible')"
+      (closed)="openFor.set(null)"
+    >
+      @if (variant(values) === 'default') {
+        <p>
+          The quick brown fox jumps over the lazy dog. Now is the time for all good men to come to
+          the aid of their country.
+        </p>
+      }
+      <lz-button
+        lz-modal-footer
+        size="sm"
+        variant="outline"
+        label="Anulează"
+        [pill]="true"
+        [disabled]="bool(values, 'busy')"
+        (clicked)="openFor.set(null)"
+      />
+      <lz-button
+        lz-modal-footer
+        size="sm"
+        [pill]="true"
+        [color]="variant(values) === 'confirm' ? 'red' : 'gray'"
+        [label]="variant(values) === 'confirm' ? 'Da, șterge' : 'Salvează'"
+        [disabled]="bool(values, 'busy')"
+        (clicked)="openFor.set(null)"
+      />
+    </lz-modal>
+  </ng-template>
+</docs-component-page>

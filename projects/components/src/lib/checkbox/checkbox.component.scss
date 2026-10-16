@@ -1,7 +1,11 @@
 /**
- * Эталон: Laziar System (Figma Checkbox/Radio).
- * 16px control, checkbox radius 4px, radio круг.
- * Unchecked: #FFFFFA + бордер #121212 20%; checked: #121212 + белая галочка / внутренняя точка.
+ * Эталон: Laziar System (Figma Checkbox 10818:10057 / Radio 10821:9817).
+ * 16px control, checkbox radius 4px, radio — круг.
+ * Unchecked: #FFFFFA + бордер outline-gray (#C4C6C8), hover — #121212.
+ * Checkbox checked / indeterminate: заливка #121212 без бордера, белая галочка / минус.
+ * Radio checked: #FFFFFA + бордер #121212 + точка 8px #121212.
+ * Disabled — без прозрачности: свои цвета фона, бордера и иконки.
+ * Focus: 1px фон + 3px #121212 10%.
  */
 
 :host.lz-checkbox-host {
@@ -11,17 +15,18 @@
 }
 
 .lz-checkbox__wrapper {
+  --lz-checkbox-ring: color-mix(in srgb, var(--lz-color-neutral-900) 10%, transparent);
+
   position: relative;
   display: inline-flex;
   align-items: flex-start;
-  gap: 0.5rem;
+  gap: 0.75rem;
   cursor: pointer;
 }
 
 .lz-checkbox__wrapper--disabled {
   pointer-events: none;
   cursor: not-allowed;
-  opacity: 0.6;
 }
 
 .lz-checkbox__input-wrapper {
@@ -34,7 +39,9 @@
   transition: box-shadow var(--lz-duration-normal) var(--lz-easing-standard);
 
   &:focus-within {
-    box-shadow: var(--lz-shadow-focus);
+    box-shadow:
+      0 0 0 1px var(--lz-color-background),
+      0 0 0 3px var(--lz-checkbox-ring);
   }
 }
 
@@ -55,7 +62,7 @@
   height: 1rem;
   margin: 0;
   padding: 0;
-  border: 1px solid color-mix(in srgb, var(--lz-color-neutral-900) 20%, transparent);
+  border: 1px solid var(--lz-color-neutral-200);
   border-radius: 0.25rem;
   background-color: var(--lz-color-background);
   background-repeat: no-repeat;
@@ -71,7 +78,7 @@
   }
 
   &:hover:not(:disabled):not(:checked):not(:indeterminate) {
-    border-color: color-mix(in srgb, var(--lz-color-neutral-900) 35%, transparent);
+    border-color: var(--lz-color-neutral-900);
   }
 }
 
@@ -79,35 +86,75 @@
   border-radius: 9999px;
 }
 
+/* ─── checkbox: checked / indeterminate ─── */
+
 .lz-checkbox__input:checked:not(.lz-checkbox__input--rounded),
 .lz-checkbox__input:indeterminate:not(.lz-checkbox__input--rounded) {
+  border-color: transparent;
   background-color: var(--lz-color-neutral-900);
-  border-color: var(--lz-color-neutral-900);
 }
 
+/* Figma: heroicons-outline/check 12px, stroke 1.5 */
 .lz-checkbox__input:checked:not(.lz-checkbox__input--rounded) {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M2 6.2L4.7 9L10 3' stroke='%23FFFFFA' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M2.25 6.375L5.25 9.375L9.75 2.625' stroke='%23FFFFFA' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 
+/* Figma: Minus 14px, stroke 2 */
 .lz-checkbox__input:indeterminate:not(.lz-checkbox__input--rounded) {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M2.5 6H9.5' stroke='%23FFFFFA' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-size: 0.875rem 0.875rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' fill='none'%3E%3Cpath d='M10.5 7H3.5' stroke='%23FFFFFA' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
+
+/* ─── radio (и rounded checkbox): checked ─── */
 
 .lz-checkbox__input--rounded:checked {
+  --lz-checkbox-dot: var(--lz-color-neutral-900);
+
+  border-color: var(--lz-color-neutral-900);
   background-color: var(--lz-color-background);
   background-image: radial-gradient(
     circle at center,
-    var(--lz-color-neutral-900) 0 0.25rem,
+    var(--lz-checkbox-dot) 0 0.25rem,
     transparent 0.26rem
   );
   background-size: 100% 100%;
-  border-color: var(--lz-color-neutral-900);
 }
+
+/* ─── disabled ─── */
 
 .lz-checkbox__input--disabled {
   pointer-events: none;
   cursor: not-allowed;
 }
+
+.lz-checkbox__input:disabled {
+  border-color: var(--lz-color-neutral-200);
+  background-color: var(--lz-color-neutral-surface);
+}
+
+.lz-checkbox__input:disabled:checked:not(.lz-checkbox__input--rounded),
+.lz-checkbox__input:disabled:indeterminate:not(.lz-checkbox__input--rounded) {
+  border-color: transparent;
+  background-color: var(--lz-color-neutral-50);
+}
+
+.lz-checkbox__input:disabled:checked:not(.lz-checkbox__input--rounded) {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M2.25 6.375L5.25 9.375L9.75 2.625' stroke='%23C4C6C8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+.lz-checkbox__input:disabled:indeterminate:not(.lz-checkbox__input--rounded) {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' fill='none'%3E%3Cpath d='M10.5 7H3.5' stroke='%23C4C6C8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+/* radio disabled checked: бордер outline-gray, точка #121212 10% */
+.lz-checkbox__input--rounded:disabled:checked {
+  --lz-checkbox-dot: color-mix(in srgb, var(--lz-color-neutral-900) 10%, transparent);
+
+  border-color: var(--lz-color-neutral-200);
+  background-color: var(--lz-color-background);
+}
+
+/* ─── error ─── */
 
 .lz-checkbox__input--error:not(:checked):not(:indeterminate) {
   border-color: var(--lz-color-danger-500);
@@ -117,28 +164,30 @@
   }
 }
 
-.lz-checkbox__wrapper:has(.lz-checkbox__input--error) .lz-checkbox__input-wrapper:focus-within {
-  box-shadow:
-    0 0 0 2px var(--lz-color-background),
-    0 0 0 4px color-mix(in srgb, var(--lz-color-danger-500) 10%, transparent);
+.lz-checkbox__wrapper:has(.lz-checkbox__input--error) {
+  --lz-checkbox-ring: color-mix(in srgb, var(--lz-color-danger-500) 10%, transparent);
 }
+
+/* ─── label: Medium 14/20, helper Regular 12/16 text/secondary, gap 4px ─── */
 
 .lz-checkbox__label {
   display: grid;
-  gap: 0.125rem;
+  gap: 0.25rem;
   font-family: var(--lz-font-sans);
-  font-size: var(--lz-font-size-sm, 0.875rem);
-  line-height: 1.25rem;
 }
 
 .lz-checkbox__title {
   color: var(--lz-color-text-primary);
-  font-weight: var(--lz-font-weight-semibold, 600);
+  font-size: var(--lz-font-size-sm, 0.875rem);
+  font-weight: var(--lz-font-weight-medium, 500);
+  line-height: 1.25rem;
+  letter-spacing: -0.013125rem;
 }
 
 .lz-checkbox__description {
-  color: var(--lz-color-neutral-500);
+  color: var(--lz-color-text-secondary);
   font-size: var(--lz-font-size-xs, 0.75rem);
   font-weight: var(--lz-font-weight-regular, 400);
   line-height: 1rem;
+  letter-spacing: -0.01125rem;
 }

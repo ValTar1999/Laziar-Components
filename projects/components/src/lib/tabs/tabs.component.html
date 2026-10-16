@@ -1,4 +1,5 @@
 <div
+  #tablist
   class="lz-tabs"
   [attr.data-style]="style()"
   [attr.data-size]="size()"
@@ -26,20 +27,22 @@
           [trigger]="disabledTabTooltipTrigger()"
           triggerClass="lz-tabs__disabled-tooltip-trigger"
         >
-          <span class="lz-tabs__label">{{ tab }}</span>
+          <span #label class="lz-tabs__label">{{ tab }}</span>
         </lz-tooltip>
       } @else {
-        <span class="lz-tabs__label">{{ tab }}</span>
+        <span #label class="lz-tabs__label">{{ tab }}</span>
       }
       @if (badges()[i]?.text) {
-        <lz-badge [color]="badges()[i]?.variant || 'gray'" size="sm" [pill]="true" [border]="true">
+        <lz-badge [color]="badges()[i]?.variant || 'gray'" size="xs" [pill]="true" [border]="true">
           {{ badges()[i]?.text }}
         </lz-badge>
       }
     </button>
   }
 
-  @if (showUnderline()) {
+  @if (isTextUnderline()) {
+    <div #textUnderline class="lz-tabs__underline"></div>
+  } @else if (showUnderline()) {
     <div class="lz-tabs__underline" [ngStyle]="underlineStyle()"></div>
   }
 </div>

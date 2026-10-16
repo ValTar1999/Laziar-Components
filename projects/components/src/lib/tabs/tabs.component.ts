@@ -1,4 +1,16 @@
-import { Component, computed, input, model } from '@angular/core';
+import {
+  afterRenderEffect,
+  Component,
+  computed,
+  DestroyRef,
+  ElementRef,
+  inject,
+  input,
+  model,
+  signal,
+  viewChild,
+  viewChildren,
+} from '@angular/core';
 import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { CommonModule } from '@angular/common';
 import { LzTabBadge, LzTabsSize, LzTabsStyle, LzDisabledTabTooltipTrigger } from './tabs.types';
@@ -6,7 +18,7 @@ import { Badge } from '../badge/badge.component';
 import { Icon } from '../icon/icon.component';
 import { Tooltip } from '../tooltip/tooltip.component';
 
-/** Tabs — Laziar System (Figma Tabs): outline pill / underline / border. */
+/** Tabs — Laziar System (Figma Tabs): outline pill / underline / underline-text / border. */
 @Component({
   selector: 'lz-tabs',
   standalone: true,
@@ -32,6 +44,54 @@ export class Tabs {
   readonly activeTab = model(0);
 
   protected readonly showUnderline = computed(() => this.style() !== 'outline');
+
+  /** Indicator sized to the active label's text, positioned from DOM measurements. */
+  protected readonly isTextUnderline = computed(() => this.style() === 'underline-text');
+
+  private readonly tablist = viewChild.required<ElementRef<HTMLElement>>('tablist');
+  private readonly labels = viewChildren<ElementRef<HTMLElement>>('label');
+  private readonly textUnderline = viewChild<ElementRef<HTMLElement>>('textUnderline');
+
+  /** Bumped by ResizeObserver so the indicator follows layout / font changes. */
+  private readonly layoutVersion = signal(0);
+  private resizeObserver?: ResizeObserver;
+
+  constructor() {
+    inject(DestroyRef).onDestroy(() => this.resizeObserver?.disconnect());
+
+    afterRenderEffect({
+      mixedReadWrite: () => {
+        this.layoutVersion();
+        const underline = this.textUnderline()?.nativeElement;
+        const label = this.labels()[this.activeTab()]?.nativeElement;
+        if (!underline || !label) {
+          return;
+        }
+
+        this.observeLayout(label);
+
+        const listRect = this.tablist().nativeElement.getBoundingClientRect();
+        const labelRect = label.getBoundingClientRect();
+        // First placement snaps into position; later changes slide.
+        const placed = underline.dataset['placed'] === 'true';
+        underline.style.transition = placed ? '' : 'none';
+        underline.style.left = `${labelRect.left - listRect.left}px`;
+        underline.style.width = `${labelRect.width}px`;
+        underline.dataset['placed'] = 'true';
+      },
+    });
+  }
+
+  private observeLayout(label: HTMLElement): void {
+    if (typeof ResizeObserver === 'undefined') {
+      return;
+    }
+    if (!this.resizeObserver) {
+      this.resizeObserver = new ResizeObserver(() => this.layoutVersion.update((v) => v + 1));
+      this.resizeObserver.observe(this.tablist().nativeElement);
+    }
+    this.resizeObserver.observe(label);
+  }
 
   protected readonly underlineStyle = computed(() => {
     const tabCount = this.tabs().length || 1;

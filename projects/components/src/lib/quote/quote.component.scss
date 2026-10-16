@@ -1,0 +1,134 @@
+:host.lz-quote-host {
+  display: block;
+}
+
+.lz-quote {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; // gap-2
+  margin: 0;
+}
+
+.lz-quote__panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem; // gap-8
+  padding: 2rem; // p-8
+  border: 1px solid color-mix(in srgb, var(--lz-color-neutral-900) 5%, transparent); // border-gray-900/5
+  border-radius: var(--lz-radius-2xl); // rounded-2xl
+  background: var(--lz-color-neutral-50); // bg-gray-50
+}
+
+@media (min-width: 1280px) {
+  .lz-quote__panel {
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 2.5rem; // xl:p-10
+  }
+}
+
+.lz-quote__icon {
+  flex: 0 0 auto;
+  width: 37px;
+  height: 32px;
+  fill: var(--lz-color-text-primary);
+
+  path {
+    fill: currentColor;
+  }
+
+  color: var(--lz-color-text-primary);
+}
+
+.lz-quote__body {
+  min-width: 0;
+}
+
+.lz-quote__text {
+  margin: 0;
+  color: var(--lz-color-text-primary);
+  font-family: var(--lz-font-serif);
+  font-size: 1.125rem;
+  font-weight: var(--lz-font-weight-medium);
+  font-style: italic;
+  line-height: 1.75rem;
+  letter-spacing: 0;
+  word-break: break-word;
+
+  :where(p, h1, h2, h3, ul, ol, blockquote) {
+    margin: 0;
+  }
+
+  :where(a) {
+    color: var(--lz-color-secondary-600);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-thickness: 1.5px;
+    text-decoration-color: currentColor;
+  }
+
+  :where(a:hover) {
+    color: var(--lz-color-secondary-700);
+  }
+
+  :where(strong) {
+    font-weight: var(--lz-font-weight-bold);
+  }
+
+  :where(em) {
+    font-style: italic;
+  }
+}
+
+.lz-quote__footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; // gap-2
+  margin-top: 2rem; // mt-8
+}
+
+.lz-quote__author {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem; // gap-3
+}
+
+.lz-quote__avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--lz-radius-full);
+  object-fit: cover;
+  background: var(--lz-color-neutral-50);
+}
+
+.lz-quote__author-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.lz-quote__name {
+  font-family: var(--lz-font-sans);
+  font-size: var(--lz-font-size-sm);
+  font-weight: var(--lz-font-weight-medium);
+  line-height: 1.25rem;
+  color: var(--lz-color-text-primary);
+}
+
+.lz-quote__position {
+  font-family: var(--lz-font-sans);
+  font-size: var(--lz-font-size-xs);
+  line-height: 1rem;
+  color: var(--lz-color-text-secondary); // text-gray-600
+}
+
+.lz-quote__caption {
+  max-width: 720px;
+  margin: 0.5rem 0 0;
+  color: var(--lz-color-neutral-500);
+  font-family: var(--lz-font-sans);
+  font-size: var(--lz-font-size-xs);
+  line-height: 1rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}

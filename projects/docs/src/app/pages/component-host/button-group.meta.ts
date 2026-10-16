@@ -34,50 +34,50 @@ export const BUTTON_GROUP_COMPONENT_META: DocsComponentMeta = {
       label: 'segmented · pill',
       props: { demo: 'segmented', line: true, size: 'md' },
       code: `<lz-button-group [line]="true">
-  <lz-button label="Day" variant="outline" color="gray" pill />
-  <lz-button label="Month" variant="outline" color="gray" pill />
-  <lz-button label="Year" variant="outline" color="gray" pill />
+  <lz-button label="Day" variant="tertiary" color="gray" pill />
+  <lz-button label="Month" variant="tertiary" color="gray" pill />
+  <lz-button label="Year" variant="tertiary" color="gray" pill />
 </lz-button-group>`,
     },
     {
       label: 'icons',
       props: { demo: 'icons', line: true, size: 'md' },
       code: `<lz-button-group [line]="true">
-  <lz-button variant="outline" color="gray" icon="italic" ariaLabel="Italic" />
-  <lz-button variant="outline" color="gray" icon="bold" ariaLabel="Bold" />
-  <lz-button variant="outline" color="gray" icon="underline" ariaLabel="Underline" />
+  <lz-button variant="tertiary" color="gray" icon="italic" ariaLabel="Italic" />
+  <lz-button variant="tertiary" color="gray" icon="bold" ariaLabel="Bold" />
+  <lz-button variant="tertiary" color="gray" icon="underline" ariaLabel="Underline" />
 </lz-button-group>`,
     },
     {
       label: 'split',
       props: { demo: 'split', line: true, size: 'md' },
       code: `<lz-button-group [line]="true">
-  <lz-button label="Last 7 days" variant="outline" color="gray" />
-  <lz-button variant="outline" color="gray" icon="chevron-down" ariaLabel="Open" />
+  <lz-button label="Last 7 days" variant="tertiary" color="gray" />
+  <lz-button variant="tertiary" color="gray" icon="chevron-down" ariaLabel="Open" />
 </lz-button-group>`,
     },
     {
       label: 'stepper',
       props: { demo: 'stepper', line: true, size: 'md' },
       code: `<lz-button-group [line]="true">
-  <lz-button variant="outline" color="gray" icon="minus" ariaLabel="Decrease" />
-  <lz-button variant="outline" color="gray" icon="plus" ariaLabel="Increase" />
+  <lz-button variant="tertiary" color="gray" icon="minus" ariaLabel="Decrease" />
+  <lz-button variant="tertiary" color="gray" icon="plus" ariaLabel="Increase" />
 </lz-button-group>`,
     },
     {
       label: 'download',
       props: { demo: 'download', line: true, size: 'md' },
       code: `<lz-button-group [line]="true">
-  <lz-button label="Download for free" variant="outline" color="gray" />
-  <lz-button label="50k" variant="outline" color="gray" />
+  <lz-button label="Download for free" variant="tertiary" color="gray" />
+  <lz-button label="50k" variant="tertiary" color="gray" />
 </lz-button-group>`,
     },
     {
       label: 'dates',
       props: { demo: 'dates', line: true, size: 'md' },
       code: `<lz-button-group [line]="true">
-  <lz-button label="01/01/2021" variant="outline" color="gray" icon="calendar" iconPosition="left" />
-  <lz-button label="05/01/2021" variant="outline" color="gray" icon="calendar" iconPosition="left" />
+  <lz-button label="01/01/2021" variant="tertiary" color="gray" icon="calendar" iconPosition="left" />
+  <lz-button label="05/01/2021" variant="tertiary" color="gray" icon="calendar" iconPosition="left" />
 </lz-button-group>`,
     },
   ],
@@ -114,24 +114,24 @@ export const BUTTON_GROUP_COMPONENT_META: DocsComponentMeta = {
     {
       title: 'Segmented switch',
       code: `<lz-button-group [line]="true">
-  <lz-button label="Day" variant="outline" color="gray" pill />
-  <lz-button label="Month" variant="outline" color="gray" pill />
-  <lz-button label="Year" variant="outline" color="gray" pill />
+  <lz-button label="Day" variant="tertiary" color="gray" pill />
+  <lz-button label="Month" variant="tertiary" color="gray" pill />
+  <lz-button label="Year" variant="tertiary" color="gray" pill />
 </lz-button-group>`,
     },
     {
       title: 'Icons only',
       code: `<lz-button-group [line]="true">
-  <lz-button variant="outline" color="gray" icon="italic" ariaLabel="Italic" />
-  <lz-button variant="outline" color="gray" icon="bold" ariaLabel="Bold" />
-  <lz-button variant="outline" color="gray" icon="underline" ariaLabel="Underline" />
+  <lz-button variant="tertiary" color="gray" icon="italic" ariaLabel="Italic" />
+  <lz-button variant="tertiary" color="gray" icon="bold" ariaLabel="Bold" />
+  <lz-button variant="tertiary" color="gray" icon="underline" ariaLabel="Underline" />
 </lz-button-group>`,
     },
     {
       title: 'Split with chevron',
       code: `<lz-button-group [line]="true">
-  <lz-button label="Last 7 days" variant="outline" color="gray" />
-  <lz-button variant="outline" color="gray" icon="chevron-down" ariaLabel="Open" />
+  <lz-button label="Last 7 days" variant="tertiary" color="gray" />
+  <lz-button variant="tertiary" color="gray" icon="chevron-down" ariaLabel="Open" />
 </lz-button-group>`,
     },
   ],

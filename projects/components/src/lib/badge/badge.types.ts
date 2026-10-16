@@ -1,5 +1,7 @@
 /** Visual / color variants for `lz-badge`. */
 export const LZ_BADGE_COLORS = [
+  'black',
+  'white',
   'green',
   'red',
   'purple',
@@ -14,12 +16,15 @@ export const LZ_BADGE_COLORS = [
 
 export type LzBadgeColor = (typeof LZ_BADGE_COLORS)[number] | 'magrnta';
 
-/** Size scale for badge components. */
-export const LZ_BADGE_SIZES = ['lg', 'md', 'sm'] as const;
+/** Size scale (Figma Badge): sm — 28px (pill 24px), xs — 20px. */
+export const LZ_BADGE_SIZES = ['sm', 'xs'] as const;
 
-export type LzBadgeSize = (typeof LZ_BADGE_SIZES)[number];
+/** @deprecated `lg` and `md` render as `sm`. */
+export type LzBadgeLegacySize = 'lg' | 'md';
 
-/** Fill style from Laziar System Badges: pastel, solid fill, or outline. */
+export type LzBadgeSize = (typeof LZ_BADGE_SIZES)[number] | LzBadgeLegacySize;
+
+/** Fill: subtle — Figma Badge (pastel); solid / outline — extras outside Figma. */
 export const LZ_BADGE_VARIANTS = ['subtle', 'solid', 'outline'] as const;
 
 export type LzBadgeVariant = (typeof LZ_BADGE_VARIANTS)[number];

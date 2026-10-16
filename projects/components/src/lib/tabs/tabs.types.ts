@@ -1,6 +1,7 @@
 import { LzBadgeColor } from '../badge/badge.types';
 
-export type LzTabsStyle = 'outline' | 'underline' | 'border';
+/** `underline-text` — like `underline`, but the indicator matches the active label's text width. */
+export type LzTabsStyle = 'outline' | 'underline' | 'underline-text' | 'border';
 
 export type LzTabsSize = 'sm' | 'md' | 'lg';
 

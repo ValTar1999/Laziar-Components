@@ -35,20 +35,28 @@ describe('Badge', () => {
     expect(component.disabled()).toBe(false);
   });
 
-  it('should apply data-size for sm, md, lg', () => {
-    for (const size of ['sm', 'md', 'lg'] as const) {
+  it('should apply data-size for sm, xs', () => {
+    for (const size of ['sm', 'xs'] as const) {
       fixture.componentRef.setInput('size', size);
       fixture.detectChanges();
       expect(badgeEl().getAttribute('data-size')).toBe(size);
     }
   });
 
+  it('should map deprecated md, lg to sm', () => {
+    for (const size of ['md', 'lg'] as const) {
+      fixture.componentRef.setInput('size', size);
+      fixture.detectChanges();
+      expect(badgeEl().getAttribute('data-size')).toBe('sm');
+    }
+  });
+
   it('should keep data-size when icon is set', () => {
-    fixture.componentRef.setInput('size', 'md');
+    fixture.componentRef.setInput('size', 'xs');
     fixture.componentRef.setInput('icon', 'check');
     fixture.detectChanges();
 
-    expect(badgeEl().getAttribute('data-size')).toBe('md');
+    expect(badgeEl().getAttribute('data-size')).toBe('xs');
     expect(badgeEl().getAttribute('data-icon-position')).toBe('left');
   });
 
@@ -82,12 +90,12 @@ describe('Badge', () => {
     expect(spy).not.toHaveBeenCalled();
   });
 
-  it('should map border to outline variant', () => {
+  it('should keep subtle fill and add data-border when border is set', () => {
     fixture.componentRef.setInput('border', true);
     fixture.detectChanges();
 
-    expect(component['resolvedVariant']()).toBe('outline');
-    expect(badgeEl().getAttribute('data-variant')).toBe('outline');
+    expect(badgeEl().getAttribute('data-variant')).toBe('subtle');
+    expect(badgeEl().getAttribute('data-border')).toBe('true');
   });
 
   it('should keep solid when variant is solid even if border is set', () => {

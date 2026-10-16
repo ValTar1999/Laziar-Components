@@ -20,7 +20,7 @@ import {
   viewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { autoUpdate, computePosition, flip, offset, shift } from '@floating-ui/dom';
+import { attachLzFloating } from '../floating/floating';
 import { LzInputFlush } from '../internal/lz-input-flush.directive';
 
 import { Button } from '../button/button.component';
@@ -329,32 +329,18 @@ export class Table implements OnDestroy {
     const floating = this.overlayRef?.overlayElement;
     if (!reference || !floating) return;
 
-    this.floatingCleanup = autoUpdate(reference, floating, () => {
-      void this.positionMenu(reference, floating);
+    this.floatingCleanup = attachLzFloating(reference, floating, {
+      placement: 'bottom-start',
+      offset: MENU_OFFSET_PX,
+      shiftPadding: MENU_VIEWPORT_PADDING_PX,
+      flipPadding: MENU_VIEWPORT_PADDING_PX,
+      strategy: 'fixed',
     });
   }
 
   private stopFloating(): void {
     this.floatingCleanup?.();
     this.floatingCleanup = undefined;
-  }
-
-  private async positionMenu(reference: HTMLElement, floating: HTMLElement): Promise<void> {
-    const { x, y } = await computePosition(reference, floating, {
-      placement: 'bottom-start',
-      strategy: 'fixed',
-      middleware: [
-        offset(MENU_OFFSET_PX),
-        flip({ padding: MENU_VIEWPORT_PADDING_PX }),
-        shift({ padding: MENU_VIEWPORT_PADDING_PX }),
-      ],
-    });
-
-    Object.assign(floating.style, {
-      position: 'fixed',
-      left: `${Math.round(x)}px`,
-      top: `${Math.round(y)}px`,
-    });
   }
 
   private attachScrollListener(): void {

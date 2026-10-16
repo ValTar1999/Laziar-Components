@@ -1,6 +1,8 @@
-export type LzAvatarSizeKey = 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+export type LzAvatarSizeKey =
+  'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'xxl';
 
-export type LzAvatarNotificationStatus = 'success' | 'error' | 'warning' | 'info';
+/** `neutral` — Figma notification (gray-900), `success` — Figma status (green + check). */
+export type LzAvatarNotificationStatus = 'neutral' | 'success' | 'error' | 'warning' | 'info';
 
 export type LzAvatarVariant = 'default' | 'plain';
 
