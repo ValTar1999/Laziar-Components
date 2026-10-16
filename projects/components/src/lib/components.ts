@@ -111,3 +111,6 @@ export * from './quote/quote.types';
 export * from './note-panel/note-panel.component';
 
 export * from './expand/expand.component';
+
+export * from './calendar/calendar.component';
+export * from './calendar/calendar.types';

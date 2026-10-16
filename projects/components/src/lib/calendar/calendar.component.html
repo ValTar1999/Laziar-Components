@@ -1,0 +1,114 @@
+<div class="lz-calendar" [class.lz-calendar--disabled]="effectiveDisabled()">
+  <div class="lz-calendar__header">
+    <button
+      type="button"
+      class="lz-calendar__nav"
+      [class.lz-calendar__nav--hidden]="!canGoPrevious()"
+      [disabled]="!canGoPrevious() || effectiveDisabled()"
+      [attr.aria-label]="previousLabel()"
+      (click)="previousMonth()"
+    >
+      <lz-icon name="chevron-left" type="mini" class="lz-calendar__nav-icon" />
+    </button>
+
+    <p class="lz-calendar__title" aria-live="polite">{{ title() }}</p>
+
+    <button
+      type="button"
+      class="lz-calendar__nav"
+      [class.lz-calendar__nav--hidden]="!canGoNext()"
+      [disabled]="!canGoNext() || effectiveDisabled()"
+      [attr.aria-label]="nextLabel()"
+      (click)="nextMonth()"
+    >
+      <lz-icon name="chevron-right" type="mini" class="lz-calendar__nav-icon" />
+    </button>
+  </div>
+
+  <table #grid class="lz-calendar__grid" role="grid" [attr.aria-label]="title()">
+    <thead>
+      <tr class="lz-calendar__row" role="row">
+        @for (weekday of weekdays(); track $index) {
+          <th class="lz-calendar__weekday" scope="col" role="columnheader">
+            <abbr [attr.title]="weekday.long">{{ weekday.short }}</abbr>
+          </th>
+        }
+      </tr>
+    </thead>
+    <tbody>
+      @for (week of weeks(); track week[0].key) {
+        <tr class="lz-calendar__row" role="row">
+          @for (day of week; track day.key) {
+            <td class="lz-calendar__cell" role="gridcell" [attr.aria-selected]="day.selected">
+              <button
+                type="button"
+                class="lz-calendar__day"
+                [class.lz-calendar__day--selected]="day.selected"
+                [attr.data-key]="day.key"
+                [attr.aria-label]="ariaLabel(day)"
+                [attr.aria-current]="day.today ? 'date' : null"
+                [attr.tabindex]="day.key === activeKey() ? 0 : -1"
+                [disabled]="day.disabled || effectiveDisabled()"
+                (click)="select(day)"
+                (keydown)="onDayKeydown($event)"
+                (blur)="onTouched()"
+              >
+                {{ day.day }}
+              </button>
+            </td>
+          }
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  @if (withTime()) {
+    <div class="lz-calendar__fields">
+      <lz-input
+        class="lz-calendar__field"
+        size="md"
+        [label]="dateLabel()"
+        [placeholder]="datePlaceholder()"
+        [disabled]="effectiveDisabled()"
+        [ngModel]="dateText()"
+        [ngModelOptions]="{ standalone: true }"
+        (ngModelChange)="dateText.set($event)"
+        (focusout)="commitDateText()"
+        (keydown.enter)="commitDateText()"
+      />
+      <lz-input
+        class="lz-calendar__field"
+        size="md"
+        [label]="timeLabel()"
+        [placeholder]="timePlaceholder()"
+        [disabled]="effectiveDisabled()"
+        [ngModel]="timeText()"
+        [ngModelOptions]="{ standalone: true }"
+        (ngModelChange)="timeText.set($event)"
+        (focusout)="commitTimeText()"
+        (keydown.enter)="commitTimeText()"
+      />
+    </div>
+  }
+
+  @if (withActions()) {
+    <div class="lz-calendar__actions">
+      <lz-button
+        variant="outline"
+        pill
+        fullWidth
+        [label]="cancelLabel()"
+        [disabled]="effectiveDisabled()"
+        (clicked)="cancel()"
+      />
+      <lz-button
+        variant="primary"
+        pill
+        fullWidth
+        [label]="saveLabel()"
+        [disabled]="!draft() || effectiveDisabled()"
+        (clicked)="save()"
+      />
+    </div>
+  }
+</div>

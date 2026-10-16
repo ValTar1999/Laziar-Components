@@ -107,6 +107,14 @@ export const DOCS_NAV: DocsNavGroup[] = [
         keywords: 'select dropdown options',
       },
       {
+        id: 'calendar',
+        label: 'nav.items.calendar',
+        route: '/components/calendar',
+        kind: 'component',
+        icon: 'calendar',
+        keywords: 'calendar date picker day month',
+      },
+      {
         id: 'dropdown',
         label: 'nav.items.dropdown',
         route: '/components/dropdown',
