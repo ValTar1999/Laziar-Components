@@ -35,8 +35,9 @@
   white-space: nowrap;
 }
 
+/* Shrink to the text so the tooltip centers over it, not over the whole column. */
 :host ::ng-deep .docs-table-tooltip {
-  display: block;
+  width: fit-content;
   max-width: 18.5rem;
   min-width: 0;
 }

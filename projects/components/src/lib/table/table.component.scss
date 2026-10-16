@@ -59,19 +59,25 @@
   position: relative;
 }
 
+.lz-table__header-cell,
+.lz-table__cell {
+  padding-left: 0;
+  padding-right: 2rem;
+  text-align: left;
+}
+
 .lz-table__header-cell {
   padding-block: 0.75rem;
 }
 
 .lz-table__cell {
   padding-block: 1rem;
-  padding-left: 0;
-  padding-right: 2rem;
   color: #121212;
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
 
+.lz-table__header-cell--last,
 .lz-table__cell--last {
   padding-inline: 0.75rem;
 }
