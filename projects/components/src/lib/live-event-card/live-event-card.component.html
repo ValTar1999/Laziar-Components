@@ -51,13 +51,13 @@
         </button>
       </lz-tooltip>
 
-      <lz-tooltip position="top" [text]="saveTooltip()">
+      <lz-tooltip position="top" [text]="saveToListTooltip()">
         <button
           type="button"
           class="lz-live-event-card__action"
           [attr.data-active]="isSaved() ? 'true' : 'false'"
           (click)="onSaveToListToggle()"
-          [attr.aria-label]="saveTooltip()"
+          [attr.aria-label]="saveToListTooltip()"
         >
           <lz-icon
             name="bookmark"

@@ -46,6 +46,30 @@ export const LIVE_EVENT_CARD_COMPONENT_META: DocsComponentMeta = {
       default: 'false',
       description: 'Bottom separator',
     },
+    {
+      name: 'watchLaterLabel',
+      type: 'string',
+      default: `'Watch later'`,
+      description: 'Tooltip when watch-later is off; override to localize',
+    },
+    {
+      name: 'removeWatchLaterLabel',
+      type: 'string',
+      default: `'Remove from Watch later'`,
+      description: 'Tooltip when watch-later is on; override to localize',
+    },
+    {
+      name: 'saveToListLabel',
+      type: 'string',
+      default: `'Save to list'`,
+      description: 'Tooltip when save-to-list is off; override to localize',
+    },
+    {
+      name: 'removeFromListLabel',
+      type: 'string',
+      default: `'Remove from list'`,
+      description: 'Tooltip when save-to-list is on; override to localize',
+    },
   ],
   outputs: [
     { name: 'open', type: 'OutputEmitterRef<string>', description: 'Title click (link)' },

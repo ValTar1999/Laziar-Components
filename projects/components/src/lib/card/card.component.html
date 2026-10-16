@@ -214,7 +214,7 @@
         <button
           type="button"
           class="lz-card__identity-avatar"
-          [attr.aria-label]="'Deschide pagina publisherului ' + publisher()"
+          [attr.aria-label]="openPublisherAriaLabel()"
           (click)="onPublisherClick($event)"
         >
           <lz-avatar size="xxs" [imgUrl]="publisherLogoUrl()" [firstName]="publisher()" />
@@ -228,20 +228,20 @@
       <button
         type="button"
         class="lz-card__identity-avatar"
-        [attr.aria-label]="'Deschide pagina publisherului ' + publisher()"
+        [attr.aria-label]="openPublisherAriaLabel()"
         (click)="onPublisherClick($event)"
       >
         <lz-avatar size="xxs" [imgUrl]="publisherLogoUrl()" [firstName]="publisher()" />
       </button>
     }
     @if (placement !== 'bottom' && publisher() && author()) {
-      <span class="lz-card__identity-de">de</span>
+      <span class="lz-card__identity-de">{{ bylineSeparatorLabel() }}</span>
     }
     @if (author() && authorAvatarUrl()) {
       <button
         type="button"
         class="lz-card__identity-avatar"
-        [attr.aria-label]="'Deschide pagina autorului ' + author()"
+        [attr.aria-label]="openAuthorAriaLabel()"
         (click)="onAuthorClick($event)"
       >
         <lz-avatar size="xxs" [imgUrl]="authorAvatarUrl()" [firstName]="author()" />
@@ -309,7 +309,7 @@
       <lz-tooltip
         class="lz-card__action-tooltip"
         position="top"
-        text="Mai mult"
+        [text]="moreActionsLabel()"
         [disabled]="disableActionTooltips()"
       >
         <button
@@ -318,7 +318,7 @@
           [class.lz-card__icon-btn--open]="isMoreMenuOpen()"
           [attr.aria-expanded]="isMoreMenuOpen()"
           aria-haspopup="menu"
-          aria-label="Mai mult"
+          [attr.aria-label]="moreActionsLabel()"
           (click)="toggleMoreMenu($event)"
         >
           <lz-icon class="lz-card__icon" name="ellipsis-horizontal" type="outline" />
@@ -330,7 +330,7 @@
           <button
             type="button"
             class="lz-card__sheet-dismiss"
-            aria-label="Închide"
+            [attr.aria-label]="closeLabel()"
             (click)="closeMoreMenu()"
           ></button>
           <div class="lz-card__sheet-panel" role="menu">

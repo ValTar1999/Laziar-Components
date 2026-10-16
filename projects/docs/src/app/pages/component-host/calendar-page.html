@@ -1,0 +1,13 @@
+<docs-component-page [meta]="meta">
+  <ng-template docsPreview let-values>
+    <lz-calendar
+      [value]="date(values, 'value')"
+      [min]="date(values, 'min')"
+      [max]="date(values, 'max')"
+      [locale]="str(values, 'locale', 'ro')"
+      [withTime]="bool(values, 'withTime')"
+      [withActions]="bool(values, 'withActions')"
+      [disabled]="bool(values, 'disabled')"
+    />
+  </ng-template>
+</docs-component-page>

@@ -116,6 +116,21 @@ export class CardComponent implements OnDestroy {
   readonly isPublisherFollowed = input(false, { transform: booleanAttribute });
   readonly isAuthorFollowed = input(false, { transform: booleanAttribute });
 
+  /** Label shown when watch-later is off; pass a locale-specific string to override the default. */
+  readonly watchLaterLabel = input<string>('Watch later');
+  /** Label shown when watch-later is already on. */
+  readonly removeWatchLaterLabel = input<string>('Remove from Watch later');
+  /** Label shown when save-to-list is off. */
+  readonly saveToListLabel = input<string>('Save to list');
+  /** Label shown when save-to-list is already on. */
+  readonly removeFromListLabel = input<string>('Remove from list');
+  readonly moreActionsLabel = input<string>('More');
+  readonly closeLabel = input<string>('Close');
+  readonly openPublisherPageLabel = input<string>('Open publisher page');
+  readonly openAuthorPageLabel = input<string>('Open author page');
+  /** Separator rendered between publisher and author identities (e.g. "by"). */
+  readonly bylineSeparatorLabel = input<string>('by');
+
   readonly openArticle = output<string | number | null>();
   readonly publisherClick = output<void>();
   readonly authorClick = output<void>();
@@ -192,11 +207,19 @@ export class CardComponent implements OnDestroy {
   });
 
   protected readonly watchLaterTooltip = computed(() =>
-    this.isWatchLater() ? 'Elimină din Vizionează mai târziu' : 'Vizionează mai târziu',
+    this.isWatchLater() ? this.removeWatchLaterLabel() : this.watchLaterLabel(),
   );
 
   protected readonly saveToListTooltip = computed(() =>
-    this.isSavedToList() ? 'Elimină din listă' : 'Salvează în listă',
+    this.isSavedToList() ? this.removeFromListLabel() : this.saveToListLabel(),
+  );
+
+  protected readonly openPublisherAriaLabel = computed(
+    () => `${this.openPublisherPageLabel()} ${this.publisher()}`,
+  );
+
+  protected readonly openAuthorAriaLabel = computed(
+    () => `${this.openAuthorPageLabel()} ${this.author()}`,
   );
 
   protected readonly hasRenderableImage = computed(() => Boolean(this.displayImage()));

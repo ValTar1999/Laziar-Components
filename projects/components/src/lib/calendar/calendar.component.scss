@@ -1,0 +1,189 @@
+/**
+ * Эталон: Publikator (Figma Calendar, node 7860:138746).
+ * Панель #FFFFFA, radius 8, shadow dropdown, padding 16, gap 16.
+ * Ячейка 30×30, gap 8. Выбранный день — круг #121212, текст #FFFFFA semibold.
+ * Дни вне min/max — #898D92 (text quaternary). Дни соседних месяцев в диапазоне
+ * выглядят как обычные — так в макете.
+ */
+
+:host.lz-calendar-host {
+  display: inline-block;
+  font-family: var(--lz-font-sans);
+}
+
+.lz-calendar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lz-space-4);
+  width: max-content;
+  padding: var(--lz-space-4);
+  background-color: var(--lz-color-background);
+  border-radius: var(--lz-radius-lg);
+  box-shadow: var(--lz-shadow-dropdown);
+}
+
+.lz-calendar--disabled {
+  opacity: 0.6;
+}
+
+.lz-calendar__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.lz-calendar__title {
+  margin: 0;
+  font-size: var(--lz-font-size-base);
+  font-weight: var(--lz-font-weight-semibold);
+  line-height: var(--lz-space-6);
+  letter-spacing: -0.02em;
+  color: var(--lz-color-text-primary);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.lz-calendar__nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  color: var(--lz-color-text-primary);
+  background: none;
+  border: 0;
+  border-radius: var(--lz-radius-sm);
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: var(--lz-shadow-focus);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+/* Keeps the slot so the title stays centred between the arrows. */
+.lz-calendar__nav--hidden {
+  visibility: hidden;
+}
+
+.lz-calendar__nav-icon {
+  --lz-icon-size: 1rem;
+  width: var(--lz-icon-size);
+  height: var(--lz-icon-size);
+}
+
+/* Table semantics for the grid, flex layout for the 8px Figma gaps. */
+.lz-calendar__grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lz-space-4);
+  margin: 0;
+  border-collapse: collapse;
+
+  thead,
+  tbody {
+    display: flex;
+    flex-direction: column;
+    gap: var(--lz-space-2);
+  }
+}
+
+.lz-calendar__row {
+  display: flex;
+  gap: var(--lz-space-2);
+}
+
+.lz-calendar__weekday,
+.lz-calendar__cell {
+  display: block;
+  width: 30px;
+  padding: 0;
+}
+
+.lz-calendar__weekday {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--lz-space-5);
+  font-size: var(--lz-font-size-xs);
+  font-weight: var(--lz-font-weight-medium);
+  line-height: var(--lz-space-4);
+  letter-spacing: -0.015em;
+  color: var(--lz-color-text-muted);
+
+  abbr {
+    text-decoration: none;
+  }
+}
+
+.lz-calendar__day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  padding: 0;
+  font-family: inherit;
+  font-size: var(--lz-font-size-sm);
+  font-weight: var(--lz-font-weight-medium);
+  line-height: var(--lz-space-5);
+  letter-spacing: -0.015em;
+  color: var(--lz-color-text-primary);
+  background: none;
+  border: 0;
+  border-radius: var(--lz-radius-full);
+  cursor: pointer;
+  transition:
+    color var(--lz-duration-normal) var(--lz-easing-standard),
+    background-color var(--lz-duration-normal) var(--lz-easing-standard);
+
+  &:hover:not(:disabled, .lz-calendar__day--selected) {
+    background-color: var(--lz-color-neutral-50);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: var(--lz-shadow-focus);
+  }
+
+  &:disabled {
+    color: var(--lz-color-text-muted);
+    cursor: default;
+  }
+}
+
+/* Data / Ora — две равные колонки на ширину сетки, поля 40px (lz-input md). */
+.lz-calendar__fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--lz-space-4);
+  /* Ширину панели задаёт сетка дней, поля под неё подстраиваются. */
+  width: 0;
+  min-width: 100%;
+}
+
+.lz-calendar__field {
+  min-width: 0;
+}
+
+/* Футер на всю ширину панели: разделитель от края до края, кнопки pill 32px. */
+.lz-calendar__actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--lz-space-4);
+  margin: var(--lz-space-2) calc(-1 * var(--lz-space-4)) 0;
+  padding: var(--lz-space-4) var(--lz-space-4) 0;
+  border-top: 1px solid var(--lz-color-border-subtle);
+}
+
+.lz-calendar__day--selected,
+.lz-calendar__day--selected:disabled {
+  font-weight: var(--lz-font-weight-semibold);
+  color: var(--lz-color-text-inverse);
+  background-color: var(--lz-color-neutral-900);
+}
