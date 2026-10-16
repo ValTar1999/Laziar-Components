@@ -18,6 +18,7 @@
                 [ngStyle]="columnStyle(column)"
                 [attr.data-align]="column.align ?? 'left'"
                 [attr.data-sticky]="column.sticky ? (column.stickyPosition ?? 'left') : null"
+                [attr.aria-sort]="column.ariaSort ?? null"
               >
                 @if (last && column.sticky) {
                   <span

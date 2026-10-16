@@ -14,6 +14,11 @@ export interface TableColumn {
   stickyPosition?: 'left' | 'right';
   headerClass?: string;
   cellClass?: string;
+  /**
+   * Rendered as `aria-sort` on the header cell. ARIA only allows it on a
+   * columnheader, so a `headerTemplate` cannot set it from inside the cell.
+   */
+  ariaSort?: 'ascending' | 'descending' | 'none';
 }
 
 export type TableRow = Record<string, unknown>;
