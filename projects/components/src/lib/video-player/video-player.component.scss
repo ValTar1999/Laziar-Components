@@ -2,13 +2,21 @@
  * Video.js overrides — ported from publikator `video-player.component.css`.
  */
 
-:host.lz-video-player-host {
-  display: block;
-  position: relative;
-  overflow: hidden;
-  border-radius: 8px;
-  width: 100%;
-  height: 100%;
+/*
+ * Host defaults live in a cascade layer so that classes an app puts on the
+ * element (`hidden`, `w-full`, `text-*`) always win: unlayered rules beat layered
+ * ones whatever their specificity. Unlayered, these rules would tie with (or beat)
+ * a utility class and, emitted after the app's global CSS, silently override it.
+ */
+@layer lz-defaults {
+  :host.lz-video-player-host {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .lz-video-player__fallback {

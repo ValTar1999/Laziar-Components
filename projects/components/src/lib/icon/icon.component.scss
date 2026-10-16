@@ -1,17 +1,25 @@
-:host {
-  display: inline-flex;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  line-height: 0;
-  vertical-align: middle;
-  color: inherit;
-}
+/*
+ * Host defaults live in a cascade layer so that classes the app puts on <lz-icon>
+ * (`w-4 h-4`, `text-gray-500`, `hidden`) always win: unlayered rules beat layered
+ * ones whatever their specificity. Unlayered, these :host rules tie with a utility
+ * class and, being emitted after the app's global CSS, silently override it.
+ * `color` is not set at all: it inherits by default.
+ */
+@layer lz-defaults {
+  :host {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+    vertical-align: middle;
+  }
 
-/* Default size on host so % children and consumers always get a box */
-:host.lz-icon-host--sized {
-  width: var(--lz-icon-size, 1.5rem);
-  height: var(--lz-icon-size, 1.5rem);
+  /* Default size on host so % children and consumers always get a box */
+  :host.lz-icon-host--sized {
+    width: var(--lz-icon-size, 1.5rem);
+    height: var(--lz-icon-size, 1.5rem);
+  }
 }
 
 .lz-icon {
