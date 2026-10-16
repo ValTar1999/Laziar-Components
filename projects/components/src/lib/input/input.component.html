@@ -1,7 +1,4 @@
-<div
-  class="lz-input-container"
-  [class.lz-input-container--disabled]="effectiveDisabled()"
->
+<div class="lz-input-container" [class.lz-input-container--disabled]="effectiveDisabled()">
   @if (label()) {
     <label class="lz-input-label" [attr.for]="inputId">{{ label() }}</label>
   }
@@ -60,14 +57,21 @@
       [attr.data-is-search]="currentType() === 'search'"
       [attr.data-has-suffix]="showClearButton() || showPasswordToggle()"
       [attr.autocomplete]="autocompleteAttr()"
+      [attr.inputmode]="onlyNumbers() ? 'numeric' : null"
+      [attr.pattern]="onlyNumbers() ? '[0-9]*' : null"
       (input)="onInput($event)"
       (blur)="onTouched()"
     />
 
     @if (showClearButton()) {
       <div class="lz-input-clear" [attr.data-size]="size()">
-        <button type="button" class="lz-input-clear-button" (click)="clearSearch()">
-          <lz-icon name="x-circle" type="mini" iconClass="lz-input-clear-icon" />
+        <button
+          type="button"
+          class="lz-input-clear-button"
+          [attr.aria-label]="clearSearchLabel()"
+          (click)="clearSearch()"
+        >
+          <lz-icon name="x-circle" type="mini" iconClass="lz-input-clear-icon" aria-hidden="true" />
         </button>
       </div>
     }

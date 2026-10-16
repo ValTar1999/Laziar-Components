@@ -220,4 +220,104 @@ describe('SelectComponent', () => {
     expect(options[0].textContent).toContain('Română');
     expect(options[1].textContent).toContain('English');
   });
+
+  describe('searchable', () => {
+    const searchEl = (): HTMLInputElement | null =>
+      document.querySelector('.lz-select-search-input');
+    const noResultsEl = (): HTMLElement | null => document.querySelector('.lz-select-no-results');
+
+    function open(): void {
+      fixture.nativeElement.querySelector('.lz-select-trigger').click();
+      fixture.detectChanges();
+    }
+
+    function search(query: string): void {
+      const el = searchEl()!;
+      el.value = query;
+      el.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+    }
+
+    const titles = (): string[] =>
+      Array.from(optionEls()).map((el) =>
+        el.querySelector('.lz-select-option-title')!.textContent!.trim(),
+      );
+
+    beforeEach(() => {
+      fixture.componentRef.setInput('options', objectOptions);
+      fixture.componentRef.setInput('searchable', true);
+      fixture.detectChanges();
+    });
+
+    it('has no search box unless searchable', () => {
+      fixture.componentRef.setInput('searchable', false);
+      fixture.detectChanges();
+      open();
+
+      expect(searchEl()).toBeNull();
+    });
+
+    it('shows a search box with the given placeholder', () => {
+      fixture.componentRef.setInput('searchPlaceholder', 'Caută autor');
+      fixture.detectChanges();
+      open();
+
+      expect(searchEl()?.placeholder).toBe('Caută autor');
+    });
+
+    it('filters options by title, ignoring case and surrounding spaces', () => {
+      open();
+      search('  SECOND ');
+
+      expect(titles()).toEqual(['Second Option']);
+    });
+
+    it('matches the raw option date too', () => {
+      open();
+      search('2023-01-03');
+
+      expect(titles()).toEqual(['Third Option']);
+    });
+
+    it('says so when nothing matches', () => {
+      fixture.componentRef.setInput('noResultsText', 'Nu s-au găsit autori.');
+      fixture.detectChanges();
+      open();
+      search('zzz');
+
+      expect(optionEls().length).toBe(0);
+      expect(noResultsEl()?.textContent?.trim()).toBe('Nu s-au găsit autori.');
+    });
+
+    it('selects from the filtered list', () => {
+      const changes: unknown[] = [];
+      component.registerOnChange((v) => changes.push(v));
+      open();
+      search('third');
+      optionEls()[0].click();
+      fixture.detectChanges();
+
+      expect(changes).toEqual([objectOptions[2]]);
+    });
+
+    it('starts from the full list each time it opens', () => {
+      open();
+      search('second');
+      document.body.click();
+      fixture.detectChanges();
+
+      open();
+
+      expect(searchEl()?.value).toBe('');
+      expect(titles().length).toBe(3);
+    });
+
+    it('keeps the dropdown open while typing in the search box', () => {
+      open();
+      searchEl()!.click();
+      fixture.detectChanges();
+
+      expect(dropdownEl()).toBeTruthy();
+    });
+  });
 });

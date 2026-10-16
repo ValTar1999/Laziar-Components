@@ -1,7 +1,4 @@
-<div
-  class="lz-select-container"
-  [class.lz-select-container--disabled]="effectiveDisabled()"
->
+<div class="lz-select-container" [class.lz-select-container--disabled]="effectiveDisabled()">
   @if (label()) {
     <label class="lz-select-label" [attr.for]="selectId">
       {{ label() }}
@@ -45,8 +42,21 @@
 
 <ng-template #dropdownTpl>
   <div class="lz-select-dropdown">
+    @if (searchable()) {
+      <div class="lz-select-search">
+        <input
+          type="search"
+          class="lz-select-search-input"
+          [placeholder]="searchPlaceholder()"
+          [attr.aria-label]="searchPlaceholder()"
+          [attr.aria-controls]="listboxId"
+          [value]="searchQuery()"
+          (input)="onSearchInput($event)"
+        />
+      </div>
+    }
     <ul class="lz-select-dropdown-list" role="listbox" [id]="listboxId">
-      @for (option of options(); track option) {
+      @for (option of filteredOptions(); track option) {
         <li
           class="lz-select-option"
           role="option"
@@ -75,6 +85,9 @@
             }
           </div>
         </li>
+      }
+      @if (showNoResults()) {
+        <li class="lz-select-no-results" role="presentation">{{ noResultsText() }}</li>
       }
     </ul>
   </div>

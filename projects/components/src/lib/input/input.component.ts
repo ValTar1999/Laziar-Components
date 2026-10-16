@@ -68,6 +68,10 @@ export class InputComponent implements ControlValueAccessor {
   readonly showPasswordLabel = input('Show password');
   /** Tooltip when password is visible. */
   readonly hidePasswordLabel = input('Hide password');
+  /** Accessible name of the search clear button; consumers pass a localized string. */
+  readonly clearSearchLabel = input('Clear search');
+  /** Drops every non-digit as it is typed and asks mobile keyboards for digits. */
+  readonly onlyNumbers = input(false, { transform: booleanAttribute });
 
   readonly valueChange = output<string>();
 
@@ -132,6 +136,10 @@ export class InputComponent implements ControlValueAccessor {
 
   protected onInput(event: Event): void {
     const inputEl = event.target as HTMLInputElement;
+    if (this.onlyNumbers()) {
+      // Rewrite the field itself too, so a rejected character never shows.
+      inputEl.value = inputEl.value.replace(/\D/g, '');
+    }
     const newValue = inputEl.value;
     this.value.set(newValue);
     this.onChange(newValue);
