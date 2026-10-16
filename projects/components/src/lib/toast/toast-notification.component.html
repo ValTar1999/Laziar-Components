@@ -17,7 +17,7 @@
     variant="tertiary"
     size="xs"
     icon="x-mark"
-    ariaLabel="Dismiss notification"
+    [ariaLabel]="closeLabel()"
     class="lz-toast-notification__close"
     (clicked)="onClose()"
   >
