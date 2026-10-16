@@ -221,6 +221,29 @@ describe('SelectComponent', () => {
     expect(options[1].textContent).toContain('English');
   });
 
+  it('carries an object payload in value and hands back the same option', () => {
+    const profile = { id: 'a1', name: 'Ana Pop' };
+    const options: LzSelectOptionType[] = [
+      { id: 0, title: 'Toți autorii', value: null },
+      { id: 1, title: 'Ana Pop', value: profile },
+    ];
+    const changes: LzSelectOptionType[] = [];
+    component.registerOnChange((v) => changes.push(v!));
+    fixture.componentRef.setInput('options', options);
+    fixture.detectChanges();
+
+    fixture.nativeElement.querySelector('.lz-select-trigger').click();
+    fixture.detectChanges();
+    optionEls()[1].click();
+    fixture.detectChanges();
+
+    expect(changes).toEqual([options[1]]);
+    expect((changes[0] as { value: unknown }).value).toBe(profile);
+    expect(fixture.nativeElement.querySelector('.lz-select-value').textContent.trim()).toBe(
+      'Ana Pop',
+    );
+  });
+
   describe('searchable', () => {
     const searchEl = (): HTMLInputElement | null =>
       document.querySelector('.lz-select-search-input');
