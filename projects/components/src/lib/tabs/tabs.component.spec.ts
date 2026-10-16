@@ -96,4 +96,42 @@ describe('Tabs', () => {
     const badge = fixture.nativeElement.querySelector('lz-badge');
     expect(badge).toBeTruthy();
   });
+
+  // Ported from publikator's own tabs component, which lz-tabs replaces there.
+  describe('accessibility', () => {
+    function render(activeTab: number, style: 'underline' | 'underline-text' = 'underline') {
+      fixture.componentRef.setInput('tabs', ['General', 'Conținut']);
+      fixture.componentRef.setInput('style', style);
+      fixture.componentRef.setInput('activeTab', activeTab);
+      fixture.detectChanges();
+
+      return fixture.nativeElement as HTMLElement;
+    }
+
+    it('wraps the tabs in a tablist, so assistive tech reads them as one tab set', () => {
+      const host = render(0);
+      const list = host.querySelector('[role="tablist"]');
+      const tabs = Array.from(host.querySelectorAll('[role="tab"]'));
+
+      expect(list).not.toBeNull();
+      expect(tabs.length).toBe(2);
+      expect(tabs.every((tab) => tab.parentElement === list)).toBeTrue();
+    });
+
+    it('marks exactly the active tab as selected', () => {
+      const selected = Array.from(render(1).querySelectorAll('[role="tab"]')).map((tab) =>
+        tab.getAttribute('aria-selected'),
+      );
+
+      expect(selected).toEqual(['false', 'true']);
+    });
+
+    for (const style of ['underline', 'underline-text'] as const) {
+      it(`hides the decorative ${style} indicator from assistive tech`, () => {
+        const underline = render(0, style).querySelector('.lz-tabs__underline');
+
+        expect(underline?.getAttribute('aria-hidden')).toBe('true');
+      });
+    }
+  });
 });

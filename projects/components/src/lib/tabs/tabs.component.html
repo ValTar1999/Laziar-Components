@@ -41,8 +41,8 @@
   }
 
   @if (isTextUnderline()) {
-    <div #textUnderline class="lz-tabs__underline"></div>
+    <div #textUnderline class="lz-tabs__underline" aria-hidden="true"></div>
   } @else if (showUnderline()) {
-    <div class="lz-tabs__underline" [ngStyle]="underlineStyle()"></div>
+    <div class="lz-tabs__underline" [ngStyle]="underlineStyle()" aria-hidden="true"></div>
   }
 </div>
