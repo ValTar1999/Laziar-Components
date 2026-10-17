@@ -1,0 +1,62 @@
+/*
+ * Host defaults live in a cascade layer so that classes an app puts on the
+ * element (`hidden`, `w-full`, `text-*`) always win: unlayered rules beat layered
+ * ones whatever their specificity.
+ */
+@layer lz-defaults {
+  :host.lz-empty-state-host {
+    display: block;
+  }
+}
+
+/* Conținut Video's empty state; circle per Figma IMG 7720:21132. */
+.lz-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-block: var(--lz-space-10);
+  font-family: var(--lz-font-sans);
+  text-align: center;
+
+  &[data-full-page='true'] {
+    padding: 8rem 0 0;
+  }
+}
+
+.lz-empty-state__icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: var(--lz-space-10);
+  height: var(--lz-space-10);
+  margin-bottom: var(--lz-space-6);
+  border-radius: 9999px;
+  background-color: var(--lz-color-neutral-50);
+  color: var(--lz-color-neutral-500);
+}
+
+.lz-empty-state__icon-glyph {
+  width: var(--lz-space-5);
+  height: var(--lz-space-5);
+}
+
+.lz-empty-state__heading {
+  margin: 0;
+  color: var(--lz-color-text-primary);
+  font-size: var(--lz-font-size-base);
+  font-weight: var(--lz-font-weight-semibold);
+  line-height: var(--lz-space-6);
+}
+
+.lz-empty-state__description {
+  max-width: 24rem;
+  margin: var(--lz-space-1) 0 0;
+  color: var(--lz-color-neutral-500);
+  font-size: var(--lz-font-size-sm);
+  line-height: 1.25rem;
+}
+
+.lz-empty-state__action {
+  margin-top: var(--lz-space-6);
+}

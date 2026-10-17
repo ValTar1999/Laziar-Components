@@ -1,0 +1,93 @@
+/*
+ * Host defaults live in a cascade layer so that classes an app puts on the
+ * element (`hidden`, `w-full`, `text-*`) always win: unlayered rules beat layered
+ * ones whatever their specificity.
+ */
+@layer lz-defaults {
+  :host.lz-page-header-host {
+    display: block;
+  }
+}
+
+/*
+ * publikator's page top, as on Conținut Video / Setări: 30/32 bold title, actions
+ * on the right, 20px to the tabs (if any), one full-width line under it all.
+ */
+.lz-page-header {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid var(--lz-color-border-subtle);
+  font-family: var(--lz-font-sans);
+}
+
+.lz-page-header__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--lz-space-4, 1rem);
+  padding-bottom: var(--lz-space-5);
+}
+
+.lz-page-header__titles {
+  min-width: 0;
+}
+
+/* Title plus whatever sits beside it (a count, a status badge). */
+.lz-page-header__heading-row {
+  display: flex;
+  align-items: center;
+  gap: var(--lz-space-3, 0.75rem);
+  min-width: 0;
+}
+
+.lz-page-header__title-addon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--lz-space-2, 0.5rem);
+
+  &:empty {
+    display: none;
+  }
+}
+
+.lz-page-header__title {
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  color: var(--lz-color-text-primary);
+  font-size: 1.875rem;
+  font-weight: var(--lz-font-weight-bold);
+  line-height: 2rem;
+  letter-spacing: -1.12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lz-page-header__subtitle {
+  margin: var(--lz-space-1) 0 0;
+  color: var(--lz-color-neutral-500);
+  font-size: var(--lz-font-size-sm);
+  line-height: 1.25rem;
+}
+
+.lz-page-header__actions {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--lz-space-2, 0.5rem);
+
+  &:empty {
+    display: none;
+  }
+}
+
+/* The tabs' underline sits on the header's bottom line. */
+.lz-page-header__tabs {
+  display: flex;
+  margin-bottom: -1px;
+
+  &:empty {
+    display: none;
+  }
+}
