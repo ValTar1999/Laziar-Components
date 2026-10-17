@@ -92,9 +92,15 @@
 
 /* ─── layout ─── */
 
+/*
+ * The icon stays level with the title in a row alert (title/text beside the
+ * actions); centring it only makes sense once title and text share one line.
+ */
 .lz-alert--row .lz-alert__content {
   align-items: flex-start;
+}
 
+.lz-alert--row-text .lz-alert__content {
   @media (min-width: 768px) {
     align-items: center;
   }

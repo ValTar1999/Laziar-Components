@@ -21,6 +21,46 @@ describe('Alert', () => {
     expect(component).toBeTruthy();
   });
 
+  // isRow puts the body (title/text | actions) in a row from md up, but the icon
+  // stays level with the title, as in publikator's alert; only isRowtext, which puts
+  // title and text on one line, centres it.
+  // The test browser is narrower than md, so this reads the md rules themselves.
+  describe('icon alignment from md up', () => {
+    function mdContentAlign(modifier: 'row' | 'row-text'): string[] {
+      const found: string[] = [];
+      for (const sheet of Array.from(document.styleSheets)) {
+        let rules: CSSRule[];
+        try {
+          rules = Array.from(sheet.cssRules);
+        } catch {
+          continue;
+        }
+        for (const rule of rules) {
+          if (!(rule instanceof CSSMediaRule) || !rule.conditionText.includes('768px')) continue;
+          for (const inner of Array.from(rule.cssRules)) {
+            if (
+              inner instanceof CSSStyleRule &&
+              new RegExp(`\\.lz-alert--${modifier}(?![\\w-])`).test(inner.selectorText) &&
+              inner.selectorText.includes('.lz-alert__content') &&
+              inner.style.alignItems
+            ) {
+              found.push(inner.style.alignItems);
+            }
+          }
+        }
+      }
+      return found;
+    }
+
+    it('keeps the icon at the top with isRow', () => {
+      expect(mdContentAlign('row')).not.toContain('center');
+    });
+
+    it('centres the icon with isRowtext', () => {
+      expect(mdContentAlign('row-text')).toEqual(['center']);
+    });
+  });
+
   it('should emit closed event when close button is clicked', () => {
     spyOn(component['closed'], 'emit');
 
