@@ -1,0 +1,12 @@
+<header class="lz-page-header">
+  <div class="lz-page-header__row">
+    <div class="lz-page-header__titles">
+      <h1 class="lz-page-header__title">{{ heading() }}</h1>
+      @if (subtitle()) {
+        <p class="lz-page-header__subtitle">{{ subtitle() }}</p>
+      }
+    </div>
+    <div class="lz-page-header__actions"><ng-content select="[lzPageHeaderActions]" /></div>
+  </div>
+  <div class="lz-page-header__tabs"><ng-content select="[lzPageHeaderTabs]" /></div>
+</header>

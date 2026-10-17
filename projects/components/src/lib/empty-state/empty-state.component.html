@@ -1,0 +1,22 @@
+<div class="lz-empty-state" [attr.data-full-page]="fullPage() ? 'true' : null">
+  <span class="lz-empty-state__icon" aria-hidden="true">
+    <lz-icon [name]="icon()" [type]="iconType()" class="lz-empty-state__icon-glyph" />
+  </span>
+  @if (heading()) {
+    <p class="lz-empty-state__heading">{{ heading() }}</p>
+  }
+  @if (description()) {
+    <p class="lz-empty-state__description">{{ description() }}</p>
+  }
+  @if (actionLabel()) {
+    <lz-button
+      class="lz-empty-state__action"
+      size="sm"
+      pill
+      [label]="actionLabel()"
+      [icon]="actionIcon()"
+      iconPosition="left"
+      (clicked)="action.emit()"
+    />
+  }
+</div>
