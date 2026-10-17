@@ -6,6 +6,7 @@ import { PageHeader } from './page-header.component';
   imports: [PageHeader],
   template: `
     <lz-page-header id="full" heading="Conținut Video" subtitle="Videoclipuri și playlisturi">
+      <span lzPageHeaderTitleAddon class="count">12 / 40</span>
       <button lzPageHeaderActions type="button">Creează</button>
       <nav lzPageHeaderTabs>Tabs</nav>
     </lz-page-header>
@@ -39,6 +40,13 @@ describe('PageHeader', () => {
       'Videoclipuri și playlisturi',
     );
     expect(part('bare', '.lz-page-header__subtitle')).toBeNull();
+  });
+
+  it('puts the title addon right beside the title', () => {
+    const addon = part('full', '.lz-page-header__title-addon .count');
+    expect(addon?.textContent).toBe('12 / 40');
+    expect(addon?.closest('.lz-page-header__heading-row')).not.toBeNull();
+    expect(getComputedStyle(part('bare', '.lz-page-header__title-addon')!).display).toBe('none');
   });
 
   it('projects actions and tabs into their slots', () => {

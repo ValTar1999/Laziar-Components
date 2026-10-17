@@ -5,7 +5,8 @@ import { LzInputFlush } from '../internal/lz-input-flush.directive';
  * Top of a publikator page: title (+ optional subtitle), actions on the right,
  * optional tabs underneath, and one full-width line under it all.
  *
- * Project actions with `[lzPageHeaderActions]` and tabs with `[lzPageHeaderTabs]`:
+ * Project actions with `[lzPageHeaderActions]`, tabs with `[lzPageHeaderTabs]`, and
+ * anything that belongs beside the title (a count, a status) with `[lzPageHeaderTitleAddon]`:
  *
  * ```html
  * <lz-page-header heading="Conținut Video">
