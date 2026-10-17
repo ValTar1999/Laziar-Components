@@ -61,18 +61,20 @@ export function attachLzFloating(
       size({
         ...(options.sizePadding != null ? { padding: options.sizePadding } : {}),
         apply({ rects, availableHeight, elements }) {
-          const style: Partial<CSSStyleDeclaration> = {};
+          // `important`: theme.css gives overlay panes `width: auto !important`
+          // (and friends), which would otherwise win over these computed sizes.
+          const set = (property: string, value: string): void =>
+            elements.floating.style.setProperty(property, value, 'important');
           if (options.matchWidth) {
-            style.width = `${rects.reference.width}px`;
+            set('width', `${rects.reference.width}px`);
           }
           if (options.minWidth != null) {
             const floor = options.minWidth === true ? 0 : options.minWidth;
-            style.minWidth = `${Math.max(floor, rects.reference.width)}px`;
+            set('min-width', `${Math.max(floor, rects.reference.width)}px`);
           }
           if (options.maxHeight != null) {
-            style.maxHeight = `${Math.min(options.maxHeight, Math.max(0, availableHeight))}px`;
+            set('max-height', `${Math.min(options.maxHeight, Math.max(0, availableHeight))}px`);
           }
-          Object.assign(elements.floating.style, style);
         },
       }),
     );
