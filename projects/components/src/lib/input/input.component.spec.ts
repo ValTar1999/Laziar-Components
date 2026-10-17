@@ -52,6 +52,62 @@ describe('InputComponent', () => {
     expect(fixture.nativeElement.querySelector('input').value).toBe('');
   });
 
+  it('names the search clear button and hides its icon from assistive tech', () => {
+    fixture.componentRef.setInput('type', 'search');
+    component.writeValue('licee');
+    fixture.detectChanges();
+
+    const clear = fixture.nativeElement.querySelector('.lz-input-clear-button') as HTMLElement;
+    expect(clear.getAttribute('aria-label')).toBe('Clear search');
+    expect(clear.querySelector('lz-icon')?.getAttribute('aria-hidden')).toBe('true');
+
+    fixture.componentRef.setInput('clearSearchLabel', 'Șterge căutarea');
+    fixture.detectChanges();
+    expect(clear.getAttribute('aria-label')).toBe('Șterge căutarea');
+  });
+
+  describe('onlyNumbers', () => {
+    function type(value: string): HTMLInputElement {
+      const el = fixture.nativeElement.querySelector('input') as HTMLInputElement;
+      el.value = value;
+      el.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+
+      return el;
+    }
+
+    it('keeps only digits in the field, the model and valueChange', () => {
+      const changes: string[] = [];
+      component.valueChange.subscribe((v) => changes.push(v));
+      const modelChanges: string[] = [];
+      component.registerOnChange((v) => modelChanges.push(v));
+      fixture.componentRef.setInput('onlyNumbers', true);
+      fixture.detectChanges();
+
+      const el = type('12a3-4 b');
+
+      expect(el.value).toBe('1234');
+      expect(changes).toEqual(['1234']);
+      expect(modelChanges).toEqual(['1234']);
+    });
+
+    it('asks mobile keyboards for digits', () => {
+      fixture.componentRef.setInput('onlyNumbers', true);
+      fixture.detectChanges();
+      const el = fixture.nativeElement.querySelector('input') as HTMLInputElement;
+
+      expect(el.getAttribute('inputmode')).toBe('numeric');
+      expect(el.getAttribute('pattern')).toBe('[0-9]*');
+    });
+
+    it('leaves other characters alone by default', () => {
+      const el = type('12a3');
+
+      expect(el.value).toBe('12a3');
+      expect(el.getAttribute('inputmode')).toBeNull();
+    });
+  });
+
   it('should work with reactive forms', () => {
     const control = new FormControl('initial');
 

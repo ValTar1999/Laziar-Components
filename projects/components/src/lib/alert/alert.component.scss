@@ -6,9 +6,17 @@
  * Onest 600 на title, padding p-3/p-4, radius 8px.
  */
 
-:host.lz-alert-host {
-  display: block;
-  width: 100%;
+/*
+ * Host defaults live in a cascade layer so that classes an app puts on the
+ * element (`hidden`, `w-full`, `text-*`) always win: unlayered rules beat layered
+ * ones whatever their specificity. Unlayered, these rules would tie with (or beat)
+ * a utility class and, emitted after the app's global CSS, silently override it.
+ */
+@layer lz-defaults {
+  :host.lz-alert-host {
+    display: block;
+    width: 100%;
+  }
 }
 
 .lz-alert {
@@ -84,9 +92,15 @@
 
 /* ─── layout ─── */
 
+/*
+ * The icon stays level with the title in a row alert (title/text beside the
+ * actions); centring it only makes sense once title and text share one line.
+ */
 .lz-alert--row .lz-alert__content {
   align-items: flex-start;
+}
 
+.lz-alert--row-text .lz-alert__content {
   @media (min-width: 768px) {
     align-items: center;
   }

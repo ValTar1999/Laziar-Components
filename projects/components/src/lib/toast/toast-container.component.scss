@@ -1,12 +1,20 @@
-:host {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 2147483647;
-  height: 0;
-  overflow: visible;
-  pointer-events: none;
+/*
+ * Host defaults live in a cascade layer so that classes an app puts on the
+ * element (`hidden`, `w-full`, `text-*`) always win: unlayered rules beat layered
+ * ones whatever their specificity. Unlayered, these rules would tie with (or beat)
+ * a utility class and, emitted after the app's global CSS, silently override it.
+ */
+@layer lz-defaults {
+  :host {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2147483647;
+    height: 0;
+    overflow: visible;
+    pointer-events: none;
+  }
 }
 
 .lz-toast-container {

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { ToastNotification } from './toast-notification.component';
 import { ToastService } from './toast.service';
@@ -18,6 +18,9 @@ import { ToastService } from './toast.service';
 })
 export class ToastContainer {
   private readonly toastService = inject(ToastService);
+
+  /** Accessible name of each toast's close button; consumers pass a localized string. */
+  readonly closeLabel = input('Dismiss notification');
 
   protected readonly toasts = this.toastService.toasts;
 

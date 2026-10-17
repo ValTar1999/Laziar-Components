@@ -81,8 +81,30 @@ export class SelectComponent implements ControlValueAccessor, OnDestroy {
   readonly helperText = input<string | undefined>(undefined);
   readonly error = input(false, { transform: booleanAttribute });
   readonly disabled = input(false, { transform: booleanAttribute });
+  /** Adds a search box above the options that filters them by title and date. */
+  readonly searchable = input(false, { transform: booleanAttribute });
+  readonly searchPlaceholder = input('Search');
+  /** Shown in place of the options when a search matches none of them. */
+  readonly noResultsText = input('No results');
 
   readonly opened = output<void>();
+
+  protected readonly searchQuery = signal('');
+  protected readonly filteredOptions = computed(() => {
+    const options = this.options();
+    const query = this.searchQuery().trim().toLowerCase();
+    if (!this.searchable() || !query) return options;
+
+    return options.filter((option) =>
+      `${lzSelectOptionLabel(option)} ${lzSelectOptionDate(option) ?? ''}`
+        .trim()
+        .toLowerCase()
+        .includes(query),
+    );
+  });
+  protected readonly showNoResults = computed(
+    () => this.searchable() && !!this.searchQuery().trim() && this.filteredOptions().length === 0,
+  );
 
   readonly selectId = `lz-select-${nextSelectFieldId++}`;
   readonly listboxId = `${this.selectId}-listbox`;
@@ -228,6 +250,7 @@ export class SelectComponent implements ControlValueAccessor, OnDestroy {
   private openDropdown(): void {
     if (this.isOpen() || this.effectiveDisabled()) return;
 
+    this.searchQuery.set('');
     this.isOpen.set(true);
     this.attachOverlay();
     this.opened.emit();
@@ -235,7 +258,12 @@ export class SelectComponent implements ControlValueAccessor, OnDestroy {
 
   private closeDropdown(): void {
     this.isOpen.set(false);
+    this.searchQuery.set('');
     this.detachOverlay();
+  }
+
+  protected onSearchInput(event: Event): void {
+    this.searchQuery.set((event.target as HTMLInputElement | null)?.value ?? '');
   }
 
   private attachOverlay(): void {
