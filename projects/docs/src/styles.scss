@@ -1,5 +1,19 @@
 /* Global docs styles — theme tokens loaded via angular.json styles. */
 
+/* The fonts theme.css names, self-hosted: the library leaves them to the host app. */
+@import '@fontsource/bitter/400.css';
+@import '@fontsource/bitter/500.css';
+@import '@fontsource/lora/400.css';
+@import '@fontsource/lora/500.css';
+@import '@fontsource/lora/600.css';
+@import '@fontsource/lora/700.css';
+@import '@fontsource/lora/400-italic.css';
+@import '@fontsource/lora/500-italic.css';
+@import '@fontsource/onest/400.css';
+@import '@fontsource/onest/500.css';
+@import '@fontsource/onest/600.css';
+@import '@fontsource/onest/700.css';
+
 :root,
 [data-theme='light'] {
   --docs-canvas: #fffffa;
