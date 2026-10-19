@@ -1,4 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Onest:wght@400;500;600;700&display=swap');
+/*
+ * Fonts are not loaded here. The host app provides the Onest and Lora faces
+ * it uses (self-hosted, e.g. Fontsource), so the library neither decides
+ * every app's font downloads nor makes builds and browsers depend on Google.
+ */
 
 /**
  * Laziar design tokens (light defaults).

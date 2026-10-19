@@ -19,6 +19,8 @@ Sass helpers: `projects/components/src/styles/_mixins.scss`, `_breakpoints.scss`
 /* workspace source: projects/components/src/styles/theme.css */
 ```
 
+`theme.css` does not load any font: the app provides Onest and Lora itself. See [Typography](#typography).
+
 ### 2. Wire `ThemeService`
 
 `ThemeService` is `providedIn: 'root'`. On the browser it initializes automatically (reads `localStorage`, sets `data-theme` on `<html>`, listens to `prefers-color-scheme`).
@@ -246,7 +248,19 @@ Defaults below: **Light** / **Dark** (dark = `[data-theme="dark"]` and system-au
 | `--lz-shadow-focus` | Ring + offset | uses background + focus-ring | same |
 | `--lz-shadow-sticky` | Table sticky edge | pub table shadow | darker |
 
-`theme.css` loads **Onest** and **Lora** from Google Fonts and sets `html, body { font-family: var(--lz-font-sans); }`. Override the tokens or the body rule in the host app if you use a different stack.
+`theme.css` names **Onest** and **Lora** in its tokens (with **Bitter** as an optional serif fallback) and sets `html, body { font-family: var(--lz-font-sans); }`, but it **does not load any font**. The host app provides the faces it uses. Self-host them, for example with Fontsource, imported from the app's global stylesheet:
+
+```css
+@import "@laziar/components/styles/theme.css";
+@import "@fontsource/onest/400.css";
+@import "@fontsource/onest/500.css";
+@import "@fontsource/onest/600.css";
+@import "@fontsource/onest/700.css";
+@import "@fontsource/lora/400.css";
+@import "@fontsource/lora/700.css";
+```
+
+Import only the weights and styles the app uses. Do not load the fonts from Google Fonts. An optimized Angular build fetches Google Fonts URLs to inline them, so the build would fail whenever Google is unreachable. Override the tokens or the body rule in the host app if you use a different stack.
 
 ### Typography
 
