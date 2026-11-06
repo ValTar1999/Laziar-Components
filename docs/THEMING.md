@@ -262,6 +262,8 @@ Defaults below: **Light** / **Dark** (dark = `[data-theme="dark"]` and system-au
 
 Import only the weights and styles the app uses. Do not load the fonts from Google Fonts. An optimized Angular build fetches Google Fonts URLs to inline them, so the build would fail whenever Google is unreachable. Override the tokens or the body rule in the host app if you use a different stack.
 
+`theme.css` also turns on grayscale font smoothing for the whole page (`body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }`), which makes text look slightly thinner on macOS. Set both back to `auto` on `body` in the host app to opt out.
+
 ### Typography
 
 | Token | Description | Value |

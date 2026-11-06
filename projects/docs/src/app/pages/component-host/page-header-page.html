@@ -1,0 +1,22 @@
+<docs-component-page [meta]="meta">
+  <ng-template docsPreview let-values>
+    <lz-page-header [heading]="str(values, 'heading')" [subtitle]="str(values, 'subtitle')">
+      @if (bool(values, 'showAddon')) {
+        <span lzPageHeaderTitleAddon>12 / 40</span>
+      }
+      @if (bool(values, 'showActions')) {
+        <lz-button
+          lzPageHeaderActions
+          label="Creează"
+          size="sm"
+          pill
+          icon="plus"
+          iconPosition="left"
+        />
+      }
+      @if (bool(values, 'showTabs')) {
+        <lz-tabs lzPageHeaderTabs [tabs]="tabs" style="underline" />
+      }
+    </lz-page-header>
+  </ng-template>
+</docs-component-page>

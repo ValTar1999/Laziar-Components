@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, booleanAttribute, input, output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  booleanAttribute,
+  input,
+  numberAttribute,
+  output,
+} from '@angular/core';
 import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { Button } from '../button/button.component';
 import { Icon } from '../icon/icon.component';
@@ -28,6 +35,8 @@ export class EmptyState {
   readonly iconType = input<LzIconVariant>('outline');
   /** Title. Not called `title`, which would also become the host's native tooltip. */
   readonly heading = input('');
+  /** Heading level the title is announced at (its look does not change). */
+  readonly headingLevel = input(2, { transform: numberAttribute });
   readonly description = input('');
   /** Button label; no button without it. */
   readonly actionLabel = input('');

@@ -3,7 +3,9 @@
     <lz-icon [name]="icon()" [type]="iconType()" class="lz-empty-state__icon-glyph" />
   </span>
   @if (heading()) {
-    <p class="lz-empty-state__heading">{{ heading() }}</p>
+    <p class="lz-empty-state__heading" role="heading" [attr.aria-level]="headingLevel()">
+      {{ heading() }}
+    </p>
   }
   @if (description()) {
     <p class="lz-empty-state__description">{{ description() }}</p>

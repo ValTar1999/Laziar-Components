@@ -9,7 +9,7 @@
 
     <div class="lz-alert__body">
       <div class="lz-alert__text-content">
-        <div class="lz-alert__title">
+        <div class="lz-alert__title" *ngIf="title()">
           {{ title() }}
         </div>
         <div class="lz-alert__text" *ngIf="text()">

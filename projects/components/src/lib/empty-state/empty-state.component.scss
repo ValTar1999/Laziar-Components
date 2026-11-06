@@ -11,6 +11,9 @@
 
 /* Conținut Video's empty state; circle per Figma IMG 7720:21132. */
 .lz-empty-state {
+  --lz-empty-state-full-page-offset: var(--lz-space-32);
+  --lz-empty-state-description-max-width: 24rem;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,7 +22,7 @@
   text-align: center;
 
   &[data-full-page='true'] {
-    padding: 8rem 0 0;
+    padding: var(--lz-empty-state-full-page-offset) 0 0;
   }
 }
 
@@ -50,7 +53,7 @@
 }
 
 .lz-empty-state__description {
-  max-width: 24rem;
+  max-width: var(--lz-empty-state-description-max-width);
   margin: var(--lz-space-1) 0 0;
   color: var(--lz-color-neutral-500);
   font-size: var(--lz-font-size-sm);

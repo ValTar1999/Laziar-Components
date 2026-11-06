@@ -11,6 +11,7 @@ import { PageHeader } from './page-header.component';
       <nav lzPageHeaderTabs>Tabs</nav>
     </lz-page-header>
     <lz-page-header id="bare" heading="Setări" />
+    <lz-page-header id="untitled" />
   `,
 })
 class HostComponent {}
@@ -33,6 +34,10 @@ describe('PageHeader', () => {
 
   it('renders the title as the page heading', () => {
     expect(part('full', 'h1')?.textContent?.trim()).toBe('Conținut Video');
+  });
+
+  it('leaves out an empty <h1> when there is no heading', () => {
+    expect(part('untitled', 'h1')).toBeNull();
   });
 
   it('shows the subtitle only when given', () => {

@@ -1,6 +1,7 @@
-<div class="lz-loading-state" role="status" aria-live="polite">
+<div class="lz-loading-state">
   <lz-loading size="sm" aria-hidden="true" />
   @if (label()) {
-    <span class="lz-loading-state__label">{{ label() }}</span>
+    <span class="lz-loading-state__label" aria-hidden="true">{{ label() }}</span>
   }
+  <span class="lz-loading-state__announcement" role="status">{{ announcement() }}</span>
 </div>

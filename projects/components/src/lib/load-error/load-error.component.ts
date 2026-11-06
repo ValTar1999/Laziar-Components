@@ -5,7 +5,8 @@ import { Button } from '../button/button.component';
 
 /**
  * Data that failed to load: an error alert with a retry button on its right,
- * the way publikator's lists report it.
+ * the way publikator's lists report it. The host is a `role="alert"`, so screen
+ * readers announce the error as soon as it appears.
  */
 @Component({
   selector: 'lz-load-error',
@@ -17,6 +18,7 @@ import { Button } from '../button/button.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'lz-load-error-host',
+    role: 'alert',
   },
 })
 export class LoadError {

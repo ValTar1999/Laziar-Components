@@ -14,6 +14,10 @@
  * on the right, 20px to the tabs (if any), one full-width line under it all.
  */
 .lz-page-header {
+  --lz-page-header-title-size: 1.875rem;
+  --lz-page-header-title-line-height: var(--lz-space-8);
+  --lz-page-header-title-tracking: -1.12px;
+
   display: flex;
   flex-direction: column;
   border-bottom: 1px solid var(--lz-color-border-subtle);
@@ -56,10 +60,10 @@
   margin: 0;
   overflow: hidden;
   color: var(--lz-color-text-primary);
-  font-size: 1.875rem;
+  font-size: var(--lz-page-header-title-size);
   font-weight: var(--lz-font-weight-bold);
-  line-height: 2rem;
-  letter-spacing: -1.12px;
+  line-height: var(--lz-page-header-title-line-height);
+  letter-spacing: var(--lz-page-header-title-tracking);
   text-overflow: ellipsis;
   white-space: nowrap;
 }

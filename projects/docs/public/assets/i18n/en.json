@@ -14,6 +14,7 @@
       "dataDisplay": "Data Display",
       "navigation": "Navigation",
       "media": "Media",
+      "pageLayout": "Page Layout",
       "services": "Services"
     },
     "items": {
@@ -55,6 +56,10 @@
       "moreActionsMenu": "More Actions Menu",
       "swiper": "Swiper",
       "videoPlayer": "Video Player",
+      "pageHeader": "Page Header",
+      "emptyState": "Empty State",
+      "loadingState": "Loading State",
+      "loadError": "Load Error",
       "themeService": "ThemeService"
     }
   },

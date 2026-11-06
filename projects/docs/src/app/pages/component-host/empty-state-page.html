@@ -1,0 +1,14 @@
+<docs-component-page [meta]="meta">
+  <ng-template docsPreview let-values>
+    <lz-empty-state
+      [icon]="str(values, 'icon', 'inbox')"
+      [iconType]="$any(str(values, 'iconType', 'outline'))"
+      [heading]="str(values, 'heading')"
+      [headingLevel]="num(values, 'headingLevel', 2)"
+      [description]="str(values, 'description')"
+      [actionLabel]="str(values, 'actionLabel')"
+      [actionIcon]="optStr(values, 'actionIcon')"
+      [fullPage]="bool(values, 'fullPage')"
+    />
+  </ng-template>
+</docs-component-page>

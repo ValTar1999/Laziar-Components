@@ -143,6 +143,7 @@
   --lz-space-16: 4rem;
   --lz-space-18: 4.5rem;
   --lz-space-20: 5rem;
+  --lz-space-32: 8rem;
 
   /* ─── Radii (rounded-md / rounded-lg from button tokens) ─── */
   --lz-radius-none: 0;
@@ -623,6 +624,11 @@
 html,
 body {
   font-family: var(--lz-font-sans);
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Applied to <body> by lz-modal while a dialog is open. Global on purpose —

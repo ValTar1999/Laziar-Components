@@ -26,6 +26,18 @@ describe('LoadError', () => {
     expect(host.querySelector('.lz-alert__text')?.textContent?.trim()).toBe('Încercați din nou.');
   });
 
+  it('is an alert, so screen readers announce it when it appears', () => {
+    render({ heading: 'Eroare' });
+
+    expect(host.getAttribute('role')).toBe('alert');
+  });
+
+  it('renders no empty title without a heading', () => {
+    render({ text: 'Încercați din nou.' });
+
+    expect(host.querySelector('.lz-alert__title')).toBeNull();
+  });
+
   it('retries from its button, labelled "Reîncearcă" by default', () => {
     let retries = 0;
     fixture.componentInstance.retry.subscribe(() => retries++);

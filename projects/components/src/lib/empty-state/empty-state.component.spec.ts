@@ -40,6 +40,15 @@ describe('EmptyState', () => {
     expect(el('.lz-empty-state__description')?.textContent?.trim()).toBe('Încarcă primul video');
   });
 
+  it('exposes the heading as a level-2 heading, level configurable', () => {
+    render({ heading: 'Nimic aici' });
+    expect(el('.lz-empty-state__heading')?.getAttribute('role')).toBe('heading');
+    expect(el('.lz-empty-state__heading')?.getAttribute('aria-level')).toBe('2');
+
+    render({ headingLevel: 3 });
+    expect(el('.lz-empty-state__heading')?.getAttribute('aria-level')).toBe('3');
+  });
+
   it('has no button without an action label', () => {
     render({ heading: 'Nimic aici' });
 

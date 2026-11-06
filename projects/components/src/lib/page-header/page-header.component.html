@@ -2,7 +2,9 @@
   <div class="lz-page-header__row">
     <div class="lz-page-header__titles">
       <div class="lz-page-header__heading-row">
-        <h1 class="lz-page-header__title">{{ heading() }}</h1>
+        @if (heading()) {
+          <h1 class="lz-page-header__title">{{ heading() }}</h1>
+        }
         <div class="lz-page-header__title-addon">
           <ng-content select="[lzPageHeaderTitleAddon]" />
         </div>

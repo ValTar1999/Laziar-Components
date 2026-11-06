@@ -15,16 +15,20 @@ import { CalendarPage } from './calendar-page';
 import { CardPage } from './card-page';
 import { CheckboxPage } from './checkbox-page';
 import { DropdownPage } from './dropdown-page';
+import { EmptyStatePage } from './empty-state-page';
 import { ExpandPage } from './expand-page';
 import { IconPage } from './icon-page';
 import { InputPage } from './input-page';
 import { LanguageDropdownPage } from './language-dropdown-page';
 import { LiveEventCardPage } from './live-event-card-page';
+import { LoadErrorPage } from './load-error-page';
 import { LoadingPage } from './loading-page';
+import { LoadingStatePage } from './loading-state-page';
 import { LoginPromptBannerPage } from './login-prompt-banner-page';
 import { ModalPage } from './modal-page';
 import { MoreActionsMenuPage } from './more-actions-menu-page';
 import { NotePanelPage } from './note-panel-page';
+import { PageHeaderPage } from './page-header-page';
 import { ProgressCirclePage } from './progress-circle-page';
 import { PulseDotPage } from './pulse-dot-page';
 import { QuotePage } from './quote-page';
@@ -60,16 +64,20 @@ import { VideoPlayerPage } from './video-player-page';
     CardPage,
     CheckboxPage,
     DropdownPage,
+    EmptyStatePage,
     ExpandPage,
     IconPage,
     InputPage,
     LanguageDropdownPage,
     LiveEventCardPage,
+    LoadErrorPage,
     LoadingPage,
+    LoadingStatePage,
     LoginPromptBannerPage,
     ModalPage,
     MoreActionsMenuPage,
     NotePanelPage,
+    PageHeaderPage,
     ProgressCirclePage,
     PulseDotPage,
     QuotePage,
@@ -126,6 +134,9 @@ import { VideoPlayerPage } from './video-player-page';
       @case ('dropdown') {
         <docs-dropdown-page />
       }
+      @case ('empty-state') {
+        <docs-empty-state-page />
+      }
       @case ('expand') {
         <docs-expand-page />
       }
@@ -141,8 +152,14 @@ import { VideoPlayerPage } from './video-player-page';
       @case ('live-event-card') {
         <docs-live-event-card-page />
       }
+      @case ('load-error') {
+        <docs-load-error-page />
+      }
       @case ('loading') {
         <docs-loading-page />
+      }
+      @case ('loading-state') {
+        <docs-loading-state-page />
       }
       @case ('login-prompt-banner') {
         <docs-login-prompt-banner-page />
@@ -152,6 +169,9 @@ import { VideoPlayerPage } from './video-player-page';
       }
       @case ('more-actions-menu') {
         <docs-more-actions-menu-page />
+      }
+      @case ('page-header') {
+        <docs-page-header-page />
       }
       @case ('progress-circle') {
         <docs-progress-circle-page />

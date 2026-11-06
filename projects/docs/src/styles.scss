@@ -60,7 +60,6 @@ body {
   font-family: var(--lz-font-sans);
   font-size: var(--lz-font-size-base);
   line-height: var(--lz-line-height-base);
-  -webkit-font-smoothing: antialiased;
   transition:
     background-color var(--lz-duration-normal) var(--lz-easing-standard),
     color var(--lz-duration-normal) var(--lz-easing-standard);
