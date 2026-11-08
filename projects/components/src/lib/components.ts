@@ -22,6 +22,8 @@ export * from './badge/badge.types';
 
 export * from './checkbox/checkbox.component';
 export * from './checkbox/checkbox.types';
+export * from './radio-group/radio-group.component';
+export * from './radio-group/radio-group.types';
 
 export * from './switch-toggle/switch-toggle.component';
 export * from './switch-toggle/switch-toggle.types';

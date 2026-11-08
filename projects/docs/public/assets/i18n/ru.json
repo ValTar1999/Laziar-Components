@@ -21,6 +21,7 @@
       "tokensTheme": "Токены и тема",
       "button": "Button",
       "checkbox": "Checkbox",
+      "radioGroup": "Radio group",
       "switch": "Switch",
       "input": "Input",
       "textarea": "Textarea",

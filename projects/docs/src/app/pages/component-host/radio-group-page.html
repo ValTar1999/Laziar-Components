@@ -1,0 +1,13 @@
+<docs-component-page [meta]="meta">
+  <ng-template docsPreview let-values>
+    <lz-radio-group
+      ariaLabel="Delivery mode"
+      [options]="options"
+      [value]="value()"
+      [appearance]="$any(str(values, 'appearance', 'plain'))"
+      [orientation]="$any(str(values, 'orientation', 'vertical'))"
+      [disabled]="bool(values, 'disabled')"
+      (valueChange)="value.set($event)"
+    />
+  </ng-template>
+</docs-component-page>
