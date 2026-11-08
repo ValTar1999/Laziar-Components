@@ -334,3 +334,47 @@
     stroke: none;
   }
 }
+
+/*
+ * `multiple`: a checkbox per option, drawn as lz-checkbox draws its box (16px,
+ * radius 4px, filled #121212 with a white check when chosen). The checkbox shows
+ * the state, so chosen rows are not shaded the way a single select shades its one.
+ */
+.lz-select-option[data-multiple='true'][data-selected='true']:not(:hover):not(:focus-visible) {
+  background-color: transparent;
+}
+
+.lz-select-option[data-multiple='true'] .lz-select-option-content {
+  justify-content: flex-start;
+}
+
+.lz-select-option-checkbox {
+  box-sizing: border-box;
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+  border: 1px solid var(--lz-color-neutral-200);
+  border-radius: 0.25rem;
+  background-color: var(--lz-color-background);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 0.75rem 0.75rem;
+  transition:
+    background-color var(--lz-duration-normal) var(--lz-easing-standard),
+    border-color var(--lz-duration-normal) var(--lz-easing-standard);
+
+  &[data-checked='true'] {
+    border-color: transparent;
+    background-color: var(--lz-color-neutral-900);
+    /* Figma: heroicons-outline/check 12px, stroke 1.5 — the same image as lz-checkbox. */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M2.25 6.375L5.25 9.375L9.75 2.625' stroke='%23FFFFFA' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  }
+}
+
+.lz-select-option:hover .lz-select-option-checkbox[data-checked='false'] {
+  border-color: var(--lz-color-neutral-900);
+}
+
+.lz-select-option[data-multiple='true'] .lz-select-option-title[data-selected='true'] {
+  font-weight: 400;
+}

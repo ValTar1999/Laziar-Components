@@ -2,7 +2,7 @@ import { Component, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { TranslocoService } from '@jsverse/transloco';
-import { SelectComponent } from '@laziar/components';
+import { LzSelectOptionType, SelectComponent } from '@laziar/components';
 import { DocsSandboxValues } from '../../core/component-doc.model';
 import { ComponentPage } from '../../shared/component-page/component-page';
 import { DocsPreviewDirective } from '../../shared/component-page/docs-preview.directive';
@@ -29,6 +29,9 @@ export class SelectPage {
 
   protected readonly meta = SELECT_COMPONENT_META;
   protected value = '';
+  protected chosen: LzSelectOptionType[] = [];
+  protected readonly summary = (chosen: readonly LzSelectOptionType[]): string =>
+    chosen.length === 1 ? String(chosen[0]) : `${chosen.length} selected`;
 
   protected readonly options = computed(() => {
     this.activeLang();

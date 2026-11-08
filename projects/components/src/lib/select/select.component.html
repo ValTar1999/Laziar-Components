@@ -1,6 +1,6 @@
 <div class="lz-select-container" [class.lz-select-container--disabled]="effectiveDisabled()">
   @if (label()) {
-    <label class="lz-select-label" [attr.for]="selectId">
+    <label class="lz-select-label" [id]="labelId" [attr.for]="selectId">
       {{ label() }}
     </label>
   }
@@ -13,7 +13,7 @@
       [id]="selectId"
       [disabled]="effectiveDisabled()"
       [attr.data-size]="size()"
-      [attr.data-selected]="!!selected()"
+      [attr.data-selected]="selection().length > 0"
       [attr.data-disabled]="effectiveDisabled()"
       [attr.data-error]="error()"
       [attr.aria-expanded]="isOpen()"
@@ -50,24 +50,43 @@
           [placeholder]="searchPlaceholder()"
           [attr.aria-label]="searchPlaceholder()"
           [attr.aria-controls]="listboxId"
+          autocomplete="off"
+          spellcheck="false"
+          autocorrect="off"
+          autocapitalize="off"
           [value]="searchQuery()"
           (input)="onSearchInput($event)"
+          (keydown)="onSearchKeydown($event)"
         />
       </div>
     }
-    <ul class="lz-select-dropdown-list" role="listbox" [id]="listboxId">
-      @for (option of filteredOptions(); track option) {
+    <ul
+      class="lz-select-dropdown-list"
+      role="listbox"
+      [id]="listboxId"
+      [attr.aria-labelledby]="label() ? labelId : null"
+      [attr.aria-multiselectable]="multiple() || null"
+    >
+      @for (option of filteredOptions(); track optionKey(option)) {
         <li
           class="lz-select-option"
           role="option"
-          tabindex="0"
+          tabindex="-1"
           [attr.aria-selected]="isSelected(option)"
           [attr.data-selected]="isSelected(option)"
           [attr.data-has-date]="!!formatOptionDate(option)"
+          [attr.data-multiple]="multiple() || null"
           (click)="selectOption(option)"
           (keydown)="onOptionKeydown($event, option)"
         >
           <div class="lz-select-option-content" [attr.data-has-date]="!!formatOptionDate(option)">
+            @if (multiple()) {
+              <span
+                class="lz-select-option-checkbox"
+                aria-hidden="true"
+                [attr.data-checked]="isSelected(option)"
+              ></span>
+            }
             <div class="lz-select-option-text">
               <span class="lz-select-option-title" [attr.data-selected]="isSelected(option)">
                 {{ getOptionTitle(option) }}
@@ -78,7 +97,7 @@
                 </span>
               }
             </div>
-            @if (isSelected(option)) {
+            @if (isSelected(option) && !multiple()) {
               <span class="lz-select-check-badge" aria-hidden="true">
                 <lz-icon name="check" type="mini" class="lz-select-check-icon" />
               </span>
