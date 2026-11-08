@@ -3,6 +3,7 @@
   [class.lz-button--full]="fullWidth()"
   [class.lz-button--icon-end]="!isIconOnly() && resolvedIconPosition() === 'right' && !!icon()"
   [attr.type]="type()"
+  [attr.data-align]="align() === 'center' ? null : align()"
   [disabled]="disabled()"
   [attr.aria-label]="ariaLabel() ?? null"
   [attr.aria-current]="ariaCurrentPage() ? 'page' : null"

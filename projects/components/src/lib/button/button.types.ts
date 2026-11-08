@@ -27,5 +27,14 @@ export type LzButtonIconDirection = 'left' | 'right';
 
 export type LzButtonIconPosition = 'left' | 'right';
 
+/**
+ * Horizontal placement of the icon + label inside the button. Only visible when
+ * the button is wider than its content (`fullWidth`, or a sized host), e.g. a
+ * stack of sidebar navigation entries that must share a left edge.
+ */
+export const LZ_BUTTON_ALIGNS = ['center', 'start', 'end'] as const;
+
+export type LzButtonAlign = (typeof LZ_BUTTON_ALIGNS)[number];
+
 /** Icon style passed to `lz-icon` `type`. */
 export type LzButtonIconVariant = 'outline' | 'solid' | 'mini' | 'micro';

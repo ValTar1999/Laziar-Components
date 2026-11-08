@@ -2,7 +2,12 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { By } from '@angular/platform-browser';
 import { Component } from '@angular/core';
 import { Button } from './button.component';
-import { LZ_BUTTON_COLORS, LZ_BUTTON_SIZES, LZ_BUTTON_VARIANTS } from './button.types';
+import {
+  LZ_BUTTON_ALIGNS,
+  LZ_BUTTON_COLORS,
+  LZ_BUTTON_SIZES,
+  LZ_BUTTON_VARIANTS,
+} from './button.types';
 
 describe('Button', () => {
   let fixture: ComponentFixture<Button>;
@@ -74,6 +79,28 @@ describe('Button', () => {
     fixture.componentRef.setInput('type', 'submit');
     fixture.detectChanges();
     expect(nativeButton().type).toBe('submit');
+  });
+
+  it('should leave data-align off for the default center alignment', () => {
+    expect(component.align()).toBe('center');
+    expect(nativeButton().hasAttribute('data-align')).toBe(false);
+  });
+
+  describe('align', () => {
+    for (const align of LZ_BUTTON_ALIGNS.filter((value) => value !== 'center')) {
+      it(`should apply data-align="${align}"`, () => {
+        fixture.componentRef.setInput('align', align);
+        fixture.detectChanges();
+        expect(nativeButton().getAttribute('data-align')).toBe(align);
+      });
+    }
+
+    it('should place start-aligned content at the left edge of a full-width button', () => {
+      fixture.componentRef.setInput('align', 'start');
+      fixture.componentRef.setInput('fullWidth', true);
+      fixture.detectChanges();
+      expect(getComputedStyle(nativeButton()).justifyContent).toBe('flex-start');
+    });
   });
 
   it('should mark aria-current=page when ariaCurrentPage is true', () => {

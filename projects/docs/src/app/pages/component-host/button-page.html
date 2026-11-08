@@ -12,6 +12,7 @@
       [disabled]="bool(values, 'disabled')"
       [pill]="bool(values, 'pill')"
       [fullWidth]="bool(values, 'fullWidth')"
+      [align]="$any(str(values, 'align', 'center'))"
     />
   </ng-template>
 </docs-component-page>
