@@ -44,12 +44,50 @@ export const TABLE_COMPONENT_META: DocsComponentMeta = {
       description: 'Empty-state heading',
     },
     { name: 'showShadow', type: 'boolean', default: 'true', description: 'Container shadow' },
-    { name: 'rowClickable', type: 'boolean', default: 'false', description: 'Row hover + click' },
+    {
+      name: 'rowClickable',
+      type: 'boolean',
+      default: 'false',
+      description:
+        'Row hover + click. Clicks on a button, link or field inside the row stay with that control',
+    },
+    {
+      name: 'rowFocusable',
+      type: 'boolean',
+      default: 'true',
+      description:
+        'Interactive rows are Tab stops (role link). Off: a pointer-only shortcut, for rows whose action the keyboard reaches inside the row',
+    },
+    {
+      name: 'rowKey',
+      type: 'string | ((row: T) => unknown) | null',
+      default: 'null',
+      description:
+        'Field or function identifying a row, so cell components follow their row across a re-sort (default: tracked by position)',
+    },
+    {
+      name: 'sortKey',
+      type: 'string | null',
+      default: 'null',
+      description: 'The sortable column the rows are sorted by; sets aria-sort and the arrow',
+    },
+    {
+      name: 'sortDirection',
+      type: `'asc' | 'desc'`,
+      default: `'asc'`,
+      description: 'Direction of sortKey',
+    },
   ],
   outputs: [
     { name: 'pageChange', type: 'OutputEmitterRef<number>', description: 'Page index' },
     { name: 'pageSizeChange', type: 'OutputEmitterRef<number>', description: 'Page size' },
-    { name: 'rowClick', type: 'OutputEmitterRef<TableRow>', description: 'Row click' },
+    { name: 'rowClick', type: 'OutputEmitterRef<T>', description: 'Row click (the row as given)' },
+    {
+      name: 'sortChange',
+      type: 'OutputEmitterRef<TableSort>',
+      description:
+        'A sortable header was clicked: same column flips, another starts ascending. The table never reorders data itself',
+    },
   ],
   slots: [
     { name: 'cellTemplate', description: 'Custom cell (`row`, `column`, `value`)' },
@@ -57,6 +95,19 @@ export const TABLE_COMPONENT_META: DocsComponentMeta = {
     { name: 'rowDetailTemplate', description: 'Expandable row body' },
   ],
   examples: [
+    {
+      title: 'Sortable columns',
+      code: `<!-- columns: [{ key: 'name', header: 'Name', sortable: true },
+              { key: 'actions', header: 'Actions', hideHeader: true }] -->
+<lz-table
+  [columns]="columns"
+  [data]="sortedRows()"
+  rowKey="id"
+  [sortKey]="sort().key"
+  [sortDirection]="sort().direction"
+  (sortChange)="sort.set($event)"
+/>`,
+    },
     {
       title: 'Publikator news list',
       code: `<lz-table

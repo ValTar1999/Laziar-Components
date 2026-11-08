@@ -1,5 +1,13 @@
 import { Component, signal } from '@angular/core';
-import { Badge, Button, Table, TableColumn, TableRow, Tooltip } from '@laziar/components';
+import {
+  Badge,
+  Button,
+  Table,
+  TableColumn,
+  TableRow,
+  TableSort,
+  Tooltip,
+} from '@laziar/components';
 import { DocsSandboxValues } from '../../core/component-doc.model';
 import { ComponentPage } from '../../shared/component-page/component-page';
 import { DocsPreviewDirective } from '../../shared/component-page/docs-preview.directive';
@@ -177,11 +185,25 @@ export class TablePage {
   protected readonly meta = TABLE_COMPONENT_META;
   protected readonly page = signal(1);
   protected readonly pageSize = signal(10);
+  /** The table only asks for a sort; the rows are reordered here, as an app would. */
+  protected readonly sort = signal<TableSort>({ key: 'articleId', direction: 'desc' });
 
   protected readonly columns: TableColumn[] = [
     { key: 'cover', header: 'Imagine', width: 'w-[92px]', minWidth: 'min-w-[92px]' },
-    { key: 'title', header: 'Titlu', width: 'w-[260px]', minWidth: 'min-w-[260px]' },
-    { key: 'articleId', header: 'ID', width: 'w-[120px]', minWidth: 'min-w-[120px]' },
+    {
+      key: 'title',
+      header: 'Titlu',
+      width: 'w-[260px]',
+      minWidth: 'min-w-[260px]',
+      sortable: true,
+    },
+    {
+      key: 'articleId',
+      header: 'ID',
+      width: 'w-[120px]',
+      minWidth: 'min-w-[120px]',
+      sortable: true,
+    },
     { key: 'authorProfileName', header: 'Autor', width: 'w-[120px]', minWidth: 'min-w-[120px]' },
     { key: 'categories', header: 'Categorii', width: 'w-[220px]', minWidth: 'min-w-[220px]' },
     {
@@ -193,7 +215,8 @@ export class TablePage {
     { key: 'statusBadge', header: 'Statut', width: 'w-[120px]', minWidth: 'min-w-[120px]' },
     {
       key: 'actions',
-      header: '',
+      header: 'Acțiuni',
+      hideHeader: true,
       width: 'w-12',
       minWidth: 'min-w-12',
       align: 'right',
@@ -215,7 +238,12 @@ export class TablePage {
     if (this.bool(values, 'empty')) return [];
     const size = this.pageSize();
     const start = (this.page() - 1) * size;
-    return SAMPLE_ROWS.slice(start, start + size);
+    const { key, direction } = this.sort();
+    const sorted = [...SAMPLE_ROWS].sort((a, b) => {
+      const order = String(a[key]).localeCompare(String(b[key]), 'ro', { numeric: true });
+      return direction === 'asc' ? order : -order;
+    });
+    return sorted.slice(start, start + size);
   }
 
   protected total(values: DocsSandboxValues): number {

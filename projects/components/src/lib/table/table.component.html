@@ -18,7 +18,7 @@
                 [ngStyle]="columnStyle(column)"
                 [attr.data-align]="column.align ?? 'left'"
                 [attr.data-sticky]="column.sticky ? (column.stickyPosition ?? 'left') : null"
-                [attr.aria-sort]="column.ariaSort ?? null"
+                [attr.aria-sort]="resolveAriaSort(column)"
               >
                 @if (last && column.sticky) {
                   <span
@@ -26,7 +26,32 @@
                     [attr.data-visible]="!isScrolledToEnd()"
                   ></span>
                 }
-                @if (headerTemplate(); as template) {
+                @if (column.hideHeader) {
+                  <span class="lz-table__visually-hidden">{{ column.header }}</span>
+                } @else if (column.sortable) {
+                  <!-- The state is on the th (aria-sort); the arrow only draws it. -->
+                  <button
+                    type="button"
+                    class="lz-table__sort-button"
+                    [attr.data-sorted]="isSortedBy(column) ? 'true' : null"
+                    (click)="requestSort(column)"
+                  >
+                    @if (headerTemplate(); as template) {
+                      <ng-container
+                        [ngTemplateOutlet]="template"
+                        [ngTemplateOutletContext]="{ $implicit: column }"
+                      />
+                    } @else {
+                      {{ column.header }}
+                    }
+                    <lz-icon
+                      class="lz-table__sort-icon"
+                      [name]="sortIcon(column)"
+                      type="mini"
+                      aria-hidden="true"
+                    />
+                  </button>
+                } @else if (headerTemplate(); as template) {
                   <ng-container
                     [ngTemplateOutlet]="template"
                     [ngTemplateOutletContext]="{ $implicit: column }"
@@ -39,15 +64,15 @@
           </tr>
         </thead>
         <tbody class="lz-table__body">
-          @for (row of data(); track $index) {
+          @for (row of data(); track trackRow(row, $index)) {
             <tr
               class="lz-table__row"
               [ngClass]="resolveRowClass(row)"
               [class.lz-table__row--interactive]="canInteractWithRow(row)"
-              [attr.tabindex]="canInteractWithRow(row) ? 0 : null"
+              [attr.tabindex]="isRowFocusable(row) ? 0 : null"
               [attr.role]="resolveRowRole(row)"
               [attr.aria-label]="resolveRowAriaLabel(row)"
-              (click)="onRowClick(row)"
+              (click)="onRowClick($event, row)"
               (keydown)="onRowKeydown($event, row)"
             >
               @for (column of columns(); track column.key; let last = $last) {

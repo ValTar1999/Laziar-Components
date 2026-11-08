@@ -73,6 +73,7 @@ const EXPECTED_PUBLIC_API: readonly string[] = [
   'LZ_PAGINATION_SIZES',
   'LZ_SELECT_SIZES',
   'LZ_SWITCH_TOGGLE_SIZES',
+  'LZ_TABLE_SORT_DIRECTIONS',
   'LZ_TEXTAREA_RESIZE',
   'LZ_THEME_STORAGE_KEY',
   'LanguageDropdown',
@@ -110,6 +111,7 @@ const EXPECTED_PUBLIC_API: readonly string[] = [
   'buildAvatarInitials',
   'lzSelectOptionDate',
   'lzSelectOptionLabel',
+  'lzTableNextSort',
   'lzTableUtilityToCss',
 ];
 
