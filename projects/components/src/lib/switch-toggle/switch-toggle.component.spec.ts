@@ -65,6 +65,31 @@ describe('SwitchToggle', () => {
     expect(toggle.getAttribute('aria-checked')).toBe('true');
   });
 
+  it('should render no accessible-name attributes by default', () => {
+    const toggle: HTMLButtonElement = fixture.nativeElement.querySelector('button');
+    expect(toggle.hasAttribute('aria-label')).toBe(false);
+    expect(toggle.hasAttribute('aria-labelledby')).toBe(false);
+    expect(toggle.hasAttribute('aria-describedby')).toBe(false);
+  });
+
+  it('should name the switch from ariaLabel', () => {
+    fixture.componentRef.setInput('ariaLabel', 'Toggle Frequency Capping');
+    fixture.detectChanges();
+
+    const toggle: HTMLButtonElement = fixture.nativeElement.querySelector('button');
+    expect(toggle.getAttribute('aria-label')).toBe('Toggle Frequency Capping');
+  });
+
+  it('should point the switch at a visible label and hint', () => {
+    fixture.componentRef.setInput('ariaLabelledBy', 'capping-title');
+    fixture.componentRef.setInput('ariaDescribedBy', 'capping-hint');
+    fixture.detectChanges();
+
+    const toggle: HTMLButtonElement = fixture.nativeElement.querySelector('button');
+    expect(toggle.getAttribute('aria-labelledby')).toBe('capping-title');
+    expect(toggle.getAttribute('aria-describedby')).toBe('capping-hint');
+  });
+
   it('should apply correct CSS classes', () => {
     fixture.componentRef.setInput('size', 'sm');
     fixture.componentRef.setInput('active', true);
