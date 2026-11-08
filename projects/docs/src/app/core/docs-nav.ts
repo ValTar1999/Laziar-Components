@@ -75,6 +75,14 @@ export const DOCS_NAV: DocsNavGroup[] = [
         keywords: 'checkbox radio lz-checkbox',
       },
       {
+        id: 'radio-group',
+        label: 'nav.items.radioGroup',
+        route: '/components/radio-group',
+        kind: 'component',
+        icon: 'list-bullet',
+        keywords: 'radio group lz-radio-group options choice',
+      },
+      {
         id: 'switch-toggle',
         label: 'nav.items.switch',
         route: '/components/switch-toggle',

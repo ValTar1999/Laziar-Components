@@ -29,6 +29,7 @@ import { ProgressCirclePage } from './progress-circle-page';
 import { PulseDotPage } from './pulse-dot-page';
 import { QuotePage } from './quote-page';
 import { SelectPage } from './select-page';
+import { RadioGroupPage } from './radio-group-page';
 import { StubPage } from './stub-page';
 import { SwitchTogglePage } from './switch-toggle-page';
 import { SwiperPage } from './swiper-page';
@@ -74,6 +75,7 @@ import { VideoPlayerPage } from './video-player-page';
     PulseDotPage,
     QuotePage,
     SelectPage,
+    RadioGroupPage,
     StubPage,
     SwitchTogglePage,
     SwiperPage,
@@ -167,6 +169,9 @@ import { VideoPlayerPage } from './video-player-page';
       }
       @case ('stub') {
         <docs-stub-page />
+      }
+      @case ('radio-group') {
+        <docs-radio-group-page />
       }
       @case ('switch-toggle') {
         <docs-switch-toggle-page />

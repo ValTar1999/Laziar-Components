@@ -39,7 +39,9 @@ input[type='search']::-ms-clear {
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  /* 6px from label to field and field to helper, as lz-select and lz-textarea,
+     so the three line up when they sit side by side in a form row. */
+  gap: 0.375rem;
 }
 
 .lz-input-container--disabled {

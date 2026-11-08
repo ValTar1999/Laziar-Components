@@ -228,7 +228,7 @@ describe('SelectComponent', () => {
       { id: 1, title: 'Ana Pop', value: profile },
     ];
     const changes: LzSelectOptionType[] = [];
-    component.registerOnChange((v) => changes.push(v!));
+    component.registerOnChange((v) => changes.push(v as LzSelectOptionType));
     fixture.componentRef.setInput('options', options);
     fixture.detectChanges();
 
@@ -278,6 +278,16 @@ describe('SelectComponent', () => {
       open();
 
       expect(searchEl()).toBeNull();
+    });
+
+    it('keeps the keyboard from correcting what is typed: it filters names, not prose', () => {
+      open();
+      const el = searchEl()!;
+
+      expect(el.getAttribute('spellcheck')).toBe('false');
+      expect(el.getAttribute('autocorrect')).toBe('off');
+      expect(el.getAttribute('autocapitalize')).toBe('off');
+      expect(el.getAttribute('autocomplete')).toBe('off');
     });
 
     it('shows a search box with the given placeholder', () => {
@@ -341,6 +351,232 @@ describe('SelectComponent', () => {
       fixture.detectChanges();
 
       expect(dropdownEl()).toBeTruthy();
+    });
+  });
+
+  describe('multiple', () => {
+    const trigger = (): HTMLButtonElement =>
+      fixture.nativeElement.querySelector('.lz-select-trigger');
+    const value = (): string =>
+      fixture.nativeElement.querySelector('.lz-select-value').textContent.trim();
+    const checkboxes = (): HTMLElement[] =>
+      Array.from(document.querySelectorAll<HTMLElement>('.lz-select-option-checkbox'));
+
+    function open(): void {
+      trigger().click();
+      fixture.detectChanges();
+    }
+
+    let changes: unknown[];
+
+    beforeEach(() => {
+      changes = [];
+      component.registerOnChange((v) => changes.push(v));
+      fixture.componentRef.setInput('options', objectOptions);
+      fixture.componentRef.setInput('multiple', true);
+      fixture.componentRef.setInput('placeholder', 'Choose…');
+      fixture.detectChanges();
+    });
+
+    it('toggles options in and out of an array value, keeping the list open', () => {
+      open();
+      optionEls()[0].click();
+      fixture.detectChanges();
+      optionEls()[2].click();
+      fixture.detectChanges();
+      optionEls()[0].click();
+      fixture.detectChanges();
+
+      expect(changes).toEqual([
+        [objectOptions[0]],
+        [objectOptions[0], objectOptions[2]],
+        [objectOptions[2]],
+      ]);
+      expect(dropdownEl()).toBeTruthy();
+    });
+
+    it('marks the list multiselectable and draws a checkbox per option', () => {
+      component.writeValue([objectOptions[1]]);
+      open();
+
+      expect(document.querySelector('[role="listbox"]')?.getAttribute('aria-multiselectable')).toBe(
+        'true',
+      );
+      expect(checkboxes().map((box) => box.getAttribute('data-checked'))).toEqual([
+        'false',
+        'true',
+        'false',
+      ]);
+      expect(optionEls()[1].getAttribute('aria-selected')).toBe('true');
+      expect(document.querySelector('.lz-select-check-badge')).toBeNull();
+    });
+
+    it('lists the chosen labels in the trigger, or the placeholder when none', () => {
+      expect(value()).toBe('Choose…');
+
+      component.writeValue([objectOptions[0], objectOptions[2]]);
+      fixture.detectChanges();
+
+      expect(value()).toBe('First Option, Third Option');
+      expect(trigger().getAttribute('data-selected')).toBe('true');
+    });
+
+    it('uses selectionSummary for the trigger text when given', () => {
+      fixture.componentRef.setInput(
+        'selectionSummary',
+        (chosen: readonly LzSelectOptionType[]) => `${chosen.length} chosen`,
+      );
+      component.writeValue([objectOptions[0], objectOptions[1]]);
+      fixture.detectChanges();
+
+      expect(value()).toBe('2 chosen');
+    });
+
+    it('matches written options by id, so rebuilt option objects stay chosen', () => {
+      component.writeValue([{ id: 2, title: 'Second Option' }]);
+      open();
+
+      expect(checkboxes()[1].getAttribute('data-checked')).toBe('true');
+    });
+
+    it('treats a null value as nothing chosen', () => {
+      component.writeValue(null);
+      fixture.detectChanges();
+
+      expect(value()).toBe('Choose…');
+    });
+
+    it('marks the control touched when the list closes', () => {
+      const touched = jasmine.createSpy('touched');
+      component.registerOnTouched(touched);
+      open();
+      optionEls()[0].click();
+      expect(touched).not.toHaveBeenCalled();
+
+      document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+      fixture.detectChanges();
+
+      expect(touched).toHaveBeenCalled();
+    });
+
+    it('round-trips an array value through the value accessor', () => {
+      const control = new FormControl<LzSelectOptionType[]>([objectOptions[0]]);
+      component.registerOnChange((v) => control.setValue(v as LzSelectOptionType[]));
+      component.writeValue(control.value);
+      open();
+      optionEls()[1].click();
+
+      expect(control.value).toEqual([objectOptions[0], objectOptions[1]]);
+    });
+  });
+
+  describe('keyboard', () => {
+    const trigger = (): HTMLButtonElement =>
+      fixture.nativeElement.querySelector('.lz-select-trigger');
+    const press = (target: Element, key: string): void => {
+      target.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true }));
+      fixture.detectChanges();
+    };
+
+    function open(): void {
+      trigger().click();
+      fixture.detectChanges();
+    }
+
+    beforeEach(() => {
+      fixture.componentRef.setInput('options', objectOptions);
+      fixture.detectChanges();
+    });
+
+    it('moves focus onto the chosen option when the list opens', () => {
+      component.writeValue(objectOptions[1]);
+      open();
+
+      expect(document.activeElement).toBe(optionEls()[1]);
+    });
+
+    it('moves focus onto the search box of a searchable list', () => {
+      fixture.componentRef.setInput('searchable', true);
+      fixture.detectChanges();
+      open();
+
+      expect(document.activeElement).toBe(document.querySelector('.lz-select-search-input'));
+    });
+
+    it('walks the options with the arrows, Home and End, wrapping at the ends', () => {
+      open();
+      expect(document.activeElement).toBe(optionEls()[0]);
+
+      press(optionEls()[0], 'ArrowDown');
+      expect(document.activeElement).toBe(optionEls()[1]);
+      press(optionEls()[1], 'End');
+      expect(document.activeElement).toBe(optionEls()[2]);
+      press(optionEls()[2], 'ArrowDown');
+      expect(document.activeElement).toBe(optionEls()[0]);
+      press(optionEls()[0], 'ArrowUp');
+      expect(document.activeElement).toBe(optionEls()[2]);
+      press(optionEls()[2], 'Home');
+      expect(document.activeElement).toBe(optionEls()[0]);
+    });
+
+    it('goes from the search box into the list and back', () => {
+      fixture.componentRef.setInput('searchable', true);
+      fixture.detectChanges();
+      open();
+      const search = document.querySelector<HTMLInputElement>('.lz-select-search-input')!;
+
+      press(search, 'ArrowDown');
+      expect(document.activeElement).toBe(optionEls()[0]);
+      press(optionEls()[0], 'ArrowUp');
+      expect(document.activeElement).toBe(search);
+    });
+
+    it('chooses with Enter and gives focus back to the trigger', () => {
+      const changes: unknown[] = [];
+      component.registerOnChange((v) => changes.push(v));
+      open();
+
+      press(optionEls()[2], 'Enter');
+
+      expect(changes).toEqual([objectOptions[2]]);
+      expect(dropdownEl()).toBeNull();
+      expect(document.activeElement).toBe(trigger());
+    });
+
+    it('toggles with Space in a multiple list without closing it', () => {
+      fixture.componentRef.setInput('multiple', true);
+      fixture.detectChanges();
+      open();
+
+      press(optionEls()[0], ' ');
+
+      expect(dropdownEl()).toBeTruthy();
+      expect(optionEls()[0].getAttribute('aria-selected')).toBe('true');
+    });
+
+    it('gives focus back to the trigger on Escape and on Tab', () => {
+      open();
+      document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+      fixture.detectChanges();
+      expect(dropdownEl()).toBeNull();
+      expect(document.activeElement).toBe(trigger());
+
+      open();
+      press(optionEls()[0], 'Tab');
+      expect(dropdownEl()).toBeNull();
+      expect(document.activeElement).toBe(trigger());
+    });
+
+    it('names the list after the label', () => {
+      fixture.componentRef.setInput('label', 'Country');
+      fixture.detectChanges();
+      open();
+
+      const labelId = fixture.nativeElement.querySelector('.lz-select-label').id;
+      expect(labelId).toBeTruthy();
+      expect(document.querySelector('[role="listbox"]')?.getAttribute('aria-labelledby')).toBe(
+        labelId,
+      );
     });
   });
 });

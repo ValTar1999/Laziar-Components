@@ -107,6 +107,17 @@
   transform: none;
 }
 
+/* align: content placement inside a button wider than its content */
+.lz-button[data-align='start'] {
+  justify-content: flex-start;
+  text-align: start;
+}
+
+.lz-button[data-align='end'] {
+  justify-content: flex-end;
+  text-align: end;
+}
+
 /* layout: icon → label → projected; icon-end → icon last */
 .lz-button--icon-end .lz-button__icon {
   order: 3;

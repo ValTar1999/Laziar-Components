@@ -25,10 +25,38 @@ import { LzInputFlush } from '../internal/lz-input-flush.directive';
 
 import { Button } from '../button/button.component';
 import { Icon } from '../icon/icon.component';
-import { lzTableUtilityToCss, TableColumn, TablePaginationItem, TableRow } from './table.types';
+import {
+  lzTableNextSort,
+  lzTableUtilityToCss,
+  TableColumn,
+  TablePaginationItem,
+  TableRow,
+  TableSort,
+  TableSortDirection,
+} from './table.types';
 
 const MENU_OFFSET_PX = 8;
 const MENU_VIEWPORT_PADDING_PX = 8;
+
+/**
+ * What a click inside a row may land on that does something of its own. Those
+ * clicks belong to the control, not to the row, so they do not emit `rowClick`.
+ */
+const ROW_OWN_CONTROLS = [
+  'a[href]',
+  'button',
+  'input',
+  'select',
+  'textarea',
+  'label',
+  'summary',
+  '[role="button"]',
+  '[role="link"]',
+  '[role="checkbox"]',
+  '[role="switch"]',
+  '[role="menuitem"]',
+  '[role="tab"]',
+].join(', ');
 
 function floatingUiPositionStrategy(): PositionStrategy {
   return {
@@ -49,22 +77,42 @@ function floatingUiPositionStrategy(): PositionStrategy {
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'lz-table-host' },
 })
-export class Table implements OnDestroy {
+/**
+ * Generic over the row type, so an app hands over its own row interfaces and gets
+ * them back from `rowClick` and the row callbacks; `TableRow` when unspecified.
+ */
+export class Table<T extends object = TableRow> implements OnDestroy {
   readonly columns = input<readonly TableColumn[]>([]);
-  readonly data = input<readonly TableRow[]>([]);
+  readonly data = input<readonly T[]>([]);
   readonly showShadow = input(true, { transform: booleanAttribute });
   readonly emptyMessage = input<string | undefined>(undefined);
   readonly elevatedRowId = input<string | number | null>(null);
   readonly elevatedRowIdField = input('id');
   readonly rowClickable = input(false, { transform: booleanAttribute });
-  readonly isRowInteractive = input<((row: TableRow) => boolean) | undefined>(undefined);
-  readonly getRowClass = input<((row: TableRow) => string) | undefined>(undefined);
-  readonly getRowRole = input<((row: TableRow) => string | null) | undefined>(undefined);
-  readonly getRowAriaLabel = input<((row: TableRow) => string | null) | undefined>(undefined);
+  readonly isRowInteractive = input<((row: T) => boolean) | undefined>(undefined);
+  /**
+   * Whether an interactive row is also a keyboard stop (`tabindex=0`, role `link`).
+   * Turn it off when the row is only a pointer shortcut to something the keyboard
+   * already reaches inside the row, such as a menu item, so Tab is not doubled.
+   */
+  readonly rowFocusable = input(true, { transform: booleanAttribute });
+  readonly getRowClass = input<((row: T) => string) | undefined>(undefined);
+  readonly getRowRole = input<((row: T) => string | null) | undefined>(undefined);
+  readonly getRowAriaLabel = input<((row: T) => string | null) | undefined>(undefined);
+  /**
+   * Identifies a row across changes to `data`: a field name, or a function. Rows
+   * are otherwise tracked by position, so after a re-sort the components in a cell
+   * (an open menu, a busy button) would stay with the position, not with the row.
+   */
+  readonly rowKey = input<string | ((row: T) => unknown) | null>(null);
   readonly scrollMaxHeight = input<string | undefined>(undefined);
   readonly showScrollbar = input(false, { transform: booleanAttribute });
   readonly tableLabelledBy = input<string | undefined>(undefined);
-  readonly isRowDetailExpanded = input<((row: TableRow) => boolean) | undefined>(undefined);
+  readonly isRowDetailExpanded = input<((row: T) => boolean) | undefined>(undefined);
+
+  /** The `sortable` column the rows are sorted by; null when none is. */
+  readonly sortKey = input<string | null>(null);
+  readonly sortDirection = input<TableSortDirection>('asc');
 
   readonly showResultsCount = input(false, { transform: booleanAttribute });
   readonly resultsCount = input<number | undefined>(undefined);
@@ -84,7 +132,9 @@ export class Table implements OnDestroy {
 
   readonly pageChange = output<number>();
   readonly pageSizeChange = output<number>();
-  readonly rowClick = output<TableRow>();
+  readonly rowClick = output<T>();
+  /** A sortable header was clicked: the sort it asks for (see `lzTableNextSort`). */
+  readonly sortChange = output<TableSort>();
 
   readonly paneClass = 'lz-table-cdk-pane';
 
@@ -178,8 +228,36 @@ export class Table implements OnDestroy {
     this.teardownOverlay();
   }
 
-  protected getValue(row: TableRow, column: TableColumn): unknown {
-    return row[column.key];
+  protected getValue(row: T, column: TableColumn): unknown {
+    return (row as Record<string, unknown>)[column.key];
+  }
+
+  protected trackRow(row: T, index: number): unknown {
+    const key = this.rowKey();
+    if (key == null) return index;
+    return typeof key === 'function' ? key(row) : (row as Record<string, unknown>)[key];
+  }
+
+  protected isSortedBy(column: TableColumn): boolean {
+    return !!column.sortable && this.sortKey() === column.key;
+  }
+
+  protected resolveAriaSort(column: TableColumn): string | null {
+    if (column.ariaSort) return column.ariaSort;
+    if (!this.isSortedBy(column)) return null;
+    return this.sortDirection() === 'asc' ? 'ascending' : 'descending';
+  }
+
+  protected sortIcon(column: TableColumn): string {
+    if (!this.isSortedBy(column)) return 'chevron-up-down';
+    return this.sortDirection() === 'asc' ? 'chevron-up' : 'chevron-down';
+  }
+
+  protected requestSort(column: TableColumn): void {
+    const key = this.sortKey();
+    this.sortChange.emit(
+      lzTableNextSort(key == null ? null : { key, direction: this.sortDirection() }, column.key),
+    );
   }
 
   protected columnStyle(column: TableColumn): Record<string, string> {
@@ -199,46 +277,57 @@ export class Table implements OnDestroy {
     return [named, ...leftover].filter(Boolean).join(' ');
   }
 
-  protected isElevatedStickyCell(row: TableRow, column: TableColumn): boolean {
+  protected isElevatedStickyCell(row: T, column: TableColumn): boolean {
     return (
       column.key === 'actions' &&
       this.elevatedRowId() !== null &&
-      row[this.elevatedRowIdField()] === this.elevatedRowId()
+      (row as Record<string, unknown>)[this.elevatedRowIdField()] === this.elevatedRowId()
     );
   }
 
-  protected canInteractWithRow(row: TableRow): boolean {
+  protected canInteractWithRow(row: T): boolean {
     return this.isRowInteractive()?.(row) ?? this.rowClickable();
   }
 
-  protected resolveRowClass(row: TableRow): string {
+  protected isRowFocusable(row: T): boolean {
+    return this.rowFocusable() && this.canInteractWithRow(row);
+  }
+
+  protected resolveRowClass(row: T): string {
     return this.getRowClass()?.(row) ?? '';
   }
 
-  protected resolveRowRole(row: TableRow): string | null {
-    return this.getRowRole()
-      ? this.getRowRole()!(row)
-      : this.canInteractWithRow(row)
-        ? 'link'
-        : null;
+  protected resolveRowRole(row: T): string | null {
+    return this.getRowRole() ? this.getRowRole()!(row) : this.isRowFocusable(row) ? 'link' : null;
   }
 
-  protected resolveRowAriaLabel(row: TableRow): string | null {
+  protected resolveRowAriaLabel(row: T): string | null {
     return this.getRowAriaLabel()?.(row) ?? null;
   }
 
-  protected shouldShowRowDetail(row: TableRow): boolean {
+  protected shouldShowRowDetail(row: T): boolean {
     return !!this.rowDetailTemplate() && !!this.isRowDetailExpanded()?.(row);
   }
 
-  protected onRowClick(row: TableRow): void {
-    if (this.canInteractWithRow(row)) this.rowClick.emit(row);
+  protected onRowClick(event: Event, row: T): void {
+    if (!this.canInteractWithRow(row) || this.landedOnOwnControl(event)) return;
+    this.rowClick.emit(row);
   }
 
-  protected onRowKeydown(event: KeyboardEvent, row: TableRow): void {
-    if (!this.canInteractWithRow(row) || (event.key !== 'Enter' && event.key !== ' ')) return;
+  protected onRowKeydown(event: KeyboardEvent, row: T): void {
+    if (!this.isRowFocusable(row) || (event.key !== 'Enter' && event.key !== ' ')) return;
+    // Enter on a button in the row is that button's own, and bubbles here too.
+    if (event.target !== event.currentTarget) return;
     event.preventDefault();
     this.rowClick.emit(row);
+  }
+
+  /** Whether a click came from a control inside the row rather than the row itself. */
+  private landedOnOwnControl(event: Event): boolean {
+    const row = event.currentTarget as Element | null;
+    const target = event.target as Element | null;
+    const control = target?.closest?.(ROW_OWN_CONTROLS);
+    return !!control && control !== row && !!row?.contains(control);
   }
 
   protected isEllipsis(item: TablePaginationItem): item is 'ellipsis' {

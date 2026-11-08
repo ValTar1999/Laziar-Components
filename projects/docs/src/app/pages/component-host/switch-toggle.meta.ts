@@ -64,6 +64,25 @@ export const SWITCH_TOGGLE_COMPONENT_META: DocsComponentMeta = {
       default: `'md'`,
       description: 'Toggle size',
     },
+    {
+      name: 'ariaLabel',
+      type: 'string | undefined',
+      default: 'undefined',
+      description:
+        'Accessible name. The switch has no visible label, so set this or ariaLabelledBy',
+    },
+    {
+      name: 'ariaLabelledBy',
+      type: 'string | undefined',
+      default: 'undefined',
+      description: 'Id of a visible label rendered by the host; wins over ariaLabel',
+    },
+    {
+      name: 'ariaDescribedBy',
+      type: 'string | undefined',
+      default: 'undefined',
+      description: 'Id of a hint or description element',
+    },
   ],
   outputs: [
     {
@@ -79,6 +98,16 @@ export const SWITCH_TOGGLE_COMPONENT_META: DocsComponentMeta = {
       code: `<lz-switch-toggle
   [active]="notifications"
   (changed)="notifications = $event"
+/>`,
+    },
+    {
+      title: 'Labelled by a visible caption',
+      code: `<p id="capping-title">Enable Frequency Capping</p>
+<p id="capping-hint">Limit how often users see your ads</p>
+<lz-switch-toggle
+  ariaLabelledBy="capping-title"
+  ariaDescribedBy="capping-hint"
+  [(ngModel)]="cappingEnabled"
 />`,
     },
   ],

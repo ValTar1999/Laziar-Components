@@ -59,6 +59,12 @@
       [attr.autocomplete]="autocompleteAttr()"
       [attr.inputmode]="onlyNumbers() ? 'numeric' : null"
       [attr.pattern]="onlyNumbers() ? '[0-9]*' : null"
+      [attr.min]="isNumber() ? min() : null"
+      [attr.max]="isNumber() ? max() : null"
+      [attr.step]="isNumber() ? step() : null"
+      [attr.spellcheck]="spellcheckAttr()"
+      [attr.autocorrect]="autocorrect()"
+      [attr.autocapitalize]="autocapitalize()"
       (input)="onInput($event)"
       (blur)="onTouched()"
     />

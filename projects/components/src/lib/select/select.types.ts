@@ -20,6 +20,13 @@ export interface LzSelectOption {
 /** Select option type - can be string or SelectOption object (matches publikator). */
 export type LzSelectOptionType = string | LzSelectOption;
 
+/**
+ * Builds the trigger text of a `multiple` select from the options chosen, e.g.
+ * `(chosen) => \`${chosen.length} selected\``. Only called with at least one option;
+ * with none the trigger shows the placeholder.
+ */
+export type LzSelectSummaryFn = (selected: readonly LzSelectOptionType[]) => string;
+
 export function lzSelectOptionLabel(option: LzSelectOptionType): string {
   if (typeof option === 'string') {
     return option;

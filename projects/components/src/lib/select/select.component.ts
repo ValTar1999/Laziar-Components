@@ -4,6 +4,7 @@ import {
   Component,
   computed,
   ElementRef,
+  EmbeddedViewRef,
   forwardRef,
   HostListener,
   inject,
@@ -24,6 +25,7 @@ import { attachLzFloating } from '../floating/floating';
 import {
   LzSelectSize,
   LzSelectOptionType,
+  LzSelectSummaryFn,
   lzSelectOptionDate,
   lzSelectOptionLabel,
 } from './select.types';
@@ -46,9 +48,30 @@ function floatingUiPositionStrategy(): PositionStrategy {
 }
 
 /**
+ * Whether two options are the same choice: by `id` when both have one, else by
+ * `value`, else by label. Options are often rebuilt by the app, so identity alone
+ * would drop a selection the moment its option object is recreated.
+ */
+function sameOption(a: LzSelectOptionType, b: LzSelectOptionType): boolean {
+  if (typeof a === 'string' || typeof b === 'string') {
+    return a === b;
+  }
+  if (a.id != null && b.id != null) {
+    return a.id === b.id;
+  }
+  if (a.value != null && b.value != null) {
+    return a.value === b.value;
+  }
+  return lzSelectOptionLabel(a) === lzSelectOptionLabel(b);
+}
+
+/**
  * Select field `@laziar/components`.
  * API — эталон publikator (`SelectComponent`).
  * Стили — эталон Laziar System (Figma Select Input).
+ *
+ * With `multiple` the value is an array of options: each click toggles one, the
+ * list stays open, and the options carry checkboxes.
  */
 @Component({
   selector: 'lz-select',
@@ -86,6 +109,17 @@ export class SelectComponent implements ControlValueAccessor, OnDestroy {
   readonly searchPlaceholder = input('Search');
   /** Shown in place of the options when a search matches none of them. */
   readonly noResultsText = input('No results');
+  /**
+   * Lets several options be chosen. The value written and emitted is then an
+   * array of options (`[]` when none), and picking an option toggles it without
+   * closing the list.
+   */
+  readonly multiple = input(false, { transform: booleanAttribute });
+  /**
+   * `multiple` only: the trigger text for the options chosen. Defaults to their
+   * labels joined by commas.
+   */
+  readonly selectionSummary = input<LzSelectSummaryFn | null>(null);
 
   readonly opened = output<void>();
 
@@ -108,6 +142,7 @@ export class SelectComponent implements ControlValueAccessor, OnDestroy {
 
   readonly selectId = `lz-select-${nextSelectFieldId++}`;
   readonly listboxId = `${this.selectId}-listbox`;
+  readonly labelId = `${this.selectId}-label`;
   readonly paneClass = 'lz-select-cdk-pane';
 
   @ViewChild('trigger', { static: true })
@@ -117,32 +152,45 @@ export class SelectComponent implements ControlValueAccessor, OnDestroy {
   private dropdownTpl?: TemplateRef<unknown>;
 
   protected readonly isOpen = signal(false);
-  protected readonly selected = signal<LzSelectOptionType | null>(null);
+  /** The chosen options; at most one unless `multiple`. */
+  protected readonly selection = signal<readonly LzSelectOptionType[]>([]);
 
   private readonly cvaDisabled = signal(false);
   protected readonly effectiveDisabled = computed(() => this.disabled() || this.cvaDisabled());
 
-  private onChange: (value: LzSelectOptionType | null) => void = () => undefined;
+  private onChange: (value: LzSelectOptionType | LzSelectOptionType[] | null) => void = () =>
+    undefined;
   private onTouched: () => void = () => undefined;
 
   private overlayRef?: OverlayRef;
+  private portalView?: EmbeddedViewRef<unknown>;
   private floatingCleanup?: () => void;
 
   protected readonly displayValue = computed(() => {
-    const selectedValue = this.selected();
-    if (!selectedValue) return '';
-    return lzSelectOptionLabel(selectedValue);
+    const chosen = this.selection();
+    if (chosen.length === 0) return '';
+    if (!this.multiple()) return lzSelectOptionLabel(chosen[0]);
+
+    const summary = this.selectionSummary();
+    return summary ? summary(chosen) : chosen.map(lzSelectOptionLabel).join(', ');
   });
 
   ngOnDestroy(): void {
     this.teardownOverlay();
   }
 
-  writeValue(value: LzSelectOptionType | null): void {
-    this.selected.set(value);
+  /** Takes an option, an array of options (`multiple`), or null for none. */
+  writeValue(value: LzSelectOptionType | readonly LzSelectOptionType[] | null): void {
+    if (value == null) {
+      this.selection.set([]);
+    } else if (Array.isArray(value)) {
+      this.selection.set([...value]);
+    } else {
+      this.selection.set([value as LzSelectOptionType]);
+    }
   }
 
-  registerOnChange(fn: (value: LzSelectOptionType | null) => void): void {
+  registerOnChange(fn: (value: LzSelectOptionType | LzSelectOptionType[] | null) => void): void {
     this.onChange = fn;
   }
 
@@ -169,7 +217,17 @@ export class SelectComponent implements ControlValueAccessor, OnDestroy {
   }
 
   protected selectOption(option: LzSelectOptionType): void {
-    this.selected.set(option);
+    if (this.multiple()) {
+      const chosen = this.selection();
+      const next = this.isSelected(option)
+        ? chosen.filter((item) => !sameOption(item, option))
+        : [...chosen, option];
+      this.selection.set(next);
+      this.onChange([...next]);
+      return;
+    }
+
+    this.selection.set([option]);
     this.closeDropdown();
     this.onChange(option);
     this.onTouched();
@@ -177,9 +235,58 @@ export class SelectComponent implements ControlValueAccessor, OnDestroy {
 
   protected onOptionKeydown(event: Event, option: LzSelectOptionType): void {
     const key = (event as KeyboardEvent).key;
-    if (key !== 'Enter' && key !== ' ') return;
+    if (key === 'Enter' || key === ' ') {
+      event.preventDefault();
+      this.selectOption(option);
+      return;
+    }
+    this.onListKeydown(event as KeyboardEvent);
+  }
+
+  /** ArrowDown from the search box enters the list; Tab leaves the popup. */
+  protected onSearchKeydown(event: KeyboardEvent): void {
+    if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      this.optionElements()[0]?.focus();
+      return;
+    }
+    if (event.key === 'Tab') {
+      this.closeDropdown();
+    }
+  }
+
+  /** Keys every option shares: arrows, Home and End move; Tab leaves the popup. */
+  private onListKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Tab') {
+      // Focus goes back to the trigger first, so Tab carries on from there
+      // rather than from the overlay at the end of the document.
+      this.closeDropdown();
+      return;
+    }
+
+    const items = this.optionElements();
+    const index = items.indexOf(event.target as HTMLElement);
+    if (index === -1) return;
+
+    let next: HTMLElement | undefined;
+    switch (event.key) {
+      case 'ArrowDown':
+        next = items[(index + 1) % items.length];
+        break;
+      case 'ArrowUp':
+        next = index === 0 ? (this.searchInput() ?? items[items.length - 1]) : items[index - 1];
+        break;
+      case 'Home':
+        next = items[0];
+        break;
+      case 'End':
+        next = items[items.length - 1];
+        break;
+      default:
+        return;
+    }
     event.preventDefault();
-    this.selectOption(option);
+    next?.focus();
   }
 
   protected getOptionTitle(option: LzSelectOptionType): string {
@@ -188,6 +295,11 @@ export class SelectComponent implements ControlValueAccessor, OnDestroy {
 
   protected getOptionDate(option: LzSelectOptionType): string | null {
     return lzSelectOptionDate(option);
+  }
+
+  /** Keeps an option's row when the app hands over rebuilt option objects. */
+  protected optionKey(option: LzSelectOptionType): unknown {
+    return typeof option === 'string' ? option : (option.id ?? option.value ?? option);
   }
 
   protected formatOptionDate(option: LzSelectOptionType): string | null {
@@ -207,24 +319,7 @@ export class SelectComponent implements ControlValueAccessor, OnDestroy {
   }
 
   protected isSelected(option: LzSelectOptionType): boolean {
-    const selectedValue = this.selected();
-    if (selectedValue === null) return false;
-
-    if (typeof option === 'string' && typeof selectedValue === 'string') {
-      return option === selectedValue;
-    }
-
-    if (typeof option !== 'string' && typeof selectedValue !== 'string') {
-      if (option.id != null && selectedValue.id != null) {
-        return option.id === selectedValue.id;
-      }
-      if (option.value != null && selectedValue.value != null) {
-        return option.value === selectedValue.value;
-      }
-      return lzSelectOptionLabel(option) === lzSelectOptionLabel(selectedValue);
-    }
-
-    return false;
+    return this.selection().some((item) => sameOption(item, option));
   }
 
   @HostListener('document:keydown.escape')
@@ -254,16 +349,56 @@ export class SelectComponent implements ControlValueAccessor, OnDestroy {
     this.isOpen.set(true);
     this.attachOverlay();
     this.opened.emit();
+    // The list lives in an overlay at the end of the document, out of the tab
+    // order, so the keyboard can only reach it if focus is moved there. The list
+    // is rendered now rather than on the next pass so there is something to focus.
+    this.portalView?.detectChanges();
+    this.focusInitial();
   }
 
+  /**
+   * Closes the list. Focus inside it goes back to the trigger: the overlay is
+   * about to be detached, which would otherwise drop focus on the body.
+   */
   private closeDropdown(): void {
+    const wasOpen = this.isOpen();
+    const pane = this.overlayRef?.overlayElement;
+    const focusInside = !!pane && pane.contains(document.activeElement);
+
     this.isOpen.set(false);
     this.searchQuery.set('');
     this.detachOverlay();
+
+    if (focusInside) {
+      this.trigger?.nativeElement.focus();
+    }
+    if (wasOpen && this.multiple()) {
+      this.onTouched();
+    }
   }
 
   protected onSearchInput(event: Event): void {
     this.searchQuery.set((event.target as HTMLInputElement | null)?.value ?? '');
+  }
+
+  /** The search box when there is one, else the (first) chosen option, else the first. */
+  private focusInitial(): void {
+    if (!this.isOpen()) return;
+    const items = this.optionElements();
+    const target =
+      this.searchInput() ??
+      items.find((item) => item.getAttribute('aria-selected') === 'true') ??
+      items[0];
+    target?.focus({ preventScroll: true });
+  }
+
+  private optionElements(): HTMLElement[] {
+    const pane = this.overlayRef?.overlayElement;
+    return pane ? Array.from(pane.querySelectorAll<HTMLElement>('.lz-select-option')) : [];
+  }
+
+  private searchInput(): HTMLInputElement | null {
+    return this.overlayRef?.overlayElement.querySelector('.lz-select-search-input') ?? null;
   }
 
   private attachOverlay(): void {
@@ -279,7 +414,7 @@ export class SelectComponent implements ControlValueAccessor, OnDestroy {
     }
 
     if (!this.overlayRef.hasAttached()) {
-      this.overlayRef.attach(new TemplatePortal(tpl, this.vcr));
+      this.portalView = this.overlayRef.attach(new TemplatePortal(tpl, this.vcr));
     }
 
     this.startFloating();
@@ -288,6 +423,7 @@ export class SelectComponent implements ControlValueAccessor, OnDestroy {
   private detachOverlay(): void {
     this.stopFloating();
     this.overlayRef?.detach();
+    this.portalView = undefined;
   }
 
   private teardownOverlay(): void {
