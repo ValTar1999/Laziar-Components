@@ -7,6 +7,7 @@
       [disabled]="effectiveDisabled()"
       [ngClass]="inputClasses()"
       [attr.title]="title() || null"
+      [attr.aria-label]="ariaLabel() || null"
       (change)="onInputChange($event)"
     />
   </span>
