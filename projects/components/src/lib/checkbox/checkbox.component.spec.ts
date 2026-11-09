@@ -66,4 +66,20 @@ describe('Checkbox', () => {
     expect(input.className).toContain('lz-checkbox__input--disabled');
     expect(input.className).toContain('lz-checkbox__input--error');
   });
+
+  it('names an untitled checkbox through aria-label', () => {
+    fixture.componentRef.setInput('ariaLabel', 'Selectează toate videoclipurile');
+    fixture.detectChanges();
+
+    const native: HTMLInputElement = fixture.nativeElement.querySelector('input');
+    expect(native.getAttribute('aria-label')).toBe('Selectează toate videoclipurile');
+  });
+
+  it('sets no aria-label when none is given, leaving the title to name it', () => {
+    fixture.componentRef.setInput('title', 'Accept');
+    fixture.detectChanges();
+
+    const native: HTMLInputElement = fixture.nativeElement.querySelector('input');
+    expect(native.hasAttribute('aria-label')).toBeFalse();
+  });
 });

@@ -67,6 +67,13 @@ export class Checkbox implements ControlValueAccessor {
   readonly title = input<string>('');
   /** Description text below the title. */
   readonly description = input<string>('');
+  /**
+   * Accessible name for a checkbox with no visible `title`, such as a table's selection column.
+   * Set on the native input as `aria-label`; without it, and without a title, a screen reader
+   * announces only "checkbox". It replaces the visible title as the accessible name, so leave it
+   * unset when `title` is set: a name that differs from the visible text fails WCAG 2.5.3.
+   */
+  readonly ariaLabel = input<string | undefined>(undefined);
 
   /** Emitted when checked state changes. */
   readonly checkedChange = output<boolean>();
