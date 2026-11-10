@@ -1,0 +1,13 @@
+<lz-alert
+  variant="error"
+  iconName="exclamation-circle"
+  iconVariant="outline"
+  [title]="heading()"
+  [text]="text()"
+  [isRow]="true"
+  [showCloseButton]="false"
+>
+  @if (retryLabel()) {
+    <lz-button size="sm" variant="outline" pill [label]="retryLabel()" (clicked)="retry.emit()" />
+  }
+</lz-alert>

@@ -1,0 +1,10 @@
+/*
+ * Host defaults live in a cascade layer so that classes an app puts on the
+ * element (`hidden`, `w-full`, `text-*`) always win: unlayered rules beat layered
+ * ones whatever their specificity.
+ */
+@layer lz-defaults {
+  :host.lz-load-error-host {
+    display: block;
+  }
+}

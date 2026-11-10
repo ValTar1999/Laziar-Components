@@ -164,9 +164,35 @@ export const INPUT_COMPONENT_META: DocsComponentMeta = {
     },
     {
       name: 'type',
-      type: `'text' | 'email' | 'password' | 'search'`,
+      type: `'text' | 'email' | 'password' | 'search' | 'number'`,
       default: `'text'`,
-      description: 'Input type',
+      description:
+        'Input type. With number, a bound form control gets the number typed (null when empty) instead of the text',
+    },
+    {
+      name: 'min / max / step',
+      type: `number | null` + ` (step: number | 'any' | null)`,
+      default: 'null',
+      description: 'number only: the native bounds and step',
+    },
+    {
+      name: 'spellcheck',
+      type: 'boolean | null',
+      default: 'null',
+      description:
+        'Native spellcheck; false for text that is not prose, such as names searched against a list',
+    },
+    {
+      name: 'autocorrect',
+      type: `'on' | 'off' | null`,
+      default: 'null',
+      description: 'Native autocorrect (Safari keyboards)',
+    },
+    {
+      name: 'autocapitalize',
+      type: `'off' | 'none' | 'on' | 'sentences' | 'words' | 'characters' | null`,
+      default: 'null',
+      description: 'Native autocapitalize (mobile keyboards)',
     },
     {
       name: 'size',
@@ -250,6 +276,21 @@ export const INPUT_COMPONENT_META: DocsComponentMeta = {
     {
       title: 'Search',
       code: `<lz-input type="search" pill placeholder="Search" [(ngModel)]="q" />`,
+    },
+    {
+      title: 'Number',
+      code: `<!-- maxImpressions is a number: lz-input parses it, null when empty -->
+<lz-input label="Max impressions" type="number" [min]="0" [step]="1" [(ngModel)]="maxImpressions" />`,
+    },
+    {
+      title: 'Search a list of names',
+      code: `<lz-input
+  type="search"
+  placeholder="Search publishers"
+  [spellcheck]="false"
+  autocorrect="off"
+  autocapitalize="off"
+/>`,
     },
   ],
   tokens: [

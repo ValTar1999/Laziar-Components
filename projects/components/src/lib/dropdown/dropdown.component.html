@@ -1,4 +1,8 @@
-<div class="lz-dropdown" [class.lz-dropdown--disabled]="disabled()">
+<div
+  class="lz-dropdown"
+  [class.lz-dropdown--disabled]="disabled()"
+  [class.lz-dropdown--full]="fullWidth()"
+>
   <button
     #trigger
     type="button"
@@ -7,37 +11,60 @@
     [disabled]="disabled()"
     [attr.data-size]="sizeVariant()"
     [attr.data-disabled]="disabled()"
+    [attr.data-icon-only]="isIconOnly() ? 'true' : null"
+    [attr.aria-label]="ariaLabel() || null"
     [attr.aria-expanded]="isOpen()"
     [attr.aria-controls]="menuId"
     aria-haspopup="menu"
     (click)="toggleDropdown()"
   >
-    <span class="lz-dropdown__title">{{ title() }}</span>
-    <lz-icon
-      name="chevron-down"
-      type="mini"
-      class="lz-dropdown__chevron"
-      [attr.data-open]="isOpen()"
-    />
+    @if (icon()) {
+      <lz-icon [name]="icon()!" type="outline" class="lz-dropdown__trigger-icon" />
+    }
+    @if (!isIconOnly()) {
+      <span class="lz-dropdown__title">{{ title() }}</span>
+      <lz-icon
+        name="chevron-down"
+        type="mini"
+        class="lz-dropdown__chevron"
+        [attr.data-open]="isOpen()"
+      />
+    }
   </button>
 </div>
 
 <ng-template #menuTpl>
-  <div class="lz-dropdown__menu" role="menu" [id]="menuId">
-    @for (section of sections(); track $index) {
+  <div
+    class="lz-dropdown__menu"
+    role="menu"
+    [id]="menuId"
+    [attr.aria-labelledby]="dropdownId"
+    tabindex="-1"
+    (keydown)="onMenuKeydown($event)"
+  >
+    @for (section of resolvedSections(); track $index) {
       <section class="lz-dropdown__section">
         @if (section.heading) {
           <p class="lz-dropdown__heading">{{ section.heading }}</p>
         }
-        @for (item of section.items; track item) {
+        @for (item of section.items; track item.value + '|' + $index) {
           <button
             type="button"
             class="lz-dropdown__item"
-            role="menuitem"
+            [attr.role]="item.selected === null ? 'menuitem' : 'menuitemradio'"
+            [attr.aria-checked]="item.selected === null ? null : item.selected"
+            [attr.data-tone]="item.tone === 'danger' ? 'danger' : null"
+            [disabled]="item.disabled"
             (click)="selectItem(item)"
             (keydown)="onItemKeydown($event, item)"
           >
-            {{ item }}
+            @if (item.icon) {
+              <lz-icon [name]="item.icon" type="outline" class="lz-dropdown__item-icon" />
+            }
+            <span class="lz-dropdown__item-label">{{ item.label }}</span>
+            @if (item.selected) {
+              <lz-icon name="check" type="mini" class="lz-dropdown__item-check" />
+            }
           </button>
         }
       </section>

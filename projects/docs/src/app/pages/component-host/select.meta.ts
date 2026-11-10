@@ -4,7 +4,8 @@ import { LZ_SELECT_SIZES } from '@laziar/components';
 export const SELECT_COMPONENT_META: DocsComponentMeta = {
   name: 'SelectComponent',
   selector: 'lz-select',
-  description: 'Dropdown list with label, sm/md sizes, and helper text.',
+  description:
+    'Dropdown list with label, sm/md sizes, helper text, optional search, and a multiple mode with checkboxes.',
   controls: [
     {
       name: 'label',
@@ -34,6 +35,16 @@ export const SELECT_COMPONENT_META: DocsComponentMeta = {
     },
     {
       name: 'disabled',
+      kind: 'boolean',
+      default: false,
+    },
+    {
+      name: 'searchable',
+      kind: 'boolean',
+      default: false,
+    },
+    {
+      name: 'multiple',
       kind: 'boolean',
       default: false,
     },
@@ -67,6 +78,10 @@ export const SELECT_COMPONENT_META: DocsComponentMeta = {
     {
       label: 'disabled',
       props: { label: 'Unavailable', size: 'md', disabled: true },
+    },
+    {
+      label: 'multiple + search',
+      props: { label: 'Countries', size: 'md', multiple: true, searchable: true },
     },
   ],
   inputs: [
@@ -112,6 +127,38 @@ export const SELECT_COMPONENT_META: DocsComponentMeta = {
       default: 'false',
       description: 'Disables select',
     },
+    {
+      name: 'searchable',
+      type: 'boolean',
+      default: 'false',
+      description: 'Search box above the options, filtering them by label and date',
+    },
+    {
+      name: 'searchPlaceholder',
+      type: 'string',
+      default: "'Search'",
+      description: 'Placeholder and accessible name of the search box',
+    },
+    {
+      name: 'noResultsText',
+      type: 'string',
+      default: "'No results'",
+      description: 'Shown when a search matches no option',
+    },
+    {
+      name: 'multiple',
+      type: 'boolean',
+      default: 'false',
+      description:
+        'Several options can be chosen: the value is an array of options, each pick toggles one and the list stays open',
+    },
+    {
+      name: 'selectionSummary',
+      type: '((selected: readonly LzSelectOptionType[]) => string) | null',
+      default: 'null',
+      description:
+        'multiple only: trigger text for the chosen options; by default their labels joined by commas',
+    },
   ],
   outputs: [
     {
@@ -129,6 +176,21 @@ export const SELECT_COMPONENT_META: DocsComponentMeta = {
   [options]="['A', 'B', 'C']"
   [(ngModel)]="value"
 />`,
+    },
+    {
+      title: 'Multiple with search',
+      code: `<lz-select
+  label="Countries"
+  placeholder="Choose countries..."
+  multiple
+  searchable
+  [options]="countries"
+  [selectionSummary]="summary"
+  [(ngModel)]="chosen"
+/>
+
+// chosen: LzSelectOptionType[] = [];
+// summary = (c: readonly LzSelectOptionType[]) => \`\${c.length} selected\`;`,
     },
   ],
   tokens: [

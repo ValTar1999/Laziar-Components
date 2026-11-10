@@ -1,5 +1,10 @@
 import { DocsComponentMeta } from '../../core/component-doc.model';
-import { LZ_BUTTON_COLORS, LZ_BUTTON_SIZES, LZ_BUTTON_VARIANTS } from '@laziar/components';
+import {
+  LZ_BUTTON_ALIGNS,
+  LZ_BUTTON_COLORS,
+  LZ_BUTTON_SIZES,
+  LZ_BUTTON_VARIANTS,
+} from '@laziar/components';
 
 const variantSizeGallery = LZ_BUTTON_VARIANTS.flatMap((variant) =>
   LZ_BUTTON_SIZES.map((size) => ({
@@ -91,6 +96,13 @@ export const BUTTON_COMPONENT_META: DocsComponentMeta = {
       kind: 'boolean',
       default: false,
     },
+    {
+      name: 'align',
+      kind: 'select',
+      options: [...LZ_BUTTON_ALIGNS],
+      default: 'center',
+      description: 'Visible with fullWidth: where icon + label sit inside the button',
+    },
   ],
   variants: variantSizeGallery,
   inputs: [
@@ -165,6 +177,13 @@ export const BUTTON_COMPONENT_META: DocsComponentMeta = {
       type: 'boolean',
       default: 'false',
       description: 'Stretch to 100% of host width',
+    },
+    {
+      name: 'align',
+      type: `'center' | 'start' | 'end'`,
+      default: `'center'`,
+      description:
+        'Content placement when the button is wider than its content (sidebar nav: start)',
     },
     {
       name: 'ariaLabel',

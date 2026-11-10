@@ -52,10 +52,66 @@ describe('InputComponent', () => {
     expect(fixture.nativeElement.querySelector('input').value).toBe('');
   });
 
+  it('names the search clear button and hides its icon from assistive tech', () => {
+    fixture.componentRef.setInput('type', 'search');
+    component.writeValue('licee');
+    fixture.detectChanges();
+
+    const clear = fixture.nativeElement.querySelector('.lz-input-clear-button') as HTMLElement;
+    expect(clear.getAttribute('aria-label')).toBe('Clear search');
+    expect(clear.querySelector('lz-icon')?.getAttribute('aria-hidden')).toBe('true');
+
+    fixture.componentRef.setInput('clearSearchLabel', 'Șterge căutarea');
+    fixture.detectChanges();
+    expect(clear.getAttribute('aria-label')).toBe('Șterge căutarea');
+  });
+
+  describe('onlyNumbers', () => {
+    function type(value: string): HTMLInputElement {
+      const el = fixture.nativeElement.querySelector('input') as HTMLInputElement;
+      el.value = value;
+      el.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+
+      return el;
+    }
+
+    it('keeps only digits in the field, the model and valueChange', () => {
+      const changes: string[] = [];
+      component.valueChange.subscribe((v) => changes.push(v));
+      const modelChanges: string[] = [];
+      component.registerOnChange((v) => modelChanges.push(v as string));
+      fixture.componentRef.setInput('onlyNumbers', true);
+      fixture.detectChanges();
+
+      const el = type('12a3-4 b');
+
+      expect(el.value).toBe('1234');
+      expect(changes).toEqual(['1234']);
+      expect(modelChanges).toEqual(['1234']);
+    });
+
+    it('asks mobile keyboards for digits', () => {
+      fixture.componentRef.setInput('onlyNumbers', true);
+      fixture.detectChanges();
+      const el = fixture.nativeElement.querySelector('input') as HTMLInputElement;
+
+      expect(el.getAttribute('inputmode')).toBe('numeric');
+      expect(el.getAttribute('pattern')).toBe('[0-9]*');
+    });
+
+    it('leaves other characters alone by default', () => {
+      const el = type('12a3');
+
+      expect(el.value).toBe('12a3');
+      expect(el.getAttribute('inputmode')).toBeNull();
+    });
+  });
+
   it('should work with reactive forms', () => {
     const control = new FormControl('initial');
 
-    component.registerOnChange((value) => control.setValue(value));
+    component.registerOnChange((value) => control.setValue(value as string));
     component.registerOnTouched(() => control.markAsTouched());
 
     const inputElement = fixture.debugElement.nativeElement.querySelector('input');
@@ -158,6 +214,109 @@ describe('InputComponent', () => {
 
     const icon = fixture.nativeElement.querySelector('.lz-input-search-icon');
     expect(icon.getAttribute('data-type')).toBe('mini');
+  });
+});
+
+describe('InputComponent number type', () => {
+  let component: InputComponent;
+  let fixture: ComponentFixture<InputComponent>;
+  const field = (): HTMLInputElement => fixture.nativeElement.querySelector('input');
+  const type = (text: string): void => {
+    field().value = text;
+    field().dispatchEvent(new Event('input'));
+  };
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({ imports: [InputComponent] }).compileComponents();
+    fixture = TestBed.createComponent(InputComponent);
+    component = fixture.componentInstance;
+    fixture.componentRef.setInput('type', 'number');
+    fixture.detectChanges();
+  });
+
+  it('renders a native number field with its bounds', () => {
+    fixture.componentRef.setInput('min', 0);
+    fixture.componentRef.setInput('max', 100);
+    fixture.componentRef.setInput('step', 5);
+    fixture.detectChanges();
+
+    expect(field().type).toBe('number');
+    expect([field().min, field().max, field().step]).toEqual(['0', '100', '5']);
+  });
+
+  it('leaves the bounds off any other type', () => {
+    fixture.componentRef.setInput('type', 'text');
+    fixture.componentRef.setInput('min', 0);
+    fixture.detectChanges();
+
+    expect(field().hasAttribute('min')).toBe(false);
+  });
+
+  it('hands a form control the number typed, and null when the field is empty', () => {
+    const values: unknown[] = [];
+    component.registerOnChange((value) => values.push(value));
+
+    type('42');
+    type('3.5');
+    type('');
+
+    expect(values).toEqual([42, 3.5, null]);
+  });
+
+  it('still emits the text through valueChange', () => {
+    const emitted: string[] = [];
+    component.valueChange.subscribe((value) => emitted.push(value));
+
+    type('7');
+
+    expect(emitted).toEqual(['7']);
+  });
+
+  it('shows a number written by the form', () => {
+    component.writeValue(250);
+    fixture.detectChanges();
+
+    expect(field().value).toBe('250');
+  });
+
+  it('round-trips through a reactive FormControl', () => {
+    const control = new FormControl<number | null>(3);
+    component.registerOnChange((value) => control.setValue(value as number | null));
+    component.writeValue(control.value);
+    fixture.detectChanges();
+    expect(field().value).toBe('3');
+
+    type('12');
+
+    expect(control.value).toBe(12);
+  });
+});
+
+describe('InputComponent text-entry hints', () => {
+  let fixture: ComponentFixture<InputComponent>;
+  const field = (): HTMLInputElement => fixture.nativeElement.querySelector('input');
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({ imports: [InputComponent] }).compileComponents();
+    fixture = TestBed.createComponent(InputComponent);
+    fixture.detectChanges();
+  });
+
+  it('sets none of them unless asked', () => {
+    expect(field().hasAttribute('spellcheck')).toBe(false);
+    expect(field().hasAttribute('autocorrect')).toBe(false);
+    expect(field().hasAttribute('autocapitalize')).toBe(false);
+  });
+
+  it('turns spellcheck, autocorrect and autocapitalize off for a name search', () => {
+    fixture.componentRef.setInput('spellcheck', false);
+    fixture.componentRef.setInput('autocorrect', 'off');
+    fixture.componentRef.setInput('autocapitalize', 'off');
+    fixture.detectChanges();
+
+    expect(field().getAttribute('spellcheck')).toBe('false');
+    expect(field().getAttribute('autocorrect')).toBe('off');
+    expect(field().getAttribute('autocapitalize')).toBe('off');
   });
 });
 

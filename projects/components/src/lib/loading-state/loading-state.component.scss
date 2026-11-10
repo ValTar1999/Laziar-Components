@@ -1,0 +1,25 @@
+/*
+ * Host defaults live in a cascade layer so that classes an app puts on the
+ * element (`hidden`, `w-full`, `text-*`) always win: unlayered rules beat layered
+ * ones whatever their specificity.
+ */
+@layer lz-defaults {
+  :host.lz-loading-state-host {
+    display: block;
+  }
+}
+
+.lz-loading-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--lz-space-2, 0.5rem);
+  padding-top: var(--lz-space-10);
+  font-family: var(--lz-font-sans);
+}
+
+.lz-loading-state__label {
+  color: var(--lz-color-neutral-500);
+  font-size: var(--lz-font-size-sm);
+  line-height: 1.25rem;
+}

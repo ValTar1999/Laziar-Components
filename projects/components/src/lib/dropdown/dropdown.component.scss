@@ -4,9 +4,80 @@
  * Меню: radius/md, padding 8px 0, Dropdown-Shadow, пункты 32px.
  */
 
-:host.lz-dropdown-host {
-  display: inline-block;
-  font-family: var(--lz-font-sans);
+/*
+ * Host defaults live in a cascade layer so that classes an app puts on the
+ * element (`hidden`, `w-full`, `text-*`) always win: unlayered rules beat layered
+ * ones whatever their specificity. Unlayered, these rules would tie with (or beat)
+ * a utility class and, emitted after the app's global CSS, silently override it.
+ */
+@layer lz-defaults {
+  :host.lz-dropdown-host {
+    display: inline-block;
+    font-family: var(--lz-font-sans);
+  }
+
+  :host(.lz-dropdown-host--full) {
+    display: block;
+    width: 100%;
+  }
+}
+
+.lz-dropdown--full {
+  display: block;
+  width: 100%;
+
+  .lz-dropdown__trigger {
+    width: 100%;
+  }
+
+  .lz-dropdown__title {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+}
+
+.lz-dropdown__trigger-icon {
+  flex-shrink: 0;
+  --lz-icon-size: 1.25rem;
+  width: var(--lz-icon-size) !important;
+  height: var(--lz-icon-size) !important;
+  color: var(--lz-color-text-primary);
+}
+
+.lz-dropdown__trigger[data-size='sm'] .lz-dropdown__trigger-icon {
+  --lz-icon-size: 1rem;
+}
+
+/* Icon-only trigger: a square button sized by the trigger's own min-height. */
+.lz-dropdown__trigger[data-icon-only='true'] {
+  justify-content: center;
+  border-color: transparent;
+  background-color: transparent;
+
+  &[data-size='xl'] {
+    width: 3rem;
+    padding: 0;
+  }
+
+  &[data-size='lg'] {
+    width: 2.75rem;
+    padding: 0;
+  }
+
+  &[data-size='md'] {
+    width: 2.5rem;
+    padding: 0;
+  }
+
+  &[data-size='sm'] {
+    width: 2rem;
+    padding: 0;
+  }
+
+  &:hover:not([data-disabled='true']):not(:focus):not([aria-expanded='true']) {
+    border-color: transparent;
+    background-color: var(--lz-color-neutral-50);
+  }
 }
 
 .lz-dropdown {
@@ -113,6 +184,8 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  /* tabindex="-1" only so it can host the arrow-key handler; never a tab stop. */
+  outline: none;
   width: max-content;
   min-width: 7rem;
   max-height: 100%;
@@ -162,7 +235,9 @@
 }
 
 .lz-dropdown__item {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   box-sizing: border-box;
   width: 100%;
   min-height: 2rem;
@@ -181,5 +256,50 @@
   &:focus-visible {
     outline: none;
     background-color: var(--lz-color-neutral-50);
+  }
+}
+
+.lz-dropdown__item-icon {
+  flex-shrink: 0;
+  --lz-icon-size: 1rem;
+  width: var(--lz-icon-size) !important;
+  height: var(--lz-icon-size) !important;
+  color: var(--lz-color-neutral-500);
+}
+
+.lz-dropdown__item-label {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.lz-dropdown__item-check {
+  flex-shrink: 0;
+  --lz-icon-size: 1rem;
+  width: var(--lz-icon-size) !important;
+  height: var(--lz-icon-size) !important;
+  margin-inline-start: 0.5rem;
+  color: var(--lz-color-text-primary);
+}
+
+/* Destructive action: label and icon take the danger colour. */
+.lz-dropdown__item[data-tone='danger'] {
+  color: var(--lz-color-danger);
+
+  .lz-dropdown__item-icon {
+    color: currentColor;
+  }
+
+  &:hover:not(:disabled),
+  &:focus-visible {
+    background-color: var(--lz-color-danger-surface);
+  }
+}
+
+.lz-dropdown__item:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+
+  &:hover {
+    background-color: transparent;
   }
 }

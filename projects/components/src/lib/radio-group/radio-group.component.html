@@ -1,0 +1,46 @@
+<div
+  class="lz-radio-group"
+  role="radiogroup"
+  [attr.aria-label]="ariaLabel() || null"
+  [attr.aria-labelledby]="ariaLabelledBy() || null"
+  [attr.aria-disabled]="effectiveDisabled() || null"
+  [attr.data-appearance]="appearance()"
+  [attr.data-orientation]="orientation()"
+>
+  @for (option of options(); track $index; let i = $index) {
+    <label
+      class="lz-radio-group__option"
+      [attr.data-checked]="isChecked(option) ? 'true' : null"
+      [attr.data-disabled]="isDisabled(option) ? 'true' : null"
+    >
+      <input
+        type="radio"
+        class="lz-radio-group__input"
+        [name]="groupName()"
+        [checked]="isChecked(option)"
+        [disabled]="isDisabled(option)"
+        [attr.aria-describedby]="option.description ? descriptionId(i) : null"
+        (change)="choose(option)"
+        (blur)="onTouched()"
+      />
+      <span class="lz-radio-group__body">
+        <span class="lz-radio-group__label">
+          @if (option.icon) {
+            <lz-icon
+              class="lz-radio-group__icon"
+              [name]="option.icon"
+              type="outline"
+              aria-hidden="true"
+            />
+          }
+          {{ option.label }}
+        </span>
+        @if (option.description) {
+          <span class="lz-radio-group__description" [id]="descriptionId(i)">
+            {{ option.description }}
+          </span>
+        }
+      </span>
+    </label>
+  }
+</div>

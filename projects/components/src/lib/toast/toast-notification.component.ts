@@ -21,6 +21,8 @@ export class ToastNotification {
   readonly message = input('');
   readonly messageBold = input<string | undefined>(undefined);
   readonly type = input<ToastType>('success');
+  /** Accessible name of the close button; consumers pass a localized string. */
+  readonly closeLabel = input('Dismiss notification');
   readonly closed = output<void>();
 
   protected readonly iconName = computed(() => {

@@ -140,6 +140,13 @@ export const CHECKBOX_COMPONENT_META: DocsComponentMeta = {
       default: "''",
       description: 'Caption under the title',
     },
+    {
+      name: 'ariaLabel',
+      type: 'string | undefined',
+      default: 'undefined',
+      description:
+        'Accessible name for a checkbox with no visible title, such as a selection column. Replaces the title as the name, so leave it unset when title is set',
+    },
   ],
   outputs: [
     {

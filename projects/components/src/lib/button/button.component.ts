@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import {
+  LzButtonAlign,
   LzButtonColor,
   LzButtonIconPosition,
   LzButtonIconVariant,
@@ -54,6 +55,8 @@ export class Button {
   readonly pill = input(false, { transform: booleanAttribute });
   readonly color = input<LzButtonColor>('gray');
   readonly fullWidth = input(false, { transform: booleanAttribute });
+  /** Content placement when the button is wider than its content. */
+  readonly align = input<LzButtonAlign>('center');
   readonly ariaLabel = input<string | undefined>(undefined);
   readonly ariaCurrentPage = input(false, { transform: booleanAttribute });
   readonly clicked = output<void>();

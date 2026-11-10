@@ -1,7 +1,15 @@
-:host.lz-table-host {
-  display: block;
-  color: #121212;
-  font-family: var(--lz-font-sans);
+/*
+ * Host defaults live in a cascade layer so that classes an app puts on the
+ * element (`hidden`, `w-full`, `text-*`) always win: unlayered rules beat layered
+ * ones whatever their specificity. Unlayered, these rules would tie with (or beat)
+ * a utility class and, emitted after the app's global CSS, silently override it.
+ */
+@layer lz-defaults {
+  :host.lz-table-host {
+    display: block;
+    color: #121212;
+    font-family: var(--lz-font-sans);
+  }
 }
 
 .lz-table {
@@ -68,6 +76,59 @@
 
 .lz-table__header-cell {
   padding-block: 0.75rem;
+}
+
+/* A sortable header: the header text as a button, with the arrow after it. */
+.lz-table__sort-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0.25rem;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: var(--lz-shadow-focus);
+  }
+
+  &:hover .lz-table__sort-icon,
+  &[data-sorted='true'] .lz-table__sort-icon {
+    color: #121212;
+  }
+}
+
+.lz-table__header-cell[data-align='right'] .lz-table__sort-button {
+  flex-direction: row-reverse;
+}
+
+.lz-table__sort-icon {
+  --lz-icon-size: 0.875rem;
+  flex-shrink: 0;
+  width: var(--lz-icon-size);
+  height: var(--lz-icon-size);
+  color: #6b6f73;
+  transition: color 0.15s ease;
+}
+
+/* `hideHeader`: read by screen readers, not drawn. */
+.lz-table__visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .lz-table__cell {

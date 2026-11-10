@@ -2,7 +2,12 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { By } from '@angular/platform-browser';
 import { Component } from '@angular/core';
 import { Button } from './button.component';
-import { LZ_BUTTON_COLORS, LZ_BUTTON_SIZES, LZ_BUTTON_VARIANTS } from './button.types';
+import {
+  LZ_BUTTON_ALIGNS,
+  LZ_BUTTON_COLORS,
+  LZ_BUTTON_SIZES,
+  LZ_BUTTON_VARIANTS,
+} from './button.types';
 
 describe('Button', () => {
   let fixture: ComponentFixture<Button>;
@@ -74,6 +79,28 @@ describe('Button', () => {
     fixture.componentRef.setInput('type', 'submit');
     fixture.detectChanges();
     expect(nativeButton().type).toBe('submit');
+  });
+
+  it('should leave data-align off for the default center alignment', () => {
+    expect(component.align()).toBe('center');
+    expect(nativeButton().hasAttribute('data-align')).toBe(false);
+  });
+
+  describe('align', () => {
+    for (const align of LZ_BUTTON_ALIGNS.filter((value) => value !== 'center')) {
+      it(`should apply data-align="${align}"`, () => {
+        fixture.componentRef.setInput('align', align);
+        fixture.detectChanges();
+        expect(nativeButton().getAttribute('data-align')).toBe(align);
+      });
+    }
+
+    it('should place start-aligned content at the left edge of a full-width button', () => {
+      fixture.componentRef.setInput('align', 'start');
+      fixture.componentRef.setInput('fullWidth', true);
+      fixture.detectChanges();
+      expect(getComputedStyle(nativeButton()).justifyContent).toBe('flex-start');
+    });
   });
 
   it('should mark aria-current=page when ariaCurrentPage is true', () => {
@@ -155,6 +182,52 @@ describe('Button', () => {
       btn.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
       btn.click();
       expect(spy).toHaveBeenCalled();
+    });
+  });
+
+  describe('label centring', () => {
+    const label = (): HTMLElement =>
+      fixture.nativeElement.querySelector('.lz-button__label') as HTMLElement;
+    const trims = CSS.supports('text-box', 'trim-both cap alphabetic');
+
+    beforeEach(() => {
+      fixture.componentRef.setInput('label', 'Create Campaign');
+    });
+
+    it('trims the label to cap height and baseline, so the capitals sit in the middle', () => {
+      fixture.detectChanges();
+      if (!trims) {
+        pending('text-box is not supported in this browser');
+        return;
+      }
+
+      const style = getComputedStyle(label()) as CSSStyleDeclaration & {
+        textBoxTrim?: string;
+        textBoxEdge?: string;
+      };
+      expect(style.textBoxTrim).toBe('trim-both');
+      expect(style.textBoxEdge).toBe('cap alphabetic');
+    });
+
+    it('leaves a link label untrimmed: its height is its line', () => {
+      fixture.componentRef.setInput('variant', 'link');
+      fixture.detectChanges();
+      if (!trims) {
+        pending('text-box is not supported in this browser');
+        return;
+      }
+
+      const style = getComputedStyle(label()) as CSSStyleDeclaration & { textBoxTrim?: string };
+      expect(style.textBoxTrim).toBe('none');
+    });
+
+    it('keeps every size at its height', () => {
+      const heights: Record<string, number> = { xs: 24, sm: 28, md: 32, lg: 40, xl: 48 };
+      for (const [size, height] of Object.entries(heights)) {
+        fixture.componentRef.setInput('size', size);
+        fixture.detectChanges();
+        expect(nativeButton().getBoundingClientRect().height).withContext(size).toBe(height);
+      }
     });
   });
 

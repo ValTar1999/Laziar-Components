@@ -99,6 +99,24 @@ describe('attachLzFloating', () => {
     );
     stop();
   });
+
+  // theme.css gives library overlay panes `width: auto !important`, which beats a
+  // plain inline width: lz-select's list rendered wider than its field.
+  it('renders an overlay pane at the anchor width despite the theme pane rules', async () => {
+    floating.classList.add('lz-select-cdk-pane', 'cdk-overlay-pane');
+    const stop = attachLzFloating(anchor, floating, {
+      placement: 'bottom-start',
+      strategy: 'fixed',
+      matchWidth: true,
+      maxHeight: 208,
+    });
+
+    await waitUntil(() => floating.style.width !== '');
+
+    const anchorWidth = anchor.getBoundingClientRect().width;
+    expect(floating.getBoundingClientRect().width).toBeCloseTo(anchorWidth, 0);
+    stop();
+  });
 });
 
 @Component({

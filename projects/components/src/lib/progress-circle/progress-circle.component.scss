@@ -2,9 +2,17 @@
  * Progress circle — arc/track colors via [data-variant] CSS vars (no inline hex).
  */
 
-:host {
-  display: inline-block;
-  vertical-align: middle;
+/*
+ * Host defaults live in a cascade layer so that classes an app puts on the
+ * element (`hidden`, `w-full`, `text-*`) always win: unlayered rules beat layered
+ * ones whatever their specificity. Unlayered, these rules would tie with (or beat)
+ * a utility class and, emitted after the app's global CSS, silently override it.
+ */
+@layer lz-defaults {
+  :host {
+    display: inline-block;
+    vertical-align: middle;
+  }
 }
 
 .lz-progress-circle {

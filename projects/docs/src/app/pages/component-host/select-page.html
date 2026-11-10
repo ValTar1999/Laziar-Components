@@ -1,16 +1,34 @@
 <docs-component-page [meta]="meta">
   <ng-template docsPreview let-values>
     <div class="docs-select-preview">
-      <lz-select
-        [(ngModel)]="value"
-        [options]="options()"
-        [label]="str(values, 'label')"
-        [placeholder]="str(values, 'placeholder')"
-        [size]="$any(str(values, 'size', 'md'))"
-        [helperText]="str(values, 'helperText')"
-        [error]="bool(values, 'error')"
-        [disabled]="bool(values, 'disabled')"
-      />
+      <!-- Two instances: a multiple select holds an array, a single one an option. -->
+      @if (bool(values, 'multiple')) {
+        <lz-select
+          multiple
+          [(ngModel)]="chosen"
+          [options]="options()"
+          [selectionSummary]="summary"
+          [label]="str(values, 'label')"
+          [placeholder]="str(values, 'placeholder')"
+          [size]="$any(str(values, 'size', 'md'))"
+          [helperText]="str(values, 'helperText')"
+          [error]="bool(values, 'error')"
+          [disabled]="bool(values, 'disabled')"
+          [searchable]="bool(values, 'searchable')"
+        />
+      } @else {
+        <lz-select
+          [(ngModel)]="value"
+          [options]="options()"
+          [label]="str(values, 'label')"
+          [placeholder]="str(values, 'placeholder')"
+          [size]="$any(str(values, 'size', 'md'))"
+          [helperText]="str(values, 'helperText')"
+          [error]="bool(values, 'error')"
+          [disabled]="bool(values, 'disabled')"
+          [searchable]="bool(values, 'searchable')"
+        />
+      }
     </div>
   </ng-template>
 </docs-component-page>

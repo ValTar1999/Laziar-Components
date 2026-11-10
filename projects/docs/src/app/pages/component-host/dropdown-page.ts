@@ -35,8 +35,15 @@ export class DropdownPage {
       {
         heading: this.transloco.translate('components.dropdown.demo.actions'),
         items: [
-          this.transloco.translate('components.dropdown.demo.archive'),
-          this.transloco.translate('components.dropdown.demo.delete'),
+          {
+            label: this.transloco.translate('components.dropdown.demo.archive'),
+            icon: 'archive-box',
+          },
+          {
+            label: this.transloco.translate('components.dropdown.demo.delete'),
+            icon: 'trash',
+            tone: 'danger',
+          },
         ],
       },
     ];

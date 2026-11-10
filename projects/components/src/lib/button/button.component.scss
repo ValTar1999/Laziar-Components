@@ -6,17 +6,25 @@
  * Ghost → tertiary, No Padding → link, No Padding (only icon) → iconOnly.
  */
 
-:host.lz-button-host {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  max-width: 100%;
-  vertical-align: middle;
-}
+/*
+ * Host defaults live in a cascade layer so that classes an app puts on the
+ * element (`hidden`, `w-full`, `text-*`) always win: unlayered rules beat layered
+ * ones whatever their specificity. Unlayered, these rules would tie with (or beat)
+ * a utility class and, emitted after the app's global CSS, silently override it.
+ */
+@layer lz-defaults {
+  :host.lz-button-host {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    vertical-align: middle;
+  }
 
-:host(.lz-button-host--full) {
-  display: flex;
-  width: 100%;
+  :host(.lz-button-host--full) {
+    display: flex;
+    width: 100%;
+  }
 }
 
 .lz-button--full {
@@ -99,6 +107,17 @@
   transform: none;
 }
 
+/* align: content placement inside a button wider than its content */
+.lz-button[data-align='start'] {
+  justify-content: flex-start;
+  text-align: start;
+}
+
+.lz-button[data-align='end'] {
+  justify-content: flex-end;
+  text-align: end;
+}
+
 /* layout: icon → label → projected; icon-end → icon last */
 .lz-button--icon-end .lz-button__icon {
   order: 3;
@@ -107,6 +126,19 @@
 .lz-button__label {
   order: 1;
   padding: 0 0.25rem;
+}
+
+/*
+ * Centre the label on its capital letters, not on its line box. Onest's ascent is
+ * much taller than its descent (14px against 4px at 14px), so a line box centred
+ * in the button leaves the capitals about 1px high. Trimming to cap height and
+ * baseline lets align-items: center place the letters themselves in the middle.
+ * Every size keeps its height: min-height is above the trimmed content. Not on
+ * link, whose height is its line (min-height: 0) and would shrink. Browsers
+ * without text-box (Firefox) keep the line box, as before.
+ */
+.lz-button:not([data-variant='link']) .lz-button__label {
+  text-box: trim-both cap alphabetic;
 }
 
 .lz-button__projected {

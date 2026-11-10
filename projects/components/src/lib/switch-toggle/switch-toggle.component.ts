@@ -50,6 +50,19 @@ export class SwitchToggle implements ControlValueAccessor {
   readonly disabled = input(false, { transform: booleanAttribute });
   /** Switch size - affects dimensions. */
   readonly size = input<LzSwitchToggleSize>('md');
+  /**
+   * Accessible name of the switch. The control renders no visible label, so
+   * without this (or `ariaLabelledBy`) a screen reader announces only "switch".
+   */
+  readonly ariaLabel = input<string | undefined>(undefined);
+  /**
+   * Id(s) of the element(s) that label the switch, for a visible label the host
+   * already renders beside it. Takes precedence over `ariaLabel` in the
+   * accessible-name computation.
+   */
+  readonly ariaLabelledBy = input<string | undefined>(undefined);
+  /** Id(s) of the element(s) that describe the switch, e.g. a hint line. */
+  readonly ariaDescribedBy = input<string | undefined>(undefined);
 
   /** Emitted when switch state changes. */
   readonly changed = output<boolean>();

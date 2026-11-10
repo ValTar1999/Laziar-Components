@@ -4,6 +4,10 @@
       [title]="str(values, 'title', 'Menu')"
       [sizeVariant]="$any(str(values, 'sizeVariant', 'xl'))"
       [disabled]="bool(values, 'disabled')"
+      [icon]="str(values, 'icon') || undefined"
+      [ariaLabel]="str(values, 'ariaLabel') || undefined"
+      [placement]="$any(str(values, 'placement', 'bottom-start'))"
+      [fullWidth]="bool(values, 'fullWidth')"
       [sections]="sections()"
     />
   </ng-template>

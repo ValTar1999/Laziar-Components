@@ -13,7 +13,15 @@ import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { LzInputAppearance, LzInputSize, LzInputType, LzInputButtonPosition } from './input.types';
+import {
+  LzInputAppearance,
+  LzInputAutocapitalize,
+  LzInputAutocorrect,
+  LzInputButtonPosition,
+  LzInputSize,
+  LzInputType,
+  LzInputValue,
+} from './input.types';
 import { Icon } from '../icon/icon.component';
 import { Tooltip } from '../tooltip/tooltip.component';
 
@@ -68,7 +76,28 @@ export class InputComponent implements ControlValueAccessor {
   readonly showPasswordLabel = input('Show password');
   /** Tooltip when password is visible. */
   readonly hidePasswordLabel = input('Hide password');
+  /** Accessible name of the search clear button; consumers pass a localized string. */
+  readonly clearSearchLabel = input('Clear search');
+  /** Drops every non-digit as it is typed and asks mobile keyboards for digits. */
+  readonly onlyNumbers = input(false, { transform: booleanAttribute });
+  /** `type="number"` only: the native `min`, `max` and `step`; null omits each. */
+  readonly min = input<number | null>(null);
+  readonly max = input<number | null>(null);
+  readonly step = input<number | 'any' | null>(null);
+  /**
+   * Native `spellcheck`. Null leaves the browser default; false is for fields
+   * whose text is not prose, such as names searched against a list.
+   */
+  readonly spellcheck = input<boolean | null>(null);
+  /** Native `autocorrect` (Safari keyboards); null omits it. */
+  readonly autocorrect = input<LzInputAutocorrect | null>(null);
+  /** Native `autocapitalize` (mobile keyboards); null omits it. */
+  readonly autocapitalize = input<LzInputAutocapitalize | null>(null);
 
+  /**
+   * The field's text as typed. A form control bound with ngModel or formControl
+   * gets the parsed number instead when `type="number"` (see `writeValue`).
+   */
   readonly valueChange = output<string>();
 
   /** Stable unique id linking the <label for> to the <input id>. */
@@ -81,7 +110,13 @@ export class InputComponent implements ControlValueAccessor {
   private readonly cvaDisabled = signal(false);
   protected readonly effectiveDisabled = computed(() => this.disabled() || this.cvaDisabled());
 
-  private onChange: (value: string) => void = () => undefined;
+  private onChange: (value: LzInputValue) => void = () => undefined;
+
+  protected readonly isNumber = computed(() => this.type() === 'number');
+  protected readonly spellcheckAttr = computed(() => {
+    const spellcheck = this.spellcheck();
+    return spellcheck === null ? null : String(spellcheck);
+  });
   protected onTouched: () => void = () => undefined;
 
   protected readonly showClearButton = computed(
@@ -114,11 +149,17 @@ export class InputComponent implements ControlValueAccessor {
     });
   }
 
-  writeValue(value: string): void {
-    this.value.set(value ?? '');
+  /**
+   * Takes text, or for `type="number"` a number. Whatever arrives is shown as
+   * text; a form control gets back what the field type implies: the text, or
+   * the number typed (null while the field is empty or not a number), as a
+   * native number input under ngModel would give it.
+   */
+  writeValue(value: LzInputValue | undefined): void {
+    this.value.set(value == null ? '' : String(value));
   }
 
-  registerOnChange(fn: (value: string) => void): void {
+  registerOnChange(fn: (value: LzInputValue) => void): void {
     this.onChange = fn;
   }
 
@@ -132,11 +173,22 @@ export class InputComponent implements ControlValueAccessor {
 
   protected onInput(event: Event): void {
     const inputEl = event.target as HTMLInputElement;
+    if (this.onlyNumbers()) {
+      // Rewrite the field itself too, so a rejected character never shows.
+      inputEl.value = inputEl.value.replace(/\D/g, '');
+    }
     const newValue = inputEl.value;
     this.value.set(newValue);
-    this.onChange(newValue);
+    this.onChange(this.isNumber() ? this.parseNumber(inputEl) : newValue);
     this.onTouched();
     this.valueChange.emit(newValue);
+  }
+
+  /** The number in a number field, or null when it is empty or not a number. */
+  private parseNumber(inputEl: HTMLInputElement): number | null {
+    if (inputEl.value === '') return null;
+    const parsed = inputEl.valueAsNumber;
+    return Number.isNaN(parsed) ? null : parsed;
   }
 
   protected togglePasswordVisibility(): void {
@@ -149,7 +201,7 @@ export class InputComponent implements ControlValueAccessor {
   protected clearSearch(): void {
     if (this.value()) {
       this.value.set('');
-      this.onChange('');
+      this.onChange(this.isNumber() ? null : '');
       this.onTouched();
       this.valueChange.emit('');
     }

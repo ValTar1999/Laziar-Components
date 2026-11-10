@@ -9,11 +9,23 @@ export interface LzSelectOption {
   title?: string;
   date?: string;
   label?: string;
-  value?: string | number | boolean | null;
+  /**
+   * Any payload; publikator carries whole records here (e.g. an author profile).
+   * Compared by identity when there is no `id`, and only used as a label when
+   * there is neither `label` nor `title`.
+   */
+  value?: unknown;
 }
 
 /** Select option type - can be string or SelectOption object (matches publikator). */
 export type LzSelectOptionType = string | LzSelectOption;
+
+/**
+ * Builds the trigger text of a `multiple` select from the options chosen, e.g.
+ * `(chosen) => \`${chosen.length} selected\``. Only called with at least one option;
+ * with none the trigger shows the placeholder.
+ */
+export type LzSelectSummaryFn = (selected: readonly LzSelectOptionType[]) => string;
 
 export function lzSelectOptionLabel(option: LzSelectOptionType): string {
   if (typeof option === 'string') {
