@@ -185,6 +185,52 @@ describe('Button', () => {
     });
   });
 
+  describe('label centring', () => {
+    const label = (): HTMLElement =>
+      fixture.nativeElement.querySelector('.lz-button__label') as HTMLElement;
+    const trims = CSS.supports('text-box', 'trim-both cap alphabetic');
+
+    beforeEach(() => {
+      fixture.componentRef.setInput('label', 'Create Campaign');
+    });
+
+    it('trims the label to cap height and baseline, so the capitals sit in the middle', () => {
+      fixture.detectChanges();
+      if (!trims) {
+        pending('text-box is not supported in this browser');
+        return;
+      }
+
+      const style = getComputedStyle(label()) as CSSStyleDeclaration & {
+        textBoxTrim?: string;
+        textBoxEdge?: string;
+      };
+      expect(style.textBoxTrim).toBe('trim-both');
+      expect(style.textBoxEdge).toBe('cap alphabetic');
+    });
+
+    it('leaves a link label untrimmed: its height is its line', () => {
+      fixture.componentRef.setInput('variant', 'link');
+      fixture.detectChanges();
+      if (!trims) {
+        pending('text-box is not supported in this browser');
+        return;
+      }
+
+      const style = getComputedStyle(label()) as CSSStyleDeclaration & { textBoxTrim?: string };
+      expect(style.textBoxTrim).toBe('none');
+    });
+
+    it('keeps every size at its height', () => {
+      const heights: Record<string, number> = { xs: 24, sm: 28, md: 32, lg: 40, xl: 48 };
+      for (const [size, height] of Object.entries(heights)) {
+        fixture.componentRef.setInput('size', size);
+        fixture.detectChanges();
+        expect(nativeButton().getBoundingClientRect().height).withContext(size).toBe(height);
+      }
+    });
+  });
+
   describe('deprecated aliases', () => {
     it('rounded should map to pill', () => {
       component.rounded = true;

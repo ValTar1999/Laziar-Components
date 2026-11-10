@@ -128,6 +128,19 @@
   padding: 0 0.25rem;
 }
 
+/*
+ * Centre the label on its capital letters, not on its line box. Onest's ascent is
+ * much taller than its descent (14px against 4px at 14px), so a line box centred
+ * in the button leaves the capitals about 1px high. Trimming to cap height and
+ * baseline lets align-items: center place the letters themselves in the middle.
+ * Every size keeps its height: min-height is above the trimmed content. Not on
+ * link, whose height is its line (min-height: 0) and would shrink. Browsers
+ * without text-box (Firefox) keep the line box, as before.
+ */
+.lz-button:not([data-variant='link']) .lz-button__label {
+  text-box: trim-both cap alphabetic;
+}
+
 .lz-button__projected {
   order: 2;
   display: inline-flex;
