@@ -22,6 +22,11 @@ export const TABS_COMPONENT_META: DocsComponentMeta = {
       default: 'md',
     },
     {
+      name: 'stretch',
+      kind: 'boolean',
+      default: true,
+    },
+    {
       name: 'activeTab',
       kind: 'number',
       default: 0,
@@ -31,6 +36,10 @@ export const TABS_COMPONENT_META: DocsComponentMeta = {
   variants: [
     { label: 'outline · md', props: { style: 'outline', size: 'md', activeTab: 0 } },
     { label: 'underline · md', props: { style: 'underline', size: 'md', activeTab: 1 } },
+    {
+      label: 'underline · not stretched',
+      props: { style: 'underline', size: 'md', activeTab: 1, stretch: false },
+    },
     { label: 'underline-text · md', props: { style: 'underline-text', size: 'md', activeTab: 1 } },
     { label: 'border · md', props: { style: 'border', size: 'md', activeTab: 0 } },
     { label: 'outline · sm', props: { style: 'outline', size: 'sm', activeTab: 0 } },
@@ -49,7 +58,14 @@ export const TABS_COMPONENT_META: DocsComponentMeta = {
       type: `'outline' | 'underline' | 'underline-text' | 'border'`,
       default: `'outline'`,
       description:
-        'outline — pill; underline — line under the whole tab; underline-text — line sized to the active label text; border — bordered segment',
+        'outline — pill; underline — line under the whole tab; underline-text — line sized to the active label text; border — bordered segment. Bind it as [style]="\x27underline\x27": a static style="…" attribute is taken as the CSS style attribute and never reaches the input',
+    },
+    {
+      name: 'stretch',
+      type: 'boolean',
+      default: 'true',
+      description:
+        'true — tabs share the strip width equally; false — each tab keeps to its label, left-aligned (section tabs under a page header)',
     },
     {
       name: 'size',
@@ -113,7 +129,7 @@ export const TABS_COMPONENT_META: DocsComponentMeta = {
       title: 'Basic tab list',
       code: `<lz-tabs
   [tabs]="['Overview', 'Members', 'Settings']"
-  style="underline"
+  [style]="'underline'"
   size="md"
   [(activeTab)]="active"
 />`,
@@ -124,7 +140,7 @@ export const TABS_COMPONENT_META: DocsComponentMeta = {
   [tabs]="labels"
   [icons]="['home', 'users', 'cog-6-tooth']"
   [badges]="[{ text: '3', variant: 'red' }, null, null]"
-  style="border"
+  [style]="'border'"
 />`,
     },
   ],

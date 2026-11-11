@@ -1,5 +1,6 @@
 import {
   afterRenderEffect,
+  booleanAttribute,
   Component,
   computed,
   DestroyRef,
@@ -40,16 +41,36 @@ export class Tabs {
   readonly disabledTabIndexes = input<number[]>([]);
   readonly disabledTabTooltips = input<Record<string, string>>({});
   readonly disabledTabTooltipTrigger = input<LzDisabledTabTooltipTrigger>('hover');
+  /**
+   * With the default true the tabs share the strip's width equally. False keeps
+   * each tab to its label, left-aligned, as a page header's section tabs sit.
+   */
+  readonly stretch = input(true, { transform: booleanAttribute });
   /** Two-way active index (updates locally on click like F/P). */
   readonly activeTab = model(0);
 
   protected readonly showUnderline = computed(() => this.style() !== 'outline');
 
+  /** False when activeTab points at no tab, e.g. -1 for "none of these". */
+  protected readonly hasActiveTab = computed(
+    () => this.activeTab() >= 0 && this.activeTab() < this.tabs().length,
+  );
+
   /** Indicator sized to the active label's text, positioned from DOM measurements. */
   protected readonly isTextUnderline = computed(() => this.style() === 'underline-text');
 
+  /**
+   * Whether the indicator is placed from DOM measurements rather than as an equal
+   * share of the strip: under the label for underline-text, and under the whole
+   * tab when tabs are not stretched and so differ in width.
+   */
+  protected readonly isMeasuredUnderline = computed(
+    () => this.isTextUnderline() || (this.showUnderline() && !this.stretch()),
+  );
+
   private readonly tablist = viewChild.required<ElementRef<HTMLElement>>('tablist');
   private readonly labels = viewChildren<ElementRef<HTMLElement>>('label');
+  private readonly tabButtons = viewChildren<ElementRef<HTMLElement>>('tab');
   private readonly textUnderline = viewChild<ElementRef<HTMLElement>>('textUnderline');
 
   /** Bumped by ResizeObserver so the indicator follows layout / font changes. */
@@ -63,15 +84,17 @@ export class Tabs {
       mixedReadWrite: () => {
         this.layoutVersion();
         const underline = this.textUnderline()?.nativeElement;
-        const label = this.labels()[this.activeTab()]?.nativeElement;
-        if (!underline || !label) {
+        const target = (this.isTextUnderline() ? this.labels() : this.tabButtons())[
+          this.activeTab()
+        ]?.nativeElement;
+        if (!underline || !target) {
           return;
         }
 
-        this.observeLayout(label);
+        this.observeLayout(target);
 
         const listRect = this.tablist().nativeElement.getBoundingClientRect();
-        const labelRect = label.getBoundingClientRect();
+        const labelRect = target.getBoundingClientRect();
         // First placement snaps into position; later changes slide.
         const placed = underline.dataset['placed'] === 'true';
         underline.style.transition = placed ? '' : 'none';

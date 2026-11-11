@@ -126,6 +126,11 @@
   --lz-tabs-line: 1.5rem;
 }
 
+/* Unstretched: each tab keeps to its label, left-aligned. */
+.lz-tabs[data-stretch='false'] .lz-tabs__tab {
+  flex: 0 0 auto;
+}
+
 /* ── outline: pill ── */
 .lz-tabs[data-style='outline'] {
   gap: 0.25rem;
