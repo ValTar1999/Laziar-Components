@@ -216,6 +216,21 @@ describe('DropdownComponent', () => {
       expect(triggerEl().querySelector('.lz-dropdown__chevron')).toBeNull();
     });
 
+    it('draws an xs icon-only trigger as a 24px round button with a 16px icon', () => {
+      fixture.componentRef.setInput('title', '');
+      fixture.componentRef.setInput('icon', 'ellipsis-horizontal');
+      fixture.componentRef.setInput('ariaLabel', 'Row actions');
+      fixture.componentRef.setInput('sizeVariant', 'xs');
+      fixture.detectChanges();
+
+      const box = triggerEl().getBoundingClientRect();
+      expect(box.width).toBe(24);
+      expect(box.height).toBe(24);
+      expect(getComputedStyle(triggerEl()).borderTopLeftRadius).toBe('9999px');
+      const icon = triggerEl().querySelector('.lz-dropdown__trigger-icon') as HTMLElement;
+      expect(icon.getBoundingClientRect().width).toBe(16);
+    });
+
     it('omits aria-label by default', () => {
       expect(triggerEl().hasAttribute('aria-label')).toBeFalse();
     });

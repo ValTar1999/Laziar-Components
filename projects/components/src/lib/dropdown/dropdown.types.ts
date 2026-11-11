@@ -36,8 +36,12 @@ export interface LzDropdownSection {
   items: LzDropdownEntry[];
 }
 
-/** Visual scale for a dropdown trigger. */
-export const LZ_DROPDOWN_SIZES = ['xl', 'lg', 'md', 'sm'] as const;
+/**
+ * Visual scale for a dropdown trigger. `xs` is meant for an icon-only trigger
+ * inside a dense row, such as a table's "…" actions menu (Figma Button/Ghost,
+ * 24px with a 16px icon).
+ */
+export const LZ_DROPDOWN_SIZES = ['xl', 'lg', 'md', 'sm', 'xs'] as const;
 
 export type LzDropdownSize = (typeof LZ_DROPDOWN_SIZES)[number];
 
