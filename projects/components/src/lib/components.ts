@@ -117,6 +117,8 @@ export * from './expand/expand.component';
 
 export * from './calendar/calendar.component';
 export * from './calendar/calendar.types';
+export * from './date-input/date-input.component';
+export * from './date-input/date-input.types';
 
 export * from './page-header/page-header.component';
 export * from './empty-state/empty-state.component';

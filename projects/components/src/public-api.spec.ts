@@ -37,6 +37,7 @@ const EXPECTED_PUBLIC_API: readonly string[] = [
   'Calendar',
   'CardComponent',
   'Checkbox',
+  'DateInput',
   'DropdownComponent',
   'EmptyState',
   'Expand',
@@ -59,6 +60,7 @@ const EXPECTED_PUBLIC_API: readonly string[] = [
   'LZ_CARD_VARIANTS',
   'LZ_CHECKBOX_TYPES',
   'LZ_CHECKBOX_VARIANTS',
+  'LZ_DATE_INPUT_SIZES',
   'LZ_DROPDOWN_ITEM_TONES',
   'LZ_DROPDOWN_PLACEMENTS',
   'LZ_DROPDOWN_SIZES',
@@ -115,10 +117,12 @@ const EXPECTED_PUBLIC_API: readonly string[] = [
   'VideoPlayer',
   'attachLzFloating',
   'buildAvatarInitials',
+  'lzParseIsoDate',
   'lzSelectOptionDate',
   'lzSelectOptionLabel',
   'lzTableNextSort',
   'lzTableUtilityToCss',
+  'lzToIsoDate',
 ];
 
 describe('@laziar/components public API', () => {

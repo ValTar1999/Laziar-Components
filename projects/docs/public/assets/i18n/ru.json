@@ -27,6 +27,7 @@
       "textarea": "Textarea",
       "select": "Select",
       "calendar": "Calendar",
+      "dateInput": "Date Input",
       "modal": "Модальное окно",
       "dropdown": "Dropdown",
       "stub": "Stub",

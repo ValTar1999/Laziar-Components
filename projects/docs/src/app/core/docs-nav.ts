@@ -123,6 +123,14 @@ export const DOCS_NAV: DocsNavGroup[] = [
         keywords: 'calendar date picker day month',
       },
       {
+        id: 'date-input',
+        label: 'nav.items.dateInput',
+        route: '/components/date-input',
+        kind: 'component',
+        icon: 'calendar-days',
+        keywords: 'date input field picker lz-date-input form',
+      },
+      {
         id: 'dropdown',
         label: 'nav.items.dropdown',
         route: '/components/dropdown',
