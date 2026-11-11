@@ -11,17 +11,21 @@
     [disabled]="disabled()"
     [attr.data-size]="sizeVariant()"
     [attr.data-disabled]="disabled()"
-    [attr.data-icon-only]="isIconOnly() ? 'true' : null"
+    [attr.data-icon-only]="isIconOnly() && !hasCustomTrigger() ? 'true' : null"
+    [attr.data-custom]="hasCustomTrigger() ? 'true' : null"
     [attr.aria-label]="ariaLabel() || null"
     [attr.aria-expanded]="isOpen()"
     [attr.aria-controls]="menuId"
     aria-haspopup="menu"
     (click)="toggleDropdown()"
   >
-    @if (icon()) {
+    <ng-content select="[lzDropdownTrigger]" />
+    @if (hasCustomTrigger()) {
+      <!-- The projected content is the whole trigger. -->
+    } @else if (icon()) {
       <lz-icon [name]="icon()!" type="outline" class="lz-dropdown__trigger-icon" />
     }
-    @if (!isIconOnly()) {
+    @if (!isIconOnly() && !hasCustomTrigger()) {
       <span class="lz-dropdown__title">{{ title() }}</span>
       <lz-icon
         name="chevron-down"

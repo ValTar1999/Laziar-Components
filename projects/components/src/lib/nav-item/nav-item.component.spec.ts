@@ -9,10 +9,12 @@ import { NavItem } from './nav-item.component';
     <a lz-nav-item href="#campaigns" icon="megaphone" [active]="active()">Campaigns</a>
     <a lz-nav-item href="#billing" aria-current="page">Billing</a>
     <button lz-nav-item type="button" disabled>Reports</button>
+    <a lz-nav-item href="#settings" icon="cog-6-tooth" [collapsed]="collapsed()">Settings</a>
   `,
 })
 class NavItemHost {
   readonly active = signal(false);
+  readonly collapsed = signal(false);
 }
 
 describe('NavItem', () => {
@@ -65,5 +67,20 @@ describe('NavItem', () => {
 
   it('is 36px tall: 20px line and 8px padding', () => {
     expect(items()[0].getBoundingClientRect().height).toBe(36);
+  });
+
+  it('collapsed, shows the icon alone and keeps the label as its name', () => {
+    const settings = items()[3];
+    const label = settings.querySelector('.lz-nav-item__label') as HTMLElement;
+    expect(settings.hasAttribute('data-collapsed')).toBe(false);
+    expect(label.getBoundingClientRect().width).toBeGreaterThan(1);
+
+    fixture.componentInstance.collapsed.set(true);
+    fixture.detectChanges();
+
+    expect(settings.getAttribute('data-collapsed')).toBe('true');
+    expect(label.getBoundingClientRect().width).toBeLessThanOrEqual(1);
+    expect(settings.textContent?.trim()).toBe('Settings');
+    expect(settings.getBoundingClientRect().height).toBe(36);
   });
 });

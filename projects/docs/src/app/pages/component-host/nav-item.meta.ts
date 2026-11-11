@@ -17,11 +17,17 @@ export const NAV_ITEM_COMPONENT_META: DocsComponentMeta = {
       kind: 'boolean',
       default: false,
     },
+    {
+      name: 'collapsed',
+      kind: 'boolean',
+      default: false,
+    },
   ],
   variants: [
     { label: 'idle', props: { icon: 'megaphone', active: false } },
     { label: 'active', props: { icon: 'megaphone', active: true } },
     { label: 'no icon', props: { icon: '', active: false } },
+    { label: 'collapsed', props: { icon: 'megaphone', active: true, collapsed: true } },
   ],
   inputs: [
     {
@@ -36,6 +42,13 @@ export const NAV_ITEM_COMPONENT_META: DocsComponentMeta = {
       default: 'false',
       description:
         'Draws the entry as the current one. aria-current="page" (routerLinkActive with ariaCurrentWhenActive) draws the same way',
+    },
+    {
+      name: 'collapsed',
+      type: 'boolean',
+      default: 'false',
+      description:
+        'Shows the icon alone, for a sidebar folded to its icons. The label stays in the accessible name; add a title for a hover hint',
     },
   ],
   outputs: [],

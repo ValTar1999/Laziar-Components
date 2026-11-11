@@ -89,6 +89,7 @@ const EXPECTED_PUBLIC_API: readonly string[] = [
   'LoadingState',
   'LoginPromptBanner',
   'Logo',
+  'LzDropdownTrigger',
   'LzFloating',
   'LzInputFlush',
   'ModalComponent',
