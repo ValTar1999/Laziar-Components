@@ -333,7 +333,9 @@ describe('DropdownComponent', () => {
   imports: [DropdownComponent, LzDropdownTrigger],
   template: `
     <lz-dropdown ariaLabel="Account" [sections]="sections">
-      <span lzDropdownTrigger class="avatar">AP</span>
+      <span lzDropdownTrigger class="avatar" style="display: block; width: 32px; height: 32px"
+        >AP</span
+      >
     </lz-dropdown>
   `,
 })
@@ -368,6 +370,12 @@ describe('DropdownComponent with a projected trigger', () => {
     expect(trigger().querySelector('lz-icon')).toBeNull();
     expect(trigger().getAttribute('data-custom')).toBe('true');
     expect(trigger().getAttribute('data-icon-only')).toBeNull();
+  });
+
+  it('hugs the projected content, whatever the size variant', () => {
+    const box = trigger().getBoundingClientRect();
+    expect(box.width).toBe(32);
+    expect(box.height).toBe(32);
   });
 
   it('keeps the button: its name, its menu state and its click', () => {
