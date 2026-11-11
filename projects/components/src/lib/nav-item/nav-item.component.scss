@@ -65,3 +65,22 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+/* Folded sidebar: the icon alone, centred; the label is visually hidden only. */
+:host([data-collapsed='true']) {
+  position: relative;
+  justify-content: center;
+  gap: 0;
+}
+
+:host([data-collapsed='true']) .lz-nav-item__label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}

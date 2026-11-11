@@ -13,12 +13,14 @@ import { NAV_ITEM_COMPONENT_META } from './nav-item.meta';
   template: `
     <docs-component-page [meta]="meta">
       <ng-template docsPreview let-values>
-        <div style="width: 16rem">
+        <div [style.width]="bool(values, 'collapsed') ? '3.5rem' : '16rem'">
           <button
             lz-nav-item
             type="button"
             [icon]="str(values, 'icon', 'megaphone') || undefined"
             [active]="bool(values, 'active')"
+            [collapsed]="bool(values, 'collapsed')"
+            title="Campaigns"
           >
             Campaigns
           </button>

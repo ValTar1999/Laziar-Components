@@ -12,6 +12,10 @@ import { LzIconName } from '../icon/icon.types';
  * The current entry is marked either by `active` or by `aria-current="page"`,
  * which Angular's `routerLinkActive` sets through `ariaCurrentWhenActive`. Both
  * draw the same way, so a router-driven menu needs no extra binding.
+ *
+ * `collapsed` draws the icon alone, for a sidebar folded to its icons. The
+ * label stays in the accessible name, only hidden from sight; set a `title`
+ * on the element if sighted users should get it on hover.
  */
 @Component({
   // An attribute selector on purpose (as Material's a[mat-button]): wrapping the
@@ -24,6 +28,7 @@ import { LzIconName } from '../icon/icon.types';
   host: {
     class: 'lz-nav-item',
     '[attr.data-active]': "active() ? 'true' : null",
+    '[attr.data-collapsed]': "collapsed() ? 'true' : null",
   },
   template: `
     @if (icon(); as name) {
@@ -38,4 +43,6 @@ export class NavItem {
   readonly icon = input<LzIconName | undefined>(undefined);
   /** Draws the entry as the current one, for menus not driven by the router. */
   readonly active = input(false, { transform: booleanAttribute });
+  /** Shows the icon alone; the label is still read out. */
+  readonly collapsed = input(false, { transform: booleanAttribute });
 }
