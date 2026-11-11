@@ -47,6 +47,10 @@ export const DROPDOWN_COMPONENT_META: DocsComponentMeta = {
     { label: 'md', props: { title: 'Menu', sizeVariant: 'md' } },
     { label: 'sm', props: { title: 'Menu', sizeVariant: 'sm' } },
     {
+      label: 'row actions · xs',
+      props: { title: '', sizeVariant: 'xs', icon: 'ellipsis-horizontal', ariaLabel: 'Actions' },
+    },
+    {
       label: 'with icon',
       props: { title: 'Acme Media', sizeVariant: 'xl', icon: 'building-office-2' },
     },
@@ -72,9 +76,9 @@ export const DROPDOWN_COMPONENT_META: DocsComponentMeta = {
     },
     {
       name: 'sizeVariant',
-      type: `'xl' | 'lg' | 'md' | 'sm'`,
+      type: `'xl' | 'lg' | 'md' | 'sm' | 'xs'`,
       default: `'xl'`,
-      description: 'Trigger size',
+      description: 'Trigger size; xs is the 24px icon-only button of a table row menu',
     },
     {
       name: 'icon',

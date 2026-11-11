@@ -60,6 +60,16 @@ describe('Tabs', () => {
     expect(underline).toBeTruthy();
   });
 
+  it('draws no indicator and selects nothing while activeTab points at no tab', () => {
+    fixture.componentRef.setInput('style', 'underline');
+    fixture.componentRef.setInput('tabs', ['Tab 1', 'Tab 2']);
+    fixture.componentRef.setInput('activeTab', -1);
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('.lz-tabs__underline')).toBeNull();
+    expect(fixture.nativeElement.querySelector('[aria-selected="true"]')).toBeNull();
+  });
+
   it('should size underline-text indicator to the active label text', async () => {
     fixture.componentRef.setInput('style', 'underline-text');
     fixture.componentRef.setInput('tabs', ['Short', 'A much longer label']);
@@ -74,6 +84,44 @@ describe('Tabs', () => {
 
     expect(underline.width).toBeCloseTo(label.width, 0);
     expect(underline.left - list.left).toBeCloseTo(label.left - list.left, 0);
+  });
+
+  describe('stretch', () => {
+    const rects = () => {
+      const host: HTMLElement = fixture.nativeElement;
+      return {
+        list: host.querySelector('.lz-tabs')!.getBoundingClientRect(),
+        tabs: Array.from(host.querySelectorAll('.lz-tabs__tab')).map((tab) =>
+          tab.getBoundingClientRect(),
+        ),
+        underline: host.querySelector('.lz-tabs__underline')!.getBoundingClientRect(),
+      };
+    };
+
+    beforeEach(() => {
+      fixture.componentRef.setInput('style', 'underline');
+      fixture.componentRef.setInput('tabs', ['Short', 'A much longer label']);
+      fixture.componentRef.setInput('activeTab', 1);
+    });
+
+    it('shares the strip equally by default', () => {
+      fixture.detectChanges();
+      const { tabs } = rects();
+      expect(tabs[0].width).toBeCloseTo(tabs[1].width, 0);
+    });
+
+    it('keeps each tab to its label, left-aligned, and underlines the whole active tab', async () => {
+      fixture.componentRef.setInput('stretch', false);
+      fixture.detectChanges();
+      await fixture.whenStable();
+
+      const { list, tabs, underline } = rects();
+      expect(tabs[0].left).toBeCloseTo(list.left, 0);
+      expect(tabs[1].width).toBeGreaterThan(tabs[0].width);
+      expect(tabs[0].width + tabs[1].width).toBeLessThan(list.width);
+      expect(underline.width).toBeCloseTo(tabs[1].width, 0);
+      expect(underline.left).toBeCloseTo(tabs[1].left, 0);
+    });
   });
 
   it('should not emit when disabled tab is clicked', () => {

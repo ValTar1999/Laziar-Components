@@ -341,6 +341,14 @@ export const DOCS_NAV: DocsNavGroup[] = [
         keywords: 'tab button link',
       },
       {
+        id: 'nav-item',
+        label: 'nav.items.navItem',
+        route: '/components/nav-item',
+        kind: 'component',
+        icon: 'bars-3',
+        keywords: 'nav item lz-nav-item sidebar menu navigation link',
+      },
+      {
         id: 'button-group',
         label: 'nav.items.buttonGroup',
         route: '/components/button-group',

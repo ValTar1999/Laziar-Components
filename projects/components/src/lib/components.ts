@@ -22,6 +22,7 @@ export * from './badge/badge.types';
 
 export * from './checkbox/checkbox.component';
 export * from './checkbox/checkbox.types';
+export * from './nav-item/nav-item.component';
 export * from './radio-group/radio-group.component';
 export * from './radio-group/radio-group.types';
 
