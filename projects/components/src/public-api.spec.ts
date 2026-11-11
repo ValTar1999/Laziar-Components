@@ -91,6 +91,7 @@ const EXPECTED_PUBLIC_API: readonly string[] = [
   'LzInputFlush',
   'ModalComponent',
   'MoreActionsMenu',
+  'NavItem',
   'NotePanel',
   'PageHeader',
   'PaginationComponent',

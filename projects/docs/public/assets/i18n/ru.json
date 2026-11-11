@@ -41,6 +41,7 @@
       "icon": "Icon",
       "tabs": "Tabs",
       "tabButton": "Tab Button",
+      "navItem": "Nav Item",
       "buttonGroup": "Button Group",
       "languageDropdown": "Language Dropdown",
       "toast": "Toast",
