@@ -12,6 +12,7 @@ import { BadgePage } from './badge-page';
 import { ButtonGroupPage } from './button-group-page';
 import { ButtonPage } from './button-page';
 import { CalendarPage } from './calendar-page';
+import { DateInputPage } from './date-input-page';
 import { CardPage } from './card-page';
 import { CheckboxPage } from './checkbox-page';
 import { DropdownPage } from './dropdown-page';
@@ -59,6 +60,7 @@ import { VideoPlayerPage } from './video-player-page';
     ButtonGroupPage,
     ButtonPage,
     CalendarPage,
+    DateInputPage,
     CardPage,
     CheckboxPage,
     DropdownPage,
@@ -120,6 +122,9 @@ import { VideoPlayerPage } from './video-player-page';
       }
       @case ('checkbox') {
         <docs-checkbox-page />
+      }
+      @case ('date-input') {
+        <docs-date-input-page />
       }
       @case ('calendar') {
         <docs-calendar-page />
