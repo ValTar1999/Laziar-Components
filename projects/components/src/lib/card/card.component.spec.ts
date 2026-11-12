@@ -85,6 +85,39 @@ describe('CardComponent', () => {
     expect(document.querySelector('.lz-card-cdk-pane .lz-card__menu')).not.toBeNull();
   });
 
+  it('starts from the server layout on a server-rendered page, then takes the real width', () => {
+    const serverRoot = document.createElement('div');
+    serverRoot.setAttribute('ng-server-context', 'ssr');
+    document.body.appendChild(serverRoot);
+    Object.defineProperty(window, 'innerWidth', { configurable: true, value: 390 });
+
+    try {
+      const hydrating = TestBed.createComponent(CardComponent);
+      expect(hydrating.componentInstance['isMobileMoreMenu']())
+        .withContext('first render matches the server')
+        .toBeFalse();
+
+      hydrating.detectChanges();
+      expect(hydrating.componentInstance['isMobileMoreMenu']()).toBeTrue();
+      hydrating.destroy();
+    } finally {
+      serverRoot.remove();
+      Object.defineProperty(window, 'innerWidth', { configurable: true, value: 1280 });
+    }
+  });
+
+  it('uses the real width from the start on a page rendered only in the browser', () => {
+    Object.defineProperty(window, 'innerWidth', { configurable: true, value: 390 });
+
+    try {
+      const phone = TestBed.createComponent(CardComponent);
+      expect(phone.componentInstance['isMobileMoreMenu']()).toBeTrue();
+      phone.destroy();
+    } finally {
+      Object.defineProperty(window, 'innerWidth', { configurable: true, value: 1280 });
+    }
+  });
+
   it('exposes English defaults for watch-later and save-to-list tooltips', () => {
     expect(component['watchLaterTooltip']()).toBe('Watch later');
     expect(component['saveToListTooltip']()).toBe('Save to list');

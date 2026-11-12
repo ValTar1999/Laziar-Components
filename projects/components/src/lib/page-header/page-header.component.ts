@@ -11,7 +11,7 @@ import { LzInputFlush } from '../internal/lz-input-flush.directive';
  * ```html
  * <lz-page-header heading="Conținut Video">
  *   <lz-button lzPageHeaderActions label="Creează" size="sm" pill />
- *   <lz-tabs lzPageHeaderTabs [tabs]="tabs" style="underline" />
+ *   <lz-tabs lzPageHeaderTabs [tabs]="tabs" [style]="'underline'" />
  * </lz-page-header>
  * ```
  */

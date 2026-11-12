@@ -1,4 +1,10 @@
-import { booleanAttribute, Component, computed, input } from '@angular/core';
+import {
+  booleanAttribute,
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  input,
+} from '@angular/core';
 import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { RouterLink } from '@angular/router';
 import { LzTabButtonSize, LzTabButtonVariant } from './tab-button.types';
@@ -9,6 +15,7 @@ import { LzTabButtonSize, LzTabButtonVariant } from './tab-button.types';
  */
 @Component({
   selector: 'lz-tab-button',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   hostDirectives: [LzInputFlush],
   imports: [RouterLink],

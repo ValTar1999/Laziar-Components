@@ -143,6 +143,8 @@ export class SelectComponent implements ControlValueAccessor, OnDestroy {
   readonly selectId = `lz-select-${nextSelectFieldId++}`;
   readonly listboxId = `${this.selectId}-listbox`;
   readonly labelId = `${this.selectId}-label`;
+  protected readonly valueId = `${this.selectId}-value`;
+  protected readonly helperId = `${this.selectId}-helper`;
   readonly paneClass = 'lz-select-cdk-pane';
 
   @ViewChild('trigger', { static: true })
@@ -322,9 +324,14 @@ export class SelectComponent implements ControlValueAccessor, OnDestroy {
     return this.selection().some((item) => sameOption(item, option));
   }
 
-  @HostListener('document:keydown.escape')
-  protected onEscape(): void {
+  /**
+   * Claims the key with `preventDefault` so an enclosing `lz-modal`, which
+   * listens further up on `window`, leaves this Escape to the list.
+   */
+  @HostListener('document:keydown.escape', ['$event'])
+  protected onEscape(event?: Event): void {
     if (this.isOpen()) {
+      event?.preventDefault();
       this.closeDropdown();
     }
   }
@@ -372,9 +379,14 @@ export class SelectComponent implements ControlValueAccessor, OnDestroy {
     if (focusInside) {
       this.trigger?.nativeElement.focus();
     }
-    if (wasOpen && this.multiple()) {
+    if (wasOpen) {
       this.onTouched();
     }
+  }
+
+  /** Focus left the field without the list being open: the user has been through it. */
+  protected onTriggerBlur(): void {
+    if (!this.isOpen()) this.onTouched();
   }
 
   protected onSearchInput(event: Event): void {

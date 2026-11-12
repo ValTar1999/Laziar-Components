@@ -77,7 +77,7 @@ for (const check of config.checks) {
     [
       `Checks failed in ${root}: "${check.name}" (\`${check.command}\`, exit ${result.code}).`,
       'Fix the cause, then finish again; the checks rerun automatically.',
-      'If the failure is not caused by this session\'s changes, say so to the user instead of hiding it.',
+      "If the failure is not caused by this session's changes, say so to the user instead of hiding it.",
       '',
       `Last ${OUTPUT_TAIL_LINES} lines of output:`,
       tail(result.output, OUTPUT_TAIL_LINES),
@@ -113,7 +113,9 @@ function gitRoot(cwd) {
 
 function readConfig(dir) {
   try {
-    const parsed = JSON.parse(fs.readFileSync(path.join(dir, '.claude', 'laziar-checks.json'), 'utf8'));
+    const parsed = JSON.parse(
+      fs.readFileSync(path.join(dir, '.claude', 'laziar-checks.json'), 'utf8'),
+    );
     const checks = Array.isArray(parsed.checks) ? parsed.checks.filter((c) => c && c.command) : [];
     if (checks.length === 0) return null;
     const watch = Array.isArray(parsed.watch) && parsed.watch.length ? parsed.watch : ['.'];
@@ -160,7 +162,9 @@ function fingerprint() {
         return line;
       }
     });
-  return createHash('sha1').update([head, ...files].join('\n')).digest('hex');
+  return createHash('sha1')
+    .update([head, ...files].join('\n'))
+    .digest('hex');
 }
 
 function git(args) {
@@ -187,11 +191,16 @@ function changedFiles(base) {
 function run(check, changed) {
   if (!check.command.includes('{files}')) return exec(check.command, check);
   const extensions = Array.isArray(check.extensions) ? check.extensions : null;
-  const files = changed.filter((file) => !extensions || extensions.some((ext) => file.endsWith(ext)));
+  const files = changed.filter(
+    (file) => !extensions || extensions.some((ext) => file.endsWith(ext)),
+  );
   if (files.length === 0) return { ok: true, code: 0, output: '' };
   // Batches keep the command line under Windows' length limit.
   for (let i = 0; i < files.length; i += 40) {
-    const list = files.slice(i, i + 40).map((file) => `"${file}"`).join(' ');
+    const list = files
+      .slice(i, i + 40)
+      .map((file) => `"${file}"`)
+      .join(' ');
     const result = exec(check.command.replaceAll('{files}', list), check);
     if (!result.ok) return result;
   }
@@ -209,7 +218,11 @@ function exec(command, check) {
   });
   const output = `${result.stdout || ''}${result.stderr || ''}`;
   if (result.error) {
-    return { ok: false, code: result.error.code || 'error', output: `${output}\n${result.error.message}` };
+    return {
+      ok: false,
+      code: result.error.code || 'error',
+      output: `${output}\n${result.error.message}`,
+    };
   }
   return { ok: result.status === 0, code: result.status, output };
 }

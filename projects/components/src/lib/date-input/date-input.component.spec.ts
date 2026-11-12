@@ -106,6 +106,18 @@ describe('DateInput', () => {
     expect(document.activeElement).toBe(trigger());
   });
 
+  it('claims Escape only while the calendar is open', () => {
+    const press = () => {
+      const event = new KeyboardEvent('keydown', { key: 'Escape', cancelable: true });
+      document.dispatchEvent(event);
+      return event;
+    };
+
+    expect(press().defaultPrevented).toBeFalse();
+    open();
+    expect(press().defaultPrevented).toBeTrue();
+  });
+
   it('follows the form disabled state', () => {
     fixture.componentInstance.control.disable();
     fixture.detectChanges();
@@ -113,5 +125,46 @@ describe('DateInput', () => {
     trigger().click();
     fixture.detectChanges();
     expect(pane().querySelector('[role="dialog"]')).toBeNull();
+  });
+});
+
+describe('DateInput bound through [value]', () => {
+  let fixture: ComponentFixture<DateInput>;
+  let overlay: OverlayContainer;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({ imports: [DateInput] }).compileComponents();
+    fixture = TestBed.createComponent(DateInput);
+    overlay = TestBed.inject(OverlayContainer);
+    fixture.componentRef.setInput('value', '2026-11-12');
+    fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    overlay.ngOnDestroy();
+    fixture.destroy();
+  });
+
+  const trigger = (): HTMLButtonElement =>
+    fixture.nativeElement.querySelector('.lz-date-input__trigger');
+
+  it('still follows the input after a day was picked', () => {
+    trigger().click();
+    fixture.detectChanges();
+    overlay
+      .getContainerElement()
+      .querySelector<HTMLButtonElement>('.lz-calendar__day[data-key="2026-11-20"]')!
+      .click();
+    fixture.detectChanges();
+    expect(trigger().textContent?.trim()).toBe('20/11/2026');
+
+    // The host resets its filters.
+    fixture.componentRef.setInput('value', null);
+    fixture.detectChanges();
+    expect(trigger().textContent?.trim()).toBe('Select a date');
+
+    fixture.componentRef.setInput('value', '2026-12-01');
+    fixture.detectChanges();
+    expect(trigger().textContent?.trim()).toBe('01/12/2026');
   });
 });

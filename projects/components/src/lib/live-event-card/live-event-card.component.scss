@@ -18,7 +18,8 @@
 
   &--bottom-border {
     padding-bottom: 1.25rem; /* pb-5 */
-    border-bottom: 1px solid #f3f4f6; /* border-gray-100 */
+    border-bottom: 1px solid
+      color-mix(in srgb, var(--lz-color-neutral-900) 5%, var(--lz-color-background)); /* border-gray-100 */
   }
 }
 
@@ -35,7 +36,7 @@
   padding: 0;
   border: 0;
   background: transparent;
-  color: #111827; /* text-gray-900 */
+  color: var(--lz-color-text-primary); /* text-gray-900 */
   font-family: inherit;
   font-size: 0.75rem; /* text-xs */
   font-weight: 500;
@@ -51,7 +52,7 @@
 
 .lz-live-event-card__title {
   display: block;
-  color: #111827; /* text-gray-900 */
+  color: var(--lz-color-text-primary); /* text-gray-900 */
   font-family: var(--lz-font-serif);
   font-weight: 500;
   text-align: left;
@@ -125,7 +126,11 @@
   top: 1rem; /* top-4 */
   bottom: 0;
   width: 1px;
-  background-color: #f3f4f6; /* bg-gray-100 */
+  background-color: color-mix(
+    in srgb,
+    var(--lz-color-neutral-900) 5%,
+    var(--lz-color-background)
+  ); /* bg-gray-100 */
 
   .lz-live-event-card[data-size='sm'] & {
     left: 1px; /* left-px */
@@ -149,7 +154,7 @@
 }
 
 .lz-live-event-card__text {
-  color: #111827; /* text-gray-900 */
+  color: var(--lz-color-text-primary); /* text-gray-900 */
   font-family: inherit;
   font-weight: 500;
 
@@ -185,7 +190,7 @@
   border-radius: 9999px;
   background: transparent;
   box-shadow: 0 0 0 2px transparent; /* ring-2 ring-transparent */
-  color: #6b7280; /* text-gray-500 */
+  color: var(--lz-color-neutral-500); /* text-gray-500 */
   cursor: pointer;
   transition:
     background-color 300ms,
@@ -198,15 +203,19 @@
 
   &:hover,
   &:focus {
-    background-color: rgba(17, 24, 39, 0.05); /* hover/focus:bg-gray-900/5 */
-    color: #111827; /* group-hover/focus:!text-gray-900 */
+    background-color: color-mix(
+      in srgb,
+      var(--lz-color-neutral-900) 5%,
+      transparent
+    ); /* hover/focus:bg-gray-900/5 */
+    color: var(--lz-color-text-primary); /* group-hover/focus:!text-gray-900 */
   }
 
   &:focus {
     outline: none;
     box-shadow:
-      0 0 0 2px rgba(17, 24, 39, 0.1),
-      0 0 0 1px #fffffa; /* focus:ring-gray-900/10 focus:ring-offset-1 focus:ring-offset-cFFFFFA */
+      0 0 0 2px color-mix(in srgb, var(--lz-color-neutral-900) 10%, transparent),
+      0 0 0 1px var(--lz-color-background); /* focus:ring-gray-900/10 focus:ring-offset-1 focus:ring-offset-cFFFFFA */
   }
 
   lz-icon {

@@ -55,4 +55,20 @@ describe('Avatar', () => {
     expect(component['hasImage']()).toBe(true);
     expect(component['showPlaceholder']()).toBe(false);
   });
+
+  it('should fall back to initials when the image fails, and retry a new url', () => {
+    fixture.componentRef.setInput('firstName', 'Ana');
+    fixture.componentRef.setInput('lastName', 'Lupu');
+    fixture.componentRef.setInput('imgUrl', 'gone.jpg');
+    fixture.detectChanges();
+
+    fixture.nativeElement.querySelector('img').dispatchEvent(new Event('error'));
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('img')).toBeNull();
+    expect(fixture.nativeElement.textContent).toContain('AL');
+
+    fixture.componentRef.setInput('imgUrl', 'other.jpg');
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('img')).not.toBeNull();
+  });
 });

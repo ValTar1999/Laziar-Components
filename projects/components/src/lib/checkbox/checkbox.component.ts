@@ -1,5 +1,6 @@
 import {
   booleanAttribute,
+  ChangeDetectionStrategy,
   Component,
   computed,
   effect,
@@ -34,6 +35,7 @@ import { LzCheckboxType, LzCheckboxVariant } from './checkbox.types';
  */
 @Component({
   selector: 'lz-checkbox',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   hostDirectives: [LzInputFlush],
   imports: [NgClass],

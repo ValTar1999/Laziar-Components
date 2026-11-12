@@ -19,21 +19,29 @@
       [attr.aria-expanded]="isOpen()"
       [attr.aria-controls]="listboxId"
       [attr.aria-invalid]="error() ? true : null"
+      [attr.aria-labelledby]="label() ? labelId + ' ' + valueId : null"
+      [attr.aria-describedby]="helperText() ? helperId : null"
       aria-haspopup="listbox"
       (click)="toggleDropdown()"
+      (blur)="onTriggerBlur()"
     >
-      <span class="lz-select-value">
+      <span class="lz-select-value" [id]="valueId">
         {{ displayValue() || placeholder() }}
       </span>
     </button>
 
-    <lz-icon name="chevron-up-down" type="mini" class="lz-select-chevron" />
+    <lz-icon name="chevron-up-down" type="mini" class="lz-select-chevron" aria-hidden="true" />
   </div>
 
   @if (helperText()) {
-    <span class="lz-select-helper" [attr.data-error]="error()">
+    <span class="lz-select-helper" [id]="helperId" [attr.data-error]="error()">
       @if (error()) {
-        <lz-icon name="exclamation-circle" type="mini" class="lz-select-helper-icon" />
+        <lz-icon
+          name="exclamation-circle"
+          type="mini"
+          class="lz-select-helper-icon"
+          aria-hidden="true"
+        />
       }
       <span class="lz-select-helper-text">{{ helperText() }}</span>
     </span>

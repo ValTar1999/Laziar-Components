@@ -58,7 +58,13 @@
       "moreActionsMenu": "More Actions Menu",
       "swiper": "Swiper",
       "videoPlayer": "Video Player",
-      "themeService": "ThemeService"
+      "themeService": "ThemeService",
+      "emptyState": "Empty State",
+      "loadError": "Load Error",
+      "loadingState": "Loading State",
+      "pageHeader": "Page Header",
+      "pagination": "Pagination",
+      "logo": "Logo"
     }
   },
   "header": {
@@ -965,7 +971,9 @@
     "login-prompt-banner": {
       "description": "Banner care duce cititorul pe ruta de autentificare.",
       "controls": {
-        "text": { "default": "Autentifică-te ca să salvezi articole" }
+        "text": {
+          "default": "Autentifică-te ca să salvezi articole"
+        }
       }
     },
     "auth-footer": {
@@ -974,7 +982,9 @@
     "card": {
       "description": "Card de articol din frontend: layout col/row, scale de size, opțiuni row (imagine, identitate, meta) și more-actions.",
       "controls": {
-        "title": { "default": "Guvernul anunță un nou pachet de măsuri" },
+        "title": {
+          "default": "Guvernul anunță un nou pachet de măsuri"
+        },
         "subtitle": {
           "default": "Miniștrii au prezentat calendarul implementării și impactul asupra bugetului public pe următorii doi ani."
         }
@@ -995,17 +1005,25 @@
     "table": {
       "description": "Tabel din publikator: coloane sticky, hover pe rând, paginare, meniu page-size (Floating UI) și stare goală.",
       "controls": {
-        "emptyMessage": { "default": "Nu există articole" }
+        "emptyMessage": {
+          "default": "Nu există articole"
+        }
       }
     },
     "toast-container": {
       "description": "Host pentru notificări ToastService. Pune-l o dată în shell, apoi apelează ToastService.show().",
       "controls": {
-        "message": { "default": "Site construit din @laziar/components" },
-        "messageBold": { "default": "Gata" }
+        "message": {
+          "default": "Site construit din @laziar/components"
+        },
+        "messageBold": {
+          "default": "Gata"
+        }
       },
       "examples": {
-        "0": { "title": "Shell + serviciu" }
+        "0": {
+          "title": "Shell + serviciu"
+        }
       }
     },
     "swiper": {
@@ -1013,6 +1031,346 @@
     },
     "video-player": {
       "description": "Player Video.js din /assets/videojs al hostului. Fără sursă sau Video.js apare fallback."
+    },
+    "calendar": {
+      "description": "Grila lunii pentru alegerea unei zile, cu câmpuri opționale de dată și oră și butoane de anulare și salvare. Zilele din afara min/max sunt estompate; denumirile vin din Intl pentru localizare.",
+      "inputs": {
+        "value": "Data selectată; ora se păstrează cu withTime",
+        "min": "Cea mai devreme zi care poate fi aleasă",
+        "max": "Cea mai târzie zi care poate fi aleasă",
+        "locale": "Localizarea denumirilor de luni și zile",
+        "weekstart": "Prima coloană, 0 = duminică",
+        "withtime": "Câmpuri de dată (zz.ll.aaaa) și oră (HH:mm) sub grilă",
+        "withactions": "Subsol cu anulare și salvare; valoarea se emite doar la salvare",
+        "disabled": "Dezactivează alegerea",
+        "datelabel": "Eticheta câmpului de dată",
+        "timelabel": "Eticheta câmpului de oră",
+        "dateplaceholder": "Placeholder-ul câmpului de dată",
+        "timeplaceholder": "Placeholder-ul câmpului de oră",
+        "cancellabel": "Textul butonului de anulare",
+        "savelabel": "Textul butonului de salvare",
+        "previouslabel": "Numele accesibil al săgeții din stânga",
+        "nextlabel": "Numele accesibil al săgeții din dreapta"
+      },
+      "outputs": {
+        "valuechange": "Data aleasă; la salvare când withActions este setat",
+        "cancelled": "S-a apăsat anularea; schița este deja resetată"
+      },
+      "tokens": {
+        "lz_color_background": "Fundalul panoului (#FFFFFA)",
+        "lz_shadow_dropdown": "Umbra panoului",
+        "lz_color_neutral_900": "Cercul zilei selectate",
+        "lz_color_text_muted": "Zilele săptămânii și zilele indisponibile",
+        "lz_color_border_subtle": "Linia de deasupra acțiunilor"
+      },
+      "examples": {
+        "0": {
+          "title": "Fără date din trecut"
+        },
+        "1": {
+          "title": "Dată și oră cu salvare"
+        },
+        "2": {
+          "title": "Formular reactiv"
+        }
+      }
+    },
+    "date-input": {
+      "description": "Un câmp de dată în stilul lz-select, care deschide lz-calendar într-un popover. Valoarea este o zi calendaristică, șir aaaa-ll-zz, ca la un câmp de dată nativ.",
+      "inputs": {
+        "value": "Ziua aleasă, aaaa-ll-zz; se poate seta și prin ngModel / formControl",
+        "min": "Cea mai devreme zi care poate fi aleasă, aaaa-ll-zz",
+        "max": "Cea mai târzie zi care poate fi aleasă, aaaa-ll-zz",
+        "label": "Eticheta vizibilă",
+        "placeholder": "Afișat cât timp câmpul e gol",
+        "size": "32px sau 40px, ca la lz-select",
+        "helpertext": "Rândul de sub câmp; îl descrie",
+        "error": "Chenar de eroare și culoarea textului ajutător",
+        "disabled": "Dezactivează câmpul",
+        "locale": "Localizarea textului din câmp și a denumirilor din calendar",
+        "weekstart": "Prima zi a săptămânii în calendar",
+        "arialabel": "Numele câmpului când nu există etichetă vizibilă"
+      },
+      "outputs": {
+        "valuechange": "Ziua tocmai aleasă, aaaa-ll-zz"
+      },
+      "tokens": {
+        "lz_color_neutral_900": "Chenar și focus",
+        "lz_color_neutral_400": "Textul placeholder-ului",
+        "lz_shadow_dropdown": "Umbra popover-ului cu calendar"
+      },
+      "examples": {
+        "0": {
+          "title": "Într-un formular reactiv"
+        }
+      }
+    },
+    "modal": {
+      "description": "Un singur dialog pentru publikator și frontend: aranjare cu titlu sau confirmare cu iconiță; sub 768px devine panou de jos.",
+      "inputs": {
+        "open": "Starea de afișare, deținută de părinte",
+        "variant": "default = modal-layout din publikator; confirm = iconiță, titlu și descriere, fără separatoare",
+        "size": "Lățime maximă: 448 / 512 / 800 / 976px / ecran. Personalizat: --lz-modal-width",
+        "title": "Titlul dialogului și numele lui accesibil",
+        "description": "Textul de sub titlu; aria-describedby",
+        "icon": "Iconița din caseta de confirmare",
+        "tone": "Culoarea iconiței de confirmare",
+        "dividers": "Bordurile antetului și subsolului. Implicit: active pentru default, inactive pentru confirm (la confirm doar subsolul)",
+        "sheetonmobile": "Panou de jos cu acțiuni pe toată lățimea sub 768px",
+        "busy": "Blochează fundalul, Escape și butonul de închidere cât timp rulează o cerere",
+        "dismissible": "false = pas obligatoriu: fără buton de închidere, fundalul și Escape sunt ignorate",
+        "closeonbackdrop": "Închide la apăsarea pe fundal",
+        "closeonescape": "Închide la Escape (doar modalul de deasupra)",
+        "arialabel": "Numele accesibil când un slot de antet înlocuiește titlul",
+        "closebuttonlabel": "Eticheta localizată a butonului de închidere"
+      },
+      "outputs": {
+        "closed": "S-a cerut închiderea; părintele setează open pe false"
+      },
+      "slots": {
+        "lz_modal_header": "Înlocuiește titlul implicit",
+        "lz_modal_body_default": "Conținutul, cu derulare",
+        "lz_modal_footer": "Acțiuni aliniate la dreapta. Puneți atributul pe fiecare buton, ca să se întindă în panoul mobil",
+        "lz_modal_footer_start": "Acțiune secundară aliniată la stânga; pe rând propriu în panoul mobil"
+      },
+      "tokens": {
+        "lz_modal_width": "Lățime maximă personalizată, are prioritate față de size",
+        "lz_modal_height": "Înălțime fixă, de ex. min(720px, 90dvh)",
+        "lz_modal_scrim": "Culoarea fundalului (implicit #121212 la 70%)",
+        "lz_z_modal": "Ordinea de suprapunere a fundalului",
+        "lz_color_background": "Fundalul panoului",
+        "lz_color_border_subtle": "Separatoarele și chenarul casetei cu iconiță",
+        "lz_radius_2xl": "Colțurile panoului"
+      },
+      "examples": {
+        "0": {
+          "title": "Modal cu formular (modal-layout din publikator)"
+        },
+        "1": {
+          "title": "Confirmarea ștergerii"
+        },
+        "2": {
+          "title": "Selector cu înălțime fixă și acțiune la stânga"
+        },
+        "3": {
+          "title": "Alegere obligatorie (selectorul de publisher)"
+        }
+      }
+    },
+    "expand": {
+      "description": "Bloc extensibil de articol: un titlu cu serife și o săgeată, iar conținutul se deschide dedesubt.",
+      "inputs": {
+        "title": "Titlul. HTML din CMS, ca expandTitle din frontend",
+        "content": "Conținutul. HTML din CMS, ca expandContent din frontend"
+      },
+      "tokens": {
+        "lz_font_serif": "Titlu și conținut",
+        "lz_space_8": "Înălțimea rândului, 32px"
+      },
+      "examples": {
+        "0": {
+          "title": "Bloc de articol"
+        }
+      }
+    },
+    "note-panel": {
+      "description": "Notă de articol: iconiță de semn de carte și text cu serife într-un panou cu chenar.",
+      "inputs": {
+        "content": "Textul notei. HTML din CMS, ca blockContent din frontend"
+      },
+      "tokens": {
+        "lz_color_neutral_100": "Chenarul panoului",
+        "lz_color_neutral_500": "Iconița de semn de carte",
+        "lz_font_serif": "Textul notei"
+      },
+      "examples": {
+        "0": {
+          "title": "Bloc de articol"
+        }
+      }
+    },
+    "quote": {
+      "description": "Citat de articol, cu rând opțional pentru autor și o legendă.",
+      "inputs": {
+        "content": "Textul citatului. HTML din CMS, ca blockContent din frontend",
+        "author": "fullName, position, avatarUrl",
+        "subtext": "Legenda de sub autor"
+      },
+      "tokens": {
+        "lz_font_serif": "Textul citatului",
+        "lz_color_neutral_50": "Fundalul panoului",
+        "lz_color_text_primary": "Citatul și numele autorului"
+      },
+      "examples": {
+        "0": {
+          "title": "Bloc de articol"
+        }
+      }
+    },
+    "radio-group": {
+      "description": "Opțiuni care se exclud reciproc, pe butoane radio native: o singură oprire Tab, iar săgețile mută alegerea. Aspect simplu sau de card, cu iconiță și descriere opționale pentru fiecare opțiune.",
+      "inputs": {
+        "options": "Opțiunile: { value, label, description?, icon?, disabled? }",
+        "value": "Valoarea opțiunii alese (comparată cu ===); se poate seta și prin ngModel / formControl",
+        "name": "Atributul name comun al butoanelor radio",
+        "arialabel": "Numele grupului când niciun titlu vizibil nu îl numește",
+        "arialabelledby": "Id-ul titlului vizibil care numește grupul",
+        "appearance": "Butoane radio simple sau fiecare opțiune ca un card cu chenar",
+        "orientation": "Direcția în care sunt așezate opțiunile",
+        "disabled": "Dezactivează toate opțiunile"
+      },
+      "outputs": {
+        "valuechange": "Valoarea opțiunii tocmai alese"
+      },
+      "tokens": {
+        "lz_color_neutral_900": "Chenarul și punctul opțiunii bifate",
+        "lz_color_neutral_200": "Chenarul opțiunii nebifate"
+      },
+      "examples": {
+        "0": {
+          "title": "Cu ngModel"
+        }
+      }
+    },
+    "a[lz-nav-item], button[lz-nav-item]": {
+      "description": "Un element al meniului lateral de navigare. Se pune pe linkul sau butonul care navighează, astfel încât linkurile routerului rămân linkuri; eticheta este conținutul proiectat.",
+      "inputs": {
+        "icon": "Numele iconiței Heroicons outline desenate înaintea etichetei",
+        "active": "Desenează elementul ca fiind cel curent. aria-current=\"page\" (routerLinkActive cu ariaCurrentWhenActive) îl desenează la fel",
+        "collapsed": "Afișează doar iconița, pentru o bară laterală restrânsă la iconițe. Eticheta rămâne în numele accesibil; adăugați un title pentru indiciul la hover"
+      },
+      "slots": {
+        "default": "Eticheta"
+      },
+      "tokens": {
+        "lz_color_neutral_50": "Umplerea elementului activ și a celui de sub cursor",
+        "lz_color_text_secondary": "Eticheta și iconița în repaus",
+        "lz_color_text_primary": "Eticheta și iconița elementului activ și a celui de sub cursor"
+      },
+      "examples": {
+        "0": {
+          "title": "Cu routerul"
+        }
+      }
+    },
+    "empty-state": {
+      "description": "Un bloc „încă nu este nimic aici”: o iconiță într-un cerc gri, un titlu, o descriere estompată și un buton mic opțional.",
+      "inputs": {
+        "heading": "Titlul",
+        "description": "Textul estompat de sub titlu",
+        "icon": "Iconița din cerc",
+        "icontype": "Sprite-ul iconiței: outline, solid, mini, micro sau custom",
+        "actionlabel": "Eticheta butonului; fără ea nu există buton",
+        "actionicon": "Iconița din stânga etichetei butonului",
+        "fullpage": "Așază blocul acolo unde îl arată o pagină goală (128px de sus), în loc de 40px deasupra și dedesubt"
+      },
+      "outputs": {
+        "action": "S-a apăsat butonul"
+      },
+      "tokens": {
+        "lz_color_neutral_50": "Cercul iconiței",
+        "lz_color_text_secondary": "Textul descrierii"
+      },
+      "examples": {
+        "0": {
+          "title": "Listă goală cu o acțiune"
+        }
+      }
+    },
+    "load-error": {
+      "description": "Date care nu s-au putut încărca: un alert de eroare cu un buton de reîncercare în dreapta.",
+      "inputs": {
+        "heading": "Titlul alertei",
+        "text": "Textul alertei",
+        "retrylabel": "Eticheta butonului de reîncercare, transmiteți un șir localizat; fără ea nu există buton"
+      },
+      "outputs": {
+        "retry": "S-a apăsat butonul de reîncercare"
+      },
+      "tokens": {
+        "lz_color_danger_surface": "Fundalul alertei"
+      },
+      "examples": {
+        "0": {
+          "title": "Listă care nu s-a încărcat"
+        }
+      }
+    },
+    "loading-state": {
+      "description": "O pagină sau o secțiune care încă se încarcă: un spinner mic și o etichetă estompată, centrate. Eticheta este anunțată cititoarelor de ecran.",
+      "inputs": {
+        "label": "Textul de lângă spinner, de ex. „Se încarcă campaniile...”"
+      },
+      "tokens": {
+        "lz_color_text_secondary": "Eticheta"
+      },
+      "examples": {
+        "0": {
+          "title": "Cât timp se încarcă o listă"
+        }
+      }
+    },
+    "logo": {
+      "description": "Logotipul Laziar ca link către pagina principală.",
+      "inputs": {
+        "link": "Linkul de router pe care îl deschide logoul",
+        "arialabel": "Numele accesibil al linkului; transmiteți un șir localizat"
+      },
+      "tokens": {
+        "lz_color_text_primary": "Culoarea logotipului"
+      },
+      "examples": {
+        "0": {
+          "title": "Într-un antet"
+        }
+      }
+    },
+    "page-header": {
+      "description": "Partea de sus a unei pagini: titlul ca h1 al paginii, un subtitlu opțional, acțiuni în dreapta, taburi opționale dedesubt și o linie pe toată lățimea sub toate acestea.",
+      "inputs": {
+        "heading": "Titlul paginii, redat ca h1",
+        "subtitle": "Rând opțional sub titlu"
+      },
+      "slots": {
+        "lzpageheadertitleaddon": "Lângă titlu: un contor, un badge de stare",
+        "lzpageheaderactions": "Butoane în dreapta",
+        "lzpageheadertabs": "Taburi sub rândul titlului"
+      },
+      "tokens": {
+        "lz_font_serif": "Titlul",
+        "lz_color_border_subtle": "Linia de sub antet"
+      },
+      "examples": {
+        "0": {
+          "title": "Titlu, acțiune și taburi"
+        }
+      }
+    },
+    "pagination": {
+      "description": "Numere de pagină cu săgeți înapoi și înainte. Emite pagina cerută; pagina curentă este deținută de părinte, care o transmite înapoi.",
+      "inputs": {
+        "page": "Pagina curentă, numărată de la 1",
+        "totalpages": "Numărul de pagini",
+        "size": "Mărimea",
+        "disabled": "Dezactivează toate butoanele, de ex. cât timp se încarcă o pagină",
+        "hideonsinglepage": "Nu redă nimic când există o singură pagină",
+        "previouslabel": "Numele accesibil al săgeții înapoi",
+        "nextlabel": "Numele accesibil al săgeții înainte",
+        "arialabel": "Numele accesibil al controlului",
+        "pagelabel": "Construiește numele accesibil al fiecărui buton de pagină, ca să poată fi localizat"
+      },
+      "outputs": {
+        "pagechange": "Pagina cerută"
+      },
+      "tokens": {
+        "lz_color_neutral_900": "Pagina curentă",
+        "lz_shadow_focus": "Inelul de focus"
+      },
+      "examples": {
+        "0": {
+          "title": "Părintele deține pagina"
+        }
+      }
     }
   }
 }

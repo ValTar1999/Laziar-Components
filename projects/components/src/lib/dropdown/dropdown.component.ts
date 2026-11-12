@@ -228,9 +228,14 @@ export class DropdownComponent implements OnDestroy {
     items[next].focus();
   }
 
-  @HostListener('document:keydown.escape')
-  protected onEscape(): void {
+  /**
+   * Claims the key with `preventDefault` so an enclosing `lz-modal`, which
+   * listens further up on `window`, leaves this Escape to the list.
+   */
+  @HostListener('document:keydown.escape', ['$event'])
+  protected onEscape(event?: Event): void {
     if (this.isOpen()) {
+      event?.preventDefault();
       this.closeDropdown();
     }
   }

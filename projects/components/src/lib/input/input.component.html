@@ -16,10 +16,16 @@
         data-side="left"
         [attr.data-size]="size()"
         [attr.data-icon-only]="addonIconOnly() ? 'true' : null"
+        [attr.aria-label]="buttonAriaLabel() || null"
         [disabled]="effectiveDisabled()"
       >
         @if (iconButton()) {
-          <lz-icon [name]="iconButton()!" type="mini" class="lz-input-addon-icon" />
+          <lz-icon
+            [name]="iconButton()!"
+            type="mini"
+            class="lz-input-addon-icon"
+            aria-hidden="true"
+          />
         }
         @if (buttonLabel()) {
           <span class="lz-input-addon-label">{{ buttonLabel() }}</span>
@@ -47,6 +53,10 @@
       [placeholder]="placeholder()"
       [value]="value()"
       [disabled]="effectiveDisabled()"
+      [required]="required()"
+      [attr.aria-label]="ariaLabel() || null"
+      [attr.aria-invalid]="error() ? true : null"
+      [attr.aria-describedby]="helperText() ? helperId : null"
       [attr.data-size]="size()"
       [attr.data-error]="error()"
       [attr.data-appearance]="appearance()"
@@ -108,10 +118,16 @@
         data-side="right"
         [attr.data-size]="size()"
         [attr.data-icon-only]="addonIconOnly() ? 'true' : null"
+        [attr.aria-label]="buttonAriaLabel() || null"
         [disabled]="effectiveDisabled()"
       >
         @if (iconButton()) {
-          <lz-icon [name]="iconButton()!" type="mini" class="lz-input-addon-icon" />
+          <lz-icon
+            [name]="iconButton()!"
+            type="mini"
+            class="lz-input-addon-icon"
+            aria-hidden="true"
+          />
         }
         @if (buttonLabel()) {
           <span class="lz-input-addon-label">{{ buttonLabel() }}</span>
@@ -121,9 +137,14 @@
   </div>
 
   @if (helperText()) {
-    <span class="lz-input-helper" [attr.data-error]="error()">
+    <span class="lz-input-helper" [id]="helperId" [attr.data-error]="error()">
       @if (error()) {
-        <lz-icon name="exclamation-circle" type="mini" class="lz-input-helper-icon" />
+        <lz-icon
+          name="exclamation-circle"
+          type="mini"
+          class="lz-input-helper-icon"
+          aria-hidden="true"
+        />
       }
       <span class="lz-input-helper-text">{{ helperText() }}</span>
     </span>

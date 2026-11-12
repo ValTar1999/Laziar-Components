@@ -1,5 +1,5 @@
 <ng-template #panelTpl>
-  <div class="lz-tooltip__panel" [attr.data-panel-theme]="theme()">
+  <div class="lz-tooltip__panel" role="tooltip" [id]="panelId" [attr.data-panel-theme]="theme()">
     @if (img()) {
       <div class="lz-tooltip__img-wrap">
         <img [src]="img()" class="lz-tooltip__img" alt="" />
@@ -35,6 +35,8 @@
   [class]="resolvedTriggerClass()"
   (mouseenter)="onTriggerMouseEnter()"
   (mouseleave)="onTriggerMouseLeave($event)"
+  (focusin)="onTriggerFocusIn($event)"
+  (focusout)="onTriggerFocusOut()"
 >
   <ng-content />
 </div>

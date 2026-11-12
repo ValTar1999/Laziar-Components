@@ -19,6 +19,7 @@ import {
 import { Overlay, OverlayModule, OverlayRef, PositionStrategy } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { attachLzFloating } from '../floating/floating';
+import { moveFocusWithKeys } from '../internal/list-keys';
 import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { Icon } from '../icon/icon.component';
 import { LzLanguageOption } from './language-dropdown.types';
@@ -76,6 +77,12 @@ export class LanguageDropdown implements OnInit, OnDestroy {
   readonly languages = input<LzLanguageOption[]>(DEFAULT_LANGUAGES);
   /** localStorage key for the selected language code. */
   readonly storageKey = input('appLanguage');
+  /**
+   * What the control is, for assistive tech: the trigger only shows initials
+   * such as "RO". Read out together with the current language's name; pass a
+   * localized string.
+   */
+  readonly ariaLabel = input('Language');
 
   readonly languageChange = output<LzLanguageOption>();
 
@@ -99,6 +106,11 @@ export class LanguageDropdown implements OnInit, OnDestroy {
     }
     const code = this.selectedCode();
     return list.find((l) => l.code === code) ?? list[0];
+  });
+
+  protected readonly triggerLabel = computed((): string | null => {
+    const name = this.selectedLanguage()?.name;
+    return [this.ariaLabel(), name].filter(Boolean).join(': ') || null;
   });
 
   private overlayRef?: OverlayRef;
@@ -136,11 +148,31 @@ export class LanguageDropdown implements OnInit, OnDestroy {
     this.closeDropdown();
   }
 
-  protected onLanguageKeydown(event: Event, lang: LzLanguageOption): void {
-    const key = (event as KeyboardEvent).key;
-    if (key !== 'Enter' && key !== ' ') return;
+  /** ArrowDown and ArrowUp on the closed trigger open the list. */
+  protected onTriggerKeydown(event: KeyboardEvent): void {
+    if (this.isOpen() || (event.key !== 'ArrowDown' && event.key !== 'ArrowUp')) return;
     event.preventDefault();
-    this.selectLanguage(lang);
+    this.openDropdown();
+  }
+
+  protected onLanguageKeydown(event: KeyboardEvent, lang: LzLanguageOption): void {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      this.selectLanguage(lang);
+      return;
+    }
+
+    // Tab closes the list and carries on from the trigger: the list lives at
+    // the end of the document, so tabbing out of it would leave the page.
+    if (event.key === 'Tab') {
+      this.closeDropdown();
+      return;
+    }
+
+    const list = (event.currentTarget as HTMLElement).parentElement;
+    if (list) {
+      moveFocusWithKeys(event, Array.from(list.querySelectorAll<HTMLElement>('[role="option"]')));
+    }
   }
 
   protected isCurrentLanguage(code: string): boolean {
@@ -154,9 +186,14 @@ export class LanguageDropdown implements OnInit, OnDestroy {
     return lang.initials?.trim() || lang.code.toUpperCase();
   }
 
-  @HostListener('document:keydown.escape')
-  protected onEscape(): void {
+  /**
+   * Claims the key with `preventDefault` so an enclosing `lz-modal`, which
+   * listens further up on `window`, leaves this Escape to the list.
+   */
+  @HostListener('document:keydown.escape', ['$event'])
+  protected onEscape(event?: Event): void {
     if (this.isOpen()) {
+      event?.preventDefault();
       this.closeDropdown();
     }
   }
@@ -192,7 +229,14 @@ export class LanguageDropdown implements OnInit, OnDestroy {
       return;
     }
     this.isOpen.set(false);
+
+    // Focus that was in the list goes back to the trigger, not to the page top.
+    const overlayElement = this.overlayRef?.overlayElement;
+    const hadFocus = !!overlayElement?.contains(overlayElement.ownerDocument.activeElement);
     this.detachOverlay();
+    if (hadFocus) {
+      this.trigger?.nativeElement.focus();
+    }
   }
 
   private attachOverlay(): void {

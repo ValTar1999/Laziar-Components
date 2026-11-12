@@ -197,6 +197,24 @@ export const BUTTON_COMPONENT_META: DocsComponentMeta = {
       default: 'false',
       description: 'Sets aria-current="page" (pagination)',
     },
+    {
+      name: 'ariaHasPopup',
+      type: `'menu' | 'listbox' | 'dialog' | 'true'`,
+      default: 'undefined',
+      description: 'For a button that opens a popup: the kind of popup',
+    },
+    {
+      name: 'ariaExpanded',
+      type: 'boolean',
+      default: 'undefined',
+      description: 'Whether that popup is open',
+    },
+    {
+      name: 'ariaControls',
+      type: 'string',
+      default: 'undefined',
+      description: 'The id of that popup',
+    },
   ],
   outputs: [
     {

@@ -6,6 +6,7 @@
   [attr.data-stretch]="stretch() ? null : 'false'"
   [class]="class() ?? ''"
   role="tablist"
+  [attr.aria-label]="ariaLabel() || null"
 >
   @for (tab of tabs(); track $index; let i = $index) {
     <button
@@ -16,11 +17,14 @@
       [attr.data-disabled]="isTabDisabled(i) ? 'true' : null"
       [attr.aria-selected]="activeTab() === i"
       [attr.aria-disabled]="isTabDisabled(i)"
+      [attr.aria-description]="isTabDisabled(i) ? getDisabledTooltip(i) || null : null"
+      [attr.tabindex]="i === focusableTab() ? 0 : -1"
       role="tab"
       (click)="setActiveTab(i)"
+      (keydown)="onKeydown($event)"
     >
       @if (icons()[i]) {
-        <lz-icon [name]="icons()[i]" type="mini" />
+        <lz-icon [name]="icons()[i]" type="mini" aria-hidden="true" />
       }
       @if (isTabDisabled(i) && getDisabledTooltip(i)) {
         <lz-tooltip

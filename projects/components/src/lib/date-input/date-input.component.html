@@ -16,14 +16,16 @@
       [attr.data-empty]="displayValue() ? null : 'true'"
       [attr.data-error]="error() ? 'true' : null"
       [attr.aria-label]="ariaLabel() || null"
+      [attr.aria-labelledby]="label() ? labelId + ' ' + valueId : null"
       [attr.aria-expanded]="isOpen()"
       [attr.aria-controls]="isOpen() ? dialogId : null"
       [attr.aria-invalid]="error() ? true : null"
       [attr.aria-describedby]="helperText() ? helperId : null"
       aria-haspopup="dialog"
       (click)="toggle()"
+      (blur)="onTriggerBlur()"
     >
-      <span class="lz-date-input__value">{{ displayValue() || placeholder() }}</span>
+      <span class="lz-date-input__value" [id]="valueId">{{ displayValue() || placeholder() }}</span>
     </button>
 
     <lz-icon name="calendar-days" type="outline" class="lz-date-input__icon" aria-hidden="true" />

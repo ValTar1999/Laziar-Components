@@ -1,10 +1,11 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { LzLoadingColor, LzLoadingSize, LzLoadingVariant } from './loading.types';
 
 /** Spinner / dots loader (publikator `app-loading`). */
 @Component({
   selector: 'lz-loading',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   hostDirectives: [LzInputFlush],
   templateUrl: './loading.component.html',
@@ -14,6 +15,8 @@ export class Loading {
   readonly color = input<LzLoadingColor>('black');
   readonly size = input<LzLoadingSize>('xl');
   readonly variant = input<LzLoadingVariant>('spinner');
+  /** What is read out while it shows; pass a localized string. */
+  readonly ariaLabel = input('Loading');
 
   protected readonly dots = [0, 1, 2, 3, 4, 5, 6, 7];
 

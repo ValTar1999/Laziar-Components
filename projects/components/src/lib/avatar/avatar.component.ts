@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, linkedSignal } from '@angular/core';
 import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { SafeUrl } from '@angular/platform-browser';
 
@@ -54,9 +54,15 @@ export class Avatar {
     );
   });
 
+  /** The image failed to load; a new `imgUrl` gets a fresh try. */
+  protected readonly imageBroken = linkedSignal(() => {
+    this.imgUrl();
+    return false;
+  });
+
   protected readonly hasImage = computed<boolean>(() => {
     const url = this.imgUrl();
-    if (url == null) {
+    if (url == null || this.imageBroken()) {
       return false;
     }
     return typeof url === 'string' ? url.trim().length > 0 : true;
