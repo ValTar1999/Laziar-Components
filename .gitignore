@@ -48,3 +48,6 @@ Thumbs.db
 
 # npm auth — .npmrc holds a live registry token (see .npmrc.example)
 .npmrc
+
+# Scratch output of scripts/*-docs-i18n.mjs
+tmp-docs-i18n-*.json

@@ -21,6 +21,7 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { attachLzFloating } from '../floating/floating';
+import { moveFocusWithKeys } from '../internal/list-keys';
 import { LzInputFlush } from '../internal/lz-input-flush.directive';
 
 import { Button } from '../button/button.component';
@@ -34,6 +35,8 @@ import {
   TableSort,
   TableSortDirection,
 } from './table.types';
+
+let nextTableId = 0;
 
 const MENU_OFFSET_PX = 8;
 const MENU_VIEWPORT_PADDING_PX = 8;
@@ -91,9 +94,13 @@ export class Table<T extends object = TableRow> implements OnDestroy {
   readonly rowClickable = input(false, { transform: booleanAttribute });
   readonly isRowInteractive = input<((row: T) => boolean) | undefined>(undefined);
   /**
-   * Whether an interactive row is also a keyboard stop (`tabindex=0`, role `link`).
-   * Turn it off when the row is only a pointer shortcut to something the keyboard
-   * already reaches inside the row, such as a menu item, so Tab is not doubled.
+   * Whether an interactive row is also a keyboard stop (`tabindex=0`; Enter and
+   * Space activate it). Turn it off when the row is only a pointer shortcut to
+   * something the keyboard already reaches inside the row, such as a menu item,
+   * so Tab is not doubled.
+   *
+   * The row keeps its `row` role, so its cells are still read as a table; give
+   * it another one through `getRowRole` only if you know the cells do not matter.
    */
   readonly rowFocusable = input(true, { transform: booleanAttribute });
   readonly getRowClass = input<((row: T) => string) | undefined>(undefined);
@@ -129,6 +136,10 @@ export class Table<T extends object = TableRow> implements OnDestroy {
   readonly paginationOfLabel = input('din');
   readonly paginationResultsLabel = input('rezultate');
   readonly pageSizeAriaLabel = input('Rezultate pe pagină');
+  /** Accessible names of the pager and its arrows; pass localized strings. */
+  readonly paginationAriaLabel = input('Paginare');
+  readonly previousPageLabel = input('Pagina anterioară');
+  readonly nextPageLabel = input('Pagina următoare');
 
   readonly pageChange = output<number>();
   readonly pageSizeChange = output<number>();
@@ -137,6 +148,7 @@ export class Table<T extends object = TableRow> implements OnDestroy {
   readonly sortChange = output<TableSort>();
 
   readonly paneClass = 'lz-table-cdk-pane';
+  protected readonly pageSizeMenuId = `lz-table-page-size-${nextTableId++}`;
 
   protected readonly scrollContainer = viewChild<ElementRef<HTMLDivElement>>('scrollContainer');
   protected readonly pageSizeTrigger = viewChild<ElementRef<HTMLElement>>('pageSizeTrigger');
@@ -154,6 +166,7 @@ export class Table<T extends object = TableRow> implements OnDestroy {
   private overlayRef?: OverlayRef;
   private floatingCleanup?: () => void;
   private scrollHandler?: () => void;
+  private resizeObserver?: ResizeObserver;
 
   protected readonly displayedResultsCount = computed(
     () => this.resultsCount() ?? this.data().length,
@@ -220,8 +233,17 @@ export class Table<T extends object = TableRow> implements OnDestroy {
     this.closePageSizeMenu();
   }
 
+  /** Claims the key so an enclosing `lz-modal` leaves this Escape to the list. */
+  @HostListener('document:keydown.escape', ['$event'])
+  protected onEscape(event?: Event): void {
+    if (!this.pageSizeDropdownOpen()) return;
+    event?.preventDefault();
+    this.closePageSizeMenu();
+  }
+
   ngOnDestroy(): void {
     const container = this.scrollContainer()?.nativeElement;
+    this.resizeObserver?.disconnect();
     if (container && this.scrollHandler) {
       container.removeEventListener('scroll', this.scrollHandler);
     }
@@ -298,7 +320,7 @@ export class Table<T extends object = TableRow> implements OnDestroy {
   }
 
   protected resolveRowRole(row: T): string | null {
-    return this.getRowRole() ? this.getRowRole()!(row) : this.isRowFocusable(row) ? 'link' : null;
+    return this.getRowRole()?.(row) ?? null;
   }
 
   protected resolveRowAriaLabel(row: T): string | null {
@@ -342,6 +364,17 @@ export class Table<T extends object = TableRow> implements OnDestroy {
     }
     this.pageSizeDropdownOpen.set(true);
     this.attachPageSizeOverlay();
+    this.focusPageSizeOption();
+  }
+
+  protected onPageSizeOptionKeydown(event: KeyboardEvent): void {
+    // Tab closes the list and carries on from the trigger: the list lives at
+    // the end of the document, so tabbing out of it would leave the page.
+    if (event.key === 'Tab') {
+      this.closePageSizeMenu();
+      return;
+    }
+    moveFocusWithKeys(event, this.pageSizeOptionElements());
   }
 
   protected selectPageSize(option: number): void {
@@ -379,7 +412,28 @@ export class Table<T extends object = TableRow> implements OnDestroy {
 
   private closePageSizeMenu(): void {
     this.pageSizeDropdownOpen.set(false);
+
+    // Focus that was in the list goes back to the trigger, not to the page top.
+    const overlayElement = this.overlayRef?.overlayElement;
+    const hadFocus = !!overlayElement?.contains(overlayElement.ownerDocument.activeElement);
     this.detachOverlay();
+    if (hadFocus) {
+      this.pageSizeTrigger()?.nativeElement.querySelector('button')?.focus();
+    }
+  }
+
+  private pageSizeOptionElements(): HTMLElement[] {
+    return Array.from(
+      this.overlayRef?.overlayElement.querySelectorAll<HTMLElement>('[role="option"]') ?? [],
+    );
+  }
+
+  /** Opening lands on the current size, so the arrows start from it. */
+  private focusPageSizeOption(): void {
+    const options = this.pageSizeOptionElements();
+    (
+      options.find((option) => option.getAttribute('aria-selected') === 'true') ?? options[0]
+    )?.focus();
   }
 
   private attachPageSizeOverlay(): void {
@@ -439,6 +493,15 @@ export class Table<T extends object = TableRow> implements OnDestroy {
     this.checkScrollPosition();
     this.scrollHandler = () => this.checkScrollPosition();
     container.addEventListener('scroll', this.scrollHandler);
+
+    // Rows that arrive after the first render, or a narrower window, change
+    // whether the table overflows without any scroll event to say so.
+    if (typeof ResizeObserver === 'function') {
+      this.resizeObserver = new ResizeObserver(() => this.checkScrollPosition());
+      this.resizeObserver.observe(container);
+      const content = container.firstElementChild;
+      if (content) this.resizeObserver.observe(content);
+    }
   }
 
   private checkScrollPosition(): void {

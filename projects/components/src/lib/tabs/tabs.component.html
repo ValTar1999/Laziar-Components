@@ -3,22 +3,28 @@
   class="lz-tabs"
   [attr.data-style]="style()"
   [attr.data-size]="size()"
+  [attr.data-stretch]="stretch() ? null : 'false'"
   [class]="class() ?? ''"
   role="tablist"
+  [attr.aria-label]="ariaLabel() || null"
 >
   @for (tab of tabs(); track $index; let i = $index) {
     <button
+      #tab
       type="button"
       class="lz-tabs__tab"
       [attr.data-active]="activeTab() === i ? 'true' : null"
       [attr.data-disabled]="isTabDisabled(i) ? 'true' : null"
       [attr.aria-selected]="activeTab() === i"
       [attr.aria-disabled]="isTabDisabled(i)"
+      [attr.aria-description]="isTabDisabled(i) ? getDisabledTooltip(i) || null : null"
+      [attr.tabindex]="i === focusableTab() ? 0 : -1"
       role="tab"
       (click)="setActiveTab(i)"
+      (keydown)="onKeydown($event)"
     >
       @if (icons()[i]) {
-        <lz-icon [name]="icons()[i]" type="mini" />
+        <lz-icon [name]="icons()[i]" type="mini" aria-hidden="true" />
       }
       @if (isTabDisabled(i) && getDisabledTooltip(i)) {
         <lz-tooltip
@@ -40,9 +46,13 @@
     </button>
   }
 
-  @if (isTextUnderline()) {
-    <div #textUnderline class="lz-tabs__underline" aria-hidden="true"></div>
-  } @else if (showUnderline()) {
-    <div class="lz-tabs__underline" [ngStyle]="underlineStyle()" aria-hidden="true"></div>
+  <!-- No indicator while no tab is current (activeTab out of range), as when a
+       routed strip sits on a page it has no tab for. -->
+  @if (hasActiveTab()) {
+    @if (isMeasuredUnderline()) {
+      <div #textUnderline class="lz-tabs__underline" aria-hidden="true"></div>
+    } @else if (showUnderline()) {
+      <div class="lz-tabs__underline" [ngStyle]="underlineStyle()" aria-hidden="true"></div>
+    }
   }
 </div>

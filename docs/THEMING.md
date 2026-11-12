@@ -202,7 +202,7 @@ Defaults below: **Light** / **Dark** (dark = `[data-theme="dark"]` and system-au
 | `--lz-color-text-muted` | Hints / placeholders | `#898d92` | `#898d92` |
 | `--lz-color-text-inverse` | On filled primary | `#fffffa` | `#121212` |
 | `--lz-color-disabled` | Disabled fill (pub gray-900/30) | `color-mix(… neutral-900 30%)` | same pattern |
-| `--lz-color-focus-ring` | Focus outline color | mix 10% | mix 20% |
+| `--lz-color-focus-ring` | Focus outline color | mix 50% | mix 50% |
 
 ### Spacing
 

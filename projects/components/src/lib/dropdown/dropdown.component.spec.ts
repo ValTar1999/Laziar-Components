@@ -1,7 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { DropdownComponent } from './dropdown.component';
+import { Component } from '@angular/core';
+import { DropdownComponent, LzDropdownTrigger } from './dropdown.component';
 import { LzDropdownSection } from './dropdown.types';
 
 describe('DropdownComponent', () => {
@@ -216,6 +217,21 @@ describe('DropdownComponent', () => {
       expect(triggerEl().querySelector('.lz-dropdown__chevron')).toBeNull();
     });
 
+    it('draws an xs icon-only trigger as a 24px round button with a 16px icon', () => {
+      fixture.componentRef.setInput('title', '');
+      fixture.componentRef.setInput('icon', 'ellipsis-horizontal');
+      fixture.componentRef.setInput('ariaLabel', 'Row actions');
+      fixture.componentRef.setInput('sizeVariant', 'xs');
+      fixture.detectChanges();
+
+      const box = triggerEl().getBoundingClientRect();
+      expect(box.width).toBe(24);
+      expect(box.height).toBe(24);
+      expect(getComputedStyle(triggerEl()).borderTopLeftRadius).toBe('9999px');
+      const icon = triggerEl().querySelector('.lz-dropdown__trigger-icon') as HTMLElement;
+      expect(icon.getBoundingClientRect().width).toBe(16);
+    });
+
     it('omits aria-label by default', () => {
       expect(triggerEl().hasAttribute('aria-label')).toBeFalse();
     });
@@ -309,5 +325,67 @@ describe('DropdownComponent', () => {
       expect(document.activeElement).toBe(outside);
       outside.remove();
     });
+  });
+});
+
+@Component({
+  standalone: true,
+  imports: [DropdownComponent, LzDropdownTrigger],
+  template: `
+    <lz-dropdown ariaLabel="Account" [sections]="sections">
+      <span lzDropdownTrigger class="avatar" style="display: block; width: 32px; height: 32px"
+        >AP</span
+      >
+    </lz-dropdown>
+  `,
+})
+class CustomTriggerHost {
+  readonly sections: LzDropdownSection[] = [{ heading: '', items: ['Profile', 'Log out'] }];
+}
+
+describe('DropdownComponent with a projected trigger', () => {
+  let fixture: ComponentFixture<CustomTriggerHost>;
+  let overlayContainer: OverlayContainer;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [CustomTriggerHost, NoopAnimationsModule],
+    }).compileComponents();
+    fixture = TestBed.createComponent(CustomTriggerHost);
+    overlayContainer = TestBed.inject(OverlayContainer);
+    fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    overlayContainer.ngOnDestroy();
+    fixture.destroy();
+  });
+
+  const trigger = (): HTMLButtonElement =>
+    fixture.nativeElement.querySelector('.lz-dropdown__trigger') as HTMLButtonElement;
+
+  it('draws the projected content in place of the title and chevron', () => {
+    expect(trigger().querySelector('.avatar')?.textContent).toBe('AP');
+    expect(trigger().querySelector('.lz-dropdown__title')).toBeNull();
+    expect(trigger().querySelector('lz-icon')).toBeNull();
+    expect(trigger().getAttribute('data-custom')).toBe('true');
+    expect(trigger().getAttribute('data-icon-only')).toBeNull();
+  });
+
+  it('hugs the projected content, whatever the size variant', () => {
+    const box = trigger().getBoundingClientRect();
+    expect(box.width).toBe(32);
+    expect(box.height).toBe(32);
+  });
+
+  it('keeps the button: its name, its menu state and its click', () => {
+    expect(trigger().getAttribute('aria-label')).toBe('Account');
+    expect(trigger().getAttribute('aria-haspopup')).toBe('menu');
+
+    trigger().click();
+    fixture.detectChanges();
+
+    expect(trigger().getAttribute('aria-expanded')).toBe('true');
+    expect(document.querySelectorAll('.lz-dropdown__item').length).toBe(2);
   });
 });

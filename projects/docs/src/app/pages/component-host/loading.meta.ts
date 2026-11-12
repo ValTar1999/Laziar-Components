@@ -44,6 +44,12 @@ export const LOADING_COMPONENT_META: DocsComponentMeta = {
   ],
   inputs: [
     {
+      name: 'ariaLabel',
+      type: 'string',
+      default: `'Loading'`,
+      description: 'What screen readers announce; pass a localized string',
+    },
+    {
       name: 'color',
       type: `'black' | 'red'`,
       default: `'black'`,

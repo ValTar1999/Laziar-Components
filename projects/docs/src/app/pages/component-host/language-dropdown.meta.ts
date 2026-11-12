@@ -20,6 +20,13 @@ export const LANGUAGE_DROPDOWN_COMPONENT_META: DocsComponentMeta = {
       default: `'appLanguage'`,
       description: 'localStorage key for the selected code',
     },
+    {
+      name: 'ariaLabel',
+      type: 'string',
+      default: `'Language'`,
+      description:
+        'What the control is, for screen readers; read with the current language name. Pass a localized string',
+    },
   ],
   outputs: [
     {

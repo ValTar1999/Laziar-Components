@@ -47,6 +47,10 @@ export const DROPDOWN_COMPONENT_META: DocsComponentMeta = {
     { label: 'md', props: { title: 'Menu', sizeVariant: 'md' } },
     { label: 'sm', props: { title: 'Menu', sizeVariant: 'sm' } },
     {
+      label: 'row actions · xs',
+      props: { title: '', sizeVariant: 'xs', icon: 'ellipsis-horizontal', ariaLabel: 'Actions' },
+    },
+    {
       label: 'with icon',
       props: { title: 'Acme Media', sizeVariant: 'xl', icon: 'building-office-2' },
     },
@@ -72,9 +76,9 @@ export const DROPDOWN_COMPONENT_META: DocsComponentMeta = {
     },
     {
       name: 'sizeVariant',
-      type: `'xl' | 'lg' | 'md' | 'sm'`,
+      type: `'xl' | 'lg' | 'md' | 'sm' | 'xs'`,
       default: `'xl'`,
-      description: 'Trigger size',
+      description: 'Trigger size; xs is the 24px icon-only button of a table row menu',
     },
     {
       name: 'icon',
@@ -124,7 +128,13 @@ export const DROPDOWN_COMPONENT_META: DocsComponentMeta = {
       description: 'Fires when the menu closes',
     },
   ],
-  slots: [],
+  slots: [
+    {
+      name: '[lzDropdownTrigger]',
+      description:
+        'Content drawn as the trigger in place of the title and chevron, e.g. an avatar. It sits inside the trigger button, so keep it non-interactive and give the dropdown an ariaLabel',
+    },
+  ],
   examples: [
     {
       title: 'Sectioned menu',
@@ -168,6 +178,14 @@ export const DROPDOWN_COMPONENT_META: DocsComponentMeta = {
   ]"
   (itemSelected)="onOrg($event)"
 />`,
+    },
+    {
+      title: 'Profile menu opened by an avatar',
+      code: `<lz-dropdown ariaLabel="Account" placement="bottom-end"
+  [sections]="[{ heading: 'Ana Pop', items: ['Profile', 'Log out'] }]"
+  (itemSelected)="onProfile($event)">
+  <lz-avatar lzDropdownTrigger firstName="Ana" lastName="Pop" size="sm" />
+</lz-dropdown>`,
     },
   ],
   tokens: [

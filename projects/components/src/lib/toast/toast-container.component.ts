@@ -27,4 +27,12 @@ export class ToastContainer {
   protected dismiss(id: string): void {
     this.toastService.remove(id);
   }
+
+  protected pause(id: string): void {
+    this.toastService.pause(id);
+  }
+
+  protected resume(id: string): void {
+    this.toastService.resume(id);
+  }
 }

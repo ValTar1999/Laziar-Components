@@ -7,13 +7,13 @@
 @layer lz-defaults {
   :host.lz-table-host {
     display: block;
-    color: #121212;
+    color: var(--lz-color-text-primary);
     font-family: var(--lz-font-sans);
   }
 }
 
 .lz-table {
-  background: #fffffa;
+  background: var(--lz-color-background);
 }
 
 .lz-table[data-shadow='true'] .lz-table__scroll {
@@ -22,7 +22,7 @@
 
 .lz-table__scroll {
   overflow-x: auto;
-  background: #fffffa;
+  background: var(--lz-color-background);
 }
 
 .lz-table__scroll:not([data-scrollbar='true']) {
@@ -41,16 +41,16 @@
   width: max-content;
   min-width: 100%;
   border-collapse: collapse;
-  background: #fffffa;
+  background: var(--lz-color-background);
   font-family: var(--lz-font-sans);
 }
 
 .lz-table__head {
-  border-bottom: 1px solid rgb(18 18 18 / 10%);
+  border-bottom: 1px solid color-mix(in srgb, var(--lz-color-neutral-900) 10%, transparent);
 }
 
 .lz-table__header-row {
-  color: #121212;
+  color: var(--lz-color-text-primary);
   font-size: 0.75rem;
   font-weight: 600;
   line-height: 1rem;
@@ -101,7 +101,7 @@
 
   &:hover .lz-table__sort-icon,
   &[data-sorted='true'] .lz-table__sort-icon {
-    color: #121212;
+    color: var(--lz-color-text-primary);
   }
 }
 
@@ -114,7 +114,7 @@
   flex-shrink: 0;
   width: var(--lz-icon-size);
   height: var(--lz-icon-size);
-  color: #6b6f73;
+  color: var(--lz-color-neutral-500);
   transition: color 0.15s ease;
 }
 
@@ -133,7 +133,7 @@
 
 .lz-table__cell {
   padding-block: 1rem;
-  color: #121212;
+  color: var(--lz-color-text-primary);
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
@@ -157,7 +157,7 @@
 .lz-table__cell[data-sticky] {
   position: sticky;
   z-index: 10;
-  background: #fffffa;
+  background: var(--lz-color-background);
 }
 
 .lz-table__header-cell[data-sticky='left'],
@@ -181,7 +181,7 @@
   width: 3rem;
   pointer-events: none;
   opacity: 0;
-  box-shadow: -4px 0 20px -2px rgb(0 0 0 / 0.1);
+  box-shadow: var(--lz-shadow-sticky);
   transition: opacity 0.15s ease;
 
   &[data-visible='true'] {
@@ -193,7 +193,7 @@
   > .lz-table__row + .lz-table__row,
   > .lz-table__row + .lz-table__detail-row,
   > .lz-table__detail-row + .lz-table__row {
-    border-top: 1px solid rgb(18 18 18 / 10%);
+    border-top: 1px solid color-mix(in srgb, var(--lz-color-neutral-900) 10%, transparent);
   }
 }
 
@@ -202,7 +202,7 @@
   transition: background-color 0.3s ease;
 
   &:hover {
-    background: #f4f5f5;
+    background: color-mix(in srgb, var(--lz-color-neutral-900) 5%, var(--lz-color-background));
   }
 }
 
@@ -234,13 +234,13 @@
 
 .lz-table__range {
   margin: 0;
-  color: #4f5255;
+  color: var(--lz-color-text-secondary);
   line-height: 1.25rem;
 }
 
 .lz-table__range strong,
 .lz-table__results-count strong {
-  color: #121212;
+  color: var(--lz-color-text-primary);
   font-weight: 500;
 }
 
@@ -248,7 +248,7 @@
   width: 1px;
   height: 1.5rem;
   flex-shrink: 0;
-  background: rgb(18 18 18 / 10%);
+  background: color-mix(in srgb, var(--lz-color-neutral-900) 10%, transparent);
 }
 
 .lz-table__page-size {
@@ -259,7 +259,7 @@
 :host ::ng-deep .lz-table__page-size-icon {
   width: 1rem;
   height: 1rem;
-  color: #6b6f73;
+  color: var(--lz-color-neutral-500);
 }
 
 .lz-table__page-size-menu {
@@ -267,9 +267,9 @@
   min-width: 4.5rem;
   overflow: hidden;
   padding-block: 0.25rem;
-  border: 1px solid rgb(18 18 18 / 10%);
+  border: 1px solid color-mix(in srgb, var(--lz-color-neutral-900) 10%, transparent);
   border-radius: 0.75rem;
-  background: #fffffa;
+  background: var(--lz-color-background);
   box-shadow:
     0 10px 15px -3px rgb(0 0 0 / 0.1),
     0 4px 6px -4px rgb(0 0 0 / 0.1);
@@ -282,7 +282,7 @@
   padding: 0.5rem 0.75rem;
   border: 0;
   background: transparent;
-  color: #121212;
+  color: var(--lz-color-text-primary);
   font-family: var(--lz-font-sans);
   font-size: 0.875rem;
   font-weight: 500;
@@ -291,12 +291,14 @@
   cursor: pointer;
   transition: background-color 0.15s ease;
 
-  &:hover {
-    background: rgb(18 18 18 / 5%);
+  &:hover,
+  &:focus-visible {
+    outline: none;
+    background: color-mix(in srgb, var(--lz-color-neutral-900) 5%, transparent);
   }
 
   &[data-selected='true'] {
-    background: #f4f5f5;
+    background: color-mix(in srgb, var(--lz-color-neutral-900) 5%, var(--lz-color-background));
     font-weight: 600;
   }
 }
@@ -315,7 +317,7 @@
   border: 0;
   border-radius: 999px;
   background: transparent;
-  color: #6b6f73;
+  color: var(--lz-color-neutral-500);
   font-family: var(--lz-font-sans);
   font-size: 0.75rem;
   font-weight: 500;
@@ -326,21 +328,21 @@
     color 0.15s ease;
 
   &:hover:not(:disabled) {
-    background: rgb(18 18 18 / 5%);
-    color: #37393b;
+    background: color-mix(in srgb, var(--lz-color-neutral-900) 5%, transparent);
+    color: var(--lz-color-neutral-700);
   }
 
   &--num:not([data-current='true']) {
-    color: #121212;
+    color: var(--lz-color-text-primary);
 
     &:hover:not(:disabled) {
-      color: #121212;
+      color: var(--lz-color-text-primary);
     }
   }
 
   &[data-current='true'] {
-    background: #121212;
-    color: #fff;
+    background: var(--lz-color-neutral-900);
+    color: var(--lz-color-text-inverse);
   }
 
   &:disabled {
@@ -359,15 +361,15 @@
 .lz-table__ellipsis {
   min-width: 1.75rem;
   padding-inline: 0.25rem;
-  color: #6b6f73;
+  color: var(--lz-color-neutral-500);
   text-align: center;
   user-select: none;
 }
 
 .lz-table__results-count {
   padding-block: 1rem;
-  border-top: 1px solid #e4e6e7;
-  color: #4f5255;
+  border-top: 1px solid var(--lz-color-border-subtle);
+  color: var(--lz-color-text-secondary);
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
@@ -383,7 +385,7 @@
 
   h3 {
     margin: 0;
-    color: #121212;
+    color: var(--lz-color-text-primary);
     font-family: var(--lz-font-sans);
     font-size: 1rem;
     font-weight: 700;
@@ -397,8 +399,8 @@
   justify-content: center;
   padding: 0.5rem;
   border-radius: 999px;
-  background: #f4f5f5;
-  color: #6b6f73;
+  background: color-mix(in srgb, var(--lz-color-neutral-900) 5%, var(--lz-color-background));
+  color: var(--lz-color-neutral-500);
 
   svg {
     width: 1.5rem;

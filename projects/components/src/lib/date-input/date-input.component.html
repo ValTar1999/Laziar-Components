@@ -1,0 +1,61 @@
+<div class="lz-date-input" [class.lz-date-input--disabled]="effectiveDisabled()">
+  @if (label()) {
+    <label class="lz-date-input__label" [id]="labelId" [attr.for]="fieldId">
+      {{ label() }}
+    </label>
+  }
+
+  <div class="lz-date-input__wrapper">
+    <button
+      #trigger
+      type="button"
+      class="lz-date-input__trigger"
+      [id]="fieldId"
+      [disabled]="effectiveDisabled()"
+      [attr.data-size]="size()"
+      [attr.data-empty]="displayValue() ? null : 'true'"
+      [attr.data-error]="error() ? 'true' : null"
+      [attr.aria-label]="ariaLabel() || null"
+      [attr.aria-labelledby]="label() ? labelId + ' ' + valueId : null"
+      [attr.aria-expanded]="isOpen()"
+      [attr.aria-controls]="isOpen() ? dialogId : null"
+      [attr.aria-invalid]="error() ? true : null"
+      [attr.aria-describedby]="helperText() ? helperId : null"
+      aria-haspopup="dialog"
+      (click)="toggle()"
+      (blur)="onTriggerBlur()"
+    >
+      <span class="lz-date-input__value" [id]="valueId">{{ displayValue() || placeholder() }}</span>
+    </button>
+
+    <lz-icon name="calendar-days" type="outline" class="lz-date-input__icon" aria-hidden="true" />
+  </div>
+
+  @if (helperText()) {
+    <span class="lz-date-input__helper" [id]="helperId" [attr.data-error]="error() ? 'true' : null">
+      @if (error()) {
+        <lz-icon name="exclamation-circle" type="mini" class="lz-date-input__helper-icon" />
+      }
+      {{ helperText() }}
+    </span>
+  }
+</div>
+
+<ng-template #popoverTpl>
+  <div
+    class="lz-date-input__popover"
+    role="dialog"
+    [id]="dialogId"
+    [attr.aria-labelledby]="label() ? labelId : null"
+    [attr.aria-label]="label() ? null : ariaLabel() || placeholder()"
+  >
+    <lz-calendar
+      [value]="selectedDate()"
+      [min]="minDate()"
+      [max]="maxDate()"
+      [locale]="locale()"
+      [weekStart]="weekStart()"
+      (valueChange)="pick($event)"
+    />
+  </div>
+</ng-template>

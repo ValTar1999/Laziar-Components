@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { RouterLink } from '@angular/router';
 
@@ -8,6 +8,7 @@ import { RouterLink } from '@angular/router';
  */
 @Component({
   selector: 'lz-logo',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   hostDirectives: [LzInputFlush],
   imports: [RouterLink],

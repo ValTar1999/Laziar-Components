@@ -8,7 +8,9 @@
       [attr.aria-expanded]="isOpen()"
       [attr.aria-controls]="menuId"
       aria-haspopup="listbox"
+      [attr.aria-label]="triggerLabel()"
       (click)="toggleDropdown($event)"
+      (keydown)="onTriggerKeydown($event)"
     >
       @if (selectedLanguage(); as lang) {
         @if (lang.flag) {
@@ -21,18 +23,28 @@
         <span class="lz-language-dropdown__value">{{ getInitials(lang) }}</span>
       }
     </button>
-    <lz-icon name="chevron-up-down" type="mini" class="lz-language-dropdown__chevron" />
+    <lz-icon
+      name="chevron-up-down"
+      type="mini"
+      class="lz-language-dropdown__chevron"
+      aria-hidden="true"
+    />
   </div>
 </div>
 
 <ng-template #menuTpl>
   <div class="lz-language-dropdown__menu">
-    <ul class="lz-language-dropdown__list" role="listbox" [id]="menuId">
+    <ul
+      class="lz-language-dropdown__list"
+      role="listbox"
+      [id]="menuId"
+      [attr.aria-label]="ariaLabel() || null"
+    >
       @for (lang of languages(); track lang.code) {
         <li
           class="lz-language-dropdown__item"
           role="option"
-          tabindex="0"
+          tabindex="-1"
           [attr.aria-selected]="isCurrentLanguage(lang.code)"
           [attr.data-selected]="isCurrentLanguage(lang.code)"
           (click)="selectLanguage(lang)"
@@ -40,7 +52,7 @@
         >
           <div class="lz-language-dropdown__item-content">
             @if (lang.flag) {
-              <img class="lz-language-dropdown__flag" [src]="lang.flag" [alt]="lang.name" />
+              <img class="lz-language-dropdown__flag" [src]="lang.flag" alt="" />
             }
             <span
               class="lz-language-dropdown__name"

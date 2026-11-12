@@ -1,15 +1,17 @@
-import { isPlatformBrowser } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
-  AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
+  computed,
+  DestroyRef,
+  effect,
   ElementRef,
   inject,
   input,
-  OnDestroy,
-  OnInit,
   PLATFORM_ID,
   signal,
-  ViewChild,
+  untracked,
+  viewChild,
 } from '@angular/core';
 import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { LzVideoNuevoOptions, LzVideoPlaylistItem } from './video-player.types';
@@ -23,11 +25,50 @@ declare global {
 interface VideoJsPlayer {
   nuevo?: (options: Record<string, unknown>) => void;
   playlist?: (items: LzVideoPlaylistItem[]) => void;
+  src?: (source: { src: string; type: string }) => void;
   uniquePlaylist?: string;
   dispose: () => void;
 }
 
 type VideoJsFactory = (el: HTMLVideoElement, options: Record<string, unknown>) => VideoJsPlayer;
+
+/**
+ * One load per asset URL for the whole page, shared by every player.
+ *
+ * A failed load is forgotten and its element removed, so the next player asks
+ * for the asset again. Without that, one 404 left a dead `<script>` behind and
+ * every later player waited for a `load` event that had already come and gone.
+ */
+const assetLoads = new Map<string, Promise<void>>();
+
+function loadAssetOnce(
+  url: string,
+  create: () => HTMLScriptElement | HTMLLinkElement,
+  parent: HTMLElement,
+): Promise<void> {
+  const pending = assetLoads.get(url);
+  if (pending) return pending;
+
+  const load = new Promise<void>((resolve) => {
+    const element = create();
+    element.addEventListener('load', () => resolve(), { once: true });
+    element.addEventListener(
+      'error',
+      () => {
+        assetLoads.delete(url);
+        element.remove();
+        // Resolved, not rejected: whether the player can start is decided by
+        // `window.videojs` existing, so an optional asset (a language file)
+        // failing must not block it.
+        resolve();
+      },
+      { once: true },
+    );
+    parent.appendChild(element);
+  });
+  assetLoads.set(url, load);
+  return load;
+}
 
 /**
  * Video player `@laziar/components`.
@@ -36,6 +77,7 @@ type VideoJsFactory = (el: HTMLVideoElement, options: Record<string, unknown>) =
  */
 @Component({
   selector: 'lz-video-player',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   hostDirectives: [LzInputFlush],
   templateUrl: './video-player.component.html',
@@ -44,10 +86,10 @@ type VideoJsFactory = (el: HTMLVideoElement, options: Record<string, unknown>) =
     class: 'lz-video-player-host',
   },
 })
-export class VideoPlayer implements OnInit, AfterViewInit, OnDestroy {
-  private readonly platformId = inject(PLATFORM_ID);
+export class VideoPlayer {
+  private readonly document = inject(DOCUMENT);
 
-  @ViewChild('videoPlayer') private videoElement?: ElementRef<HTMLVideoElement>;
+  private readonly videoElement = viewChild<ElementRef<HTMLVideoElement>>('videoPlayer');
 
   readonly videoSrc = input('');
   /** Host logo overlay; frontend default is `/assets/site-logo/laziar.svg`. */
@@ -62,75 +104,122 @@ export class VideoPlayer implements OnInit, AfterViewInit, OnDestroy {
   readonly nuevoLicense = input('05005e4105495c57');
   readonly nuevoOptions = input<LzVideoNuevoOptions>({});
 
-  protected readonly unavailable = signal(false);
+  /** Video.js itself did not load, so there is nothing to build a player with. */
+  private readonly assetsFailed = signal(false);
+
+  /**
+   * Derived, not latched: a source that arrives after the first render (the
+   * usual case with data from an API) brings the `<video>` in and starts the player.
+   */
+  protected readonly unavailable = computed(() => !this.hasPlayableSource() || this.assetsFailed());
 
   private player: VideoJsPlayer | null = null;
+  /** The `<video>` the current player was built on, or is being built on. */
+  private playerElement: HTMLVideoElement | null = null;
+  private destroyed = false;
 
-  ngOnInit(): void {
-    if (!this.hasPlayableSource()) {
-      this.unavailable.set(true);
-    }
-  }
+  constructor() {
+    if (!isPlatformBrowser(inject(PLATFORM_ID))) return;
 
-  ngAfterViewInit(): void {
-    if (!isPlatformBrowser(this.platformId) || this.unavailable()) {
-      return;
-    }
+    // The `<video>` comes and goes with `unavailable`; the player follows it.
+    effect(() => {
+      const element = this.videoElement()?.nativeElement ?? null;
+      untracked(() => this.attachTo(element));
+    });
 
-    this.loadVideoJsAssets().then(() => {
-      const videoEl = this.videoElement?.nativeElement;
-      if (typeof window.videojs !== 'function' || !videoEl) {
-        this.unavailable.set(true);
-        return;
-      }
-
-      this.player = window.videojs(videoEl, {
-        controls: true,
-        autoplay: this.autoplay(),
-        preload: 'auto',
-        fluid: true,
-        language: this.language(),
-        muted: this.muted(),
-        sources: [
-          {
-            src: this.videoSrc(),
-            type: 'video/mp4',
-          },
-        ],
-      });
-
-      const nuevo = {
-        license: this.nuevoLicense(),
-        skin: 'shaka',
-        logo: this.logoPath(),
-        logourl: '#',
-        logoposition: 'LT',
-        logomin: true,
-        playlistUI: true,
-        playlistShow: true,
-        playlistAutoHide: false,
-        playlistNavigation: true,
-        playlistRepeat: true,
-        ...this.nuevoOptions(),
-      };
-
-      if (typeof this.player.nuevo === 'function') {
-        this.player.nuevo(nuevo);
-      }
-
+    // A source changed under a running player.
+    effect(() => {
+      const src = this.videoSrc();
       const items = this.playlist();
-      if (items.length && typeof this.player.playlist === 'function') {
-        this.player.playlist(items);
-        this.player.uniquePlaylist = this.playlistId();
-      }
+      untracked(() => this.updateSource(src, items));
+    });
+
+    inject(DestroyRef).onDestroy(() => {
+      this.destroyed = true;
+      this.disposePlayer();
     });
   }
 
-  ngOnDestroy(): void {
-    if (this.player) {
-      this.player.dispose();
-      this.player = null;
+  private attachTo(element: HTMLVideoElement | null): void {
+    if (element === this.playerElement) return;
+
+    this.disposePlayer();
+    this.playerElement = element;
+    if (!element) return;
+
+    this.loadVideoJsAssets().then(() => {
+      // The component, or this `<video>`, went away while the assets loaded.
+      if (this.destroyed || this.playerElement !== element) return;
+
+      const videojs = this.document.defaultView?.videojs;
+      if (typeof videojs !== 'function') {
+        this.assetsFailed.set(true);
+        return;
+      }
+
+      this.player = this.createPlayer(videojs, element);
+    });
+  }
+
+  private createPlayer(videojs: VideoJsFactory, element: HTMLVideoElement): VideoJsPlayer {
+    const player = videojs(element, {
+      controls: true,
+      autoplay: this.autoplay(),
+      preload: 'auto',
+      fluid: true,
+      language: this.language(),
+      muted: this.muted(),
+      sources: [
+        {
+          src: this.videoSrc(),
+          type: 'video/mp4',
+        },
+      ],
+    });
+
+    const nuevo = {
+      license: this.nuevoLicense(),
+      skin: 'shaka',
+      logo: this.logoPath(),
+      logourl: '#',
+      logoposition: 'LT',
+      logomin: true,
+      playlistUI: true,
+      playlistShow: true,
+      playlistAutoHide: false,
+      playlistNavigation: true,
+      playlistRepeat: true,
+      ...this.nuevoOptions(),
+    };
+
+    if (typeof player.nuevo === 'function') {
+      player.nuevo(nuevo);
     }
+
+    const items = this.playlist();
+    if (items.length && typeof player.playlist === 'function') {
+      player.playlist(items);
+      player.uniquePlaylist = this.playlistId();
+    }
+
+    return player;
+  }
+
+  private updateSource(src: string, items: LzVideoPlaylistItem[]): void {
+    const player = this.player;
+    if (!player) return;
+
+    if (items.length && typeof player.playlist === 'function') {
+      player.playlist(items);
+    } else if (src.trim() && typeof player.src === 'function') {
+      player.src({ src, type: 'video/mp4' });
+    }
+  }
+
+  private disposePlayer(): void {
+    this.player?.dispose();
+    this.player = null;
+    this.playerElement = null;
   }
 
   private hasPlayableSource(): boolean {
@@ -141,61 +230,39 @@ export class VideoPlayer implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private loadVideoJsAssets(): Promise<void> {
+    const doc = this.document;
     const base = this.assetsPath().replace(/\/$/, '');
-
-    const loadStylesheet = (id: string, href: string): Promise<void> =>
-      new Promise<void>((resolve) => {
-        const existing = document.querySelector<HTMLLinkElement>(`link[data-vjs-asset="${id}"]`);
-        if (existing) {
-          resolve();
-          return;
-        }
-
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = href;
-        link.dataset['vjsAsset'] = id;
-        link.addEventListener('load', () => resolve(), { once: true });
-        link.addEventListener('error', () => resolve(), { once: true });
-        document.head.appendChild(link);
-      });
-
-    const loadScript = (id: string, src: string): Promise<void> =>
-      new Promise<void>((resolve) => {
-        const existing = document.querySelector<HTMLScriptElement>(
-          `script[data-vjs-asset="${id}"]`,
-        );
-        if (existing) {
-          if (existing.dataset['loaded'] === 'true') {
-            resolve();
-            return;
-          }
-          existing.addEventListener('load', () => resolve(), { once: true });
-          existing.addEventListener('error', () => resolve(), { once: true });
-          return;
-        }
-
-        const script = document.createElement('script');
-        script.src = src;
-        script.dataset['vjsAsset'] = id;
-        script.addEventListener(
-          'load',
-          () => {
-            script.dataset['loaded'] = 'true';
-            resolve();
-          },
-          { once: true },
-        );
-        script.addEventListener('error', () => resolve(), { once: true });
-        document.body.appendChild(script);
-      });
-
     const lang = this.language();
 
-    return loadStylesheet('videojs-core-css', `${base}/video-js.min.css`)
-      .then(() => loadStylesheet('videojs-shaka-css', `${base}/skins/shaka/videojs.min.css`))
-      .then(() => loadScript('videojs-core-js', `${base}/video.min.js`))
-      .then(() => loadScript('videojs-nuevo-js', `${base}/nuevo.min.js`))
-      .then(() => loadScript(`videojs-lang-${lang}`, `${base}/lang/${lang}.js`));
+    const stylesheet = (id: string, href: string): Promise<void> =>
+      loadAssetOnce(
+        href,
+        () => {
+          const link = doc.createElement('link');
+          link.rel = 'stylesheet';
+          link.href = href;
+          link.dataset['vjsAsset'] = id;
+          return link;
+        },
+        doc.head,
+      );
+
+    const script = (id: string, src: string): Promise<void> =>
+      loadAssetOnce(
+        src,
+        () => {
+          const element = doc.createElement('script');
+          element.src = src;
+          element.dataset['vjsAsset'] = id;
+          return element;
+        },
+        doc.body,
+      );
+
+    return stylesheet('videojs-core-css', `${base}/video-js.min.css`)
+      .then(() => stylesheet('videojs-shaka-css', `${base}/skins/shaka/videojs.min.css`))
+      .then(() => script('videojs-core-js', `${base}/video.min.js`))
+      .then(() => script('videojs-nuevo-js', `${base}/nuevo.min.js`))
+      .then(() => script(`videojs-lang-${lang}`, `${base}/lang/${lang}.js`));
   }
 }

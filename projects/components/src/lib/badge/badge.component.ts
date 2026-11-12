@@ -1,4 +1,11 @@
-import { booleanAttribute, Component, computed, input, output } from '@angular/core';
+import {
+  booleanAttribute,
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  input,
+  output,
+} from '@angular/core';
 import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import {
   LzBadgeColor,
@@ -15,6 +22,7 @@ import { Icon } from '../icon/icon.component';
  */
 @Component({
   selector: 'lz-badge',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   hostDirectives: [LzInputFlush],
   imports: [Icon],

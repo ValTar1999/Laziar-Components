@@ -47,11 +47,17 @@ export class TextareaComponent implements ControlValueAccessor {
   readonly disabled = input(false, { transform: booleanAttribute });
   readonly helperText = input<string | undefined>(undefined);
   readonly error = input(false, { transform: booleanAttribute });
+  /** Names the field when there is no visible label. */
+  readonly ariaLabel = input<string | undefined>(undefined);
+  /** Marks the field as required for assistive tech and native validation. */
+  readonly required = input(false, { transform: booleanAttribute });
   readonly resize = input<LzTextareaResize>('vertical');
 
   readonly valueChange = output<string>();
 
   readonly textareaId = `lz-textarea-${nextTextareaFieldId++}`;
+  /** Links the helper / error text to the field through aria-describedby. */
+  protected readonly helperId = `${this.textareaId}-helper`;
 
   protected readonly value = signal('');
 

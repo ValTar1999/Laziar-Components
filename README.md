@@ -1,59 +1,56 @@
-# Laziar
+# Laziar Components
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.30.
+The shared Angular UI library for the Laziar apps, `@laziar/components`, together with the docs site that shows every component.
 
-## Development server
+| Part         | Where                                        | What it is                                             |
+| ------------ | -------------------------------------------- | ------------------------------------------------------ |
+| Library      | [`projects/components`](projects/components) | The published package: components, theme tokens, icons |
+| Docs site    | [`projects/docs`](projects/docs)             | A page per component with live examples and its inputs |
+| Claude tools | [`claude/plugins`](claude/plugins)           | The `laziar-dev` plugin used across the Laziar repos   |
 
-To start a local development server, run:
+To **use** the library in an app (registry setup, install, theme styles), see the [library README](projects/components/README.md).
 
-```bash
-ng serve
-```
+## Getting started
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+You need Node 22 and npm.
 
 ```bash
-ng generate component component-name
+npm ci
+npm start          # docs site on http://localhost:4200
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Commands
 
-```bash
-ng generate --help
-```
+| Command                | What it does                                              |
+| ---------------------- | --------------------------------------------------------- |
+| `npm start`            | Serves the docs site and rebuilds on change               |
+| `npm run build:lib`    | Builds the library into `dist/components`                 |
+| `npm run build:docs`   | Builds the docs site into `dist/docs`                     |
+| `npm run test:ci`      | Runs the library and docs tests once, in headless Chrome  |
+| `npm test`             | Runs the tests in watch mode                              |
+| `npm run lint`         | Lints both projects, including template accessibility     |
+| `npm run format`       | Formats the repo with Prettier                            |
+| `npm run format:check` | Fails if anything is not formatted; CI runs this          |
 
-## Building
+A pre-commit hook lints and formats the files you staged.
 
-To build the project run:
+## Making a change
 
-```bash
-ng build
-```
+1. Branch from the latest `main`.
+2. Change the component under `projects/components/src/lib/<component>/`, with a test beside it.
+3. Document new inputs and examples on the component's docs page, `projects/docs/src/app/pages/component-host/<component>.meta.ts`.
+4. Run `npm run lint`, `npm run test:ci` and `npm run build:lib`.
+5. Open a merge request against `main`.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+[docs/CONTRIBUTING.md](docs/CONTRIBUTING.md) has the full checklist for adding a component, and [docs/THEMING.md](docs/THEMING.md) lists the design tokens and the rules for styles.
 
-## Running unit tests
+## Releases
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+Merging to `main` on GitLab publishes the library to the project's package registry as `0.1.<pipeline number>`. Do not publish by hand and do not edit the version in `projects/components/package.json`.
 
-```bash
-ng test
-```
+The docs site is deployed to GitHub Pages from the `master` branch of the GitHub mirror.
 
-## Running end-to-end tests
+## Repositories
 
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- **GitLab** — `gitlab.agora.md/laziar/frontend-components`. The source of truth: merge requests, CI and publishing happen here.
+- **GitHub** — `ValTar1999/Laziar-Components`. A mirror that hosts the docs site.

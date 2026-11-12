@@ -104,6 +104,9 @@ export const AVATAR_GROUP_COMPONENT_META: DocsComponentMeta = {
     { name: '--lz-color-neutral-50', description: 'Initials and “+N” remainder background' },
     { name: '--lz-color-neutral-700', description: 'Initials and “+N” text' },
     { name: '--lz-color-neutral-900', description: 'Fallback 10% outline (#121212)' },
-    { name: '--lz-color-background', description: 'Cream ring between overlapping avatars (#FFFFFA)' },
+    {
+      name: '--lz-color-background',
+      description: 'Cream ring between overlapping avatars (#FFFFFA)',
+    },
   ],
 };

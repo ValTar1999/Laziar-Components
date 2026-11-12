@@ -27,6 +27,7 @@
       "textarea": "Textarea",
       "select": "Select",
       "calendar": "Calendar",
+      "dateInput": "Date Input",
       "modal": "Modal",
       "dropdown": "Dropdown",
       "stub": "Stub",
@@ -41,6 +42,7 @@
       "icon": "Icon",
       "tabs": "Tabs",
       "tabButton": "Tab Button",
+      "navItem": "Nav Item",
       "buttonGroup": "Button Group",
       "languageDropdown": "Language Dropdown",
       "toast": "Toast",
@@ -56,7 +58,13 @@
       "moreActionsMenu": "More Actions Menu",
       "swiper": "Swiper",
       "videoPlayer": "Video Player",
-      "themeService": "ThemeService"
+      "themeService": "ThemeService",
+      "emptyState": "Empty State",
+      "loadError": "Load Error",
+      "loadingState": "Loading State",
+      "pageHeader": "Page Header",
+      "pagination": "Pagination",
+      "logo": "Logo"
     }
   },
   "header": {
@@ -963,7 +971,9 @@
     "login-prompt-banner": {
       "description": "Inline banner that sends the reader to an auth route.",
       "controls": {
-        "text": { "default": "Sign in to save articles" }
+        "text": {
+          "default": "Sign in to save articles"
+        }
       }
     },
     "auth-footer": {
@@ -972,7 +982,9 @@
     "card": {
       "description": "Article card from frontend: col/row layouts, size scale, row image/identity/meta options, and more-actions.",
       "controls": {
-        "title": { "default": "Government announces a new package of measures" },
+        "title": {
+          "default": "Government announces a new package of measures"
+        },
         "subtitle": {
           "default": "Ministers presented the implementation calendar and the budget impact for the next two years."
         }
@@ -993,17 +1005,25 @@
     "table": {
       "description": "Table from publikator: sticky columns, hover rows, pagination, Floating UI page-size, empty state.",
       "controls": {
-        "emptyMessage": { "default": "No articles" }
+        "emptyMessage": {
+          "default": "No articles"
+        }
       }
     },
     "toast-container": {
       "description": "Viewport host for ToastService notifications. Place once in the app shell, then call ToastService.show().",
       "controls": {
-        "message": { "default": "Site built from @laziar/components" },
-        "messageBold": { "default": "Done" }
+        "message": {
+          "default": "Site built from @laziar/components"
+        },
+        "messageBold": {
+          "default": "Done"
+        }
       },
       "examples": {
-        "0": { "title": "App shell + service" }
+        "0": {
+          "title": "App shell + service"
+        }
       }
     },
     "swiper": {

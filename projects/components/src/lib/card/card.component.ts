@@ -2,6 +2,7 @@ import { DOCUMENT, NgTemplateOutlet } from '@angular/common';
 import { Overlay, OverlayModule, OverlayRef, PositionStrategy } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import {
+  afterNextRender,
   booleanAttribute,
   numberAttribute,
   ChangeDetectionStrategy,
@@ -9,11 +10,13 @@ import {
   Component,
   computed,
   effect,
+  ElementRef,
   HostListener,
   inject,
   input,
   OnDestroy,
   output,
+  Renderer2,
   signal,
   TemplateRef,
   ViewChild,
@@ -38,6 +41,8 @@ import {
 } from './card.types';
 
 const ROW_BREAKPOINT = 768;
+/** The width the server lays the card out for: it cannot know the real one. */
+const SERVER_VIEWPORT_WIDTH = 1280;
 const MIN_ACCEPTED_IMAGE_WIDTH = 120;
 const MIN_ACCEPTED_IMAGE_HEIGHT = 90;
 const MENU_OFFSET_PX = 8;
@@ -75,9 +80,11 @@ function floatingUiPositionStrategy(): PositionStrategy {
 })
 export class CardComponent implements OnDestroy {
   private readonly document = inject(DOCUMENT);
+  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly cdr = inject(ChangeDetectorRef);
   private readonly overlay = inject(Overlay);
   private readonly vcr = inject(ViewContainerRef);
+  private readonly renderer = inject(Renderer2);
 
   readonly paneClass = 'lz-card-cdk-pane';
 
@@ -147,16 +154,25 @@ export class CardComponent implements OnDestroy {
   protected readonly mobileMoreSheetActive = signal(false);
   protected readonly imageBroken = signal(false);
 
-  private readonly viewportWidth = signal(this.readViewportWidth());
+  private readonly viewportWidth = signal(this.initialViewportWidth());
   private overlayRef?: OverlayRef;
   private floatingCleanup?: () => void;
   private activeMoreTrigger: HTMLElement | null = null;
+  /**
+   * Outside-click and Escape listeners, held only while the menu is open. A
+   * page shows dozens of cards; as host listeners every one of them would
+   * wake up on each click and key press anywhere in the document.
+   */
+  private menuListeners: (() => void)[] = [];
 
   constructor() {
     effect(() => {
       this.image();
       this.imageBroken.set(false);
     });
+
+    // After hydration the real width takes over from the server's assumption.
+    afterNextRender(() => this.viewportWidth.set(this.readViewportWidth()));
   }
 
   protected readonly articleSize = computed<LzCardArticleSize>(() => {
@@ -225,6 +241,7 @@ export class CardComponent implements OnDestroy {
   protected readonly hasRenderableImage = computed(() => Boolean(this.displayImage()));
 
   ngOnDestroy(): void {
+    this.stopMenuListeners();
     this.teardownOverlay();
   }
 
@@ -237,7 +254,6 @@ export class CardComponent implements OnDestroy {
     }
   }
 
-  @HostListener('document:click', ['$event'])
   protected onDocumentClick(event: Event): void {
     if (!this.isMoreMenuOpen()) {
       return;
@@ -259,8 +275,10 @@ export class CardComponent implements OnDestroy {
     this.closeMoreMenu();
   }
 
-  @HostListener('document:keydown.escape')
-  protected onEscape(): void {
+  /** Claims the key so an enclosing `lz-modal` leaves this Escape to the menu. */
+  protected onEscape(event?: Event): void {
+    if (!this.isMoreMenuOpen()) return;
+    event?.preventDefault();
     this.closeMoreMenu();
   }
 
@@ -334,25 +352,70 @@ export class CardComponent implements OnDestroy {
     this.closeMoreMenu();
     this.activeMoreTrigger = trigger;
     this.isMoreMenuOpen.set(true);
+    this.menuListeners = [
+      this.renderer.listen('document', 'click', (e: Event) => this.onDocumentClick(e)),
+      this.renderer.listen('document', 'keydown.escape', (e: Event) => this.onEscape(e)),
+    ];
 
     if (this.isMobileMoreMenu()) {
       this.mobileMoreSheetMounted.set(true);
       requestAnimationFrame(() => {
         this.mobileMoreSheetActive.set(true);
         this.cdr.markForCheck();
+        this.focusFirstMenuItem();
       });
       return;
     }
 
     this.attachOverlay();
+    this.focusFirstMenuItem();
   }
 
   protected closeMoreMenu(): void {
+    // Focus that was in the menu goes back to the button that opened it.
+    const menu = this.openMenuElement();
+    const trigger = this.activeMoreTrigger;
+    const hadFocus = !!menu?.contains(this.document.activeElement);
+
+    this.stopMenuListeners();
     this.isMoreMenuOpen.set(false);
     this.mobileMoreSheetActive.set(false);
     this.mobileMoreSheetMounted.set(false);
     this.activeMoreTrigger = null;
     this.detachOverlay();
+
+    if (hadFocus) {
+      trigger?.focus();
+    }
+  }
+
+  /**
+   * Tab closes the menu and carries on from the More button: the desktop menu
+   * lives at the end of the document, so tabbing out of it would leave the page.
+   */
+  protected onMenuKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Tab') {
+      this.closeMoreMenu();
+    }
+  }
+
+  private stopMenuListeners(): void {
+    this.menuListeners.forEach((stop) => stop());
+    this.menuListeners = [];
+  }
+
+  /** The menu that is open now: the desktop overlay or the mobile sheet. */
+  private openMenuElement(): HTMLElement | null {
+    if (!this.isMoreMenuOpen()) return null;
+    return this.overlayRef?.hasAttached()
+      ? this.overlayRef.overlayElement
+      : this.host.nativeElement.querySelector<HTMLElement>('.lz-card__sheet');
+  }
+
+  private focusFirstMenuItem(): void {
+    this.openMenuElement()
+      ?.querySelector<HTMLElement>('[role="menuitem"]:not([disabled])')
+      ?.focus({ preventScroll: true });
   }
 
   protected onMenuAction(
@@ -447,6 +510,19 @@ export class CardComponent implements OnDestroy {
   }
 
   private readViewportWidth(): number {
-    return this.document.defaultView?.innerWidth ?? 1280;
+    return this.document.defaultView?.innerWidth ?? SERVER_VIEWPORT_WIDTH;
+  }
+
+  /**
+   * The first render of a server-rendered page must match the server's HTML,
+   * or hydration finds a different layout than it was given (on a phone the
+   * card would be a column where the server sent a row). Such a page starts
+   * from the server's width and switches right after hydration; a page
+   * rendered only in the browser uses the real width from the start.
+   */
+  private initialViewportWidth(): number {
+    return this.document.querySelector('[ng-server-context]')
+      ? SERVER_VIEWPORT_WIDTH
+      : this.readViewportWidth();
   }
 }

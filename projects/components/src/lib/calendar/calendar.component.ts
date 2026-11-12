@@ -267,6 +267,16 @@ export class Calendar implements ControlValueAccessor {
     this.commit();
   }
 
+  /**
+   * Touched once focus leaves the grid, not on each day's blur: arrowing
+   * between days moves focus inside the grid and is not "leaving the control".
+   */
+  protected onGridFocusOut(event: FocusEvent): void {
+    const next = event.relatedTarget;
+    if (next instanceof Node && this.grid()?.nativeElement.contains(next)) return;
+    this.onTouched();
+  }
+
   protected cancel(): void {
     const committed = this.committed();
     const day = toDay(committed);

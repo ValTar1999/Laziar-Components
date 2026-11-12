@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  DestroyRef,
   ElementRef,
   inject,
   input,
@@ -10,6 +11,11 @@ import {
 } from '@angular/core';
 import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { Icon } from '../icon/icon.component';
+
+let nextExpandId = 0;
+
+/** The height transition in the stylesheet, plus a margin. */
+const TRANSITION_FALLBACK_MS = 400;
 
 /**
  * Collapsible article block.
@@ -37,9 +43,17 @@ export class Expand {
   private readonly panel = viewChild<ElementRef<HTMLElement>>('panel');
   private readonly cdr = inject(ChangeDetectorRef);
 
+  protected readonly panelId = `lz-expand-${nextExpandId++}`;
+
   protected readonly opened = signal(true);
   /** While true, height is a pixel value so it can transition. */
   protected readonly animating = signal(false);
+
+  private fallbackTimer?: ReturnType<typeof setTimeout>;
+
+  constructor() {
+    inject(DestroyRef).onDestroy(() => clearTimeout(this.fallbackTimer));
+  }
 
   protected toggle(): void {
     const el = this.panel()?.nativeElement;
@@ -48,7 +62,9 @@ export class Expand {
       return;
     }
 
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const reduceMotion =
+      typeof window.matchMedia === 'function' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (this.opened()) {
       el.style.height = `${el.getBoundingClientRect().height}px`;
@@ -62,6 +78,7 @@ export class Expand {
       }
       void el.offsetHeight;
       el.style.height = '0px';
+      this.finishWithoutTransition(el);
       return;
     }
 
@@ -78,9 +95,26 @@ export class Expand {
     }
     void el.offsetHeight;
     el.style.height = `${target}px`;
+    this.finishWithoutTransition(el);
+  }
+
+  /**
+   * `transitionend` does not fire when the height does not change (an empty
+   * block), when the block is not displayed, or when the transition is
+   * cancelled. Without it the panel would keep its pixel height and its
+   * content could no longer grow, so finish on a timer as well.
+   */
+  private finishWithoutTransition(el: HTMLElement): void {
+    clearTimeout(this.fallbackTimer);
+    this.fallbackTimer = setTimeout(() => {
+      if (this.animating()) {
+        this.finish(el);
+      }
+    }, TRANSITION_FALLBACK_MS);
   }
 
   private finish(el: HTMLElement): void {
+    clearTimeout(this.fallbackTimer);
     el.style.height = '';
     this.animating.set(false);
   }

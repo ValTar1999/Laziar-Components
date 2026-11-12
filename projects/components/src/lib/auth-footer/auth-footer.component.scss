@@ -16,7 +16,7 @@
   flex-shrink: 0;
   padding-block: 0.75rem;
   padding-inline: 1rem;
-  border-top: 1px solid rgb(18 18 18 / 10%); // gray-900/10
+  border-top: 1px solid color-mix(in srgb, var(--lz-color-neutral-900) 10%, transparent); // gray-900/10
 }
 
 .lz-auth-footer__inner {
@@ -30,7 +30,7 @@
   gap: 0.5rem;
   font-family: var(--lz-font-sans);
   font-size: 0.75rem;
-  color: #4f5255; // gray-600
+  color: var(--lz-color-text-secondary); // gray-600
   text-align: center;
 }
 
@@ -51,6 +51,6 @@
   transition: color 0.2s ease;
 
   &:hover {
-    color: #121212; // gray-900
+    color: var(--lz-color-text-primary); // gray-900
   }
 }

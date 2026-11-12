@@ -1,4 +1,14 @@
-import { booleanAttribute, Component, computed, input, output } from '@angular/core';
+import {
+  booleanAttribute,
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  ElementRef,
+  inject,
+  input,
+  output,
+} from '@angular/core';
+import { moveFocusWithKeys } from '../internal/list-keys';
 import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { Icon } from '../icon/icon.component';
 import { Tooltip } from '../tooltip/tooltip.component';
@@ -10,6 +20,7 @@ import { LzMoreActionsMenuLayout } from './more-actions-menu.types';
  */
 @Component({
   selector: 'lz-more-actions-menu',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   hostDirectives: [LzInputFlush],
   imports: [Icon, Tooltip],
@@ -17,9 +28,13 @@ import { LzMoreActionsMenuLayout } from './more-actions-menu.types';
   styleUrl: './more-actions-menu.component.scss',
   host: {
     class: 'lz-more-actions-menu-host',
+    role: 'menu',
+    '(keydown)': 'onKeydown($event)',
   },
 })
 export class MoreActionsMenu {
+  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
+
   readonly layout = input<LzMoreActionsMenuLayout>('desktop');
 
   readonly isWatchLater = input(false, { transform: booleanAttribute });
@@ -65,6 +80,22 @@ export class MoreActionsMenu {
   readonly report = output<void>();
 
   protected readonly isDesktop = computed(() => this.layout() === 'desktop');
+
+  /** Moves focus to the first row that can be used; call it when the menu opens. */
+  focusFirstItem(): void {
+    this.enabledItems()[0]?.focus({ preventScroll: true });
+  }
+
+  /** ArrowDown, ArrowUp, Home and End move between the rows that can be used. */
+  protected onKeydown(event: KeyboardEvent): void {
+    moveFocusWithKeys(event, this.enabledItems());
+  }
+
+  private enabledItems(): HTMLElement[] {
+    return Array.from(
+      this.host.nativeElement.querySelectorAll<HTMLElement>('[role="menuitem"]:not([disabled])'),
+    );
+  }
 
   protected readonly watchLaterDisplayLabel = computed(() =>
     this.isWatchLater() ? this.removeWatchLaterLabel() : this.watchLaterLabel(),

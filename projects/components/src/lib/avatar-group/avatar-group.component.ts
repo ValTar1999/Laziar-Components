@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { LzAvatarGroupItem, LzAvatarGroupSize } from './avatar-group.types';
 import { buildAvatarInitials } from '../avatar/avatar.types';
@@ -9,6 +9,7 @@ import { buildAvatarInitials } from '../avatar/avatar.types';
  */
 @Component({
   selector: 'lz-avatar-group',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './avatar-group.component.html',
   styleUrl: './avatar-group.component.scss',
   standalone: true,

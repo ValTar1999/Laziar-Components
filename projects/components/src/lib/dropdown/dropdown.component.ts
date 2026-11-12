@@ -3,6 +3,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  contentChild,
+  Directive,
   ElementRef,
   HostListener,
   inject,
@@ -28,6 +30,17 @@ import {
 } from './dropdown.types';
 
 let nextDropdownId = 0;
+
+/**
+ * Marks content to draw as the dropdown's trigger instead of its title and
+ * chevron, such as an avatar opening a profile menu:
+ * `<lz-dropdown ariaLabel="Account"><lz-avatar lzDropdownTrigger … /></lz-dropdown>`.
+ * The content sits inside the trigger button, so it must not be interactive
+ * itself; the button keeps the keyboard, the ARIA state and the focus ring.
+ * Give the dropdown an `ariaLabel`: the content is usually not a name.
+ */
+@Directive({ selector: '[lzDropdownTrigger]', standalone: true })
+export class LzDropdownTrigger {}
 
 /** An entry with every optional field resolved, as the template renders it. */
 interface ResolvedDropdownItem {
@@ -138,6 +151,10 @@ export class DropdownComponent implements OnDestroy {
 
   protected readonly isOpen = signal(false);
 
+  /** Content projected as the trigger, which replaces the title and chevron. */
+  private readonly customTrigger = contentChild(LzDropdownTrigger);
+  protected readonly hasCustomTrigger = computed(() => !!this.customTrigger());
+
   /** Sections with every entry resolved to a full item. */
   protected readonly resolvedSections = computed<ResolvedDropdownSection[]>(() =>
     this.sections().map((section) => ({
@@ -211,9 +228,14 @@ export class DropdownComponent implements OnDestroy {
     items[next].focus();
   }
 
-  @HostListener('document:keydown.escape')
-  protected onEscape(): void {
+  /**
+   * Claims the key with `preventDefault` so an enclosing `lz-modal`, which
+   * listens further up on `window`, leaves this Escape to the list.
+   */
+  @HostListener('document:keydown.escape', ['$event'])
+  protected onEscape(event?: Event): void {
     if (this.isOpen()) {
+      event?.preventDefault();
       this.closeDropdown();
     }
   }

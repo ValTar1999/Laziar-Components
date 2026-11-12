@@ -14,8 +14,8 @@
       [class.lz-modal--leaving]="leaving()"
       role="dialog"
       aria-modal="true"
-      [attr.aria-labelledby]="title() ? labelId : null"
-      [attr.aria-label]="!title() ? (ariaLabel() ?? null) : null"
+      [attr.aria-labelledby]="titleShown() ? labelId : null"
+      [attr.aria-label]="titleShown() ? null : (ariaLabel() ?? title() ?? null)"
       [attr.aria-describedby]="description() ? descriptionId : null"
       [attr.aria-busy]="busy() || null"
       [cdkTrapFocus]="!leaving()"
@@ -26,7 +26,7 @@
       <header class="lz-modal__header">
         <ng-content select="[lz-modal-header]">
           @if (title() && !isConfirm()) {
-            <h2 class="lz-modal__title" [id]="labelId">{{ title() }}</h2>
+            <h2 #titleEl class="lz-modal__title" [id]="labelId">{{ title() }}</h2>
           }
         </ng-content>
 
@@ -56,7 +56,7 @@
         @if ((isConfirm() && title()) || description()) {
           <div class="lz-modal__intro">
             @if (isConfirm() && title()) {
-              <h2 class="lz-modal__title" [id]="labelId">{{ title() }}</h2>
+              <h2 #titleEl class="lz-modal__title" [id]="labelId">{{ title() }}</h2>
             }
             @if (description()) {
               <p class="lz-modal__description" [id]="descriptionId">{{ description() }}</p>

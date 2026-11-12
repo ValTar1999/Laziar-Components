@@ -1,4 +1,4 @@
-import { Component, computed, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
 import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { CommonModule } from '@angular/common';
 import { Button } from '../button/button.component';
@@ -19,6 +19,7 @@ import { LzIconVariant } from '../icon/icon.types';
  */
 @Component({
   selector: 'lz-alert',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './alert.component.html',
   styleUrl: './alert.component.scss',
   standalone: true,
@@ -37,6 +38,14 @@ export class Alert {
   readonly isRow = input<boolean>(false);
   readonly isRowtext = input<boolean>(false);
   readonly showCloseButton = input<boolean>(true);
+  /**
+   * How assistive tech treats the alert when it appears: `status` is read out
+   * at the next pause, `alert` interrupts (errors that block the user), and
+   * `null` leaves it as plain content.
+   */
+  readonly role = input<'status' | 'alert' | null>('status');
+  /** Accessible name of the close button; consumers pass a localized string. */
+  readonly closeLabel = input('Close alert');
   /** Override close button color; defaults to variant style map. */
   readonly closeColor = input<LzAlertColor | undefined>(undefined);
   /** Override close button variant; defaults to variant style map. */

@@ -22,6 +22,7 @@ export * from './badge/badge.types';
 
 export * from './checkbox/checkbox.component';
 export * from './checkbox/checkbox.types';
+export * from './nav-item/nav-item.component';
 export * from './radio-group/radio-group.component';
 export * from './radio-group/radio-group.types';
 
@@ -116,6 +117,8 @@ export * from './expand/expand.component';
 
 export * from './calendar/calendar.component';
 export * from './calendar/calendar.types';
+export * from './date-input/date-input.component';
+export * from './date-input/date-input.types';
 
 export * from './page-header/page-header.component';
 export * from './empty-state/empty-state.component';

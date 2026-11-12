@@ -1,3 +1,5 @@
+@use '../../styles/mixins' as *;
+
 /**
  * Language dropdown — visual match of `lz-select` (Figma Select Input / Select Menu).
  * Trigger: radius 6px, border #121212 10%, background #FFFFFA.
@@ -100,9 +102,7 @@
   z-index: 1;
   transform: translateY(-50%);
   pointer-events: none;
-  --lz-icon-size: 1rem;
-  width: var(--lz-icon-size) !important;
-  height: var(--lz-icon-size) !important;
+  @include lz-icon-size(1rem);
   color: var(--lz-color-neutral-500);
 }
 
@@ -209,9 +209,7 @@
 }
 
 .lz-language-dropdown__check-icon {
-  --lz-icon-size: 0.5rem;
-  width: var(--lz-icon-size) !important;
-  height: var(--lz-icon-size) !important;
+  @include lz-icon-size(0.5rem);
   color: var(--lz-color-background);
 
   ::ng-deep .lz-icon {

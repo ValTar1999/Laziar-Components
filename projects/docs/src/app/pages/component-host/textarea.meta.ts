@@ -92,6 +92,18 @@ export const TEXTAREA_COMPONENT_META: DocsComponentMeta = {
       description: 'Hint / error',
     },
     {
+      name: 'ariaLabel',
+      type: 'string | undefined',
+      default: 'undefined',
+      description: 'Names the field when there is no visible label',
+    },
+    {
+      name: 'required',
+      type: 'boolean',
+      default: 'false',
+      description: 'Marks the field as required for assistive tech and native validation',
+    },
+    {
       name: 'error',
       type: 'boolean',
       default: 'false',

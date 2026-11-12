@@ -4,7 +4,7 @@
   [attr.data-size]="size()"
   [attr.data-variant]="variant()"
   role="status"
-  aria-label="Loading"
+  [attr.aria-label]="ariaLabel()"
 >
   @if (variant() === 'spinner') {
     <svg class="lz-loading__spinner" viewBox="0 0 50 50" aria-hidden="true">

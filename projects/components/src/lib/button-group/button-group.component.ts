@@ -1,4 +1,10 @@
-import { booleanAttribute, Component, computed, input } from '@angular/core';
+import {
+  booleanAttribute,
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  input,
+} from '@angular/core';
 import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { CommonModule } from '@angular/common';
 
@@ -8,6 +14,7 @@ import { CommonModule } from '@angular/common';
  */
 @Component({
   selector: 'lz-button-group',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './button-group.component.html',
   styleUrl: './button-group.component.scss',
   standalone: true,

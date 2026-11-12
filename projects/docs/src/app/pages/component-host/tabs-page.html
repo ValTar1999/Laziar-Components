@@ -4,6 +4,7 @@
       [tabs]="tabs()"
       [style]="$any(str(values, 'style', 'outline'))"
       [size]="$any(str(values, 'size', 'md'))"
+      [stretch]="$any(values)['stretch'] !== false"
       [activeTab]="num(values, 'activeTab', 0)"
     />
   </ng-template>

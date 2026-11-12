@@ -80,12 +80,17 @@ export function attachLzFloating(
     );
   }
 
+  // computePosition is async: a result that arrives after cleanup would move
+  // a panel that is closed, or already reused by the next open.
+  let active = true;
+
   const update = (): void => {
     void computePosition(reference, floating, {
       placement,
       strategy,
       middleware,
     }).then(({ x, y }) => {
+      if (!active) return;
       const left = round ? Math.round(x) : x;
       const top = round ? Math.round(y) : y;
       Object.assign(floating.style, {
@@ -98,5 +103,9 @@ export function attachLzFloating(
   };
 
   update();
-  return autoUpdate(reference, floating, update);
+  const stopAutoUpdate = autoUpdate(reference, floating, update);
+  return () => {
+    active = false;
+    stopAutoUpdate();
+  };
 }

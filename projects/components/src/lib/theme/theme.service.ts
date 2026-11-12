@@ -71,6 +71,12 @@ export class ThemeService {
       return;
     }
 
+    // `init()` is public and also runs from the constructor: drop the earlier
+    // listener so a second call does not leave two of them.
+    if (this.mediaQuery && this.mediaListener) {
+      this.mediaQuery.removeEventListener('change', this.mediaListener);
+    }
+
     this.mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     this.systemDarkSignal.set(this.mediaQuery.matches);
 

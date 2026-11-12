@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { DateInput } from '../date-input/date-input.component';
 import { ModalComponent } from './modal.component';
 
 @Component({
@@ -13,6 +14,19 @@ import { ModalComponent } from './modal.component';
   `,
 })
 class FooterHostComponent {}
+
+@Component({
+  standalone: true,
+  imports: [ModalComponent, DateInput],
+  template: `
+    <lz-modal [open]="true" title="Filters" (closed)="reasons.push($event)">
+      <lz-date-input lz-modal-body label="From" />
+    </lz-modal>
+  `,
+})
+class PopupInModalHostComponent {
+  readonly reasons: string[] = [];
+}
 
 describe('ModalComponent', () => {
   let component: ModalComponent;
@@ -291,7 +305,7 @@ describe('ModalComponent', () => {
     expect(close.disabled).toBe(true);
     close.click();
     backdropEl()?.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
-    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
 
     expect(reasons).toEqual([]);
   });
@@ -308,12 +322,37 @@ describe('ModalComponent', () => {
     second.componentRef.setInput('open', true);
     second.detectChanges();
 
-    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
 
     expect(inner).toEqual(['escape']);
     expect(outer).toEqual([]);
 
     second.destroy();
+  });
+
+  it('should leave Escape to a popup open inside it, then close on the next one', () => {
+    const hostFixture = TestBed.createComponent(PopupInModalHostComponent);
+    hostFixture.detectChanges();
+    const root = hostFixture.nativeElement as HTMLElement;
+    const trigger = root.querySelector<HTMLButtonElement>('.lz-date-input__trigger')!;
+    const escape = () =>
+      document.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true }),
+      );
+
+    trigger.click();
+    hostFixture.detectChanges();
+    expect(trigger.getAttribute('aria-expanded')).toBe('true');
+
+    escape();
+    hostFixture.detectChanges();
+    expect(trigger.getAttribute('aria-expanded')).toBe('false');
+    expect(hostFixture.componentInstance.reasons).toEqual([]);
+
+    escape();
+    expect(hostFixture.componentInstance.reasons).toEqual(['escape']);
+
+    hostFixture.destroy();
   });
 
   it('should ignore backdrop and Escape when not dismissible', () => {
@@ -325,7 +364,7 @@ describe('ModalComponent', () => {
     fixture.detectChanges();
 
     backdropEl()?.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
-    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
 
     expect(reasons).toEqual([]);
   });

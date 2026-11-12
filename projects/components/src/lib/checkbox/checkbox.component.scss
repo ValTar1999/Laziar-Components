@@ -23,7 +23,7 @@
 }
 
 .lz-checkbox__wrapper {
-  --lz-checkbox-ring: color-mix(in srgb, var(--lz-color-neutral-900) 10%, transparent);
+  --lz-checkbox-ring: var(--lz-color-focus-ring);
 
   position: relative;
   display: inline-flex;

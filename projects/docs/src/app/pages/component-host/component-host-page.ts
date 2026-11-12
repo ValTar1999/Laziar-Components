@@ -1,45 +1,65 @@
-import { Component, inject } from '@angular/core';
+import { NgComponentOutlet } from '@angular/common';
+import { Component, effect, inject, signal, Type } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { map } from 'rxjs';
-import { AlertPage } from './alert-page';
-import { ArticlecardReactionsPage } from './articlecard-reactions-page';
-import { AuthFooterPage } from './auth-footer-page';
-import { AvatarGroupPage } from './avatar-group-page';
-import { AvatarPage } from './avatar-page';
-import { BadgePage } from './badge-page';
-import { ButtonGroupPage } from './button-group-page';
-import { ButtonPage } from './button-page';
-import { CalendarPage } from './calendar-page';
-import { CardPage } from './card-page';
-import { CheckboxPage } from './checkbox-page';
-import { DropdownPage } from './dropdown-page';
-import { ExpandPage } from './expand-page';
-import { IconPage } from './icon-page';
-import { InputPage } from './input-page';
-import { LanguageDropdownPage } from './language-dropdown-page';
-import { LiveEventCardPage } from './live-event-card-page';
-import { LoadingPage } from './loading-page';
-import { LoginPromptBannerPage } from './login-prompt-banner-page';
-import { ModalPage } from './modal-page';
-import { MoreActionsMenuPage } from './more-actions-menu-page';
-import { NotePanelPage } from './note-panel-page';
-import { ProgressCirclePage } from './progress-circle-page';
-import { PulseDotPage } from './pulse-dot-page';
-import { QuotePage } from './quote-page';
-import { SelectPage } from './select-page';
-import { RadioGroupPage } from './radio-group-page';
-import { StubPage } from './stub-page';
-import { SwitchTogglePage } from './switch-toggle-page';
-import { SwiperPage } from './swiper-page';
-import { TabButtonPage } from './tab-button-page';
-import { TablePage } from './table-page';
-import { TabsPage } from './tabs-page';
-import { TextareaPage } from './textarea-page';
-import { ToastPage } from './toast-page';
-import { TooltipPage } from './tooltip-page';
-import { VideoPlayerPage } from './video-player-page';
+
+/**
+ * Route name to its demo page. Each page is loaded on demand, so opening one
+ * component does not download the demos of all the others.
+ *
+ * To add a page: add a line here and an entry in `docs-nav.ts`.
+ */
+const PAGES: Record<string, () => Promise<Type<unknown>>> = {
+  alert: () => import('./alert-page').then((m) => m.AlertPage),
+  'articlecard-reactions': () =>
+    import('./articlecard-reactions-page').then((m) => m.ArticlecardReactionsPage),
+  'auth-footer': () => import('./auth-footer-page').then((m) => m.AuthFooterPage),
+  avatar: () => import('./avatar-page').then((m) => m.AvatarPage),
+  'avatar-group': () => import('./avatar-group-page').then((m) => m.AvatarGroupPage),
+  badge: () => import('./badge-page').then((m) => m.BadgePage),
+  button: () => import('./button-page').then((m) => m.ButtonPage),
+  'button-group': () => import('./button-group-page').then((m) => m.ButtonGroupPage),
+  calendar: () => import('./calendar-page').then((m) => m.CalendarPage),
+  card: () => import('./card-page').then((m) => m.CardPage),
+  checkbox: () => import('./checkbox-page').then((m) => m.CheckboxPage),
+  'date-input': () => import('./date-input-page').then((m) => m.DateInputPage),
+  dropdown: () => import('./dropdown-page').then((m) => m.DropdownPage),
+  'empty-state': () => import('./empty-state-page').then((m) => m.EmptyStatePage),
+  expand: () => import('./expand-page').then((m) => m.ExpandPage),
+  icon: () => import('./icon-page').then((m) => m.IconPage),
+  input: () => import('./input-page').then((m) => m.InputPage),
+  'language-dropdown': () => import('./language-dropdown-page').then((m) => m.LanguageDropdownPage),
+  'live-event-card': () => import('./live-event-card-page').then((m) => m.LiveEventCardPage),
+  'load-error': () => import('./load-error-page').then((m) => m.LoadErrorPage),
+  loading: () => import('./loading-page').then((m) => m.LoadingPage),
+  'loading-state': () => import('./loading-state-page').then((m) => m.LoadingStatePage),
+  logo: () => import('./logo-page').then((m) => m.LogoPage),
+  'login-prompt-banner': () =>
+    import('./login-prompt-banner-page').then((m) => m.LoginPromptBannerPage),
+  modal: () => import('./modal-page').then((m) => m.ModalPage),
+  'more-actions-menu': () => import('./more-actions-menu-page').then((m) => m.MoreActionsMenuPage),
+  'nav-item': () => import('./nav-item-page').then((m) => m.NavItemPage),
+  'note-panel': () => import('./note-panel-page').then((m) => m.NotePanelPage),
+  'page-header': () => import('./page-header-page').then((m) => m.PageHeaderPage),
+  pagination: () => import('./pagination-page').then((m) => m.PaginationPage),
+  'progress-circle': () => import('./progress-circle-page').then((m) => m.ProgressCirclePage),
+  'pulse-dot': () => import('./pulse-dot-page').then((m) => m.PulseDotPage),
+  quote: () => import('./quote-page').then((m) => m.QuotePage),
+  'radio-group': () => import('./radio-group-page').then((m) => m.RadioGroupPage),
+  select: () => import('./select-page').then((m) => m.SelectPage),
+  stub: () => import('./stub-page').then((m) => m.StubPage),
+  swiper: () => import('./swiper-page').then((m) => m.SwiperPage),
+  'switch-toggle': () => import('./switch-toggle-page').then((m) => m.SwitchTogglePage),
+  'tab-button': () => import('./tab-button-page').then((m) => m.TabButtonPage),
+  table: () => import('./table-page').then((m) => m.TablePage),
+  tabs: () => import('./tabs-page').then((m) => m.TabsPage),
+  textarea: () => import('./textarea-page').then((m) => m.TextareaPage),
+  toast: () => import('./toast-page').then((m) => m.ToastPage),
+  tooltip: () => import('./tooltip-page').then((m) => m.TooltipPage),
+  'video-player': () => import('./video-player-page').then((m) => m.VideoPlayerPage),
+};
 
 /**
  * Resolves `/components/:name` to a concrete demo page.
@@ -47,162 +67,12 @@ import { VideoPlayerPage } from './video-player-page';
 @Component({
   selector: 'docs-component-host',
   standalone: true,
-  imports: [
-    TranslocoPipe,
-    AlertPage,
-    ArticlecardReactionsPage,
-    AuthFooterPage,
-    AvatarGroupPage,
-    AvatarPage,
-    BadgePage,
-    ButtonGroupPage,
-    ButtonPage,
-    CalendarPage,
-    CardPage,
-    CheckboxPage,
-    DropdownPage,
-    ExpandPage,
-    IconPage,
-    InputPage,
-    LanguageDropdownPage,
-    LiveEventCardPage,
-    LoadingPage,
-    LoginPromptBannerPage,
-    ModalPage,
-    MoreActionsMenuPage,
-    NotePanelPage,
-    ProgressCirclePage,
-    PulseDotPage,
-    QuotePage,
-    SelectPage,
-    RadioGroupPage,
-    StubPage,
-    SwitchTogglePage,
-    SwiperPage,
-    TabButtonPage,
-    TablePage,
-    TabsPage,
-    TextareaPage,
-    ToastPage,
-    TooltipPage,
-    VideoPlayerPage,
-  ],
+  imports: [NgComponentOutlet, TranslocoPipe],
   template: `
-    @switch (name()) {
-      @case ('alert') {
-        <docs-alert-page />
-      }
-      @case ('articlecard-reactions') {
-        <docs-articlecard-reactions-page />
-      }
-      @case ('auth-footer') {
-        <docs-auth-footer-page />
-      }
-      @case ('avatar') {
-        <docs-avatar-page />
-      }
-      @case ('avatar-group') {
-        <docs-avatar-group-page />
-      }
-      @case ('badge') {
-        <docs-badge-page />
-      }
-      @case ('button') {
-        <docs-button-page />
-      }
-      @case ('button-group') {
-        <docs-button-group-page />
-      }
-      @case ('card') {
-        <docs-card-page />
-      }
-      @case ('checkbox') {
-        <docs-checkbox-page />
-      }
-      @case ('calendar') {
-        <docs-calendar-page />
-      }
-      @case ('modal') {
-        <docs-modal-page />
-      }
-      @case ('dropdown') {
-        <docs-dropdown-page />
-      }
-      @case ('expand') {
-        <docs-expand-page />
-      }
-      @case ('icon') {
-        <docs-icon-page />
-      }
-      @case ('input') {
-        <docs-input-page />
-      }
-      @case ('language-dropdown') {
-        <docs-language-dropdown-page />
-      }
-      @case ('live-event-card') {
-        <docs-live-event-card-page />
-      }
-      @case ('loading') {
-        <docs-loading-page />
-      }
-      @case ('login-prompt-banner') {
-        <docs-login-prompt-banner-page />
-      }
-      @case ('note-panel') {
-        <docs-note-panel-page />
-      }
-      @case ('more-actions-menu') {
-        <docs-more-actions-menu-page />
-      }
-      @case ('progress-circle') {
-        <docs-progress-circle-page />
-      }
-      @case ('pulse-dot') {
-        <docs-pulse-dot-page />
-      }
-      @case ('quote') {
-        <docs-quote-page />
-      }
-      @case ('select') {
-        <docs-select-page />
-      }
-      @case ('stub') {
-        <docs-stub-page />
-      }
-      @case ('radio-group') {
-        <docs-radio-group-page />
-      }
-      @case ('switch-toggle') {
-        <docs-switch-toggle-page />
-      }
-      @case ('swiper') {
-        <docs-swiper-page />
-      }
-      @case ('tab-button') {
-        <docs-tab-button-page />
-      }
-      @case ('table') {
-        <docs-table-page />
-      }
-      @case ('tabs') {
-        <docs-tabs-page />
-      }
-      @case ('textarea') {
-        <docs-textarea-page />
-      }
-      @case ('toast') {
-        <docs-toast-page />
-      }
-      @case ('tooltip') {
-        <docs-tooltip-page />
-      }
-      @case ('video-player') {
-        <docs-video-player-page />
-      }
-      @default {
-        <p class="missing">{{ 'componentHost.missing' | transloco: { name: name() } }}</p>
-      }
+    @if (page(); as component) {
+      <ng-container *ngComponentOutlet="component" />
+    } @else if (missing()) {
+      <p class="missing">{{ 'componentHost.missing' | transloco: { name: name() } }}</p>
     }
   `,
   styles: `
@@ -219,4 +89,28 @@ export class ComponentHostPage {
   protected readonly name = toSignal(this.route.paramMap.pipe(map((p) => p.get('name') ?? '')), {
     initialValue: '',
   });
+
+  protected readonly page = signal<Type<unknown> | null>(null);
+  protected readonly missing = signal(false);
+
+  constructor() {
+    effect(() => {
+      const name = this.name();
+      const load = Object.hasOwn(PAGES, name) ? PAGES[name] : undefined;
+
+      this.page.set(null);
+      this.missing.set(!!name && !load);
+      if (!load) return;
+
+      void load().then(
+        (page) => {
+          // The route may have moved on while the chunk was loading.
+          if (this.name() === name) this.page.set(page);
+        },
+        () => {
+          if (this.name() === name) this.missing.set(true);
+        },
+      );
+    });
+  }
 }
