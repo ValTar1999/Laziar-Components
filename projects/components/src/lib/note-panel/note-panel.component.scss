@@ -28,7 +28,7 @@
   height: 20px;
   // Center the 20px mark on the first 32px line, level with the cap height.
   margin-top: calc((var(--lz-space-8) - 20px) / 2);
-  color: var(--lz-color-neutral-500); // #6b6f73
+  color: var(--lz-color-text-muted); // #6b6f73
 
   path {
     fill: currentColor;

@@ -99,7 +99,7 @@
   }
 
   &[data-selected='false'] {
-    color: var(--lz-color-neutral-400);
+    color: var(--lz-color-text-muted);
     font-weight: 400;
   }
 
@@ -139,7 +139,7 @@
   transform: translateY(-50%);
   pointer-events: none;
   @include lz-icon-size(1rem);
-  color: var(--lz-color-neutral-500);
+  color: var(--lz-color-text-muted);
 }
 
 .lz-select-wrapper:has(.lz-select-trigger[data-size='sm']) .lz-select-chevron {
@@ -154,7 +154,7 @@
   font-family: var(--lz-font-sans);
   font-size: var(--lz-font-size-xs, 0.75rem);
   line-height: 1rem;
-  color: var(--lz-color-neutral-500);
+  color: var(--lz-color-text-muted);
 
   &[data-error='true'] {
     color: var(--lz-color-danger-500);

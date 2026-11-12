@@ -5,6 +5,7 @@
   [style.width.px]="actualSize()"
   [style.height.px]="actualSize()"
   role="progressbar"
+  [attr.aria-label]="ariaLabel() || null"
   [attr.aria-valuenow]="progress()"
   aria-valuemin="0"
   aria-valuemax="100"

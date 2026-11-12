@@ -29,6 +29,7 @@
             </span>
             <lz-switch-toggle
               size="md"
+              [ariaLabel]="control.label ?? control.name"
               [active]="asBoolean(control.name)"
               (changed)="update(control.name, $event)"
             />

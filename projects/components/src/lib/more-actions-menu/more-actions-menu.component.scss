@@ -112,7 +112,7 @@
   }
 
   &[data-active='false'] {
-    color: var(--lz-color-neutral-500);
+    color: var(--lz-color-text-muted);
   }
 
   ::ng-deep lz-icon,

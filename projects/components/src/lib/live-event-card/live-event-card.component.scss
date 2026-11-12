@@ -108,7 +108,7 @@
   left: 0;
   top: 0.375rem; /* top-1.5 */
   border-radius: 9999px;
-  background-color: #ef4444; /* bg-red-500 */
+  background-color: var(--lz-color-danger-500); /* bg-red-500 */
 
   .lz-live-event-card[data-size='sm'] & {
     width: 0.25rem; /* w-1 */
@@ -142,7 +142,7 @@
 }
 
 .lz-live-event-card__time {
-  color: #ef4444; /* text-red-500 */
+  color: var(--lz-color-danger-500); /* text-red-500 */
   font-family: inherit;
   font-size: 0.75rem; /* text-xs */
   font-weight: 500;
@@ -190,7 +190,7 @@
   border-radius: 9999px;
   background: transparent;
   box-shadow: 0 0 0 2px transparent; /* ring-2 ring-transparent */
-  color: var(--lz-color-neutral-500); /* text-gray-500 */
+  color: var(--lz-color-text-muted); /* text-gray-500 */
   cursor: pointer;
   transition:
     background-color 300ms,
@@ -198,7 +198,7 @@
     color 300ms;
 
   &[data-active='true'] {
-    color: #22c55e; /* text-green-500 */
+    color: var(--lz-color-success-500); /* text-green-500 */
   }
 
   &:hover,

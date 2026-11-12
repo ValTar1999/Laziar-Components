@@ -75,7 +75,12 @@
           <div class="page__setting-label">{{ 'gettingStarted.newsletter' | transloco }}</div>
           <div class="page__setting-hint">{{ 'gettingStarted.newsletterHint' | transloco }}</div>
         </div>
-        <lz-switch-toggle [active]="newsletter()" size="sm" (changed)="newsletter.set($event)" />
+        <lz-switch-toggle
+          [active]="newsletter()"
+          size="sm"
+          [ariaLabel]="'gettingStarted.newsletter' | transloco"
+          (changed)="newsletter.set($event)"
+        />
       </div>
 
       <div class="page__check">

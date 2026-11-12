@@ -199,7 +199,7 @@ Defaults below: **Light** / **Dark** (dark = `[data-theme="dark"]` and system-au
 | `--lz-color-border-subtle` | Hairline | `#e4e6e7` | `#242628` |
 | `--lz-color-text-primary` | Body / titles | `#121212` | `#fffffa` |
 | `--lz-color-text-secondary` | Supporting | `#4f5255` | `#c4c6c8` |
-| `--lz-color-text-muted` | Hints / placeholders | `#898d92` | `#898d92` |
+| `--lz-color-text-muted` | Hints / placeholders | `#6b6f73` | `#898d92` |
 | `--lz-color-text-inverse` | On filled primary | `#fffffa` | `#121212` |
 | `--lz-color-disabled` | Disabled fill (pub gray-900/30) | `color-mix(… neutral-900 30%)` | same pattern |
 | `--lz-color-focus-ring` | Focus outline color | mix 50% | mix 50% |
