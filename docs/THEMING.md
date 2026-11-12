@@ -329,4 +329,3 @@ Agora demo breakpoints (`dsm`…) are **out of scope** for the library.
 ## Related
 
 - `docs/analysis/design-audit.md` — source comparison
-- `docs/DECISIONS.md` — Angular 20 workspace decision
