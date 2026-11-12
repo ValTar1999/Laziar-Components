@@ -154,7 +154,8 @@ export const TOOLTIP_COMPONENT_META: DocsComponentMeta = {
   slots: [
     {
       name: '(default)',
-      description: 'Trigger — button, icon, link, etc.',
+      description:
+        'Trigger — button, icon, link, etc. A single icon-only control with no name of its own gets the tooltip text as its aria-label',
     },
   ],
   examples: [

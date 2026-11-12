@@ -4,7 +4,7 @@ export const LANGUAGE_DROPDOWN_COMPONENT_META: DocsComponentMeta = {
   name: 'LanguageDropdown',
   selector: 'lz-language-dropdown',
   description:
-    'Language picker with initials (or host-provided flags). Overlay via CDK + Floating UI. Selection is stored in localStorage.',
+    'Language picker with initials (or host-provided flags). Overlay via CDK + Floating UI. A language the user picks is stored in localStorage; the default is not.',
   controls: [{ name: 'storageKey', kind: 'string', default: 'lz-docs-demo-language' }],
   variants: [{ label: 'initials', props: { storageKey: 'lz-docs-demo-language' } }],
   inputs: [

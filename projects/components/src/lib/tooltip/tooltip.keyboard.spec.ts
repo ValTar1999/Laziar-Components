@@ -14,6 +14,73 @@ import { Tooltip } from './tooltip.component';
 })
 class TooltipHost {}
 
+@Component({
+  standalone: true,
+  imports: [Tooltip],
+  template: `
+    <lz-tooltip [text]="text" class="icon-only">
+      <button type="button"><svg aria-hidden="true"></svg></button>
+    </lz-tooltip>
+    <lz-tooltip text="Bold" class="named">
+      <button type="button" aria-label="Make the text bold"><svg aria-hidden="true"></svg></button>
+    </lz-tooltip>
+    <lz-tooltip text="Formatting" class="group">
+      <button type="button"><svg aria-hidden="true"></svg></button>
+      <button type="button"><svg aria-hidden="true"></svg></button>
+    </lz-tooltip>
+  `,
+})
+class NamingHost {
+  text = 'Delete';
+}
+
+describe('Tooltip as the name of an icon-only control', () => {
+  let fixture: ComponentFixture<NamingHost>;
+  let overlay: OverlayContainer;
+  const button = (cls: string, index = 0): HTMLButtonElement =>
+    fixture.nativeElement.querySelectorAll(`.${cls} button`)[index];
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(NamingHost);
+    overlay = TestBed.inject(OverlayContainer);
+    fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    fixture.destroy();
+    overlay.ngOnDestroy();
+  });
+
+  it('names a control that has no name, and follows the text', () => {
+    expect(button('icon-only').getAttribute('aria-label')).toBe('Delete');
+
+    fixture.componentInstance.text = 'Remove';
+    fixture.changeDetectorRef.markForCheck();
+    fixture.detectChanges();
+    expect(button('icon-only').getAttribute('aria-label')).toBe('Remove');
+
+    fixture.componentInstance.text = '';
+    fixture.changeDetectorRef.markForCheck();
+    fixture.detectChanges();
+    expect(button('icon-only').hasAttribute('aria-label')).toBeFalse();
+  });
+
+  it('leaves a name the author gave, and does not guess between several controls', () => {
+    expect(button('named').getAttribute('aria-label')).toBe('Make the text bold');
+    expect(button('group', 0).hasAttribute('aria-label')).toBeFalse();
+    expect(button('group', 1).hasAttribute('aria-label')).toBeFalse();
+  });
+
+  it('does not also describe the control with the text that is already its name', async () => {
+    button('icon-only').dispatchEvent(new FocusEvent('focusin', { bubbles: true }));
+    await new Promise<void>((resolve) => setTimeout(resolve));
+    fixture.detectChanges();
+
+    expect(overlay.getContainerElement().querySelector('.lz-tooltip__panel')).not.toBeNull();
+    expect(button('icon-only').hasAttribute('aria-describedby')).toBeFalse();
+  });
+});
+
 /** The panel is attached in a microtask after the tooltip is asked to show. */
 const settle = () => new Promise<void>((resolve) => setTimeout(resolve));
 
