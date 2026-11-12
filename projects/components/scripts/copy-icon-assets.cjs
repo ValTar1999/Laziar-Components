@@ -15,10 +15,23 @@ function copyDir(src, dest) {
     const to = path.join(dest, entry.name);
     if (entry.isDirectory()) {
       copyDir(from, to);
-    } else {
+    } else if (!sameText(from, to)) {
       fs.copyFileSync(from, to);
     }
   }
+}
+
+/**
+ * True when the app already has this sprite, give or take line endings.
+ *
+ * Apps commit these copies. On a Windows checkout git stores them with CRLF,
+ * and overwriting them with the package's LF copy on every install left the
+ * file "modified" in git although nothing in it had changed.
+ */
+function sameText(from, to) {
+  if (!fs.existsSync(to)) return false;
+  const normalize = (file) => fs.readFileSync(file, 'utf8').replace(/\r\n/g, '\n');
+  return normalize(from) === normalize(to);
 }
 
 function resolveDest(cwd) {

@@ -127,10 +127,12 @@ export class LanguageDropdown implements OnInit, OnDestroy {
       return;
     }
 
+    // Shows the stored choice, or the first language. Nothing is written here:
+    // storing the default on first render would record a choice the user never
+    // made, and pin them to it if the app's default language later changes.
     const saved = this.readStoredCode();
     const match = (saved && list.find((l) => l.code === saved)) || list[0];
     this.selectedCode.set(match.code);
-    this.persist(match.code);
   }
 
   ngOnDestroy(): void {

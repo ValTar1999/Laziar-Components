@@ -61,6 +61,35 @@ describe('LanguageDropdown', () => {
     expect(menuEl()).toBeNull();
   });
 
+  it('stores a language only when the user picks one', () => {
+    localStorage.removeItem('appLanguage');
+    const fresh = TestBed.createComponent(LanguageDropdown);
+    fresh.detectChanges();
+
+    expect(localStorage.getItem('appLanguage')).withContext('nothing chosen yet').toBeNull();
+
+    (fresh.nativeElement.querySelector('.lz-language-dropdown__trigger') as HTMLElement).click();
+    fresh.detectChanges();
+    [...itemEls()].find((el) => el.textContent?.includes('Italiano'))?.click();
+    fresh.detectChanges();
+
+    expect(localStorage.getItem('appLanguage')).toBe('it');
+    localStorage.removeItem('appLanguage');
+    fresh.destroy();
+  });
+
+  it('shows the stored language when there is one', () => {
+    localStorage.setItem('appLanguage', 'de');
+    const fresh = TestBed.createComponent(LanguageDropdown);
+    fresh.detectChanges();
+
+    expect(fresh.nativeElement.querySelector('.lz-language-dropdown__value').textContent).toContain(
+      'DE',
+    );
+    localStorage.removeItem('appLanguage');
+    fresh.destroy();
+  });
+
   it('closes on escape', () => {
     const trigger = fixture.nativeElement.querySelector(
       '.lz-language-dropdown__trigger',

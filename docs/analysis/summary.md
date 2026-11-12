@@ -106,4 +106,3 @@ _Прямых конфликтов «одно назначение — разн�
 - `components-comparison.md`
 - `services-comparison.md`
 - `design-audit.md`
-- `_raw-extract.json` (машинный экстракт)

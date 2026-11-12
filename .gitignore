@@ -51,3 +51,6 @@ Thumbs.db
 
 # Scratch output of scripts/*-docs-i18n.mjs
 tmp-docs-i18n-*.json
+
+# Personal Claude Code settings (permissions granted on one machine)
+.claude/settings.local.json
