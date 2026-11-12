@@ -1,0 +1,6 @@
+{
+  "name": "laziar-dev",
+  "version": "0.1.0",
+  "description": "Runs each project's lint and tests before Claude finishes, and the team's workflows as skills.",
+  "author": { "name": "Laziar" }
+}

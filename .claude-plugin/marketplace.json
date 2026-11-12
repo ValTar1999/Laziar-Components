@@ -1,0 +1,12 @@
+{
+  "name": "laziar",
+  "description": "Claude Code plugins shared by the Laziar frontend projects.",
+  "owner": { "name": "Laziar" },
+  "plugins": [
+    {
+      "name": "laziar-dev",
+      "source": "./claude/plugins/laziar-dev",
+      "description": "Runs each project's lint and tests before Claude finishes, and the team's workflows as skills."
+    }
+  ]
+}

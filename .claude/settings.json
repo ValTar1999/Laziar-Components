@@ -1,0 +1,15 @@
+{
+  "extraKnownMarketplaces": {
+    "laziar": {
+      "source": {
+        "source": "git",
+        "url": "https://gitlab.agora.md/laziar/frontend-components.git",
+        "ref": "main"
+      },
+      "autoUpdate": true
+    }
+  },
+  "enabledPlugins": {
+    "laziar-dev@laziar": true
+  }
+}
