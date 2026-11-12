@@ -5,11 +5,15 @@
   [attr.data-variant]="resolvedVariant()"
 >
   @if (link()) {
-    <a class="lz-tab-button__control" [routerLink]="link()">
+    <a
+      class="lz-tab-button__control"
+      [routerLink]="link()"
+      [attr.aria-current]="active() ? 'page' : null"
+    >
       {{ label() }}
     </a>
   } @else {
-    <button type="button" class="lz-tab-button__control">
+    <button type="button" class="lz-tab-button__control" [attr.aria-pressed]="active()">
       {{ label() }}
     </button>
   }

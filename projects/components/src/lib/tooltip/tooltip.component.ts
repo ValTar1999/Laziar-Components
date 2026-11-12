@@ -1,5 +1,6 @@
 import {
   booleanAttribute,
+  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   computed,
@@ -20,6 +21,8 @@ import { Overlay, OverlayModule, OverlayRef, ConnectedPosition } from '@angular/
 import { TemplatePortal } from '@angular/cdk/portal';
 import { LzTooltipPosition, LzTooltipTheme, LzTooltipTrigger } from './tooltip.types';
 
+let nextTooltipId = 0;
+
 /**
  * Tooltip as a content wrapper (`@laziar/components`).
  * Wraps a projected trigger (button, icon, link…) and shows a CDK Overlay panel.
@@ -28,6 +31,7 @@ import { LzTooltipPosition, LzTooltipTheme, LzTooltipTrigger } from './tooltip.t
  */
 @Component({
   selector: 'lz-tooltip, lz-tooltip-hover',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   hostDirectives: [LzInputFlush],
   imports: [OverlayModule],
@@ -35,6 +39,7 @@ import { LzTooltipPosition, LzTooltipTheme, LzTooltipTrigger } from './tooltip.t
   styleUrl: './tooltip.component.scss',
   host: {
     class: 'lz-tooltip-host',
+    '(keydown.escape)': 'onEscape($event)',
   },
 })
 export class Tooltip implements OnInit, OnDestroy {
@@ -58,6 +63,11 @@ export class Tooltip implements OnInit, OnDestroy {
   readonly triggerClass = input<string | undefined>(undefined);
 
   @ViewChild('panelTpl', { static: true }) panelTpl?: TemplateRef<unknown>;
+
+  /** Id of the panel, referenced by `aria-describedby` on the trigger while it shows. */
+  protected readonly panelId = `lz-tooltip-${nextTooltipId++}`;
+  /** The element currently described by the panel. */
+  private describedElement: Element | null = null;
 
   /** CDK pane class — mouseout guard + global z-index */
   readonly paneClass = 'lz-tooltip-cdk-pane';
@@ -98,6 +108,7 @@ export class Tooltip implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     Tooltip.instances.delete(this);
+    this.describe(null);
     this.clearHideTimer();
     this.disposeOverlay();
   }
@@ -114,6 +125,7 @@ export class Tooltip implements OnInit, OnDestroy {
   private forceClose(): void {
     this.clearHideTimer();
     this.showTooltip.set(false);
+    this.describe(null);
     this.disposeOverlay();
     this.cdr.detectChanges();
   }
@@ -134,6 +146,7 @@ export class Tooltip implements OnInit, OnDestroy {
     this.hideTimer = setTimeout(() => {
       this.hideTimer = undefined;
       this.showTooltip.set(false);
+      this.describe(null);
       this.disposeOverlay();
       this.cdr.detectChanges();
     }, this.hideDelayMs);
@@ -141,6 +154,36 @@ export class Tooltip implements OnInit, OnDestroy {
 
   onTriggerMouseEnter(): void {
     if (this.trigger() !== 'hover') return;
+    this.show();
+  }
+
+  /**
+   * Keyboard users get the same hint as mouse users: the tooltip opens when
+   * focus lands on the projected trigger and closes when it leaves.
+   */
+  protected onTriggerFocusIn(event: FocusEvent): void {
+    if (this.trigger() !== 'hover') return;
+    if (this.disabled() || !this.hasPanelContent()) return;
+    this.describe(event.target instanceof Element ? event.target : null);
+    this.show();
+  }
+
+  protected onTriggerFocusOut(): void {
+    if (this.trigger() !== 'hover') return;
+    this.forceClose();
+  }
+
+  /**
+   * Escape dismisses an open tooltip without moving focus. The key is claimed
+   * so an enclosing `lz-modal` does not close along with it.
+   */
+  protected onEscape(event: Event): void {
+    if (!this.showTooltip()) return;
+    event.preventDefault();
+    this.forceClose();
+  }
+
+  private show(): void {
     if (this.disabled() || !this.hasPanelContent()) return;
     Tooltip.closeAllExcept(this);
     this.clearHideTimer();
@@ -149,6 +192,18 @@ export class Tooltip implements OnInit, OnDestroy {
       this.openOverlay();
       this.cdr.detectChanges();
     });
+  }
+
+  /** Points `element` at the panel as its description; null clears the link. */
+  private describe(element: Element | null): void {
+    this.describedElement?.removeAttribute('aria-describedby');
+    this.describedElement = element;
+    // An author-set description is left alone.
+    if (element?.hasAttribute('aria-describedby')) {
+      this.describedElement = null;
+      return;
+    }
+    element?.setAttribute('aria-describedby', this.panelId);
   }
 
   onTriggerMouseLeave(event: MouseEvent): void {
@@ -228,6 +283,7 @@ export class Tooltip implements OnInit, OnDestroy {
       const next = e.relatedTarget as Node | null;
       if (next && this.elementRef.nativeElement.contains(next)) return;
       this.showTooltip.set(false);
+      this.describe(null);
       this.disposeOverlay();
       this.cdr.detectChanges();
     };

@@ -45,7 +45,7 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
+                  "maximumWarning": "600kB",
                   "maximumError": "1MB"
                 },
                 {
@@ -90,6 +90,11 @@
               {
                 "glob": "**/*",
                 "input": "projects/docs/public"
+              },
+              {
+                "glob": "**/*",
+                "input": "projects/components/src/assets/icons",
+                "output": "assets/icons"
               }
             ],
             "styles": ["projects/components/src/styles/theme.css", "projects/docs/src/styles.scss"]

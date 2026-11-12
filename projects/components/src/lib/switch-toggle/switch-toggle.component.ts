@@ -1,5 +1,6 @@
 import {
   booleanAttribute,
+  ChangeDetectionStrategy,
   Component,
   computed,
   forwardRef,
@@ -27,6 +28,7 @@ import { LzSwitchToggleSize } from './switch-toggle.types';
  */
 @Component({
   selector: 'lz-switch-toggle',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   hostDirectives: [LzInputFlush],
   imports: [NgClass],

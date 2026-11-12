@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { RouterLink } from '@angular/router';
 import { Icon } from '../icon/icon.component';
@@ -9,6 +9,7 @@ import { Icon } from '../icon/icon.component';
  */
 @Component({
   selector: 'lz-login-prompt-banner',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   hostDirectives: [LzInputFlush],
   imports: [RouterLink, Icon],

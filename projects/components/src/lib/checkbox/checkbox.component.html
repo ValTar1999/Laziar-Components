@@ -9,6 +9,7 @@
       [attr.title]="title() || null"
       [attr.aria-label]="ariaLabel() || null"
       (change)="onInputChange($event)"
+      (blur)="onTouched()"
     />
   </span>
 

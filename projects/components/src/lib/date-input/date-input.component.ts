@@ -9,6 +9,7 @@ import {
   HostListener,
   inject,
   input,
+  linkedSignal,
   OnDestroy,
   output,
   signal,
@@ -111,6 +112,7 @@ export class DateInput implements ControlValueAccessor, OnDestroy {
   protected readonly fieldId = `lz-date-input-${nextDateInputId++}`;
   protected readonly labelId = `${this.fieldId}-label`;
   protected readonly helperId = `${this.fieldId}-helper`;
+  protected readonly valueId = `${this.fieldId}-value`;
   protected readonly dialogId = `${this.fieldId}-dialog`;
   readonly paneClass = 'lz-date-input-cdk-pane';
 
@@ -122,12 +124,11 @@ export class DateInput implements ControlValueAccessor, OnDestroy {
 
   protected readonly isOpen = signal(false);
 
-  /** Written by the form, else following the `value` input. */
-  private readonly written = signal<string | null | undefined>(undefined);
-  protected readonly current = computed(() => {
-    const written = this.written();
-    return written === undefined ? this.value() : written;
-  });
+  /**
+   * Follows the `value` input; a pick or a form write overrides it until the
+   * input next changes, so a host can still reset the field through `[value]`.
+   */
+  protected readonly current = linkedSignal<string | null>(() => this.value());
 
   private readonly cvaDisabled = signal(false);
   protected readonly effectiveDisabled = computed(() => this.disabled() || this.cvaDisabled());
@@ -163,7 +164,7 @@ export class DateInput implements ControlValueAccessor, OnDestroy {
   }
 
   writeValue(value: string | null): void {
-    this.written.set(value ?? null);
+    this.current.set(value ?? null);
   }
 
   registerOnChange(fn: (value: string | null) => void): void {
@@ -191,16 +192,22 @@ export class DateInput implements ControlValueAccessor, OnDestroy {
   /** A day picked in the calendar: commit it and hand focus back to the field. */
   protected pick(date: Date): void {
     const iso = lzToIsoDate(date);
-    this.written.set(iso);
+    this.current.set(iso);
     this.close();
     this.onChange(iso);
     this.onTouched();
     this.valueChange.emit(iso);
   }
 
-  @HostListener('document:keydown.escape')
-  protected onEscape(): void {
-    if (this.isOpen()) this.close();
+  /**
+   * Claims the key with `preventDefault` so an enclosing `lz-modal`, which
+   * listens further up on `window`, leaves this Escape to the calendar.
+   */
+  @HostListener('document:keydown.escape', ['$event'])
+  protected onEscape(event?: Event): void {
+    if (!this.isOpen()) return;
+    event?.preventDefault();
+    this.close();
   }
 
   @HostListener('document:click', ['$event'])
@@ -252,6 +259,12 @@ export class DateInput implements ControlValueAccessor, OnDestroy {
     this.portalView = undefined;
 
     if (focusInside) this.trigger?.nativeElement.focus();
+    this.onTouched();
+  }
+
+  /** Focus left the field without the calendar being open: the user has been through it. */
+  protected onTriggerBlur(): void {
+    if (!this.isOpen()) this.onTouched();
   }
 
   private startFloating(): void {

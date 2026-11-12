@@ -6,7 +6,7 @@
     [class.swiper-button-disabled]="isBeginning()"
     [class.lz-swiper__nav--disabled]="isBeginning()"
     [attr.aria-disabled]="isBeginning()"
-    aria-label="Previous slide"
+    [attr.aria-label]="previousLabel()"
   >
     <svg
       width="14"
@@ -42,7 +42,7 @@
     [class.swiper-button-disabled]="isEnd()"
     [class.lz-swiper__nav--disabled]="isEnd()"
     [attr.aria-disabled]="isEnd()"
-    aria-label="Next slide"
+    [attr.aria-label]="nextLabel()"
   >
     <svg
       width="14"

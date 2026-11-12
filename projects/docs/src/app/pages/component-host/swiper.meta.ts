@@ -7,7 +7,20 @@ export const SWIPER_COMPONENT_META: DocsComponentMeta = {
     'Carousel with prev/next controls. Project slides as swiper-slide children (CUSTOM_ELEMENTS_SCHEMA).',
   controls: [],
   variants: [{ label: 'default', props: {} }],
-  inputs: [],
+  inputs: [
+    {
+      name: 'previousLabel',
+      type: 'string',
+      default: `'Previous slide'`,
+      description: 'Accessible name of the previous arrow; pass a localized string',
+    },
+    {
+      name: 'nextLabel',
+      type: 'string',
+      default: `'Next slide'`,
+      description: 'Accessible name of the next arrow; pass a localized string',
+    },
+  ],
   outputs: [],
   slots: [{ name: 'default', description: 'swiper-slide elements' }],
   examples: [

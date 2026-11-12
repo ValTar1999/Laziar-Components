@@ -1,10 +1,12 @@
 import { isPlatformBrowser } from '@angular/common';
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
   ElementRef,
   inject,
+  input,
   OnDestroy,
   PLATFORM_ID,
   signal,
@@ -39,12 +41,28 @@ function ensureSwiperRegistered(): Promise<void> {
 }
 
 /**
+ * Everything that can move the first/last slide state, not only a slide
+ * change: slides projected after data arrives, a breakpoint switching the
+ * slides per view, a resize. Without these the "next" arrow stayed disabled
+ * until the first swipe.
+ */
+const NAV_STATE_EVENTS = [
+  'slideChange',
+  'slidesLengthChange',
+  'snapGridLengthChange',
+  'breakpoint',
+  'resize',
+  'update',
+] as const;
+
+/**
  * Swiper carousel `@laziar/components`.
  * API/стили — эталон publikator (`SwiperComponent` / carousel).
  * Project slides via content projection into `swiper-slide` elements.
  */
 @Component({
   selector: 'lz-swiper',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   hostDirectives: [LzInputFlush],
   templateUrl: './swiper.component.html',
@@ -63,12 +81,17 @@ export class SwiperComponent implements AfterViewInit, OnDestroy {
 
   private swiper?: SwiperType;
   private slideChangeHandler?: () => void;
+  private destroyed = false;
 
   /** Same breakpoints as publikator carousel. */
   protected readonly breakpoints: Record<string, { slidesPerView: number }> = {
     '768': { slidesPerView: 2 },
     '992': { slidesPerView: 3 },
   };
+
+  /** Accessible names of the arrows; pass localized strings. */
+  readonly previousLabel = input('Previous slide');
+  readonly nextLabel = input('Next slide');
 
   protected readonly isBeginning = signal(true);
   protected readonly isEnd = signal(false);
@@ -91,6 +114,11 @@ export class SwiperComponent implements AfterViewInit, OnDestroy {
     await ensureSwiperRegistered();
     await customElements.whenDefined('swiper-container');
 
+    // Destroyed while the element was being registered: nothing to attach to.
+    if (this.destroyed) {
+      return;
+    }
+
     const el = this.swiperRef?.nativeElement;
     this.swiper = el?.swiper;
 
@@ -107,12 +135,17 @@ export class SwiperComponent implements AfterViewInit, OnDestroy {
       this.isEnd.set(this.swiper.isEnd);
     };
 
-    this.swiper.on('slideChange', this.slideChangeHandler);
+    for (const event of NAV_STATE_EVENTS) {
+      this.swiper.on(event, this.slideChangeHandler);
+    }
   }
 
   ngOnDestroy(): void {
+    this.destroyed = true;
     if (this.swiper && this.slideChangeHandler) {
-      this.swiper.off('slideChange', this.slideChangeHandler);
+      for (const event of NAV_STATE_EVENTS) {
+        this.swiper.off(event, this.slideChangeHandler);
+      }
     }
   }
 

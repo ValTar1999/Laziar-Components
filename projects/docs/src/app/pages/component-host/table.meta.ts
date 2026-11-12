@@ -56,7 +56,31 @@ export const TABLE_COMPONENT_META: DocsComponentMeta = {
       type: 'boolean',
       default: 'true',
       description:
-        'Interactive rows are Tab stops (role link). Off: a pointer-only shortcut, for rows whose action the keyboard reaches inside the row',
+        'Interactive rows are Tab stops (Enter or Space activates). Off: a pointer-only shortcut, for rows whose action the keyboard reaches inside the row',
+    },
+    {
+      name: 'pageSizeAriaLabel',
+      type: 'string',
+      default: `'Rezultate pe pagină'`,
+      description: 'Accessible name of the page-size button and its list',
+    },
+    {
+      name: 'paginationAriaLabel',
+      type: 'string',
+      default: `'Paginare'`,
+      description: 'Accessible name of the pager',
+    },
+    {
+      name: 'previousPageLabel',
+      type: 'string',
+      default: `'Pagina anterioară'`,
+      description: 'Accessible name of the previous-page arrow',
+    },
+    {
+      name: 'nextPageLabel',
+      type: 'string',
+      default: `'Pagina următoare'`,
+      description: 'Accessible name of the next-page arrow',
     },
     {
       name: 'rowKey',

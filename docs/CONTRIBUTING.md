@@ -41,7 +41,7 @@ This guide describes the **reference pattern** established by `lz-button`. Follo
 
 - [ ] Add a meta object (`*.meta.ts`) conforming to `DocsComponentMeta`.
 - [ ] Add a page under `projects/docs/.../component-host/` using `docs-component-page` + `docsPreview`.
-- [ ] Register the route name in `component-host-page` `@switch` and in `docs-nav.ts`.
+- [ ] Register the route name in the `PAGES` map of `component-host-page.ts` and in `docs-nav.ts`.
 - [ ] Fill all sections: preview, sandbox, synced code, variant gallery (`variant × size`), API tables, examples, component tokens, deprecated block.
 - [ ] Sandbox controls must match input kinds (select / boolean / string / number / color).
 

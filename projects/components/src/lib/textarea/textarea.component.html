@@ -1,7 +1,4 @@
-<div
-  class="lz-textarea-container"
-  [class.lz-textarea-container--disabled]="effectiveDisabled()"
->
+<div class="lz-textarea-container" [class.lz-textarea-container--disabled]="effectiveDisabled()">
   @if (label()) {
     <label class="lz-textarea-label" [attr.for]="textareaId">{{ label() }}</label>
   }
@@ -12,6 +9,10 @@
     [placeholder]="placeholder()"
     [rows]="rows()"
     [disabled]="effectiveDisabled()"
+    [required]="required()"
+    [attr.aria-label]="ariaLabel() || null"
+    [attr.aria-invalid]="error() ? true : null"
+    [attr.aria-describedby]="helperText() ? helperId : null"
     [value]="value()"
     [attr.data-error]="error()"
     [attr.data-resize]="resize()"
@@ -20,9 +21,14 @@
   ></textarea>
 
   @if (helperText()) {
-    <span class="lz-textarea-helper" [attr.data-error]="error()">
+    <span class="lz-textarea-helper" [id]="helperId" [attr.data-error]="error()">
       @if (error()) {
-        <lz-icon name="exclamation-circle" type="mini" class="lz-textarea-helper-icon" />
+        <lz-icon
+          name="exclamation-circle"
+          type="mini"
+          class="lz-textarea-helper-icon"
+          aria-hidden="true"
+        />
       }
       <span class="lz-textarea-helper-text">{{ helperText() }}</span>
     </span>

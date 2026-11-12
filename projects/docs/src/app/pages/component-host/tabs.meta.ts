@@ -61,6 +61,12 @@ export const TABS_COMPONENT_META: DocsComponentMeta = {
         'outline — pill; underline — line under the whole tab; underline-text — line sized to the active label text; border — bordered segment. Bind it as [style]="\x27underline\x27": a static style="…" attribute is taken as the CSS style attribute and never reaches the input',
     },
     {
+      name: 'ariaLabel',
+      type: 'string | undefined',
+      default: 'undefined',
+      description: 'Names the tab strip for screen readers, e.g. "Campaign sections"',
+    },
+    {
       name: 'stretch',
       type: 'boolean',
       default: 'true',

@@ -176,6 +176,24 @@ export const INPUT_COMPONENT_META: DocsComponentMeta = {
       description: 'number only: the native bounds and step',
     },
     {
+      name: 'ariaLabel',
+      type: 'string | undefined',
+      default: 'undefined',
+      description: 'Names the field when there is no visible label, e.g. a search box',
+    },
+    {
+      name: 'required',
+      type: 'boolean',
+      default: 'false',
+      description: 'Marks the field as required for assistive tech and native validation',
+    },
+    {
+      name: 'buttonAriaLabel',
+      type: 'string | undefined',
+      default: 'undefined',
+      description: 'Accessible name of the addon button when it shows only an icon',
+    },
+    {
       name: 'spellcheck',
       type: 'boolean | null',
       default: 'null',

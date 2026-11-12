@@ -36,10 +36,10 @@
   max-width: 1rem; /* max-w-4 */
   max-height: 1rem; /* max-h-4 */
   border-radius: 9999px;
-  border: 1px solid rgba(17, 24, 39, 0.1); /* border-gray-900/10 */
-  background-color: #fffffa; /* bg-cFFFFFA */
-  box-shadow: 0 0 0 1px #fffffa; /* ring-1 ring-cFFFFFA */
-  color: #111827; /* text-gray-900 */
+  border: 1px solid color-mix(in srgb, var(--lz-color-neutral-900) 10%, transparent); /* border-gray-900/10 */
+  background-color: var(--lz-color-background); /* bg-cFFFFFA */
+  box-shadow: 0 0 0 1px var(--lz-color-background); /* ring-1 ring-cFFFFFA */
+  color: var(--lz-color-text-primary); /* text-gray-900 */
   font-family: var(--lz-font-sans);
   font-size: 8px;
   font-weight: 600;

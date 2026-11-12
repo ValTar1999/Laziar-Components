@@ -1,3 +1,5 @@
+@use '../../styles/mixins' as *;
+
 /**
  * Эталон: Laziar System (Figma Dropdown / Select Menu).
  * Триггер: радиус 6px, бордер #121212 10%, фон #FFFFFA, Onest 600.
@@ -38,9 +40,7 @@
 
 .lz-dropdown__trigger-icon {
   flex-shrink: 0;
-  --lz-icon-size: 1.25rem;
-  width: var(--lz-icon-size) !important;
-  height: var(--lz-icon-size) !important;
+  @include lz-icon-size(1.25rem);
   color: var(--lz-color-text-primary);
 }
 
@@ -192,9 +192,7 @@
 
 .lz-dropdown__chevron {
   flex-shrink: 0;
-  --lz-icon-size: 1rem;
-  width: var(--lz-icon-size) !important;
-  height: var(--lz-icon-size) !important;
+  @include lz-icon-size(1rem);
   color: var(--lz-color-neutral-500);
   transition: transform var(--lz-duration-normal) var(--lz-easing-standard);
 
@@ -289,9 +287,7 @@
 
 .lz-dropdown__item-icon {
   flex-shrink: 0;
-  --lz-icon-size: 1rem;
-  width: var(--lz-icon-size) !important;
-  height: var(--lz-icon-size) !important;
+  @include lz-icon-size(1rem);
   color: var(--lz-color-neutral-500);
 }
 
@@ -302,9 +298,7 @@
 
 .lz-dropdown__item-check {
   flex-shrink: 0;
-  --lz-icon-size: 1rem;
-  width: var(--lz-icon-size) !important;
-  height: var(--lz-icon-size) !important;
+  @include lz-icon-size(1rem);
   margin-inline-start: 0.5rem;
   color: var(--lz-color-text-primary);
 }

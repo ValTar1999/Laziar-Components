@@ -1,4 +1,10 @@
-import { Component, computed, input, numberAttribute } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  input,
+  numberAttribute,
+} from '@angular/core';
 import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { LzProgressCircleSize, LzProgressCircleVariant } from './progress-circle.types';
 
@@ -23,6 +29,7 @@ const STROKE_PX: Record<LzProgressCircleSize, number> = {
 /** Circular progress (publikator `app-progress-circle`). */
 @Component({
   selector: 'lz-progress-circle',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   hostDirectives: [LzInputFlush],
   templateUrl: './progress-circle.component.html',

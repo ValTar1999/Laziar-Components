@@ -1,7 +1,12 @@
 <div class="lz-avatar" [attr.data-size]="size()">
   <div [class]="avatarContainerClass()">
     <ng-container *ngIf="hasImage(); else defaultContent">
-      <img [src]="imgUrl()" [alt]="imageAlt()" class="lz-avatar__image" />
+      <img
+        [src]="imgUrl()"
+        [alt]="imageAlt()"
+        class="lz-avatar__image"
+        (error)="imageBroken.set(true)"
+      />
     </ng-container>
 
     <ng-template #defaultContent>

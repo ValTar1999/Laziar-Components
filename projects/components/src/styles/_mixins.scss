@@ -65,3 +65,13 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+/// Sizes an `<lz-icon>` from the class put on it.
+/// `!important` is deliberate: the icon's own size sits in a cascade layer
+/// (so app utility classes can win over it), which also lets any unlayered
+/// rule of the app win. Inside a library component the size must hold.
+@mixin lz-icon-size($size) {
+  --lz-icon-size: #{$size};
+  width: var(--lz-icon-size) !important;
+  height: var(--lz-icon-size) !important;
+}

@@ -1,3 +1,5 @@
+@use '../../styles/mixins' as *;
+
 /**
  * Эталон: Laziar System (Figma Text Input).
  * Радиус 6px, бордер #121212 10%, фон #FFFFFA, лейбл Onest 600.
@@ -113,9 +115,7 @@ input[type='search']::-ms-clear {
   top: 50%;
   z-index: 1;
   transform: translateY(-50%);
-  --lz-icon-size: 1rem;
-  width: var(--lz-icon-size) !important;
-  height: var(--lz-icon-size) !important;
+  @include lz-icon-size(1rem);
   color: var(--lz-color-neutral-500);
   pointer-events: none;
 }
@@ -337,12 +337,15 @@ input[type='search']::-ms-clear {
   &:focus {
     outline: none;
   }
+
+  &:focus-visible {
+    border-radius: var(--lz-radius-full);
+    box-shadow: var(--lz-shadow-focus);
+  }
 }
 
 .lz-input-clear-icon {
-  --lz-icon-size: 1rem;
-  width: var(--lz-icon-size) !important;
-  height: var(--lz-icon-size) !important;
+  @include lz-icon-size(1rem);
 }
 
 .lz-input-clear[data-size='sm'] .lz-input-clear-icon {
@@ -398,12 +401,15 @@ input[type='search']::-ms-clear {
   &:focus {
     outline: none;
   }
+
+  &:focus-visible {
+    border-radius: var(--lz-radius-full);
+    box-shadow: var(--lz-shadow-focus);
+  }
 }
 
 .lz-input-password-toggle-icon {
-  --lz-icon-size: 1rem;
-  width: var(--lz-icon-size) !important;
-  height: var(--lz-icon-size) !important;
+  @include lz-icon-size(1rem);
 }
 
 .lz-input-password-toggle[data-size='sm'] .lz-input-password-toggle-icon {
@@ -498,9 +504,7 @@ input[type='search']::-ms-clear {
 }
 
 .lz-input-addon-icon {
-  --lz-icon-size: 1rem;
-  width: var(--lz-icon-size) !important;
-  height: var(--lz-icon-size) !important;
+  @include lz-icon-size(1rem);
   color: inherit;
 
   ::ng-deep .lz-icon {

@@ -140,6 +140,19 @@ export const ALERT_COMPONENT_META: DocsComponentMeta = {
       description: 'Show close button',
     },
     {
+      name: 'role',
+      type: `'status' | 'alert' | null`,
+      default: `'status'`,
+      description:
+        'How screen readers treat the alert when it appears: status waits for a pause, alert interrupts, null is plain content',
+    },
+    {
+      name: 'closeLabel',
+      type: 'string',
+      default: `'Close alert'`,
+      description: 'Accessible name of the close button; pass a localized string',
+    },
+    {
       name: 'closeColor',
       type: `'gray' | 'yellow' | 'red' | 'green' | 'blue' | 'purple'`,
       default: 'undefined',

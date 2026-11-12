@@ -59,6 +59,14 @@ export class Button {
   readonly align = input<LzButtonAlign>('center');
   readonly ariaLabel = input<string | undefined>(undefined);
   readonly ariaCurrentPage = input(false, { transform: booleanAttribute });
+  /**
+   * For a button that opens a popup: the kind of popup, whether it is open,
+   * and its id. They go on the inner `<button>`, where assistive tech looks;
+   * the same attributes on `<lz-button>` itself are not seen.
+   */
+  readonly ariaHasPopup = input<'menu' | 'listbox' | 'dialog' | 'true' | undefined>(undefined);
+  readonly ariaExpanded = input<boolean | undefined>(undefined);
+  readonly ariaControls = input<string | undefined>(undefined);
   readonly clicked = output<void>();
 
   /** @deprecated Используй `iconPosition`. */

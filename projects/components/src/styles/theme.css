@@ -125,7 +125,7 @@
   --lz-color-text-muted: #898d92;
   --lz-color-text-inverse: #fffffa;
   --lz-color-disabled: color-mix(in srgb, var(--lz-color-neutral-900) 30%, transparent);
-  --lz-color-focus-ring: color-mix(in srgb, var(--lz-color-neutral-900) 10%, transparent);
+  --lz-color-focus-ring: color-mix(in srgb, var(--lz-color-neutral-900) 50%, transparent);
 
   /* ─── Spacing scale (rem; 2-5 = 10px from publikator) ─── */
   --lz-space-0: 0;
@@ -457,7 +457,7 @@
   --lz-color-text-muted: #898d92;
   --lz-color-text-inverse: #121212;
   --lz-color-disabled: color-mix(in srgb, var(--lz-color-neutral-900) 30%, transparent);
-  --lz-color-focus-ring: color-mix(in srgb, var(--lz-color-neutral-900) 20%, transparent);
+  --lz-color-focus-ring: color-mix(in srgb, var(--lz-color-neutral-900) 50%, transparent);
 
   --lz-shadow-xs: 0 1px 2px rgb(0 0 0 / 0.35);
   --lz-shadow-sm: 0 1px 3px rgb(0 0 0 / 0.45), 0 1px 2px rgb(0 0 0 / 0.3);
@@ -577,7 +577,7 @@
     --lz-color-text-muted: #898d92;
     --lz-color-text-inverse: #121212;
     --lz-color-disabled: color-mix(in srgb, var(--lz-color-neutral-900) 30%, transparent);
-    --lz-color-focus-ring: color-mix(in srgb, var(--lz-color-neutral-900) 20%, transparent);
+    --lz-color-focus-ring: color-mix(in srgb, var(--lz-color-neutral-900) 50%, transparent);
 
     --lz-shadow-xs: 0 1px 2px rgb(0 0 0 / 0.35);
     --lz-shadow-sm: 0 1px 3px rgb(0 0 0 / 0.45), 0 1px 2px rgb(0 0 0 / 0.3);
@@ -618,6 +618,29 @@
   height: auto !important;
   max-width: none;
   background: transparent;
+}
+
+/*
+ * Reduced motion: transitions become instant and looping animations stop, in
+ * every component at once. Components that need a different fallback (the
+ * modal, toasts, expand) still carry their own rule.
+ *
+ * The loading indicators keep moving: a spinner that stands still reads as a
+ * hung page, and a small spin or fade in place is not the kind of motion this
+ * setting is for.
+ */
+@media (prefers-reduced-motion: reduce) {
+  [class^='lz-']:not(.lz-loading__spinner, .lz-loading__dot),
+  [class*=' lz-']:not(.lz-loading__spinner, .lz-loading__dot),
+  [class^='lz-']::before,
+  [class*=' lz-']::before,
+  [class^='lz-']::after,
+  [class*=' lz-']::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 html,

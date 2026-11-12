@@ -148,26 +148,27 @@
             iconPosition="right"
             iconClass="lz-table__page-size-icon"
             [disabled]="paginationBusy()"
-            [attr.aria-expanded]="pageSizeDropdownOpen()"
-            aria-haspopup="listbox"
-            [attr.aria-label]="pageSizeAriaLabel()"
+            [ariaExpanded]="pageSizeDropdownOpen()"
+            ariaHasPopup="listbox"
+            [ariaControls]="pageSizeDropdownOpen() ? pageSizeMenuId : undefined"
+            [ariaLabel]="pageSizeAriaLabel() + ': ' + pageSize()"
             (clicked)="togglePageSizeDropdown()"
           />
         </span>
       </div>
-      <nav class="lz-table__pages" aria-label="Paginare">
+      <nav class="lz-table__pages" [attr.aria-label]="paginationAriaLabel()">
         <button
           type="button"
           class="lz-table__page-button"
           [disabled]="clampedPage() <= 1 || paginationBusy()"
-          aria-label="Pagina anterioară"
+          [attr.aria-label]="previousPageLabel()"
           (click)="goPrev()"
         >
-          <lz-icon name="chevron-left" type="mini" />
+          <lz-icon name="chevron-left" type="mini" aria-hidden="true" />
         </button>
         @for (item of pageItems(); track $index) {
           @if (isEllipsis(item)) {
-            <span class="lz-table__ellipsis">…</span>
+            <span class="lz-table__ellipsis" aria-hidden="true">…</span>
           } @else {
             <button
               type="button"
@@ -185,10 +186,10 @@
           type="button"
           class="lz-table__page-button"
           [disabled]="clampedPage() >= paginationTotalPages() || paginationBusy()"
-          aria-label="Pagina următoare"
+          [attr.aria-label]="nextPageLabel()"
           (click)="goNext()"
         >
-          <lz-icon name="chevron-right" type="mini" />
+          <lz-icon name="chevron-right" type="mini" aria-hidden="true" />
         </button>
       </nav>
     </div>
@@ -216,7 +217,12 @@
 }
 
 <ng-template #pageSizeMenuTpl>
-  <div class="lz-table__page-size-menu" role="listbox">
+  <div
+    class="lz-table__page-size-menu"
+    role="listbox"
+    [id]="pageSizeMenuId"
+    [attr.aria-label]="pageSizeAriaLabel()"
+  >
     @for (option of pageSizeOptions(); track option) {
       <button
         type="button"
@@ -224,7 +230,9 @@
         [attr.aria-selected]="option === pageSize()"
         [attr.data-selected]="option === pageSize() ? 'true' : null"
         role="option"
+        tabindex="-1"
         (click)="selectPageSize(option)"
+        (keydown)="onPageSizeOptionKeydown($event)"
       >
         {{ option }}
       </button>

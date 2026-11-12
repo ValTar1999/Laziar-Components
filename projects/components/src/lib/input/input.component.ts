@@ -55,6 +55,12 @@ let nextInputFieldId = 0;
 export class InputComponent implements ControlValueAccessor {
   readonly label = input('');
   readonly helperText = input('');
+  /** Names the field when there is no visible label, e.g. a search box. */
+  readonly ariaLabel = input<string | undefined>(undefined);
+  /** Marks the field as required for assistive tech and native validation. */
+  readonly required = input(false, { transform: booleanAttribute });
+  /** Accessible name of the addon button when it shows only an icon. */
+  readonly buttonAriaLabel = input<string | undefined>(undefined);
   readonly type = input<LzInputType>('text');
   readonly placeholder = input('');
   readonly iconButton = input<string | undefined>(undefined);
@@ -102,6 +108,8 @@ export class InputComponent implements ControlValueAccessor {
 
   /** Stable unique id linking the <label for> to the <input id>. */
   readonly inputId = `lz-input-${nextInputFieldId++}`;
+  /** Links the helper / error text to the field through aria-describedby. */
+  protected readonly helperId = `${this.inputId}-helper`;
 
   protected readonly value = signal('');
   protected readonly initialType = computed(() => this.type());
@@ -178,9 +186,14 @@ export class InputComponent implements ControlValueAccessor {
       inputEl.value = inputEl.value.replace(/\D/g, '');
     }
     const newValue = inputEl.value;
-    this.value.set(newValue);
+    // A number field reports '' for text that is not a number yet ("-", "1e").
+    // Storing that would bind '' back into the field and erase what was typed,
+    // so the stored text is left alone until the field holds a number again.
+    const halfTyped = this.isNumber() && newValue === '' && inputEl.validity.badInput;
+    if (!halfTyped) {
+      this.value.set(newValue);
+    }
     this.onChange(this.isNumber() ? this.parseNumber(inputEl) : newValue);
-    this.onTouched();
     this.valueChange.emit(newValue);
   }
 

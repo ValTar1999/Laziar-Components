@@ -18,7 +18,13 @@
     @if (effectiveVariant() === 'col') {
       <div class="lz-card__col">
         @if (hasRenderableImage() && size() !== 'xxs') {
-          <a class="lz-card__image-link" href="#" (click)="onTitleClick($event)">
+          <a
+            class="lz-card__image-link"
+            href="#"
+            tabindex="-1"
+            aria-hidden="true"
+            (click)="onTitleClick($event)"
+          >
             <img
               class="lz-card__image"
               [src]="displayImage()"
@@ -61,14 +67,14 @@
               @if (date()) {
                 <div class="lz-card__date lz-card__date--muted">
                   @if (publisher() || author()) {
-                    <span class="lz-card__dot"></span>
+                    <span class="lz-card__dot" aria-hidden="true"></span>
                   }
                   {{ date() }}
                 </div>
               }
               @if (showReactions()) {
                 <div class="lz-card__reactions">
-                  <span class="lz-card__dot"></span>
+                  <span class="lz-card__dot" aria-hidden="true"></span>
                   <lz-articlecard-reactions [articleMetrics]="articleMetrics()" />
                 </div>
               }
@@ -98,6 +104,8 @@
             <a
               class="lz-card__image-link lz-card__image-link--row"
               href="#"
+              tabindex="-1"
+              aria-hidden="true"
               (click)="onTitleClick($event)"
             >
               <img
@@ -128,7 +136,7 @@
               @if (date()) {
                 <div class="lz-card__date">
                   @if (showRowIdentityOnBottom() && (publisher() || author())) {
-                    <span class="lz-card__dot lz-card__dot--inline"></span>
+                    <span class="lz-card__dot lz-card__dot--inline" aria-hidden="true"></span>
                   }
                   {{ date() }}
                 </div>
@@ -136,7 +144,7 @@
               @if (showReactions()) {
                 <div class="lz-card__reactions">
                   @if (date()) {
-                    <span class="lz-card__dot"></span>
+                    <span class="lz-card__dot" aria-hidden="true"></span>
                   }
                   <lz-articlecard-reactions [articleMetrics]="articleMetrics()" />
                 </div>
@@ -155,7 +163,7 @@
               @if (date()) {
                 <div class="lz-card__date">
                   @if (showRowIdentityOnBottom() && (publisher() || author())) {
-                    <span class="lz-card__dot lz-card__dot--inline"></span>
+                    <span class="lz-card__dot lz-card__dot--inline" aria-hidden="true"></span>
                   }
                   {{ date() }}
                 </div>
@@ -163,7 +171,7 @@
               @if (showReactions()) {
                 <div class="lz-card__reactions">
                   @if (date()) {
-                    <span class="lz-card__dot"></span>
+                    <span class="lz-card__dot" aria-hidden="true"></span>
                   }
                   <lz-articlecard-reactions [articleMetrics]="articleMetrics()" />
                 </div>
@@ -333,9 +341,11 @@
             [attr.aria-label]="closeLabel()"
             (click)="closeMoreMenu()"
           ></button>
-          <div class="lz-card__sheet-panel" role="menu">
+          <div class="lz-card__sheet-panel">
             <lz-more-actions-menu
               layout="mobile"
+              [attr.aria-label]="moreActionsLabel()"
+              (keydown)="onMenuKeydown($event)"
               [showSavedActions]="showSavedActions()"
               [isWatchLater]="isWatchLater()"
               [isSavedToList]="isSavedToList()"
@@ -360,9 +370,11 @@
 </ng-template>
 
 <ng-template #moreMenuTpl>
-  <div class="lz-card__menu" role="menu">
+  <div class="lz-card__menu">
     <lz-more-actions-menu
       layout="desktop"
+      [attr.aria-label]="moreActionsLabel()"
+      (keydown)="onMenuKeydown($event)"
       [showSavedActions]="showSavedActions()"
       [isWatchLater]="isWatchLater()"
       [isSavedToList]="isSavedToList()"

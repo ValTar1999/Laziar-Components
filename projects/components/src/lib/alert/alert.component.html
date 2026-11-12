@@ -1,11 +1,12 @@
 <div
   [class]="alertClass()"
+  [attr.role]="role()"
   [attr.data-variant]="variant()"
   [attr.data-size]="size()"
   [attr.data-padding]="padding()"
 >
   <div class="lz-alert__content">
-    <lz-icon [name]="iconName()" [type]="iconVariant()" class="lz-alert__icon" />
+    <lz-icon [name]="iconName()" [type]="iconVariant()" class="lz-alert__icon" aria-hidden="true" />
 
     <div class="lz-alert__body">
       <div class="lz-alert__text-content">
@@ -30,7 +31,7 @@
     icon="x-mark"
     class="lz-alert__close-button"
     (clicked)="onCloseClick()"
-    ariaLabel="Close alert"
+    [ariaLabel]="closeLabel()"
   >
   </lz-button>
 </div>

@@ -1,6 +1,7 @@
 import {
   afterRenderEffect,
   booleanAttribute,
+  ChangeDetectionStrategy,
   Component,
   computed,
   DestroyRef,
@@ -22,6 +23,7 @@ import { Tooltip } from '../tooltip/tooltip.component';
 /** Tabs — Laziar System (Figma Tabs): outline pill / underline / underline-text / border. */
 @Component({
   selector: 'lz-tabs',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   hostDirectives: [LzInputFlush],
   imports: [CommonModule, Badge, Icon, Tooltip],
@@ -48,6 +50,14 @@ export class Tabs {
   readonly stretch = input(true, { transform: booleanAttribute });
   /** Two-way active index (updates locally on click like F/P). */
   readonly activeTab = model(0);
+  /** Names the tab strip for assistive tech, e.g. "Campaign sections". */
+  readonly ariaLabel = input<string | undefined>(undefined);
+
+  /**
+   * The one tab in the page's tab order (roving tabindex): the current tab,
+   * or the first one when no tab is current. Arrow keys reach the rest.
+   */
+  protected readonly focusableTab = computed(() => (this.hasActiveTab() ? this.activeTab() : 0));
 
   protected readonly showUnderline = computed(() => this.style() !== 'outline');
 
@@ -131,6 +141,42 @@ export class Tabs {
 
   protected getDisabledTooltip(index: number): string {
     return this.disabledTabTooltips()[String(index)] || '';
+  }
+
+  /**
+   * Arrow keys, Home and End move focus along the strip and select the tab
+   * they land on. A disabled tab still takes focus, so its reason can be read,
+   * but is not selected.
+   */
+  protected onKeydown(event: KeyboardEvent): void {
+    const tab = event.currentTarget as HTMLElement;
+    const buttons = Array.from(
+      tab.closest('[role="tablist"]')?.querySelectorAll<HTMLElement>('[role="tab"]') ?? [],
+    );
+    const current = buttons.indexOf(tab);
+    if (current < 0 || !buttons.length) return;
+
+    let next: number;
+    switch (event.key) {
+      case 'ArrowRight':
+        next = (current + 1) % buttons.length;
+        break;
+      case 'ArrowLeft':
+        next = (current - 1 + buttons.length) % buttons.length;
+        break;
+      case 'Home':
+        next = 0;
+        break;
+      case 'End':
+        next = buttons.length - 1;
+        break;
+      default:
+        return;
+    }
+
+    event.preventDefault();
+    buttons[next].focus();
+    this.setActiveTab(next);
   }
 
   setActiveTab(index: number): void {

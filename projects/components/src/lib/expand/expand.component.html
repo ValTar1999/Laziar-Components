@@ -3,6 +3,7 @@
     type="button"
     class="lz-expand__trigger"
     [attr.aria-expanded]="opened()"
+    [attr.aria-controls]="panelId"
     (click)="toggle()"
   >
     <lz-icon
@@ -12,12 +13,14 @@
       type="mini"
       aria-hidden="true"
     />
-    <div class="lz-expand__title" [innerHTML]="title()"></div>
+    <span class="lz-expand__title" [innerHTML]="title()"></span>
   </button>
 
   <div
     #panel
     class="lz-expand__content"
+    [id]="panelId"
+    [attr.inert]="opened() || animating() ? null : ''"
     [class.lz-expand__content--open]="opened()"
     [class.lz-expand__content--anim]="animating()"
     (transitionend)="onTransitionEnd($event)"

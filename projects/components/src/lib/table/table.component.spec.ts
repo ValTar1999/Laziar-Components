@@ -168,7 +168,8 @@ describe('Table', () => {
       render();
       const [row] = bodyRows();
       expect(row.getAttribute('tabindex')).toBe('0');
-      expect(row.getAttribute('role')).toBe('link');
+      // Still a row: another role would cut its cells out of the table.
+      expect(row.hasAttribute('role')).toBe(false);
 
       row.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
       expect(clicked).toEqual([rows[0]]);

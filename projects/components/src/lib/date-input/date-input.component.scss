@@ -1,3 +1,5 @@
+@use '../../styles/mixins' as *;
+
 /*
  * A date field in lz-select's terms (Figma Select Input): 6px radius, the 10%
  * hairline, Onest 600 label, 32/40px heights; a calendar icon where the select
@@ -122,9 +124,7 @@
   right: 0.625rem;
   transform: translateY(-50%);
   pointer-events: none;
-  --lz-icon-size: 1.125rem;
-  width: var(--lz-icon-size) !important;
-  height: var(--lz-icon-size) !important;
+  @include lz-icon-size(1.125rem);
   color: var(--lz-color-neutral-500);
 }
 

@@ -6,12 +6,14 @@ import {
   Component,
   computed,
   effect,
+  ElementRef,
   inject,
   input,
   OnDestroy,
   output,
   signal,
   untracked,
+  viewChild,
 } from '@angular/core';
 import { Icon } from '../icon/icon.component';
 import { LzModalCloseReason, LzModalSize, LzModalTone, LzModalVariant } from './modal.types';
@@ -69,7 +71,7 @@ function optionalBoolean(value: unknown): boolean | undefined {
   styleUrl: './modal.component.scss',
   host: {
     class: 'lz-modal-host',
-    '(document:keydown.escape)': 'onEscape()',
+    '(window:keydown.escape)': 'onEscape($event)',
   },
 })
 export class ModalComponent implements OnDestroy {
@@ -123,6 +125,14 @@ export class ModalComponent implements OnDestroy {
   protected readonly labelId = `lz-modal-${nextModalId++}`;
   protected readonly descriptionId = `${this.labelId}-description`;
 
+  /**
+   * The rendered title. A projected `[lz-modal-header]` replaces it, and then
+   * `aria-labelledby` would point at nothing, so the name falls back to
+   * `ariaLabel`, or to the title text.
+   */
+  private readonly titleElement = viewChild<ElementRef<HTMLElement>>('titleEl');
+  protected readonly titleShown = computed(() => !!this.titleElement());
+
   protected readonly isConfirm = computed(() => this.variant() === 'confirm');
   protected readonly showDividers = computed(() => this.dividers() ?? !this.isConfirm());
 
@@ -167,10 +177,14 @@ export class ModalComponent implements OnDestroy {
   }
 
   /**
-   * Document-level so Escape works wherever focus sits — including the
-   * backdrop, which is presentational and deliberately not focusable.
+   * Global so Escape works wherever focus sits — including the backdrop, which
+   * is presentational and deliberately not focusable. On `window`, one step
+   * above `document`, so a popup open inside the modal (select, dropdown,
+   * date picker) hears the key first; it calls `preventDefault` to claim it
+   * and the modal then stays open.
    */
-  protected onEscape(): void {
+  protected onEscape(event: Event): void {
+    if (event.defaultPrevented) return;
     if (!this.open() || !this.closeOnEscape()) return;
     if (openStack[openStack.length - 1] !== this) return;
     this.requestClose('escape');
