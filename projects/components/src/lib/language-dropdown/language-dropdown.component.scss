@@ -103,7 +103,7 @@
   transform: translateY(-50%);
   pointer-events: none;
   @include lz-icon-size(1rem);
-  color: var(--lz-color-neutral-500);
+  color: var(--lz-color-text-muted);
 }
 
 .lz-language-dropdown__menu {

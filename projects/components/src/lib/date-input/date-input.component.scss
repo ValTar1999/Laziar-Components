@@ -90,7 +90,7 @@
   }
 
   &[data-empty='true'] {
-    color: var(--lz-color-neutral-400);
+    color: var(--lz-color-text-muted);
     font-weight: 400;
   }
 
@@ -125,7 +125,7 @@
   transform: translateY(-50%);
   pointer-events: none;
   @include lz-icon-size(1.125rem);
-  color: var(--lz-color-neutral-500);
+  color: var(--lz-color-text-muted);
 }
 
 .lz-date-input__wrapper:has(.lz-date-input__trigger[data-size='sm']) .lz-date-input__icon {
@@ -139,7 +139,7 @@
   gap: 0.25rem;
   font-size: var(--lz-font-size-xs, 0.75rem);
   line-height: 1rem;
-  color: var(--lz-color-neutral-500);
+  color: var(--lz-color-text-muted);
 
   &[data-error='true'] {
     color: var(--lz-color-danger-500);

@@ -57,8 +57,9 @@ describe('Popup keyboard behaviour', () => {
 
     afterEach(() => localStorage.removeItem('appLanguage'));
 
-    it('says what it is and which language is chosen', () => {
-      expect(trigger.getAttribute('aria-label')).toBe('Language: Română');
+    it('says what it is and which language is chosen, including the visible initials', () => {
+      expect(trigger.getAttribute('aria-label')).toBe('Language: Română, RO');
+      expect(trigger.getAttribute('aria-label')).toContain(trigger.textContent!.trim());
     });
 
     it('opens with ArrowDown on the current language and walks the list with the arrows', async () => {

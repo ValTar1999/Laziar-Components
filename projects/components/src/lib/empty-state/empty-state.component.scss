@@ -33,7 +33,7 @@
   margin-bottom: var(--lz-space-6);
   border-radius: 9999px;
   background-color: var(--lz-color-neutral-50);
-  color: var(--lz-color-neutral-500);
+  color: var(--lz-color-text-muted);
 }
 
 .lz-empty-state__icon-glyph {
@@ -52,7 +52,7 @@
 .lz-empty-state__description {
   max-width: 24rem;
   margin: var(--lz-space-1) 0 0;
-  color: var(--lz-color-neutral-500);
+  color: var(--lz-color-text-muted);
   font-size: var(--lz-font-size-sm);
   line-height: 1.25rem;
 }

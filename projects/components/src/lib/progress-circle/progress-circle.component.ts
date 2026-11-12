@@ -39,6 +39,8 @@ export class ProgressCircle {
   readonly progress = input(75, { transform: numberAttribute });
   readonly size = input<LzProgressCircleSize>('md');
   readonly variant = input<LzProgressCircleVariant>('red');
+  /** What is progressing, for assistive tech, e.g. "Upload"; pass a localized string. */
+  readonly ariaLabel = input('Progress');
 
   protected readonly actualSize = computed(() => SIZE_PX[this.size()]);
   protected readonly strokeWidth = computed(() => STROKE_PX[this.size()]);
