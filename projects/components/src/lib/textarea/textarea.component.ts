@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+
 import { LzTextareaResize } from './textarea.types';
 import { Icon } from '../icon/icon.component';
 
@@ -28,7 +28,7 @@ let nextTextareaFieldId = 0;
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './textarea.component.html',
   styleUrl: './textarea.component.scss',
-  imports: [CommonModule, Icon],
+  imports: [Icon],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

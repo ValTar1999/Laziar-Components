@@ -18,7 +18,7 @@ import {
 } from '@angular/core';
 import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+
 import { Overlay, OverlayModule, OverlayRef, PositionStrategy } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { attachLzFloating } from '../floating/floating';
@@ -80,7 +80,7 @@ function sameOption(a: LzSelectOptionType, b: LzSelectOptionType): boolean {
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './select.component.html',
   styleUrl: './select.component.scss',
-  imports: [CommonModule, Icon, OverlayModule],
+  imports: [Icon, OverlayModule],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
