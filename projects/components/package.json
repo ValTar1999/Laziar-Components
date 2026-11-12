@@ -20,7 +20,7 @@
     "@angular/router": "^20.3.0 || ^21.0.0",
     "@floating-ui/dom": "^1.8.0",
     "rxjs": "^7.8.0",
-    "swiper": "^11.2.10"
+    "swiper": "^12.1.2 || ^14.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"

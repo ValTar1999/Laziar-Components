@@ -6,7 +6,6 @@ import {
   input,
 } from '@angular/core';
 import { LzInputFlush } from '../internal/lz-input-flush.directive';
-import { CommonModule } from '@angular/common';
 
 /**
  * Button group `@laziar/components`.
@@ -19,7 +18,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './button-group.component.scss',
   standalone: true,
   hostDirectives: [LzInputFlush],
-  imports: [CommonModule],
+  imports: [],
   host: {
     class: 'lz-button-group-host',
   },

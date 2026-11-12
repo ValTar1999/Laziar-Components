@@ -45,7 +45,7 @@ See [docs/THEMING.md](../../docs/THEMING.md) for tokens and `ThemeService`.
 
 ### Angular version
 
-The app must use **Angular 20.3** (`@angular/core`, `common`, `compiler`, `compiler-cli`, `forms`, … all the same minor). Mixing 20.0/20.1 with 20.3, or installing this library via a `file:` **symlink** into another repo, causes:
+The app must use **Angular 20.3 or 21** (`@angular/core`, `common`, `compiler`, `compiler-cli`, `forms`, … all the same minor). The library itself is built with Angular 21; an Angular 20.3 app can still use it, which is checked against publikator before a release that changes the Angular version. Mixing 20.0/20.1 with 20.3, or installing this library via a `file:` **symlink** into another repo, causes:
 
 `TS2551: Property '__@ɵINPUT_SIGNAL_BRAND_WRITE_TYPE@…' does not exist`
 

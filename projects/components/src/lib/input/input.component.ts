@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { LzInputFlush } from '../internal/lz-input-flush.directive';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import {
   LzInputAppearance,
@@ -40,7 +40,7 @@ let nextInputFieldId = 0;
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './input.component.html',
   styleUrl: './input.component.scss',
-  imports: [CommonModule, FormsModule, Icon, Tooltip],
+  imports: [FormsModule, Icon, Tooltip],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

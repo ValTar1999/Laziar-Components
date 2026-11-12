@@ -13,25 +13,28 @@
         <div class="lz-alert__title">
           {{ title() }}
         </div>
-        <div class="lz-alert__text" *ngIf="text()">
-          {{ text() }}
-        </div>
+        @if (text()) {
+          <div class="lz-alert__text">
+            {{ text() }}
+          </div>
+        }
       </div>
 
       <ng-content></ng-content>
     </div>
   </div>
 
-  <lz-button
-    *ngIf="showCloseButton()"
-    [variant]="resolvedCloseVariant()"
-    [color]="resolvedCloseColor()"
-    size="xs"
-    [pill]="true"
-    icon="x-mark"
-    class="lz-alert__close-button"
-    (clicked)="onCloseClick()"
-    [ariaLabel]="closeLabel()"
-  >
-  </lz-button>
+  @if (showCloseButton()) {
+    <lz-button
+      [variant]="resolvedCloseVariant()"
+      [color]="resolvedCloseColor()"
+      size="xs"
+      [pill]="true"
+      icon="x-mark"
+      class="lz-alert__close-button"
+      (clicked)="onCloseClick()"
+      [ariaLabel]="closeLabel()"
+    >
+    </lz-button>
+  }
 </div>
