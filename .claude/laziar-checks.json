@@ -1,0 +1,7 @@
+{
+  "watch": ["projects/", "package.json"],
+  "checks": [
+    { "name": "lint", "command": "npx eslint {files}", "extensions": [".ts", ".html"] },
+    { "name": "tests", "command": "npm run test:ci", "timeoutSeconds": 900 }
+  ]
+}
