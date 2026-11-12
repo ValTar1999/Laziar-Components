@@ -22,6 +22,7 @@
   "prettier": {
     "printWidth": 100,
     "singleQuote": true,
+    "endOfLine": "auto",
     "overrides": [
       {
         "files": "*.html",
@@ -41,14 +42,14 @@
     ]
   },
   "dependencies": {
-    "@angular/animations": "20.3.26",
+    "@angular/animations": "20.3.35",
     "@angular/cdk": "~20.2.14",
-    "@angular/common": "^20.3.0",
-    "@angular/compiler": "^20.3.0",
-    "@angular/core": "^20.3.0",
-    "@angular/forms": "^20.3.0",
-    "@angular/platform-browser": "^20.3.0",
-    "@angular/router": "^20.3.0",
+    "@angular/common": "^20.3.35",
+    "@angular/compiler": "^20.3.35",
+    "@angular/core": "^20.3.35",
+    "@angular/forms": "^20.3.35",
+    "@angular/platform-browser": "^20.3.35",
+    "@angular/router": "^20.3.35",
     "@floating-ui/dom": "^1.8.0",
     "@fontsource/bitter": "^5.3.0",
     "@fontsource/lora": "^5.3.0",
@@ -60,9 +61,9 @@
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
-    "@angular/build": "^20.3.32",
-    "@angular/cli": "^20.3.30",
-    "@angular/compiler-cli": "^20.3.0",
+    "@angular/build": "^20.3.42",
+    "@angular/cli": "^20.3.42",
+    "@angular/compiler-cli": "^20.3.35",
     "@types/jasmine": "~5.1.0",
     "angular-eslint": "^20.7.0",
     "eslint": "^9.39.1",
