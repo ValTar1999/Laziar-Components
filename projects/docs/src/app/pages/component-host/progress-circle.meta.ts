@@ -49,6 +49,12 @@ export const PROGRESS_CIRCLE_COMPONENT_META: DocsComponentMeta = {
       default: `'red'`,
       description: 'Arc color',
     },
+    {
+      name: 'ariaLabel',
+      type: 'string',
+      default: `'Progress'`,
+      description: 'What is progressing, for screen readers; pass a localized string',
+    },
   ],
   outputs: [],
   slots: [],

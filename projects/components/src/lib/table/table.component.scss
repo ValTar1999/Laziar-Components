@@ -114,7 +114,7 @@
   flex-shrink: 0;
   width: var(--lz-icon-size);
   height: var(--lz-icon-size);
-  color: var(--lz-color-neutral-500);
+  color: var(--lz-color-text-muted);
   transition: color 0.15s ease;
 }
 
@@ -259,7 +259,7 @@
 :host ::ng-deep .lz-table__page-size-icon {
   width: 1rem;
   height: 1rem;
-  color: var(--lz-color-neutral-500);
+  color: var(--lz-color-text-muted);
 }
 
 .lz-table__page-size-menu {
@@ -317,7 +317,7 @@
   border: 0;
   border-radius: 999px;
   background: transparent;
-  color: var(--lz-color-neutral-500);
+  color: var(--lz-color-text-muted);
   font-family: var(--lz-font-sans);
   font-size: 0.75rem;
   font-weight: 500;
@@ -361,7 +361,7 @@
 .lz-table__ellipsis {
   min-width: 1.75rem;
   padding-inline: 0.25rem;
-  color: var(--lz-color-neutral-500);
+  color: var(--lz-color-text-muted);
   text-align: center;
   user-select: none;
 }
@@ -400,7 +400,7 @@
   padding: 0.5rem;
   border-radius: 999px;
   background: color-mix(in srgb, var(--lz-color-neutral-900) 5%, var(--lz-color-background));
-  color: var(--lz-color-neutral-500);
+  color: var(--lz-color-text-muted);
 
   svg {
     width: 1.5rem;

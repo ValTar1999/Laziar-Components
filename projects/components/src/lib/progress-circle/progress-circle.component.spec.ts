@@ -20,6 +20,7 @@ describe('ProgressCircle', () => {
   it('reports its value as a progressbar', () => {
     const bar = create({ progress: 40 }).nativeElement.querySelector('[role="progressbar"]');
 
+    expect(bar.getAttribute('aria-label')).toBe('Progress');
     expect(bar.getAttribute('aria-valuenow')).toBe('40');
     expect(bar.getAttribute('aria-valuemin')).toBe('0');
     expect(bar.getAttribute('aria-valuemax')).toBe('100');

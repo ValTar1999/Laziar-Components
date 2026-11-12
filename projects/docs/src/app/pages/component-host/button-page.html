@@ -13,6 +13,7 @@
       [pill]="bool(values, 'pill')"
       [fullWidth]="bool(values, 'fullWidth')"
       [align]="$any(str(values, 'align', 'center'))"
+      [ariaLabel]="str(values, 'label') ? undefined : 'Save'"
     />
   </ng-template>
 </docs-component-page>

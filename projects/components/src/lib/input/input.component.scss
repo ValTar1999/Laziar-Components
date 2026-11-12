@@ -92,7 +92,7 @@ input[type='search']::-ms-clear {
   left: 0.75rem;
   font-family: var(--lz-font-sans);
   font-size: 0.875rem;
-  color: var(--lz-color-neutral-500);
+  color: var(--lz-color-text-muted);
   pointer-events: none;
   white-space: nowrap;
 
@@ -116,7 +116,7 @@ input[type='search']::-ms-clear {
   z-index: 1;
   transform: translateY(-50%);
   @include lz-icon-size(1rem);
-  color: var(--lz-color-neutral-500);
+  color: var(--lz-color-text-muted);
   pointer-events: none;
 }
 
@@ -154,7 +154,7 @@ input[type='search']::-ms-clear {
 
   &::placeholder {
     font-size: var(--lz-font-size-sm, 0.875rem);
-    color: var(--lz-color-neutral-400);
+    color: var(--lz-color-text-muted);
   }
 
   &:focus {
@@ -327,7 +327,7 @@ input[type='search']::-ms-clear {
   padding: 0;
   line-height: 0;
   cursor: pointer;
-  color: var(--lz-color-neutral-500);
+  color: var(--lz-color-text-muted);
   transition: color var(--lz-duration-normal) var(--lz-easing-standard);
 
   &:hover {
@@ -391,7 +391,7 @@ input[type='search']::-ms-clear {
   padding: 0;
   line-height: 0;
   cursor: pointer;
-  color: var(--lz-color-neutral-500);
+  color: var(--lz-color-text-muted);
   transition: color var(--lz-duration-normal) var(--lz-easing-standard);
 
   &:hover {
@@ -534,7 +534,7 @@ input[type='search']::-ms-clear {
   font-family: var(--lz-font-sans);
   font-size: var(--lz-font-size-xs, 0.75rem);
   line-height: 1rem;
-  color: var(--lz-color-neutral-500);
+  color: var(--lz-color-text-muted);
 
   &[data-error='true'] {
     color: var(--lz-color-danger-500);

@@ -108,9 +108,14 @@ export class LanguageDropdown implements OnInit, OnDestroy {
     return list.find((l) => l.code === code) ?? list[0];
   });
 
+  /**
+   * e.g. "Language: Română, RO". The initials are what the trigger shows, and
+   * a name that leaves out the visible text cannot be spoken to voice control.
+   */
   protected readonly triggerLabel = computed((): string | null => {
-    const name = this.selectedLanguage()?.name;
-    return [this.ariaLabel(), name].filter(Boolean).join(': ') || null;
+    const language = this.selectedLanguage();
+    const current = language ? `${language.name}, ${this.getInitials(language)}` : '';
+    return [this.ariaLabel(), current].filter(Boolean).join(': ') || null;
   });
 
   private overlayRef?: OverlayRef;

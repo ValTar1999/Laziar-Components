@@ -54,8 +54,39 @@
   min-width: 0;
 }
 
+/*
+ * Grid: the image comes first. It is second in the markup (the row variant
+ * wants it on the right), so it is moved here; without that the text took
+ * the `auto` column and squeezed the image to nothing.
+ *
+ * The small sizes show a thumbnail beside the text. Where the image is tall
+ * (xl; lg from 1280px) it goes above the text at full width instead.
+ */
 .lz-card[data-variant='grid'] .lz-card__row-main {
   grid-template-columns: auto minmax(0, 1fr);
+  gap: 1rem;
+}
+
+.lz-card[data-variant='grid'] .lz-card__image-link--row {
+  order: -1;
+}
+
+.lz-card[data-size='xl'][data-variant='grid'] .lz-card__row-main {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.lz-card[data-size='xl'][data-variant='grid'] .lz-card__image-link--row {
+  min-width: 0;
+}
+
+@media (min-width: 1280px) {
+  .lz-card[data-size='lg'][data-variant='grid'] .lz-card__row-main {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lz-card[data-size='lg'][data-variant='grid'] .lz-card__image-link--row {
+    min-width: 0;
+  }
 }
 
 .lz-card__image-link {
@@ -387,7 +418,7 @@
 }
 
 .lz-card__date {
-  color: var(--lz-color-neutral-500);
+  color: var(--lz-color-text-muted);
   font-size: 0.75rem;
   line-height: 1rem;
 }
@@ -396,7 +427,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: var(--lz-color-neutral-500);
+  color: var(--lz-color-text-muted);
 }
 
 .lz-card__dot {
@@ -449,7 +480,7 @@
   border: 0;
   border-radius: 999px;
   background: transparent;
-  color: var(--lz-color-neutral-500);
+  color: var(--lz-color-text-muted);
   cursor: pointer;
   box-shadow: 0 0 0 2px transparent;
   transition:

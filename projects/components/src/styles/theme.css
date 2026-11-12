@@ -122,7 +122,8 @@
   --lz-color-border-subtle: #e4e6e7;
   --lz-color-text-primary: #121212;
   --lz-color-text-secondary: #4f5255;
-  --lz-color-text-muted: #898d92;
+  /* 5.0:1 on the background. The dark theme keeps #898d92 (5.6:1 there). */
+  --lz-color-text-muted: #6b6f73;
   --lz-color-text-inverse: #fffffa;
   --lz-color-disabled: color-mix(in srgb, var(--lz-color-neutral-900) 30%, transparent);
   --lz-color-focus-ring: color-mix(in srgb, var(--lz-color-neutral-900) 50%, transparent);
