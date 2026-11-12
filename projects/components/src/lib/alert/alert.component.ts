@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
 import { LzInputFlush } from '../internal/lz-input-flush.directive';
-import { CommonModule } from '@angular/common';
+
 import { Button } from '../button/button.component';
 import { Icon } from '../icon/icon.component';
 import {
@@ -24,7 +24,7 @@ import { LzIconVariant } from '../icon/icon.types';
   styleUrl: './alert.component.scss',
   standalone: true,
   hostDirectives: [LzInputFlush],
-  imports: [CommonModule, Button, Icon],
+  imports: [Button, Icon],
   host: {
     class: 'lz-alert-host',
   },

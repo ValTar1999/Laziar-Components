@@ -53,7 +53,13 @@
 
 /// Surface panel: background + border + radius.
 @mixin lz-surface($elevated: false) {
-  background-color: if($elevated, var(--lz-color-surface-elevated), var(--lz-color-surface));
+  // @if rather than the if() function: its old form is deprecated in Sass and
+  // its new form is unknown to the older Sass some apps still build with.
+  @if $elevated {
+    background-color: var(--lz-color-surface-elevated);
+  } @else {
+    background-color: var(--lz-color-surface);
+  }
   border: 1px solid var(--lz-color-border);
   border-radius: var(--lz-radius-lg);
   color: var(--lz-color-text-primary);
