@@ -68,6 +68,8 @@ export class Tooltip implements OnInit, OnDestroy {
   protected readonly panelId = `lz-tooltip-${nextTooltipId++}`;
   /** The element currently described by the panel. */
   private describedElement: Element | null = null;
+  /** The control this tooltip gave a name to, and the name it gave. */
+  private named: { element: Element; label: string } | null = null;
 
   /** CDK pane class — mouseout guard + global z-index */
   readonly paneClass = 'lz-tooltip-cdk-pane';
@@ -100,6 +102,8 @@ export class Tooltip implements OnInit, OnDestroy {
         this.forceClose();
       }
     });
+
+    effect(() => this.nameTrigger(this.text()));
   }
 
   ngOnInit(): void {
@@ -108,6 +112,7 @@ export class Tooltip implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     Tooltip.instances.delete(this);
+    this.nameTrigger('');
     this.describe(null);
     this.clearHideTimer();
     this.disposeOverlay();
@@ -164,6 +169,7 @@ export class Tooltip implements OnInit, OnDestroy {
   protected onTriggerFocusIn(event: FocusEvent): void {
     if (this.trigger() !== 'hover') return;
     if (this.disabled() || !this.hasPanelContent()) return;
+    if (!this.named) this.nameTrigger(this.text());
     this.describe(event.target instanceof Element ? event.target : null);
     this.show();
   }
@@ -194,10 +200,55 @@ export class Tooltip implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * An icon-only control inside the tooltip has no name of its own, and the
+   * tooltip text is that name for everyone who can see it. So the text becomes
+   * the control's `aria-label`, when:
+   *
+   * - the tooltip wraps exactly one control (a button, link or `role="button"`), and
+   * - that control has no name yet: no text, no `aria-label`, `aria-labelledby`
+   *   or `title`, and no image with alt text.
+   *
+   * A name the author gave is never replaced, and the label is removed again
+   * when the text changes or the tooltip goes away.
+   */
+  private nameTrigger(text: string): void {
+    if (this.named) {
+      const { element, label } = this.named;
+      if (element.getAttribute('aria-label') === label) element.removeAttribute('aria-label');
+      this.named = null;
+    }
+
+    const label = text.trim();
+    if (!label) return;
+
+    const host: HTMLElement = this.elementRef.nativeElement;
+    const controls = host.querySelectorAll('button, a[href], [role="button"]');
+    if (controls.length !== 1) return;
+
+    const control = controls[0];
+    const hasName =
+      control.hasAttribute('aria-label') ||
+      control.hasAttribute('aria-labelledby') ||
+      control.hasAttribute('title') ||
+      !!control.textContent?.trim() ||
+      !!control.querySelector('img[alt]:not([alt=""])');
+    if (hasName) return;
+
+    control.setAttribute('aria-label', label);
+    this.named = { element: control, label };
+  }
+
   /** Points `element` at the panel as its description; null clears the link. */
   private describe(element: Element | null): void {
     this.describedElement?.removeAttribute('aria-describedby');
     this.describedElement = element;
+    // The panel only repeats a name this tooltip gave: describing the control
+    // with it too would have it read out twice.
+    if (element && this.named && this.named.element.contains(element)) {
+      this.describedElement = null;
+      return;
+    }
     // An author-set description is left alone.
     if (element?.hasAttribute('aria-describedby')) {
       this.describedElement = null;
