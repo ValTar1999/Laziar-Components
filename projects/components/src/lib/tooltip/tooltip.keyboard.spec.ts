@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { Button } from '../button/button.component';
 import { Tooltip } from './tooltip.component';
 
 @Component({
@@ -16,8 +17,11 @@ class TooltipHost {}
 
 @Component({
   standalone: true,
-  imports: [Tooltip],
+  imports: [Tooltip, Button],
   template: `
+    <lz-tooltip text="Back" class="library-button">
+      <lz-button icon="arrow-left" variant="tertiary" size="xs" />
+    </lz-tooltip>
     <lz-tooltip [text]="text" class="icon-only">
       <button type="button"><svg aria-hidden="true"></svg></button>
     </lz-tooltip>
@@ -63,6 +67,28 @@ describe('Tooltip as the name of an icon-only control', () => {
     fixture.changeDetectorRef.markForCheck();
     fixture.detectChanges();
     expect(button('icon-only').hasAttribute('aria-label')).toBeFalse();
+  });
+
+  it('names an lz-button, whose own <button> is rendered after the tooltip', async () => {
+    await fixture.whenStable();
+
+    expect(button('library-button').getAttribute('aria-label')).toBe('Back');
+  });
+
+  it('puts the name back when the rendering of the control takes it off', async () => {
+    const control = button('icon-only');
+    control.removeAttribute('aria-label');
+    await new Promise<void>((resolve) => setTimeout(resolve));
+
+    expect(control.getAttribute('aria-label')).toBe('Delete');
+  });
+
+  it('leaves alone a different name written after it named the control', async () => {
+    const control = button('icon-only');
+    control.setAttribute('aria-label', 'Delete the draft');
+    await new Promise<void>((resolve) => setTimeout(resolve));
+
+    expect(control.getAttribute('aria-label')).toBe('Delete the draft');
   });
 
   it('leaves a name the author gave, and does not guess between several controls', () => {
