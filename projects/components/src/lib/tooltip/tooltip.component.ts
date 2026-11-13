@@ -1,4 +1,5 @@
 import {
+  afterNextRender,
   booleanAttribute,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -70,6 +71,8 @@ export class Tooltip implements OnInit, OnDestroy {
   private describedElement: Element | null = null;
   /** The control this tooltip gave a name to, and the name it gave. */
   private named: { element: Element; label: string } | null = null;
+  /** Puts the name back if something else takes it off the control. */
+  private nameKeeper?: MutationObserver;
 
   /** CDK pane class — mouseout guard + global z-index */
   readonly paneClass = 'lz-tooltip-cdk-pane';
@@ -104,6 +107,10 @@ export class Tooltip implements OnInit, OnDestroy {
     });
 
     effect(() => this.nameTrigger(this.text()));
+    // Once more when the page has rendered: a projected component such as
+    // lz-button draws its own <button> after this tooltip's first pass, when
+    // there was nothing to name yet.
+    afterNextRender(() => this.nameTrigger(this.text()));
   }
 
   ngOnInit(): void {
@@ -158,6 +165,7 @@ export class Tooltip implements OnInit, OnDestroy {
   }
 
   onTriggerMouseEnter(): void {
+    this.nameTriggerIfUnnamed();
     if (this.trigger() !== 'hover') return;
     this.show();
   }
@@ -169,7 +177,7 @@ export class Tooltip implements OnInit, OnDestroy {
   protected onTriggerFocusIn(event: FocusEvent): void {
     if (this.trigger() !== 'hover') return;
     if (this.disabled() || !this.hasPanelContent()) return;
-    if (!this.named) this.nameTrigger(this.text());
+    this.nameTriggerIfUnnamed();
     this.describe(event.target instanceof Element ? event.target : null);
     this.show();
   }
@@ -213,6 +221,8 @@ export class Tooltip implements OnInit, OnDestroy {
    * when the text changes or the tooltip goes away.
    */
   private nameTrigger(text: string): void {
+    this.nameKeeper?.disconnect();
+    this.nameKeeper = undefined;
     if (this.named) {
       const { element, label } = this.named;
       if (element.getAttribute('aria-label') === label) element.removeAttribute('aria-label');
@@ -237,6 +247,19 @@ export class Tooltip implements OnInit, OnDestroy {
 
     control.setAttribute('aria-label', label);
     this.named = { element: control, label };
+
+    // The control may belong to a component with its own, empty aria-label
+    // binding (lz-button without `ariaLabel`): its first render takes the
+    // attribute off again. The name is restored when that happens. A different
+    // name written by someone else is left as it is.
+    if (typeof MutationObserver === 'function') {
+      this.nameKeeper = new MutationObserver(() => {
+        if (this.named?.element === control && !control.hasAttribute('aria-label')) {
+          control.setAttribute('aria-label', label);
+        }
+      });
+      this.nameKeeper.observe(control, { attributes: true, attributeFilter: ['aria-label'] });
+    }
   }
 
   /** Points `element` at the panel as its description; null clears the link. */
@@ -255,6 +278,11 @@ export class Tooltip implements OnInit, OnDestroy {
       return;
     }
     element?.setAttribute('aria-describedby', this.panelId);
+  }
+
+  /** Content that appears later (inside the parent's `@if`) is named on first use. */
+  private nameTriggerIfUnnamed(): void {
+    if (!this.named) this.nameTrigger(this.text());
   }
 
   onTriggerMouseLeave(event: MouseEvent): void {
